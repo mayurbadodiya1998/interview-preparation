@@ -1,0 +1,211 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="Top interview questions and answers for Angular and Node.js. Prepare for your next frontend and backend developer interview with 200+ curated questions.">
+    <meta name="keywords" content="Angular interview questions, Node.js interview questions, frontend interview, backend interview, JavaScript interview, web developer interview, Angular topics, Node.js topics, interview preparation">
+    <meta name="author" content="InterviewPrep">
+    <meta name="robots" content="index, follow">
+
+    <meta property="og:type" content="website">
+    <meta property="og:title" content="Angular &amp; Node.js Interview Questions - 200+ Curated Q&amp;A">
+    <meta property="og:description" content="Ace your next developer interview with comprehensive Angular and Node.js interview questions and detailed answers organized by topic.">
+    <meta property="og:url" content="https://yoursite.com/">
+
+    <meta name="twitter:card" content="summary_large_image">
+    <meta name="twitter:title" content="Angular &amp; Node.js Interview Questions">
+    <meta name="twitter:description" content="200+ curated interview questions for Angular and Node.js developers.">
+
+    <title>Angular &amp; Node.js Interview Questions &amp; Answers | InterviewPrep</title>
+    <link rel="canonical" href="https://yoursite.com/">
+
+    <!-- Google Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&family=Fira+Code:wght@400;500&display=swap" rel="stylesheet">
+
+    <!-- Bootstrap 5 CSS -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet">
+    <!-- Bootstrap Icons -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css" rel="stylesheet">
+    <!-- Custom CSS -->
+    <link rel="stylesheet" href="css/styles.css">
+
+    <!-- Google AdSense — uncomment and replace ID after approval -->
+    <!-- <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-XXXXXXXXXXXXXXXX" crossorigin="anonymous"></script> -->
+
+    <script type="application/ld+json">
+    {
+        "@context": "https://schema.org",
+        "@type": "WebSite",
+        "name": "InterviewPrep - Angular & Node.js Interview Questions",
+        "url": "https://yoursite.com/",
+        "description": "Comprehensive interview questions and answers for Angular and Node.js developers.",
+        "potentialAction": {
+            "@type": "SearchAction",
+            "target": "https://yoursite.com/?q={search_term_string}",
+            "query-input": "required name=search_term_string"
+        }
+    }
+    </script>
+</head>
+<body>
+
+    <!-- ========== NAVBAR ========== -->
+    <nav class="navbar navbar-expand-lg sticky-top" id="mainNavbar">
+        <div class="container-fluid px-3 px-lg-4">
+            <a class="navbar-brand fw-bold d-flex align-items-center gap-2" href="#">
+                <span class="brand-icon"><i class="bi bi-braces-asterisk"></i></span>
+                <span>Interview<span class="brand-accent">Prep</span></span>
+            </a>
+
+            <button class="navbar-toggler border-0 shadow-none" type="button"
+                    data-bs-toggle="collapse" data-bs-target="#navbarContent">
+                <i class="bi bi-list fs-3 text-white"></i>
+            </button>
+
+            <div class="collapse navbar-collapse" id="navbarContent">
+                <ul class="navbar-nav me-auto mb-2 mb-lg-0 ms-lg-3">
+                    <li class="nav-item dropdown">
+                        <a class="nav-link dropdown-toggle fw-500" href="#" role="button"
+                           data-bs-toggle="dropdown" id="frameworkDropdownLink">
+                            <i class="bi bi-layers me-1"></i> Choose Framework
+                        </a>
+                        <ul class="dropdown-menu" id="frameworkDropdown">
+                            <li><a class="dropdown-item fw-500" href="#" data-framework="angular">
+                                <i class="bi bi-triangle-fill me-2 text-danger"></i>Angular</a></li>
+                            <li><a class="dropdown-item fw-500" href="#" data-framework="node">
+                                <i class="bi bi-hexagon-fill me-2 text-success"></i>Node.js</a></li>
+                        </ul>
+                    </li>
+                </ul>
+                <div class="search-wrap">
+                    <i class="bi bi-search search-icon"></i>
+                    <input class="form-control search-input" type="search"
+                           placeholder="Search questions...  (Ctrl+K)" id="searchInput">
+                </div>
+            </div>
+        </div>
+    </nav>
+
+    <!-- ========== APP LAYOUT ========== -->
+    <div class="app-wrapper">
+
+        <!-- SIDEBAR -->
+        <aside class="sidebar" id="sidebar">
+            <div class="sidebar-head">
+                <h6 id="sidebarTitle"><i class="bi bi-journal-code me-2"></i>Topics</h6>
+            </div>
+            <nav>
+                <ul class="sidebar-links" id="topicList"></ul>
+            </nav>
+        </aside>
+
+        <!-- SIDEBAR OVERLAY (mobile) -->
+        <div class="sidebar-backdrop" id="sidebarBackdrop"></div>
+
+        <!-- MAIN -->
+        <div class="content-area" id="contentArea">
+
+            <!-- mobile top bar -->
+            <div class="mobile-bar d-lg-none" id="mobileBar">
+                <button class="btn btn-sm btn-glass" id="sidebarToggle">
+                    <i class="bi bi-layout-sidebar-inset me-1"></i>Topics
+                </button>
+                <span class="badge rounded-pill mobile-badge" id="currentFrameworkBadge"></span>
+            </div>
+
+            <!-- ===== WELCOME ===== -->
+            <section id="welcomeSection">
+                <div class="hero">
+                    <div class="hero-glow"></div>
+                    <div class="hero-inner">
+                        <span class="hero-chip"><i class="bi bi-stars me-1"></i>200+ Curated Questions</span>
+                        <h1 class="hero-title">
+                            Ace Your Next<br><span class="gradient-text">Developer Interview</span>
+                        </h1>
+                        <p class="hero-sub">
+                            Master <strong>Angular</strong> &amp; <strong>Node.js</strong> with topic-wise
+                            interview questions and in-depth answers.
+                        </p>
+                        <div class="hero-cta">
+                            <button class="btn btn-cta cta-angular" onclick="selectFramework('angular')">
+                                <i class="bi bi-triangle-fill me-2"></i>Angular
+                            </button>
+                            <button class="btn btn-cta cta-node" onclick="selectFramework('node')">
+                                <i class="bi bi-hexagon-fill me-2"></i>Node.js
+                            </button>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="features">
+                    <div class="fcard">
+                        <div class="fcard-icon fi-angular"><i class="bi bi-triangle-fill"></i></div>
+                        <h3>Angular</h3>
+                        <p>Components, RxJS, routing, forms, change detection, DI &amp; more</p>
+                        <span class="fcard-tag">100+ Qs</span>
+                    </div>
+                    <div class="fcard">
+                        <div class="fcard-icon fi-node"><i class="bi bi-hexagon-fill"></i></div>
+                        <h3>Node.js</h3>
+                        <p>Event loop, streams, Express, auth, databases, security &amp; more</p>
+                        <span class="fcard-tag">100+ Qs</span>
+                    </div>
+                    <div class="fcard">
+                        <div class="fcard-icon fi-topics"><i class="bi bi-grid-3x3-gap-fill"></i></div>
+                        <h3>14 Topics</h3>
+                        <p>Neatly organized by topic so you can focus on weak areas</p>
+                        <span class="fcard-tag">Organized</span>
+                    </div>
+                    <div class="fcard">
+                        <div class="fcard-icon fi-code"><i class="bi bi-terminal-fill"></i></div>
+                        <h3>Code Snippets</h3>
+                        <p>Real-world code examples with every answer</p>
+                        <span class="fcard-tag">Practical</span>
+                    </div>
+                </div>
+
+                <article class="seo-block">
+                    <h2><i class="bi bi-rocket-takeoff-fill me-2"></i>Why InterviewPrep?</h2>
+                    <p>Whether you're a fresher or an experienced developer, cracking interviews at top tech
+                        companies requires solid preparation. Our platform provides carefully curated interview
+                        questions for <strong>Angular</strong> and <strong>Node.js</strong> — the two most
+                        in-demand frameworks in modern web development.</p>
+                </article>
+            </section>
+
+            <!-- ===== QUESTIONS ===== -->
+            <section id="questionsSection" class="d-none">
+                <div class="qs-header">
+                    <h2 id="topicTitle" class="qs-title"></h2>
+                    <span class="badge qs-badge" id="questionCount"></span>
+                </div>
+                <div class="accordion" id="questionsAccordion"></div>
+            </section>
+
+            <!-- ===== SEARCH RESULTS ===== -->
+            <section id="searchResults" class="d-none">
+                <h2 class="qs-title mb-3"><i class="bi bi-search me-2"></i>Search Results</h2>
+                <div id="searchResultsList"></div>
+            </section>
+
+            <!-- FOOTER -->
+            <footer class="app-footer">
+                <p>&copy; 2026 InterviewPrep &mdash; Angular &amp; Node.js Interview Questions</p>
+            </footer>
+        </div>
+    </div>
+
+    <!-- Back to top -->
+    <button class="btn-totop" id="backToTop"><i class="bi bi-chevron-up"></i></button>
+
+    <!-- Bootstrap JS -->
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>
+    <!-- Data + App -->
+    <script src="js/data/angular-questions.js"></script>
+    <script src="js/data/node-questions.js"></script>
+    <script src="js/app.js"></script>
+</body>
+</html>
