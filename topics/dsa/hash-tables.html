@@ -1,0 +1,164 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="Hash Table interview questions on hashing, collision handling, hash maps, hash sets and practical applications.">
+    <meta name="keywords" content="interview questions, coding interview, web developer interview, Hash Tables — DSA Interview Questions">
+    <meta name="author" content="InterviewPrep">
+    <meta name="robots" content="index, follow">
+    <meta property="og:type" content="website">
+    <meta property="og:title" content="Hash Tables — DSA Interview Questions | InterviewPrep">
+    <meta property="og:description" content="Hash Table interview questions on hashing, collision handling, hash maps, hash sets and practical applications.">
+    <title>Hash Tables — DSA Interview Questions | InterviewPrep 2026</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&family=Fira+Code:wght@400;500&display=swap" rel="stylesheet">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="../../css/styles.css">
+    <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-8957020141286926" crossorigin="anonymous"></script>
+</head>
+<body class="theme-dsa">
+    <nav class="navbar navbar-expand-lg sticky-top" id="mainNavbar">
+        <div class="container-fluid px-3 px-lg-4">
+            <a class="navbar-brand fw-bold d-flex align-items-center gap-2" href="../../index.html">
+                <span class="brand-icon"><i class="bi bi-braces-asterisk"></i></span>
+                <span>Interview<span class="brand-accent">Prep</span></span>
+            </a>
+            <button class="navbar-toggler border-0 shadow-none" type="button"
+                    data-bs-toggle="collapse" data-bs-target="#navbarContent">
+                <i class="bi bi-list fs-3 text-white"></i>
+            </button>
+            <div class="collapse navbar-collapse" id="navbarContent">
+                <ul class="navbar-nav me-auto mb-2 mb-lg-0 ms-lg-3">
+                    <li class="nav-item dropdown">
+                        <a class="nav-link dropdown-toggle fw-500" href="#" role="button"
+                           data-bs-toggle="dropdown">
+                            <i class="bi bi-layers me-1"></i> Choose Category
+                        </a>
+                        <ul class="dropdown-menu">
+                            <li><a class="dropdown-item fw-500" href="../../pages/angular.html"><i class="bi bi-bootstrap me-2"></i>Angular</a></li>
+                            <li><a class="dropdown-item fw-500" href="../../pages/react.html"><i class="bi bi-infinity me-2"></i>React</a></li>
+                            <li><a class="dropdown-item fw-500" href="../../pages/node.html"><i class="bi bi-hdd-network me-2"></i>Node.js</a></li>
+                            <li><a class="dropdown-item fw-500" href="../../pages/javascript.html"><i class="bi bi-filetype-js me-2"></i>JavaScript</a></li>
+                            <li><a class="dropdown-item fw-500" href="../../pages/dsa.html"><i class="bi bi-diagram-3-fill me-2"></i>DSA</a></li>
+                            <li><a class="dropdown-item fw-500" href="../../pages/logical.html"><i class="bi bi-lightbulb me-2"></i>Logical Reasoning</a></li>
+                        </ul>
+                    </li>
+                </ul>
+                <div class="search-wrap">
+                    <i class="bi bi-search search-icon"></i>
+                    <input class="form-control search-input" type="search"
+                           placeholder="Search questions..." id="searchInput">
+                </div>
+            </div>
+        </div>
+    </nav>
+    <div class="app-wrapper">
+        <aside class="sidebar" id="sidebar">
+            <div class="sidebar-head">
+                <h6><i class="bi bi-journal-code me-2"></i>DSA Topics</h6>
+            </div>
+            <nav>
+                <ul class="sidebar-links" id="topicList">
+                    <li><a class="nav-link" href="arrays.html"><i class="bi bi-list-ol"></i><span>Arrays</span></a></li>
+                    <li><a class="nav-link" href="strings.html"><i class="bi bi-fonts"></i><span>Strings</span></a></li>
+                    <li><a class="nav-link" href="linked-lists.html"><i class="bi bi-link"></i><span>Linked Lists</span></a></li>
+                    <li><a class="nav-link" href="stacks.html"><i class="bi bi-stack"></i><span>Stacks</span></a></li>
+                    <li><a class="nav-link" href="queues.html"><i class="bi bi-collection"></i><span>Queues</span></a></li>
+                    <li><a class="nav-link active" href="hash-tables.html"><i class="bi bi-hash"></i><span>Hash Tables</span></a></li>
+                    <li><a class="nav-link" href="trees.html"><i class="bi bi-tree-fill"></i><span>Trees</span></a></li>
+                    <li><a class="nav-link" href="binary-search-trees.html"><i class="bi bi-tree"></i><span>Binary Search Trees</span></a></li>
+                    <li><a class="nav-link" href="heaps.html"><i class="bi bi-triangle"></i><span>Heaps</span></a></li>
+                    <li><a class="nav-link" href="graphs.html"><i class="bi bi-share-fill"></i><span>Graphs</span></a></li>
+                    <li><a class="nav-link" href="sorting-algorithms.html"><i class="bi bi-sort-down"></i><span>Sorting Algorithms</span></a></li>
+                    <li><a class="nav-link" href="searching-algorithms.html"><i class="bi bi-search"></i><span>Searching Algorithms</span></a></li>
+                    <li><a class="nav-link" href="dynamic-programming.html"><i class="bi bi-table"></i><span>Dynamic Programming</span></a></li>
+                    <li><a class="nav-link" href="recursion.html"><i class="bi bi-recycle"></i><span>Recursion</span></a></li>
+                    <li><a class="nav-link" href="greedy-algorithms.html"><i class="bi bi-trophy"></i><span>Greedy Algorithms</span></a></li>
+                    <li><a class="nav-link" href="backtracking.html"><i class="bi bi-arrow-return-left"></i><span>Backtracking</span></a></li>
+                    <li><a class="nav-link" href="two-pointers.html"><i class="bi bi-arrows-expand"></i><span>Two Pointers</span></a></li>
+                    <li><a class="nav-link" href="sliding-window.html"><i class="bi bi-window-stack"></i><span>Sliding Window</span></a></li>
+                    <li><a class="nav-link" href="bit-manipulation.html"><i class="bi bi-toggles"></i><span>Bit Manipulation</span></a></li>
+                    <li><a class="nav-link" href="time-space-complexity.html"><i class="bi bi-speedometer2"></i><span>Time & Space Complexity</span></a></li>
+                </ul>
+            </nav>
+        </aside>
+        <div class="sidebar-backdrop" id="sidebarBackdrop"></div>
+        <div class="content-area">
+            <div class="mobile-bar d-lg-none">
+                <button class="btn btn-sm btn-glass" id="sidebarToggle">
+                    <i class="bi bi-layout-sidebar-inset me-1"></i>Topics
+                </button>
+                <span class="badge rounded-pill bg-secondary">DSA</span>
+            </div>
+            <div class="breadcrumb-nav" id="breadcrumb">
+                <a href="../../index.html">Home</a><span class="sep">/</span>
+                <a href="../../pages/dsa.html">DSA</a><span class="sep">/</span>
+                <span class="current">Hash Tables</span>
+            </div>
+            <div class="qs-header">
+                <h1 class="qs-title" id="topicTitle">Hash Tables</h1>
+                <span class="badge qs-badge" id="questionCount">15 Questions</span>
+            </div>
+            <div class="accordion" id="questionsAccordion"></div>
+            <div class="topic-nav" id="topicNav">
+            <a class="topic-nav-btn prev" href="queues.html">
+                <span class="label"><i class="bi bi-arrow-left me-1"></i> Previous</span>
+                <span class="title">Queues</span>
+            </a>
+            <a class="topic-nav-btn next" href="trees.html">
+                <span class="label">Next <i class="bi bi-arrow-right ms-1"></i></span>
+                <span class="title">Trees</span>
+            </a>
+            </div>
+            <footer class="app-footer">
+                <p>&copy; 2026 InterviewPrep &mdash; DSA Interview Questions</p>
+            </footer>
+        </div>
+    </div>
+    <button class="btn-totop" id="backToTop"><i class="bi bi-chevron-up"></i></button>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>
+    <script src="../../js/data/dsa-data.js"></script>
+    <script>
+    (function(){
+        var DATA=window.__CATEGORY_dsa__;
+        if(!DATA)return;
+        var topic=null;
+        for(var i=0;i<DATA.topics.length;i++){if(DATA.topics[i].id==='hash-tables'){topic=DATA.topics[i];break;}}
+        if(!topic)return;
+        var acc=document.getElementById('questionsAccordion');
+        var html='';
+        topic.questions.forEach(function(q,i){
+            var uid='q'+i,exp=i===0;
+            html+='<div class="accordion-item">'+
+                '<h2 class="accordion-header"><button class="accordion-button'+(exp?'':' collapsed')+'" type="button" '+
+                'data-bs-toggle="collapse" data-bs-target="#c_'+uid+'"><span class="question-number">'+(i+1)+'</span>'+
+                q.q.replace(/</g,'&lt;').replace(/>/g,'&gt;')+'</button></h2>'+
+                '<div id="c_'+uid+'" class="accordion-collapse collapse'+(exp?' show':'')+'" data-bs-parent="#questionsAccordion">'+
+                '<div class="accordion-body">'+q.a+'</div></div></div>';
+        });
+        acc.innerHTML=html;
+        document.getElementById('questionCount').textContent=topic.questions.length+' Questions';
+        // Sidebar toggle
+        var sb=document.getElementById('sidebar'),bd=document.getElementById('sidebarBackdrop'),
+            tg=document.getElementById('sidebarToggle');
+        if(tg)tg.addEventListener('click',function(){sb.classList.add('open');bd.classList.add('show');});
+        if(bd)bd.addEventListener('click',function(){sb.classList.remove('open');bd.classList.remove('show');});
+        // Back to top
+        var btt=document.getElementById('backToTop');
+        window.addEventListener('scroll',function(){btt.classList.toggle('show',window.scrollY>400);});
+        btt.addEventListener('click',function(){window.scrollTo({top:0,behavior:'smooth'});});
+        // Search filter
+        var si=document.getElementById('searchInput');
+        if(si){var t=null;si.addEventListener('input',function(){clearTimeout(t);var v=this.value.trim().toLowerCase();
+        if(v.length<2){acc.querySelectorAll('.accordion-item').forEach(function(el){el.style.display='';});
+        document.getElementById('questionCount').textContent=topic.questions.length+' Questions';return;}
+        t=setTimeout(function(){var c=0;acc.querySelectorAll('.accordion-item').forEach(function(el){
+        var m=el.textContent.toLowerCase().indexOf(v)!==-1;el.style.display=m?'':'none';if(m)c++;});
+        document.getElementById('questionCount').textContent=c+' Questions';},200);});}
+    })();
+    </script>
+</body>
+</html>

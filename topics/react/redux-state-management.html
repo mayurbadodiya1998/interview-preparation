@@ -1,0 +1,164 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="Redux interview questions covering store, actions, reducers, middleware, Redux Toolkit and state management patterns.">
+    <meta name="keywords" content="interview questions, coding interview, web developer interview, Redux & State Management — React Interview Questions">
+    <meta name="author" content="InterviewPrep">
+    <meta name="robots" content="index, follow">
+    <meta property="og:type" content="website">
+    <meta property="og:title" content="Redux & State Management — React Interview Questions | InterviewPrep">
+    <meta property="og:description" content="Redux interview questions covering store, actions, reducers, middleware, Redux Toolkit and state management patterns.">
+    <title>Redux & State Management — React Interview Questions | InterviewPrep 2026</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&family=Fira+Code:wght@400;500&display=swap" rel="stylesheet">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="../../css/styles.css">
+    <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-8957020141286926" crossorigin="anonymous"></script>
+</head>
+<body class="theme-react">
+    <nav class="navbar navbar-expand-lg sticky-top" id="mainNavbar">
+        <div class="container-fluid px-3 px-lg-4">
+            <a class="navbar-brand fw-bold d-flex align-items-center gap-2" href="../../index.html">
+                <span class="brand-icon"><i class="bi bi-braces-asterisk"></i></span>
+                <span>Interview<span class="brand-accent">Prep</span></span>
+            </a>
+            <button class="navbar-toggler border-0 shadow-none" type="button"
+                    data-bs-toggle="collapse" data-bs-target="#navbarContent">
+                <i class="bi bi-list fs-3 text-white"></i>
+            </button>
+            <div class="collapse navbar-collapse" id="navbarContent">
+                <ul class="navbar-nav me-auto mb-2 mb-lg-0 ms-lg-3">
+                    <li class="nav-item dropdown">
+                        <a class="nav-link dropdown-toggle fw-500" href="#" role="button"
+                           data-bs-toggle="dropdown">
+                            <i class="bi bi-layers me-1"></i> Choose Category
+                        </a>
+                        <ul class="dropdown-menu">
+                            <li><a class="dropdown-item fw-500" href="../../pages/angular.html"><i class="bi bi-bootstrap me-2"></i>Angular</a></li>
+                            <li><a class="dropdown-item fw-500" href="../../pages/react.html"><i class="bi bi-infinity me-2"></i>React</a></li>
+                            <li><a class="dropdown-item fw-500" href="../../pages/node.html"><i class="bi bi-hdd-network me-2"></i>Node.js</a></li>
+                            <li><a class="dropdown-item fw-500" href="../../pages/javascript.html"><i class="bi bi-filetype-js me-2"></i>JavaScript</a></li>
+                            <li><a class="dropdown-item fw-500" href="../../pages/dsa.html"><i class="bi bi-diagram-3-fill me-2"></i>DSA</a></li>
+                            <li><a class="dropdown-item fw-500" href="../../pages/logical.html"><i class="bi bi-lightbulb me-2"></i>Logical Reasoning</a></li>
+                        </ul>
+                    </li>
+                </ul>
+                <div class="search-wrap">
+                    <i class="bi bi-search search-icon"></i>
+                    <input class="form-control search-input" type="search"
+                           placeholder="Search questions..." id="searchInput">
+                </div>
+            </div>
+        </div>
+    </nav>
+    <div class="app-wrapper">
+        <aside class="sidebar" id="sidebar">
+            <div class="sidebar-head">
+                <h6><i class="bi bi-journal-code me-2"></i>React Topics</h6>
+            </div>
+            <nav>
+                <ul class="sidebar-links" id="topicList">
+                    <li><a class="nav-link" href="components-jsx.html"><i class="bi bi-box"></i><span>Components & JSX</span></a></li>
+                    <li><a class="nav-link" href="props-state.html"><i class="bi bi-diagram-3"></i><span>Props & State</span></a></li>
+                    <li><a class="nav-link" href="hooks-usestate-useeffect.html"><i class="bi bi-hook"></i><span>Hooks — useState & useEffect</span></a></li>
+                    <li><a class="nav-link" href="context-api.html"><i class="bi bi-share"></i><span>Context API</span></a></li>
+                    <li><a class="nav-link" href="react-router.html"><i class="bi bi-signpost-2"></i><span>React Router</span></a></li>
+                    <li><a class="nav-link" href="forms-controlled-components.html"><i class="bi bi-input-cursor-text"></i><span>Forms & Controlled Components</span></a></li>
+                    <li><a class="nav-link active" href="redux-state-management.html"><i class="bi bi-diagram-2"></i><span>Redux & State Management</span></a></li>
+                    <li><a class="nav-link" href="usereducer-usememo.html"><i class="bi bi-lightning"></i><span>useReducer & useMemo</span></a></li>
+                    <li><a class="nav-link" href="custom-hooks.html"><i class="bi bi-puzzle"></i><span>Custom Hooks</span></a></li>
+                    <li><a class="nav-link" href="higher-order-components.html"><i class="bi bi-layers"></i><span>Higher-Order Components</span></a></li>
+                    <li><a class="nav-link" href="render-props.html"><i class="bi bi-braces"></i><span>Render Props & Patterns</span></a></li>
+                    <li><a class="nav-link" href="error-boundaries.html"><i class="bi bi-exclamation-triangle"></i><span>Error Boundaries</span></a></li>
+                    <li><a class="nav-link" href="refs-useref.html"><i class="bi bi-cursor"></i><span>Refs & useRef</span></a></li>
+                    <li><a class="nav-link" href="portals.html"><i class="bi bi-door-open"></i><span>Portals</span></a></li>
+                    <li><a class="nav-link" href="suspense-lazy-loading.html"><i class="bi bi-hourglass-split"></i><span>Suspense & Lazy Loading</span></a></li>
+                    <li><a class="nav-link" href="virtual-dom.html"><i class="bi bi-tree"></i><span>Virtual DOM & Reconciliation</span></a></li>
+                    <li><a class="nav-link" href="event-handling.html"><i class="bi bi-mouse"></i><span>Event Handling</span></a></li>
+                    <li><a class="nav-link" href="performance-optimization.html"><i class="bi bi-speedometer2"></i><span>Performance Optimization</span></a></li>
+                    <li><a class="nav-link" href="testing.html"><i class="bi bi-bug"></i><span>Testing</span></a></li>
+                    <li><a class="nav-link" href="server-components-ssr.html"><i class="bi bi-server"></i><span>Server Components & SSR</span></a></li>
+                </ul>
+            </nav>
+        </aside>
+        <div class="sidebar-backdrop" id="sidebarBackdrop"></div>
+        <div class="content-area">
+            <div class="mobile-bar d-lg-none">
+                <button class="btn btn-sm btn-glass" id="sidebarToggle">
+                    <i class="bi bi-layout-sidebar-inset me-1"></i>Topics
+                </button>
+                <span class="badge rounded-pill bg-secondary">React</span>
+            </div>
+            <div class="breadcrumb-nav" id="breadcrumb">
+                <a href="../../index.html">Home</a><span class="sep">/</span>
+                <a href="../../pages/react.html">React</a><span class="sep">/</span>
+                <span class="current">Redux & State Management</span>
+            </div>
+            <div class="qs-header">
+                <h1 class="qs-title" id="topicTitle">Redux & State Management</h1>
+                <span class="badge qs-badge" id="questionCount">15 Questions</span>
+            </div>
+            <div class="accordion" id="questionsAccordion"></div>
+            <div class="topic-nav" id="topicNav">
+            <a class="topic-nav-btn prev" href="forms-controlled-components.html">
+                <span class="label"><i class="bi bi-arrow-left me-1"></i> Previous</span>
+                <span class="title">Forms & Controlled Components</span>
+            </a>
+            <a class="topic-nav-btn next" href="usereducer-usememo.html">
+                <span class="label">Next <i class="bi bi-arrow-right ms-1"></i></span>
+                <span class="title">useReducer & useMemo</span>
+            </a>
+            </div>
+            <footer class="app-footer">
+                <p>&copy; 2026 InterviewPrep &mdash; React Interview Questions</p>
+            </footer>
+        </div>
+    </div>
+    <button class="btn-totop" id="backToTop"><i class="bi bi-chevron-up"></i></button>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>
+    <script src="../../js/data/react-data.js"></script>
+    <script>
+    (function(){
+        var DATA=window.__CATEGORY_react__;
+        if(!DATA)return;
+        var topic=null;
+        for(var i=0;i<DATA.topics.length;i++){if(DATA.topics[i].id==='redux-state-management'){topic=DATA.topics[i];break;}}
+        if(!topic)return;
+        var acc=document.getElementById('questionsAccordion');
+        var html='';
+        topic.questions.forEach(function(q,i){
+            var uid='q'+i,exp=i===0;
+            html+='<div class="accordion-item">'+
+                '<h2 class="accordion-header"><button class="accordion-button'+(exp?'':' collapsed')+'" type="button" '+
+                'data-bs-toggle="collapse" data-bs-target="#c_'+uid+'"><span class="question-number">'+(i+1)+'</span>'+
+                q.q.replace(/</g,'&lt;').replace(/>/g,'&gt;')+'</button></h2>'+
+                '<div id="c_'+uid+'" class="accordion-collapse collapse'+(exp?' show':'')+'" data-bs-parent="#questionsAccordion">'+
+                '<div class="accordion-body">'+q.a+'</div></div></div>';
+        });
+        acc.innerHTML=html;
+        document.getElementById('questionCount').textContent=topic.questions.length+' Questions';
+        // Sidebar toggle
+        var sb=document.getElementById('sidebar'),bd=document.getElementById('sidebarBackdrop'),
+            tg=document.getElementById('sidebarToggle');
+        if(tg)tg.addEventListener('click',function(){sb.classList.add('open');bd.classList.add('show');});
+        if(bd)bd.addEventListener('click',function(){sb.classList.remove('open');bd.classList.remove('show');});
+        // Back to top
+        var btt=document.getElementById('backToTop');
+        window.addEventListener('scroll',function(){btt.classList.toggle('show',window.scrollY>400);});
+        btt.addEventListener('click',function(){window.scrollTo({top:0,behavior:'smooth'});});
+        // Search filter
+        var si=document.getElementById('searchInput');
+        if(si){var t=null;si.addEventListener('input',function(){clearTimeout(t);var v=this.value.trim().toLowerCase();
+        if(v.length<2){acc.querySelectorAll('.accordion-item').forEach(function(el){el.style.display='';});
+        document.getElementById('questionCount').textContent=topic.questions.length+' Questions';return;}
+        t=setTimeout(function(){var c=0;acc.querySelectorAll('.accordion-item').forEach(function(el){
+        var m=el.textContent.toLowerCase().indexOf(v)!==-1;el.style.display=m?'':'none';if(m)c++;});
+        document.getElementById('questionCount').textContent=c+' Questions';},200);});}
+    })();
+    </script>
+</body>
+</html>
