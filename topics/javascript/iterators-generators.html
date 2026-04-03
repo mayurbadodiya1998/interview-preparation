@@ -3,14 +3,14 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <meta name="description" content="Bit Manipulation interview questions on bitwise operators, bit tricks, counting bits and XOR applications.">
-    <meta name="keywords" content="interview questions, coding interview, web developer interview, Bit Manipulation — DSA Interview Questions">
+    <meta name="description" content="JavaScript Iterators and Generators interview questions on Symbol.iterator, yield, for...of, custom iterables and lazy evaluation.">
+    <meta name="keywords" content="interview questions, coding interview, web developer interview, Iterators & Generators — JavaScript Interview Questions">
     <meta name="author" content="InterviewPrep">
     <meta name="robots" content="index, follow">
     <meta property="og:type" content="website">
-    <meta property="og:title" content="Bit Manipulation — DSA Interview Questions | InterviewPrep">
-    <meta property="og:description" content="Bit Manipulation interview questions on bitwise operators, bit tricks, counting bits and XOR applications.">
-    <title>Bit Manipulation — DSA Interview Questions | InterviewPrep 2026</title>
+    <meta property="og:title" content="Iterators & Generators — JavaScript Interview Questions | InterviewPrep">
+    <meta property="og:description" content="JavaScript Iterators and Generators interview questions on Symbol.iterator, yield, for...of, custom iterables and lazy evaluation.">
+    <title>Iterators & Generators — JavaScript Interview Questions | InterviewPrep 2026</title>
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&family=Fira+Code:wght@400;500&display=swap" rel="stylesheet">
@@ -19,7 +19,7 @@
     <link rel="stylesheet" href="../../css/styles.css">
     <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-8957020141286926" crossorigin="anonymous"></script>
 </head>
-<body class="theme-dsa">
+<body class="theme-javascript">
     <nav class="navbar navbar-expand-lg sticky-top" id="mainNavbar">
         <div class="container-fluid px-3 px-lg-4">
             <a class="navbar-brand fw-bold d-flex align-items-center gap-2" href="../../index.html">
@@ -58,30 +58,35 @@
     <div class="app-wrapper">
         <aside class="sidebar" id="sidebar">
             <div class="sidebar-head">
-                <h6><i class="bi bi-journal-code me-2"></i>DSA Topics</h6>
+                <h6><i class="bi bi-journal-code me-2"></i>JavaScript Topics</h6>
             </div>
             <nav>
                 <ul class="sidebar-links" id="topicList">
-                    <li><a class="nav-link" href="arrays.html"><i class="bi bi-list-ol"></i><span>Arrays</span></a></li>
-                    <li><a class="nav-link" href="strings.html"><i class="bi bi-fonts"></i><span>Strings</span></a></li>
-                    <li><a class="nav-link" href="linked-lists.html"><i class="bi bi-link"></i><span>Linked Lists</span></a></li>
-                    <li><a class="nav-link" href="stacks.html"><i class="bi bi-stack"></i><span>Stacks</span></a></li>
-                    <li><a class="nav-link" href="queues.html"><i class="bi bi-collection"></i><span>Queues</span></a></li>
-                    <li><a class="nav-link" href="hash-tables.html"><i class="bi bi-hash"></i><span>Hash Tables</span></a></li>
-                    <li><a class="nav-link" href="trees.html"><i class="bi bi-tree-fill"></i><span>Trees</span></a></li>
-                    <li><a class="nav-link" href="binary-search-trees.html"><i class="bi bi-tree"></i><span>Binary Search Trees</span></a></li>
-                    <li><a class="nav-link" href="heaps.html"><i class="bi bi-triangle"></i><span>Heaps</span></a></li>
-                    <li><a class="nav-link" href="graphs.html"><i class="bi bi-share-fill"></i><span>Graphs</span></a></li>
-                    <li><a class="nav-link" href="sorting-algorithms.html"><i class="bi bi-sort-down"></i><span>Sorting Algorithms</span></a></li>
-                    <li><a class="nav-link" href="searching-algorithms.html"><i class="bi bi-search"></i><span>Searching Algorithms</span></a></li>
-                    <li><a class="nav-link" href="dynamic-programming.html"><i class="bi bi-table"></i><span>Dynamic Programming</span></a></li>
-                    <li><a class="nav-link" href="recursion.html"><i class="bi bi-recycle"></i><span>Recursion</span></a></li>
-                    <li><a class="nav-link" href="greedy-algorithms.html"><i class="bi bi-trophy"></i><span>Greedy Algorithms</span></a></li>
-                    <li><a class="nav-link" href="backtracking.html"><i class="bi bi-arrow-return-left"></i><span>Backtracking</span></a></li>
-                    <li><a class="nav-link" href="two-pointers.html"><i class="bi bi-arrows-expand"></i><span>Two Pointers</span></a></li>
-                    <li><a class="nav-link" href="sliding-window.html"><i class="bi bi-window-stack"></i><span>Sliding Window</span></a></li>
-                    <li><a class="nav-link active" href="bit-manipulation.html"><i class="bi bi-toggles"></i><span>Bit Manipulation</span></a></li>
-                    <li><a class="nav-link" href="time-space-complexity.html"><i class="bi bi-speedometer2"></i><span>Time & Space Complexity</span></a></li>
+                    <li><a class="nav-link" href="variables-data-types.html"><i class="bi bi-braces"></i><span>Variables & Data Types</span></a></li>
+                    <li><a class="nav-link" href="functions-scope.html"><i class="bi bi-code-square"></i><span>Functions & Scope</span></a></li>
+                    <li><a class="nav-link" href="closures.html"><i class="bi bi-lock-fill"></i><span>Closures</span></a></li>
+                    <li><a class="nav-link" href="prototypes-inheritance.html"><i class="bi bi-diagram-3"></i><span>Prototypes & Inheritance</span></a></li>
+                    <li><a class="nav-link" href="promises.html"><i class="bi bi-hourglass-split"></i><span>Promises</span></a></li>
+                    <li><a class="nav-link" href="async-await.html"><i class="bi bi-lightning"></i><span>Async/Await</span></a></li>
+                    <li><a class="nav-link" href="event-loop.html"><i class="bi bi-arrow-repeat"></i><span>Event Loop</span></a></li>
+                    <li><a class="nav-link" href="es6-features.html"><i class="bi bi-stars"></i><span>ES6+ Features</span></a></li>
+                    <li><a class="nav-link" href="array-methods.html"><i class="bi bi-list-ol"></i><span>Array Methods</span></a></li>
+                    <li><a class="nav-link" href="object-methods.html"><i class="bi bi-braces-asterisk"></i><span>Object Methods</span></a></li>
+                    <li><a class="nav-link" href="dom-manipulation.html"><i class="bi bi-window"></i><span>DOM Manipulation</span></a></li>
+                    <li><a class="nav-link" href="error-handling.html"><i class="bi bi-exclamation-triangle"></i><span>Error Handling</span></a></li>
+                    <li><a class="nav-link" href="regular-expressions.html"><i class="bi bi-regex"></i><span>Regular Expressions</span></a></li>
+                    <li><a class="nav-link" href="design-patterns.html"><i class="bi bi-grid"></i><span>Design Patterns</span></a></li>
+                    <li><a class="nav-link" href="memory-management.html"><i class="bi bi-memory"></i><span>Memory Management</span></a></li>
+                    <li><a class="nav-link" href="modules-js.html"><i class="bi bi-box-seam"></i><span>Modules</span></a></li>
+                    <li><a class="nav-link" href="this-keyword.html"><i class="bi bi-cursor-text"></i><span>this Keyword</span></a></li>
+                    <li><a class="nav-link" href="hoisting-scope.html"><i class="bi bi-arrow-up-circle"></i><span>Hoisting & TDZ</span></a></li>
+                    <li><a class="nav-link" href="spread-rest-destructuring.html"><i class="bi bi-three-dots"></i><span>Spread, Rest & Destructuring</span></a></li>
+                    <li><a class="nav-link" href="type-coercion.html"><i class="bi bi-arrow-left-right"></i><span>Type Coercion & Equality</span></a></li>
+                    <li><a class="nav-link active" href="iterators-generators.html"><i class="bi bi-arrow-repeat"></i><span>Iterators & Generators</span></a></li>
+                    <li><a class="nav-link" href="proxy-reflect.html"><i class="bi bi-shield-check"></i><span>Proxy & Reflect</span></a></li>
+                    <li><a class="nav-link" href="web-apis-storage.html"><i class="bi bi-hdd"></i><span>Web APIs & Storage</span></a></li>
+                    <li><a class="nav-link" href="sets-maps.html"><i class="bi bi-collection"></i><span>Sets & Maps</span></a></li>
+                    <li><a class="nav-link" href="date-timers.html"><i class="bi bi-clock"></i><span>Date & Timers</span></a></li>
                 </ul>
             </nav>
         </aside>
@@ -91,42 +96,42 @@
                 <button class="btn btn-sm btn-glass" id="sidebarToggle">
                     <i class="bi bi-layout-sidebar-inset me-1"></i>Topics
                 </button>
-                <span class="badge rounded-pill bg-secondary">DSA</span>
+                <span class="badge rounded-pill bg-secondary">JavaScript</span>
             </div>
             <div class="breadcrumb-nav" id="breadcrumb">
                 <a href="../../index.html">Home</a><span class="sep">/</span>
-                <a href="../../pages/dsa.html">DSA</a><span class="sep">/</span>
-                <span class="current">Bit Manipulation</span>
+                <a href="../../pages/javascript.html">JavaScript</a><span class="sep">/</span>
+                <span class="current">Iterators & Generators</span>
             </div>
             <div class="qs-header">
-                <h1 class="qs-title" id="topicTitle">Bit Manipulation</h1>
+                <h1 class="qs-title" id="topicTitle">Iterators & Generators</h1>
                 <span class="badge qs-badge" id="questionCount">15 Questions</span>
             </div>
             <div class="accordion" id="questionsAccordion"></div>
             <div class="topic-nav" id="topicNav">
-            <a class="topic-nav-btn prev" href="sliding-window.html">
+            <a class="topic-nav-btn prev" href="type-coercion.html">
                 <span class="label"><i class="bi bi-arrow-left me-1"></i> Previous</span>
-                <span class="title">Sliding Window</span>
+                <span class="title">Type Coercion & Equality</span>
             </a>
-            <a class="topic-nav-btn next" href="time-space-complexity.html">
+            <a class="topic-nav-btn next" href="proxy-reflect.html">
                 <span class="label">Next <i class="bi bi-arrow-right ms-1"></i></span>
-                <span class="title">Time & Space Complexity</span>
+                <span class="title">Proxy & Reflect</span>
             </a>
             </div>
             <footer class="app-footer">
-                <p>&copy; 2026 InterviewPrep &mdash; DSA Interview Questions</p>
+                <p>&copy; 2026 InterviewPrep &mdash; JavaScript Interview Questions</p>
             </footer>
         </div>
     </div>
     <button class="btn-totop" id="backToTop"><i class="bi bi-chevron-up"></i></button>
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>
-    <script src="../../js/data/dsa-data.js"></script>
+    <script src="../../js/data/javascript-data.js"></script>
     <script>
     (function(){
-        var DATA=window.__CATEGORY_dsa__;
+        var DATA=window.__CATEGORY_javascript__;
         if(!DATA)return;
         var topic=null;
-        for(var i=0;i<DATA.topics.length;i++){if(DATA.topics[i].id==='bit-manipulation'){topic=DATA.topics[i];break;}}
+        for(var i=0;i<DATA.topics.length;i++){if(DATA.topics[i].id==='iterators-generators'){topic=DATA.topics[i];break;}}
         if(!topic)return;
         var acc=document.getElementById('questionsAccordion');
         var html='';

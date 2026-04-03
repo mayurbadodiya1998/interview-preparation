@@ -85,6 +85,11 @@
     <url><loc>https://coddingquestionhub.com/topics/javascript/hoisting-scope.html</loc><priority>0.6</priority></url>
     <url><loc>https://coddingquestionhub.com/topics/javascript/spread-rest-destructuring.html</loc><priority>0.6</priority></url>
     <url><loc>https://coddingquestionhub.com/topics/javascript/type-coercion.html</loc><priority>0.6</priority></url>
+    <url><loc>https://coddingquestionhub.com/topics/javascript/iterators-generators.html</loc><priority>0.6</priority></url>
+    <url><loc>https://coddingquestionhub.com/topics/javascript/proxy-reflect.html</loc><priority>0.6</priority></url>
+    <url><loc>https://coddingquestionhub.com/topics/javascript/web-apis-storage.html</loc><priority>0.6</priority></url>
+    <url><loc>https://coddingquestionhub.com/topics/javascript/sets-maps.html</loc><priority>0.6</priority></url>
+    <url><loc>https://coddingquestionhub.com/topics/javascript/date-timers.html</loc><priority>0.6</priority></url>
     <url><loc>https://coddingquestionhub.com/pages/dsa.html</loc><priority>0.8</priority></url>
     <url><loc>https://coddingquestionhub.com/topics/dsa/arrays.html</loc><priority>0.6</priority></url>
     <url><loc>https://coddingquestionhub.com/topics/dsa/strings.html</loc><priority>0.6</priority></url>

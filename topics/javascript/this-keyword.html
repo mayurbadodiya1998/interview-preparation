@@ -82,6 +82,11 @@
                     <li><a class="nav-link" href="hoisting-scope.html"><i class="bi bi-arrow-up-circle"></i><span>Hoisting & TDZ</span></a></li>
                     <li><a class="nav-link" href="spread-rest-destructuring.html"><i class="bi bi-three-dots"></i><span>Spread, Rest & Destructuring</span></a></li>
                     <li><a class="nav-link" href="type-coercion.html"><i class="bi bi-arrow-left-right"></i><span>Type Coercion & Equality</span></a></li>
+                    <li><a class="nav-link" href="iterators-generators.html"><i class="bi bi-arrow-repeat"></i><span>Iterators & Generators</span></a></li>
+                    <li><a class="nav-link" href="proxy-reflect.html"><i class="bi bi-shield-check"></i><span>Proxy & Reflect</span></a></li>
+                    <li><a class="nav-link" href="web-apis-storage.html"><i class="bi bi-hdd"></i><span>Web APIs & Storage</span></a></li>
+                    <li><a class="nav-link" href="sets-maps.html"><i class="bi bi-collection"></i><span>Sets & Maps</span></a></li>
+                    <li><a class="nav-link" href="date-timers.html"><i class="bi bi-clock"></i><span>Date & Timers</span></a></li>
                 </ul>
             </nav>
         </aside>
@@ -132,12 +137,14 @@
         var html='';
         topic.questions.forEach(function(q,i){
             var uid='q'+i,exp=i===0;
+            var qText=(q.q||q.question||'');
+            var aText=(q.a||q.answer||'');
             html+='<div class="accordion-item">'+
                 '<h2 class="accordion-header"><button class="accordion-button'+(exp?'':' collapsed')+'" type="button" '+
                 'data-bs-toggle="collapse" data-bs-target="#c_'+uid+'"><span class="question-number">'+(i+1)+'</span>'+
-                q.q.replace(/</g,'&lt;').replace(/>/g,'&gt;')+'</button></h2>'+
+                qText.replace(/</g,'&lt;').replace(/>/g,'&gt;')+'</button></h2>'+
                 '<div id="c_'+uid+'" class="accordion-collapse collapse'+(exp?' show':'')+'" data-bs-parent="#questionsAccordion">'+
-                '<div class="accordion-body">'+q.a+'</div></div></div>';
+                '<div class="accordion-body">'+aText+'</div></div></div>';
         });
         acc.innerHTML=html;
         document.getElementById('questionCount').textContent=topic.questions.length+' Questions';

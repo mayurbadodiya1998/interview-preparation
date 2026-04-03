@@ -132,12 +132,14 @@
         var html='';
         topic.questions.forEach(function(q,i){
             var uid='q'+i,exp=i===0;
+            var qText=(q.q||q.question||'');
+            var aText=(q.a||q.answer||'');
             html+='<div class="accordion-item">'+
                 '<h2 class="accordion-header"><button class="accordion-button'+(exp?'':' collapsed')+'" type="button" '+
                 'data-bs-toggle="collapse" data-bs-target="#c_'+uid+'"><span class="question-number">'+(i+1)+'</span>'+
-                q.q.replace(/</g,'&lt;').replace(/>/g,'&gt;')+'</button></h2>'+
+                qText.replace(/</g,'&lt;').replace(/>/g,'&gt;')+'</button></h2>'+
                 '<div id="c_'+uid+'" class="accordion-collapse collapse'+(exp?' show':'')+'" data-bs-parent="#questionsAccordion">'+
-                '<div class="accordion-body">'+q.a+'</div></div></div>';
+                '<div class="accordion-body">'+aText+'</div></div></div>';
         });
         acc.innerHTML=html;
         document.getElementById('questionCount').textContent=topic.questions.length+' Questions';

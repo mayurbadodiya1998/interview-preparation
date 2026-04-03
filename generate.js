@@ -128,7 +128,12 @@ const CATEGORIES = {
             { id:'this-keyword', title:'this Keyword', icon:'bi-cursor-text', desc:'JavaScript this keyword interview questions on binding rules, call, apply, bind, arrow functions and context.' },
             { id:'hoisting-scope', title:'Hoisting & TDZ', icon:'bi-arrow-up-circle', desc:'JavaScript Hoisting interview questions on variable hoisting, function hoisting, temporal dead zone and let/const.' },
             { id:'spread-rest-destructuring', title:'Spread, Rest & Destructuring', icon:'bi-three-dots', desc:'JavaScript spread/rest operator and destructuring interview questions with array and object examples.' },
-            { id:'type-coercion', title:'Type Coercion & Equality', icon:'bi-arrow-left-right', desc:'JavaScript Type Coercion interview questions on == vs ===, implicit conversion, truthy/falsy and comparison rules.' }
+            { id:'type-coercion', title:'Type Coercion & Equality', icon:'bi-arrow-left-right', desc:'JavaScript Type Coercion interview questions on == vs ===, implicit conversion, truthy/falsy and comparison rules.' },
+            { id:'iterators-generators', title:'Iterators & Generators', icon:'bi-arrow-repeat', desc:'JavaScript Iterators and Generators interview questions on Symbol.iterator, yield, for...of, custom iterables and lazy evaluation.' },
+            { id:'proxy-reflect', title:'Proxy & Reflect', icon:'bi-shield-check', desc:'JavaScript Proxy and Reflect interview questions on traps, handler methods, meta-programming, validation and observation patterns.' },
+            { id:'web-apis-storage', title:'Web APIs & Storage', icon:'bi-hdd', desc:'JavaScript Web APIs and Storage interview questions on localStorage, sessionStorage, IndexedDB, cookies and Fetch API.' },
+            { id:'sets-maps', title:'Sets & Maps', icon:'bi-collection', desc:'JavaScript Set and Map interview questions on WeakSet, WeakMap, unique values, key-value pairs and iteration.' },
+            { id:'date-timers', title:'Date & Timers', icon:'bi-clock', desc:'JavaScript Date and Timers interview questions on setTimeout, setInterval, requestAnimationFrame, Date object and Intl API.' }
         ]
     },
     dsa: {
@@ -253,6 +258,7 @@ function headHtml(title, description, basePath) {
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet">
     <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css" rel="stylesheet">
     <link rel="stylesheet" href="${basePath}css/styles.css">
+    <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-8957020141286926" crossorigin="anonymous"></script>
 </head>`;
 }
 
@@ -390,12 +396,14 @@ ${navBtns}
         var html='';
         topic.questions.forEach(function(q,i){
             var uid='q'+i,exp=i===0;
+            var qText=(q.q||q.question||'');
+            var aText=(q.a||q.answer||'');
             html+='<div class="accordion-item">'+
                 '<h2 class="accordion-header"><button class="accordion-button'+(exp?'':' collapsed')+'" type="button" '+
                 'data-bs-toggle="collapse" data-bs-target="#c_'+uid+'"><span class="question-number">'+(i+1)+'</span>'+
-                q.q.replace(/</g,'&lt;').replace(/>/g,'&gt;')+'</button></h2>'+
+                qText.replace(/</g,'&lt;').replace(/>/g,'&gt;')+'</button></h2>'+
                 '<div id="c_'+uid+'" class="accordion-collapse collapse'+(exp?' show':'')+'" data-bs-parent="#questionsAccordion">'+
-                '<div class="accordion-body">'+q.a+'</div></div></div>';
+                '<div class="accordion-body">'+aText+'</div></div></div>';
         });
         acc.innerHTML=html;
         document.getElementById('questionCount').textContent=topic.questions.length+' Questions';
