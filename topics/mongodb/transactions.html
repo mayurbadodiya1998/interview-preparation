@@ -1,0 +1,536 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="MongoDB transactions interview questions: ACID, sessions, withTransaction, read/write concern, optimistic locking, sharded transactions.">
+    <meta name="keywords" content="MongoDB transactions, ACID transactions, MongoDB sessions, withTransaction, write concern, optimistic locking">
+    <meta name="author" content="InterviewPrep">
+    <meta name="robots" content="index, follow">
+    <link rel="icon" type="image/svg+xml" href="../../favicon.svg" sizes="any">
+    <meta property="og:type" content="website">
+    <meta property="og:title" content="Transactions | InterviewPrep">
+    <meta property="og:description" content="MongoDB transactions interview questions: ACID, sessions, withTransaction, read/write concern, optimistic locking, sharded transactions.">
+    <meta property="og:url" content="https://coddingquestionhub.com/topics/mongodb/transactions.html">
+    <title>Transactions — MongoDB Interview Questions | InterviewPrep 2026</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&family=Fira+Code:wght@400;500&display=swap" rel="stylesheet">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="../../css/styles.css">
+    <link rel="canonical" href="https://coddingquestionhub.com/topics/mongodb/transactions.html">
+    <script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "FAQPage",
+  "mainEntity": [
+    {
+      "@type": "Question",
+      "name": "Transactions | InterviewPrep",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "MongoDB transactions interview questions: ACID, sessions, withTransaction, read/write concern, optimistic locking, sharded transactions."
+      }
+    }
+  ]
+}
+    </script>
+    <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-8957020141286926" crossorigin="anonymous"></script>
+    <script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "BreadcrumbList",
+  "itemListElement": [
+    {
+      "@type": "ListItem",
+      "position": 1,
+      "name": "Home",
+      "item": "https://coddingquestionhub.com"
+    },
+    {
+      "@type": "ListItem",
+      "position": 2,
+      "name": "Topics",
+      "item": "https://coddingquestionhub.com/topics"
+    },
+    {
+      "@type": "ListItem",
+      "position": 3,
+      "name": "Mongodb",
+      "item": "https://coddingquestionhub.com/topics/mongodb"
+    },
+    {
+      "@type": "ListItem",
+      "position": 4,
+      "name": "Transactions",
+      "item": "https://coddingquestionhub.com/topics/mongodb/transactions.html"
+    }
+  ]
+}
+    </script>
+</head>
+<body class="theme-mongodb">
+    <nav class="navbar navbar-expand-lg sticky-top" id="mainNavbar">
+        <div class="container-fluid px-3 px-lg-4">
+            <a class="navbar-brand fw-bold d-flex align-items-center gap-2" href="../../index.html">
+                <span class="brand-icon"><i class="bi bi-braces-asterisk"></i></span>
+                <span>Interview<span class="brand-accent">Prep</span></span>
+            </a>
+            <button class="navbar-toggler border-0 shadow-none" type="button" data-bs-toggle="collapse" data-bs-target="#navbarContent">
+                <i class="bi bi-list fs-3 text-white"></i>
+            </button>
+            <div class="collapse navbar-collapse" id="navbarContent">
+                <ul class="navbar-nav me-auto mb-2 mb-lg-0 ms-lg-3">
+                    <li class="nav-item dropdown">
+                        <a class="nav-link dropdown-toggle fw-500" href="#" role="button" data-bs-toggle="dropdown">
+                            <i class="bi bi-layers me-1"></i> Choose Category
+                        </a>
+                        <ul class="dropdown-menu">
+                            <li><a class="dropdown-item fw-500" href="../../pages/angular.html"><i class="bi bi-bootstrap me-2 text-danger"></i>Angular</a></li>
+                            <li><a class="dropdown-item fw-500" href="../../pages/react.html"><i class="bi bi-infinity me-2 text-info"></i>React</a></li>
+                            <li><a class="dropdown-item fw-500" href="../../pages/node.html"><i class="bi bi-hdd-network me-2 text-success"></i>Node.js</a></li>
+                            <li><a class="dropdown-item fw-500" href="../../pages/javascript.html"><i class="bi bi-filetype-js me-2 text-warning"></i>JavaScript</a></li>
+                            <li><a class="dropdown-item fw-500" href="../../pages/dsa.html"><i class="bi bi-diagram-3-fill me-2" style="color:#8b5cf6"></i>DSA</a></li>
+                            <li><a class="dropdown-item fw-500" href="../../pages/logical.html"><i class="bi bi-lightbulb me-2" style="color:#f59e0b"></i>Logical Reasoning</a></li>
+                            <li><a class="dropdown-item fw-500" href="../../pages/mongodb.html"><i class="bi bi-database-fill me-2" style="color:#4DB33D"></i>MongoDB</a></li>
+                            <li><a class="dropdown-item fw-500" href="../../pages/mysql.html"><i class="bi bi-table me-2" style="color:#0F766E"></i>MySQL</a></li>
+                        </ul>
+                    </li>
+                </ul>
+                <div class="search-wrap">
+                    <i class="bi bi-search search-icon"></i>
+                    <input class="form-control search-input" type="search" placeholder="Search questions..." id="searchInput">
+                </div>
+            </div>
+        </div>
+    </nav>
+    <div class="app-wrapper">
+        <aside class="sidebar" id="sidebar">
+            <div class="sidebar-head">
+                <h6><i class="bi bi-database-fill me-2"></i>MongoDB Topics</h6>
+            </div>
+            <nav><ul class="sidebar-links" id="topicList">
+                    <li><a class="nav-link " href="mongodb-fundamentals.html"><i class="bi-database-fill"></i><span>MongoDB Fundamentals</span></a></li>
+                    <li><a class="nav-link " href="crud-operations.html"><i class="bi-pencil-square"></i><span>CRUD Operations</span></a></li>
+                    <li><a class="nav-link " href="schema-design.html"><i class="bi-diagram-3-fill"></i><span>Schema Design</span></a></li>
+                    <li><a class="nav-link " href="indexes.html"><i class="bi-lightning-charge-fill"></i><span>Indexes</span></a></li>
+                    <li><a class="nav-link " href="aggregation-pipeline.html"><i class="bi-funnel-fill"></i><span>Aggregation Pipeline</span></a></li>
+                    <li><a class="nav-link " href="relationships.html"><i class="bi-link-45deg"></i><span>Relationships</span></a></li>
+                    <li><a class="nav-link active" href="transactions.html"><i class="bi-shield-check"></i><span>Transactions</span></a></li>
+                    <li><a class="nav-link " href="mongoose-odm.html"><i class="bi-layers-fill"></i><span>Mongoose ODM</span></a></li>
+                    <li><a class="nav-link " href="performance-optimization.html"><i class="bi-speedometer2"></i><span>Performance</span></a></li>
+                    <li><a class="nav-link " href="replication.html"><i class="bi-arrow-repeat"></i><span>Replication</span></a></li>
+                    <li><a class="nav-link " href="sharding.html"><i class="bi-distribute-vertical"></i><span>Sharding</span></a></li>
+                    <li><a class="nav-link " href="security.html"><i class="bi-lock-fill"></i><span>Security</span></a></li>
+                    <li><a class="nav-link " href="mongodb-queries.html"><i class="bi-search"></i><span>Query Writing</span></a></li>
+                    <li><a class="nav-link " href="aggregation-queries.html"><i class="bi-bar-chart-fill"></i><span>Aggregation Queries</span></a></li>
+                    <li><a class="nav-link " href="advanced-queries.html"><i class="bi-code-square"></i><span>Advanced Queries</span></a></li>
+
+            </ul></nav>
+        </aside>
+        <div class="sidebar-backdrop" id="sidebarBackdrop"></div>
+        <div class="content-area">
+            <div class="mobile-bar d-lg-none">
+                <button class="btn btn-sm btn-glass" id="sidebarToggle">
+                    <i class="bi bi-layout-sidebar-inset me-1"></i>Topics
+                </button>
+                <span class="badge rounded-pill bg-secondary">MongoDB</span>
+            </div>
+            <div class="breadcrumb-nav" id="breadcrumb">
+                <a href="../../index.html">Home</a><span class="sep">/</span>
+                <a href="../../pages/mongodb.html">MongoDB</a><span class="sep">/</span>
+                <span class="current">Transactions</span>
+            </div>
+            <div class="qs-header">
+                <h1 class="qs-title" id="topicTitle">Transactions</h1>
+                <span class="badge qs-badge" id="questionCount">10 Questions</span>
+            </div>
+            <div class="accordion" id="questionsAccordion">
+        <div class="accordion-item">
+            <h2 class="accordion-header" id="h_q0">
+                <button class="accordion-button " type="button" data-bs-toggle="collapse" data-bs-target="#c_q0" aria-expanded="true">
+                    <span class="question-number">1</span>What are multi-document ACID transactions in MongoDB and when were they added?
+                </button>
+            </h2>
+            <div id="c_q0" class="accordion-collapse collapse show" data-bs-parent="#questionsAccordion">
+                <div class="accordion-body">MongoDB added <strong>multi-document ACID transactions</strong> in version 4.0 (July 2018) for replica sets, and extended to sharded clusters in version 4.2. Before this, MongoDB only supported atomic operations at the <strong>single-document level</strong>. ACID stands for: <strong>Atomicity</strong> (all or nothing), <strong>Consistency</strong> (valid state before and after), <strong>Isolation</strong> (concurrent transactions don't interfere), <strong>Durability</strong> (committed transactions survive crashes). Transactions use <strong>snapshot isolation</strong> — each transaction sees a consistent point-in-time snapshot.
+<pre><code>// Multi-document transaction: transfer money between accounts
+const session = client.startSession();
+try {
+  await session.withTransaction(async () => {
+    const accounts = db.collection('accounts');
+
+    const from = await accounts.findOne({ _id: "acct1" }, { session });
+    if (from.balance < amount) throw new Error("Insufficient funds");
+
+    await accounts.updateOne(
+      { _id: "acct1" }, { $inc: { balance: -amount } }, { session });
+    await accounts.updateOne(
+      { _id: "acct2" }, { $inc: { balance: +amount } }, { session });
+  });
+} finally {
+  await session.endSession();
+}</code></pre>
+<p><strong>Why it matters:</strong> Multi-document transactions bridge the gap between MongoDB and SQL for use cases requiring atomicity across multiple collections — a major architectural question in financial and inventory systems.</p>
+<p><strong>Real applications:</strong> Fund transfers, inventory reservation + order creation, and multi-collection audit trail writes all require transactions to ensure all-or-nothing atomicity.</p>
+<p><strong>Common mistakes:</strong> Using transactions unnecessarily for single-document operations (they're already atomic) or for high-volume writes (transactions add overhead; overuse causes performance degradation).</p>
+                </div>
+            </div>
+        </div>
+        <div class="accordion-item">
+            <h2 class="accordion-header" id="h_q1">
+                <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#c_q1" aria-expanded="false">
+                    <span class="question-number">2</span>How do you start and use a MongoDB session and transaction in Node.js?
+                </button>
+            </h2>
+            <div id="c_q1" class="accordion-collapse collapse" data-bs-parent="#questionsAccordion">
+                <div class="accordion-body">MongoDB transactions require a <strong>ClientSession</strong>. The preferred API is <strong><code>session.withTransaction()</code></strong> which automatically handles commit, abort on error, and retry on transient errors. Alternatively, use manual <code>session.startTransaction()</code>, <code>session.commitTransaction()</code>, and <code>session.abortTransaction()</code>. Every database operation inside a transaction must receive the <code>session</code> option — otherwise the operation runs outside the transaction context.
+<pre><code>const { MongoClient } = require('mongodb');
+const client = new MongoClient(MONGO_URI);
+
+async function placeOrder(userId, cartItems) {
+  const session = client.startSession();
+  try {
+    const result = await session.withTransaction(async () => {
+      const db = client.db('shop');
+
+      // All operations MUST pass { session }
+      const order = await db.collection('orders').insertOne(
+        { userId, items: cartItems, status: 'pending', createdAt: new Date() },
+        { session }
+      );
+
+      // Decrement stock for each item
+      for (const item of cartItems) {
+        await db.collection('products').updateOne(
+          { _id: item.productId, stock: { $gte: item.qty } },
+          { $inc: { stock: -item.qty } },
+          { session }
+        );
+      }
+      return order.insertedId;
+    });
+    return result;
+  } finally {
+    await session.endSession(); // always end session!
+  }
+}</code></pre>
+<p><strong>Why it matters:</strong> Correctly using sessions and the withTransaction API (vs manual transaction management) is critical for production reliability — withTransaction auto-retries on transient failures.</p>
+<p><strong>Real applications:</strong> E-commerce order placement: atomically create an order AND decrement product stock — preventing overselling where two concurrent orders could both see sufficient stock.</p>
+<p><strong>Common mistakes:</strong> Forgetting to pass <code>{ session }</code> to one of the operations in a transaction — that operation runs outside the transaction and commits immediately, potentially leaving data in an inconsistent state.</p>
+                </div>
+            </div>
+        </div>
+        <div class="accordion-item">
+            <h2 class="accordion-header" id="h_q2">
+                <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#c_q2" aria-expanded="false">
+                    <span class="question-number">3</span>What are read concern and write concern in MongoDB transactions?
+                </button>
+            </h2>
+            <div id="c_q2" class="accordion-collapse collapse" data-bs-parent="#questionsAccordion">
+                <div class="accordion-body"><strong>Write concern</strong> specifies the level of acknowledgment required from MongoDB before a write is considered successful. <code>{ w: "majority" }</code> (default for transactions) ensures \majority of replica set members have acknowledged the write before committing. <strong>Read concern</strong> controls how current and isolated the data read during a transaction is. <code>"snapshot"</code> (default for transactions) provides a consistent point-in-time view across all reads in the transaction. Other read concerns: <code>"local"</code>, <code>"majority"</code>, <code>"linearizable"</code>.
+<pre><code>// Transaction with explicit concern settings
+const session = client.startSession();
+await session.withTransaction(
+  async () => {
+    // operations...
+    await db.collection('accounts').updateOne(
+      { _id: "acct1" },
+      { $inc: { balance: -1000 } },
+      { session }
+    );
+  },
+  {
+    readConcern:  { level: "snapshot" },   // consistent view
+    writeConcern: { w: "majority" },        // majority acknowledgment
+    readPreference: "primary"               // read from primary
+  }
+);
+
+// Write concern options:
+// w: 0 — fire and forget (no acknowledgment)
+// w: 1 — primary acknowledgment (default)
+// w: "majority" — majority acknowledgment (safest)
+// j: true — wait for journal flush (durability)</code></pre>
+<p><strong>Why it matters:</strong> Understanding write concern and read concern is essential for building systems where data durability and consistency guarantees are required — particularly in financial applications.</p>
+<p><strong>Real applications:</strong> Banking applications use <code>{ w: "majority", j: true }</code> for all financial writes — ensuring transactions are written to disk by a majority of replica set members before confirming success.</p>
+<p><strong>Common mistakes:</strong> Using <code>{ w: 0 }</code> (fire and forget) for financial transactions — this provides no durability guarantees and silently discards write errors.</p>
+                </div>
+            </div>
+        </div>
+        <div class="accordion-item">
+            <h2 class="accordion-header" id="h_q3">
+                <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#c_q3" aria-expanded="false">
+                    <span class="question-number">4</span>What are the limitations and best practices for MongoDB transactions?
+                </button>
+            </h2>
+            <div id="c_q3" class="accordion-collapse collapse" data-bs-parent="#questionsAccordion">
+                <div class="accordion-body">MongoDB transactions have important limitations: transactions spanning <strong>multiple shards</strong> have higher latency; transactions have a default <strong>60-second time limit</strong>; transactions should be short-lived (MongoDB recommends under 1 second); transactions use significant memory and lock contention; and operations inside transactions fetch data at the transaction's snapshot time. Best practices: keep transactions small, avoid user interaction inside transactions, and prefer single-document atomic operations when possible.
+<pre><code>// BEST PRACTICES:
+// 1. Keep transactions short (aim for &lt;1 second)
+// 2. Only include operations that NEED atomicity
+// 3. Avoid long-running computations inside transactions
+// 4. Handle TransientTransactionError and UnknownTransactionCommitResult
+
+// withTransaction auto-retries on TransientTransactionError
+await session.withTransaction(async () => {
+  // Keep this block fast and focused
+  await db.orders.insertOne({ ... }, { session });
+  await db.inventory.updateOne({ ... }, { session });
+  // DON'T: send emails, call external APIs, do heavy computation here
+});
+
+// Transaction timeout (default 60s, configurable per-op)
+await session.withTransaction(async () => { ... }, {
+  maxTimeMS: 30000  // 30 second max
+});</code></pre>
+<p><strong>Why it matters:</strong> Over-relying on transactions in MongoDB negates its performance advantages. Interviewers want to see that you understand when to use them vs. when single-document atomicity suffices.</p>
+<p><strong>Real applications:</strong> Order fulfillment systems use transactions only for the critical stock-decrement + order-create pair. Email sending, analytics events, and notifications run outside the transaction asynchronously.</p>
+<p><strong>Common mistakes:</strong> Including network calls (external APIs, email sending), heavy computation, or long-running queries inside transactions — this holds locks, causes contention, and risks hitting the 60-second timeout.</p>
+                </div>
+            </div>
+        </div>
+        <div class="accordion-item">
+            <h2 class="accordion-header" id="h_q4">
+                <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#c_q4" aria-expanded="false">
+                    <span class="question-number">5</span>What is the difference between single-document atomicity and multi-document transactions?
+                </button>
+            </h2>
+            <div id="c_q4" class="accordion-collapse collapse" data-bs-parent="#questionsAccordion">
+                <div class="accordion-body">MongoDB has always provided <strong>single-document atomic operations</strong> — any operation on a single document (including nested arrays and subdocuments) is atomic with no transaction needed. This is a key architectural advantage to leverage. Use <strong>multi-document transactions</strong> only when you genuinely need atomicity across multiple documents or collections. Good schema design with embedded documents can often eliminate the need for transactions by keeping related data in a single document.
+<pre><code>// SINGLE-DOCUMENT ATOMIC (NO transaction needed):
+// This entire update is atomic — all-or-nothing in one document
+await db.orders.updateOne(
+  { _id: orderId },
+  {
+    $set: {
+      "shipping.status": "dispatched",
+      "shipping.trackingNumber": "TRK001",
+      "shipping.dispatchedAt": new Date()
+    },
+    $push: {
+      statusHistory: { status: "dispatched", ts: new Date() }
+    }
+  }
+);
+
+// MULTI-DOCUMENT TRANSACTION NEEDED:
+// When atomically modifying two separate documents
+// accounts.updateOne(acct1, $inc:balance:-100)  +
+// accounts.updateOne(acct2, $inc:balance:+100)
+// BOTH must succeed or BOTH must fail → use transaction</code></pre>
+<p><strong>Why it matters:</strong> A good MongoDB developer knows when NOT to use transactions — leveraging single-document atomicity via schema design leads to simpler, faster code.</p>
+<p><strong>Real applications:</strong> Order status history uses an embedded statusHistory array within the order document — status updates and history appends are a single atomic operation, no transaction needed.</p>
+<p><strong>Common mistakes:</strong> Reaching for transactions as the default solution — if better schema design (embedding related data) eliminates the multi-document write, avoid the transaction overhead entirely.</p>
+                </div>
+            </div>
+        </div>
+        <div class="accordion-item">
+            <h2 class="accordion-header" id="h_q5">
+                <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#c_q5" aria-expanded="false">
+                    <span class="question-number">6</span>How do MongoDB transactions handle errors and retries?
+                </button>
+            </h2>
+            <div id="c_q5" class="accordion-collapse collapse" data-bs-parent="#questionsAccordion">
+                <div class="accordion-body">MongoDB transactions can fail with two types of retryable errors: <strong>TransientTransactionError</strong> (the entire transaction should be retried from the start) and <strong>UnknownTransactionCommitResult</strong> (the commit should be retried, the operations are already done). The <strong><code>withTransaction()</code> API automatically handles both retry cases</strong>, making it the strongly preferred approach over manual transaction management. For manual transactions, you must explicitly implement retry logic.
+<pre><code>// withTransaction: auto-retries on TransientTransactionError
+// and UnknownTransactionCommitResult (strongly preferred)
+await session.withTransaction(async () => {
+  await doOperationsA(session);
+  await doOperationsB(session); // automatic retry if transient error
+});
+
+// Manual transaction (for reference — NOT recommended)
+session.startTransaction();
+try {
+  await doOperations(session);
+  await session.commitTransaction();
+} catch (error) {
+  if (error.hasErrorLabel('TransientTransactionError')) {
+    await session.abortTransaction();
+    // retry the whole function
+  } else if (error.hasErrorLabel('UnknownTransactionCommitResult')) {
+    // retry commitTransaction only
+    await session.commitTransaction();
+  } else {
+    await session.abortTransaction();
+    throw error;
+  }
+} finally {
+  await session.endSession();
+}</code></pre>
+<p><strong>Why it matters:</strong> Improper error handling in transactions is a common source of data corruption bugs. withTransaction handles the retry complexity automatically, preventing these pitfalls.</p>
+<p><strong>Real applications:</strong> High-concurrency financial systems experience TransientTransactionErrors during write conflicts — withTransaction's automatic retry ensures these resolve without manual intervention or application crashes.</p>
+<p><strong>Common mistakes:</strong> Writing manual transaction retry logic that retries only the commit (UnknownTransactionCommitResult) but not the full transaction (TransientTransactionError), causing incomplete retries.</p>
+                </div>
+            </div>
+        </div>
+        <div class="accordion-item">
+            <h2 class="accordion-header" id="h_q6">
+                <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#c_q6" aria-expanded="false">
+                    <span class="question-number">7</span>How do transactions work in a MongoDB sharded cluster?
+                </button>
+            </h2>
+            <div id="c_q6" class="accordion-collapse collapse" data-bs-parent="#questionsAccordion">
+                <div class="accordion-body">In a <strong>sharded cluster</strong>, multi-document transactions can span multiple shards (multi-shard transactions) and require a <strong>two-phase commit protocol</strong> coordinated by the mongos router. All shards involved lock their relevant documents and coordinate the commit. Multi-shard transactions have <strong>higher latency</strong> than single-shard transactions and significantly higher latency than single-document operations. Minimize cross-shard transactions by designing your shard key so transactional data lands on the same shard.
+<pre><code>// Shard key design to minimize cross-shard transactions
+// Goal: keep related transactional data on same shard
+
+// BAD: Orders and inventory on different shards
+// orders sharded by orderId, inventory sharded by productId
+// → transfer order data requires cross-shard transaction
+
+// BETTER: Zone sharding so related data collocates
+sh.addShardToZone("shard1", "region-mumbai");
+sh.updateZoneKeyRange("myapp.orders",
+  { region: "mumbai" }, { region: "mumbai￿" }, "region-mumbai");
+// Orders + inventory in Mumbai → same shard → single-shard transaction
+
+// Check if transaction is cross-shard (in explain output):
+// executionStats.queryPlanner.winningPlan.shards > 1
+// → cross-shard transaction → higher latency expected</code></pre>
+<p><strong>Why it matters:</strong> Cross-shard transactions can be 10x slower than single-shard — knowing how to design around them shows production-scale MongoDB expertise.</p>
+<p><strong>Real applications:</strong> Financial platforms shard by customerId — all of a customer's accounts are on the same shard, so intra-customer transfers remain single-shard transactions without coordination overhead.</p>
+<p><strong>Common mistakes:</strong> Sharding on a key that randomly distributes related transactional data across shards — this forces every transaction to be a cross-shard distributed transaction.</p>
+                </div>
+            </div>
+        </div>
+        <div class="accordion-item">
+            <h2 class="accordion-header" id="h_q7">
+                <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#c_q7" aria-expanded="false">
+                    <span class="question-number">8</span>What is the compare-and-swap pattern using findOneAndUpdate?
+                </button>
+            </h2>
+            <div id="c_q7" class="accordion-collapse collapse" data-bs-parent="#questionsAccordion">
+                <div class="accordion-body">The <strong>compare-and-swap (CAS)</strong> pattern uses <code>findOneAndUpdate</code> to atomically read a document, check a condition, and update it ONLY if the condition is still true — all in one atomic operation. This is MongoDB's equivalent of an optimistic lock or atomic compare-and-swap CPU instruction. It's a lightweight alternative to full transactions for single-document conditional updates.
+<pre><code>// CAS: claim a task only if it's still "pending"
+const task = await db.collection('tasks').findOneAndUpdate(
+  {
+    status: "pending",   // condition: only if still pending
+    _id: taskId
+  },
+  {
+    $set: {
+      status: "processing",
+      claimedBy: workerId,
+      claimedAt: new Date()
+    }
+  },
+  { returnDocument: 'after' }  // return updated doc
+);
+
+if (!task) {
+  // Another worker already claimed this task
+  console.log("Task already taken");
+  return;
+}
+
+// task is now claimed — safe to process
+await processTask(task);</code></pre>
+<p><strong>Why it matters:</strong> CAS with findOneAndUpdate is a common interview pattern for concurrency control — it shows you can solve coordination problems without the overhead of full transactions.</p>
+<p><strong>Real applications:</strong> Job queues, appointment booking, and ticket reservation systems all use CAS to claim items atomically — preventing two workers/users from claiming the same resource.</p>
+<p><strong>Common mistakes:</strong> Doing a separate find() then update() — the gap between find and update creates a race condition where another request can modify the document.</p>
+                </div>
+            </div>
+        </div>
+        <div class="accordion-item">
+            <h2 class="accordion-header" id="h_q8">
+                <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#c_q8" aria-expanded="false">
+                    <span class="question-number">9</span>What is optimistic locking in MongoDB and how is it implemented?
+                </button>
+            </h2>
+            <div id="c_q8" class="accordion-collapse collapse" data-bs-parent="#questionsAccordion">
+                <div class="accordion-body"><strong>Optimistic locking</strong> assumes conflicts are rare — it allows concurrent reads, but before writing, checks if data has changed since it was read. Implemented using a <strong>version field</strong> (<code>__v</code> or <code>version</code>) that increments on each write. The update includes the version in the filter: if the version has changed (someone else updated it), the filter matches nothing and the update returns <code>modifiedCount: 0</code>, signaling a conflict that the application must handle.
+<pre><code>// Optimistic locking with version field
+// Read document (includes version)
+const doc = await db.collection('inventory').findOne({ _id: productId });
+const currentVersion = doc.__v;
+
+// User modifies quantity in application...
+const newQuantity = doc.quantity - orderAmount;
+
+// Write with version check (optimistic lock)
+const result = await db.collection('inventory').updateOne(
+  {
+    _id: productId,
+    __v: currentVersion   // MUST match current version
+  },
+  {
+    $set: { quantity: newQuantity },
+    $inc: { __v: 1 }      // increment version
+  }
+);
+
+if (result.modifiedCount === 0) {
+  // Version mismatch — concurrent modification detected!
+  throw new ConflictError("Inventory was updated by another process. Please retry.");
+}</code></pre>
+<p><strong>Why it matters:</strong> Optimistic locking is a standard concurrency pattern for high-read, low-conflict scenarios — cheaper than transactions with good conflict detection.</p>
+<p><strong>Real applications:</strong> Content management systems use optimistic locking to prevent two editors from simultaneously overwriting each other's changes to the same article.</p>
+<p><strong>Common mistakes:</strong> Not retrying after a version conflict — the correct response is to re-read the document (get latest version) and re-apply the change, not just throw an error to the user.</p>
+                </div>
+            </div>
+        </div>
+        <div class="accordion-item">
+            <h2 class="accordion-header" id="h_q9">
+                <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#c_q9" aria-expanded="false">
+                    <span class="question-number">10</span>What is the two-phase commit pattern and when is it used?
+                </button>
+            </h2>
+            <div id="c_q9" class="accordion-collapse collapse" data-bs-parent="#questionsAccordion">
+                <div class="accordion-body">The <strong>two-phase commit (2PC) pattern</strong> was a manual workaround for multi-document transactions in MongoDB versions before 4.0. It uses an intermediate <strong>transaction document</strong> that tracks the transaction state (initial → pending → applied/cancelled). Each participating document records the pending transaction ID, enabling compensation/rollback by inspecting incomplete transactions. Today, native ACID transactions replace this pattern for structured data, but 2PC concepts still appear in distributed systems design discussions.
+<pre><code>// Modern approach: use native transactions (MongoDB 4.0+)
+// The OLD 2PC pattern (for historical knowledge):
+
+// 1. Create transaction record
+const txn = await db.transactions.insertOne({
+  fromId: "acct1", toId: "acct2",
+  amount: 1000,
+  state: "initial"   // states: initial → pending → applied
+});
+
+// 2. Mark both accounts as "pending transaction"
+await db.accounts.updateOne({ _id: "acct1" },
+  { $push: { pendingTxns: txn.insertedId } });
+await db.accounts.updateOne({ _id: "acct2" },
+  { $push: { pendingTxns: txn.insertedId } });
+
+// 3. Apply (debit/credit)
+await db.transactions.updateOne({ _id: txn.insertedId },
+  { $set: { state: "applied" } });
+
+// Recovery: check for "pending" transactions on startup
+// and re-apply or rollback based on which accounts were updated</code></pre>
+<p><strong>Why it matters:</strong> Understanding 2PC shows distributed systems knowledge and explains WHY native MongoDB transactions were a major feature — they replaced this complex error-prone manual pattern.</p>
+<p><strong>Real applications:</strong> Pre-4.0 MongoDB financial systems used 2PC. Understanding the pattern helps when reading legacy codebases or architecting distributed systems across heterogeneous databases.</p>
+<p><strong>Common mistakes:</strong> Implementing manual 2PC for new MongoDB 4.0+ applications — just use native transactions (<code>session.withTransaction</code>). Manual 2PC is complex, error-prone, and unnecessary.</p>
+                </div>
+            </div>
+        </div>
+            </div>
+            <div class="topic-nav" id="topicNav"><a class="topic-nav-btn prev" href="relationships.html"><span class="label"><i class="bi bi-arrow-left me-1"></i> Previous</span><span class="title">Relationships</span></a><a class="topic-nav-btn next" href="mongoose-odm.html"><span class="label">Next <i class="bi bi-arrow-right ms-1"></i></span><span class="title">Mongoose ODM</span></a></div>
+            <footer class="app-footer">
+                <p>&copy; 2026 InterviewPrep &mdash; MongoDB Interview Questions</p>
+            </footer>
+        </div>
+    </div>
+    <button class="btn-totop" id="backToTop"><i class="bi bi-chevron-up"></i></button>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>
+    <script>
+    (function(){
+        var sb=document.getElementById('sidebar'),bd=document.getElementById('sidebarBackdrop'),tg=document.getElementById('sidebarToggle');
+        if(tg)tg.addEventListener('click',function(){sb.classList.add('open');bd.classList.add('show');});
+        if(bd)bd.addEventListener('click',function(){sb.classList.remove('open');bd.classList.remove('show');});
+        var btt=document.getElementById('backToTop');
+        window.addEventListener('scroll',function(){btt.classList.toggle('show',window.scrollY>400);});
+        btt.addEventListener('click',function(){window.scrollTo({top:0,behavior:'smooth'});});
+        var acc=document.getElementById('questionsAccordion'),totalCount=10;
+        var si=document.getElementById('searchInput');
+        if(si){var t=null;si.addEventListener('input',function(){clearTimeout(t);var v=this.value.trim().toLowerCase();
+        if(v.length<2){acc.querySelectorAll('.accordion-item').forEach(function(el){el.style.display='';});document.getElementById('questionCount').textContent=totalCount+' Questions';return;}
+        t=setTimeout(function(){var c=0;acc.querySelectorAll('.accordion-item').forEach(function(el){var m=el.textContent.toLowerCase().indexOf(v)!==-1;el.style.display=m?'':'none';if(m)c++;});document.getElementById('questionCount').textContent=c+' Questions';},200);});}
+    })();
+    </script>
+</body>
+</html>

@@ -1,0 +1,789 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="Top 15 MongoDB CRUD operations interview questions. Master insertOne, find, update operators, delete, bulkWrite, and write concerns with real code examples.">
+    <meta name="keywords" content="MongoDB CRUD, insertOne, updateOne, deleteMany, find, MongoDB interview questions, update operators, bulkWrite, write concern">
+    <meta name="author" content="InterviewPrep">
+    <meta name="robots" content="index, follow">
+    <link rel="icon" type="image/svg+xml" href="../../favicon.svg" sizes="any">
+    <meta property="og:type" content="website">
+    <meta property="og:title" content="CRUD Operations — MongoDB Interview Questions | InterviewPrep">
+    <meta property="og:description" content="Top 15 MongoDB CRUD operations interview questions. Master insertOne, find, update operators, delete, bulkWrite, and write concerns with real code examples.">
+    <meta property="og:url" content="https://coddingquestionhub.com/topics/mongodb/crud-operations.html">
+    <title>CRUD Operations — MongoDB Interview Questions | InterviewPrep 2026</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&family=Fira+Code:wght@400;500&display=swap" rel="stylesheet">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="../../css/styles.css">
+    <link rel="canonical" href="https://coddingquestionhub.com/topics/mongodb/crud-operations.html">
+    <script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "FAQPage",
+  "mainEntity": [
+    {
+      "@type": "Question",
+      "name": "CRUD Operations — MongoDB Interview Questions | InterviewPrep",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "Top 15 MongoDB CRUD operations interview questions. Master insertOne, find, update operators, delete, bulkWrite, and write concerns with real code examples."
+      }
+    }
+  ]
+}
+    </script>
+    <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-8957020141286926" crossorigin="anonymous"></script>
+    <script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "BreadcrumbList",
+  "itemListElement": [
+    {
+      "@type": "ListItem",
+      "position": 1,
+      "name": "Home",
+      "item": "https://coddingquestionhub.com"
+    },
+    {
+      "@type": "ListItem",
+      "position": 2,
+      "name": "Topics",
+      "item": "https://coddingquestionhub.com/topics"
+    },
+    {
+      "@type": "ListItem",
+      "position": 3,
+      "name": "Mongodb",
+      "item": "https://coddingquestionhub.com/topics/mongodb"
+    },
+    {
+      "@type": "ListItem",
+      "position": 4,
+      "name": "Crud Operations",
+      "item": "https://coddingquestionhub.com/topics/mongodb/crud-operations.html"
+    }
+  ]
+}
+    </script>
+</head>
+<body class="theme-mongodb">
+    <nav class="navbar navbar-expand-lg sticky-top" id="mainNavbar">
+        <div class="container-fluid px-3 px-lg-4">
+            <a class="navbar-brand fw-bold d-flex align-items-center gap-2" href="../../index.html">
+                <span class="brand-icon"><i class="bi bi-braces-asterisk"></i></span>
+                <span>Interview<span class="brand-accent">Prep</span></span>
+            </a>
+            <button class="navbar-toggler border-0 shadow-none" type="button"
+                    data-bs-toggle="collapse" data-bs-target="#navbarContent">
+                <i class="bi bi-list fs-3 text-white"></i>
+            </button>
+            <div class="collapse navbar-collapse" id="navbarContent">
+                <ul class="navbar-nav me-auto mb-2 mb-lg-0 ms-lg-3">
+                    <li class="nav-item dropdown">
+                        <a class="nav-link dropdown-toggle fw-500" href="#" role="button" data-bs-toggle="dropdown">
+                            <i class="bi bi-layers me-1"></i> Choose Category
+                        </a>
+                        <ul class="dropdown-menu">
+                            <li><a class="dropdown-item fw-500" href="../../pages/angular.html"><i class="bi bi-bootstrap me-2 text-danger"></i>Angular</a></li>
+                            <li><a class="dropdown-item fw-500" href="../../pages/react.html"><i class="bi bi-infinity me-2 text-info"></i>React</a></li>
+                            <li><a class="dropdown-item fw-500" href="../../pages/node.html"><i class="bi bi-hdd-network me-2 text-success"></i>Node.js</a></li>
+                            <li><a class="dropdown-item fw-500" href="../../pages/javascript.html"><i class="bi bi-filetype-js me-2 text-warning"></i>JavaScript</a></li>
+                            <li><a class="dropdown-item fw-500" href="../../pages/dsa.html"><i class="bi bi-diagram-3-fill me-2" style="color:#8b5cf6"></i>DSA</a></li>
+                            <li><a class="dropdown-item fw-500" href="../../pages/logical.html"><i class="bi bi-lightbulb me-2" style="color:#f59e0b"></i>Logical Reasoning</a></li>
+                            <li><a class="dropdown-item fw-500" href="../../pages/mongodb.html"><i class="bi bi-database-fill me-2" style="color:#4DB33D"></i>MongoDB</a></li>
+                            <li><a class="dropdown-item fw-500" href="../../pages/mysql.html"><i class="bi bi-table me-2" style="color:#0F766E"></i>MySQL</a></li>
+                        </ul>
+                    </li>
+                </ul>
+                <div class="search-wrap">
+                    <i class="bi bi-search search-icon"></i>
+                    <input class="form-control search-input" type="search" placeholder="Search questions..." id="searchInput">
+                </div>
+            </div>
+        </div>
+    </nav>    <div class="app-wrapper">
+        <aside class="sidebar" id="sidebar">
+            <div class="sidebar-head">
+                <h6><i class="bi bi-database-fill me-2"></i>MongoDB Topics</h6>
+            </div>
+            <nav>
+                <ul class="sidebar-links" id="topicList">
+                    <li><a class="nav-link" href="mongodb-fundamentals.html"><i class="bi bi-database-fill"></i><span>MongoDB Fundamentals</span></a></li>
+                    <li><a class="nav-link active" href="crud-operations.html"><i class="bi bi-pencil-square"></i><span>CRUD Operations</span></a></li>
+                    <li><a class="nav-link" href="aggregation-pipeline.html"><i class="bi bi-funnel-fill"></i><span>Aggregation Pipeline</span></a></li>
+                    <li><a class="nav-link" href="indexes.html"><i class="bi bi-lightning-fill"></i><span>Indexes & Performance</span></a></li>
+                    <li><a class="nav-link" href="schema-design.html"><i class="bi bi-layout-wtf"></i><span>Schema Design</span></a></li>
+                    <li><a class="nav-link" href="relationships.html"><i class="bi bi-diagram-3-fill"></i><span>Relationships</span></a></li>
+                    <li><a class="nav-link" href="transactions.html"><i class="bi bi-arrow-repeat"></i><span>Transactions</span></a></li>
+                    <li><a class="nav-link" href="mongoose-odm.html"><i class="bi bi-box-seam"></i><span>Mongoose ODM</span></a></li>
+                    <li><a class="nav-link" href="performance-optimization.html"><i class="bi bi-speedometer2"></i><span>Performance Optimization</span></a></li>
+                    <li><a class="nav-link" href="replication-sharding.html"><i class="bi bi-hdd-stack-fill"></i><span>Replication & Sharding</span></a></li>
+                    <li><a class="nav-link" href="security.html"><i class="bi bi-shield-lock-fill"></i><span>Security & Auth</span></a></li>
+                    <li><a class="nav-link" href="text-search-geospatial.html"><i class="bi bi-search"></i><span>Text Search & Geospatial</span></a></li>
+                    <li><a class="nav-link" href="change-streams-watchers.html"><i class="bi bi-bell-fill"></i><span>Change Streams & Watch</span></a></li>
+                    <li><a class="nav-link" href="interview-queries-1.html"><i class="bi bi-code-slash"></i><span>Interview Queries — I</span></a></li>
+                    <li><a class="nav-link" href="interview-queries-2.html"><i class="bi bi-code-square"></i><span>Interview Queries — II</span></a></li>
+                </ul>
+            </nav>
+        </aside>
+        <div class="sidebar-backdrop" id="sidebarBackdrop"></div>
+        <div class="content-area">
+            <div class="mobile-bar d-lg-none">
+                <button class="btn btn-sm btn-glass" id="sidebarToggle">
+                    <i class="bi bi-layout-sidebar-inset me-1"></i>Topics
+                </button>
+                <span class="badge rounded-pill bg-success">MongoDB</span>
+            </div>
+            <div class="breadcrumb-nav" id="breadcrumb">
+                <a href="../../index.html">Home</a><span class="sep">/</span>
+                <a href="../../pages/mongodb.html">MongoDB</a><span class="sep">/</span>
+                <span class="current">CRUD Operations</span>
+            </div>
+            <div class="qs-header">
+                <h1 class="qs-title" id="topicTitle">CRUD Operations</h1>
+                <span class="badge qs-badge" id="questionCount">14 Questions</span>
+            </div>
+            <div class="accordion" id="questionsAccordion">
+        <div class="accordion-item">
+            <h2 class="accordion-header" id="h_q0">
+                <button class="accordion-button" type="button"
+                    data-bs-toggle="collapse" data-bs-target="#c_q0"
+                    aria-expanded="true">
+                    <span class="question-number">1</span>How do you insert documents into a MongoDB collection?
+                </button>
+            </h2>
+            <div id="c_q0" class="accordion-collapse collapse show"
+                data-bs-parent="#questionsAccordion">
+                <div class="accordion-body">MongoDB provides <strong>insertOne()</strong> to insert a single document and <strong>insertMany()</strong> to insert multiple documents in one operation. If the <code>_id</code> field is omitted, MongoDB auto-generates an ObjectId. <strong>insertMany()</strong> defaults to <strong>ordered inserts</strong> — it stops at the first error. Set <code>ordered: false</code> for bulk inserts that continue past errors. Both operations return a result object with the inserted _id(s). The <code>insert()</code> method (deprecated) supported both single and array inputs but is removed in newer drivers.
+<pre><code>// insertOne — single document
+const result = await db.collection('users').insertOne({
+  name: "Mayur",
+  email: "mayur@example.com",
+  age: 30,
+  createdAt: new Date()
+});
+console.log(result.insertedId); // ObjectId("...")
+
+// insertMany — multiple documents
+const result2 = await db.collection('users').insertMany([
+  { name: "Alice", email: "alice@example.com", age: 25 },
+  { name: "Bob",   email: "bob@example.com",   age: 28 }
+], { ordered: false }); // continue on error
+console.log(result2.insertedCount); // 2
+
+// Custom _id
+await db.collection('settings').insertOne({
+  _id: "app_config",
+  theme: "dark",
+  maxUsers: 1000
+});</code></pre>
+<p><strong>Why it matters:</strong> Core CRUD operation tested in every MongoDB interview. Understanding <strong>ordered</strong> vs <strong>unordered inserts</strong> is important for bulk data pipelines.</p>
+<p><strong>Real applications:</strong> <strong>ordered: false</strong> is used in ETL pipelines where partial success is acceptable and the job should continue even when some documents violate unique index constraints.</p>
+<p><strong>Common mistakes:</strong> Not handling <code>MongoBulkWriteError</code> when using <code>insertMany()</code> with <code>ordered: false</code> — individual errors are embedded in the error object.</p>
+                </div>
+            </div>
+        </div>
+        <div class="accordion-item">
+            <h2 class="accordion-header" id="h_q1">
+                <button class="accordion-button collapsed" type="button"
+                    data-bs-toggle="collapse" data-bs-target="#c_q1"
+                    aria-expanded="false">
+                    <span class="question-number">2</span>How do you query documents with conditions in MongoDB?
+                </button>
+            </h2>
+            <div id="c_q1" class="accordion-collapse collapse"
+                data-bs-parent="#questionsAccordion">
+                <div class="accordion-body">MongoDB's <code>find()</code> method accepts a <strong>filter object</strong> using query operators to express conditions. The filter uses operators like <strong>$eq, $ne, $gt, $gte, $lt, $lte</strong> for comparisons, <strong>$in, $nin</strong> for array membership, <strong>$and, $or, $not, $nor</strong> for logic, and <strong>$exists, $type</strong> for field checks. An empty filter <code>{}</code> matches all documents. Conditions on <strong>nested fields</strong> use dot notation: <code>"address.city": "Mumbai"</code>. Conditions on <strong>array elements</strong> check if the array contains the value.
+<pre><code>// Comparison operators
+db.users.find({ age: { $gte: 18, $lte: 65 } });
+db.users.find({ status: { $ne: "inactive" } });
+db.users.find({ role: { $in: ["admin", "moderator"] } });
+
+// Logical operators
+db.users.find({
+  $or: [{ city: "Mumbai" }, { city: "Pune" }]
+});
+db.users.find({
+  $and: [{ age: { $gte: 25 } }, { experience: { $gte: 3 } }]
+});
+
+// Nested field (dot notation)
+db.users.find({ "address.city": "Mumbai" });
+
+// Array contains value
+db.users.find({ skills: "JavaScript" });
+
+// $exists — field must exist and not be null
+db.users.find({ email: { $exists: true, $ne: null } });
+
+// $type — check BSON type
+db.users.find({ age: { $type: "int" } });</code></pre>
+<p><strong>Why it matters:</strong> Query operators are the backbone of all MongoDB reads. Interviewers expect fluency with comparison, logical, and element operators.</p>
+<p><strong>Real applications:</strong> <strong>$in</strong> for filtering by multiple status values, <strong>$gte/$lte</strong> for date ranges, <strong>$exists</strong> for optional fields in schema-less collections.</p>
+<p><strong>Common mistakes:</strong> Confusing <code>{ age: 25 }</code> (equality) with <code>{ age: { $eq: 25 } }</code> — they are equivalent, but mixing syntax causes confusion. Also using <code>$and</code> unnecessarily when conditions on different fields are implicitly ANDed.</p>
+                </div>
+            </div>
+        </div>
+        <div class="accordion-item">
+            <h2 class="accordion-header" id="h_q2">
+                <button class="accordion-button collapsed" type="button"
+                    data-bs-toggle="collapse" data-bs-target="#c_q2"
+                    aria-expanded="false">
+                    <span class="question-number">3</span>How does updateOne() differ from updateMany() and replaceOne()?
+                </button>
+            </h2>
+            <div id="c_q2" class="accordion-collapse collapse"
+                data-bs-parent="#questionsAccordion">
+                <div class="accordion-body"><strong>updateOne()</strong> updates the first matching document, <strong>updateMany()</strong> updates all matching documents, and <strong>replaceOne()</strong> replaces the entire document (except _id) with a new document. Update operations use <strong>update operators</strong> like <code>$set</code>, <code>$unset</code>, <code>$inc</code>, <code>$push</code>, <code>$pull</code>, etc. <code>replaceOne()</code> does not use operators — it takes a plain replacement document and overwrites all fields. The <strong>upsert</strong> option (insert if no match) works with all three methods.
+<pre><code>// updateOne — update first match
+db.users.updateOne(
+  { email: "mayur@example.com" },
+  {
+    $set: { age: 31, updatedAt: new Date() },
+    $push: { skills: "GraphQL" }
+  }
+);
+
+// updateMany — update all matches
+db.users.updateMany(
+  { role: "user" },
+  { $set: { isVerified: false } }
+);
+
+// replaceOne — replace entire document
+db.users.replaceOne(
+  { _id: ObjectId("...") },
+  { name: "Mayur", email: "new@example.com", age: 31 }
+  // ^^ _id is preserved, everything else replaced
+);
+
+// upsert — insert if no document matches
+db.users.updateOne(
+  { email: "new@example.com" },
+  { $set: { name: "Alice", role: "user" }, $setOnInsert: { createdAt: new Date() } },
+  { upsert: true }
+);</code></pre>
+<p><strong>Why it matters:</strong> Tests understanding of <strong>partial vs full document updates</strong>. Using <code>replaceOne()</code> instead of <code>updateOne()</code> accidentally wipes unmentioned fields — a common data loss bug.</p>
+<p><strong>Real applications:</strong> <code>updateMany()</code> for <strong>schema migrations</strong> (adding a new field to all documents), <code>upsert</code> for <strong>idempotent writes</strong> in event-driven systems.</p>
+<p><strong>Common mistakes:</strong> Forgetting <code>$set</code> and using a plain object in an update — this triggers a <strong>replace operation</strong> silently, wiping all fields. Always use update operators explicitly.</p>
+                </div>
+            </div>
+        </div>
+        <div class="accordion-item">
+            <h2 class="accordion-header" id="h_q3">
+                <button class="accordion-button collapsed" type="button"
+                    data-bs-toggle="collapse" data-bs-target="#c_q3"
+                    aria-expanded="false">
+                    <span class="question-number">4</span>What update operators does MongoDB support?
+                </button>
+            </h2>
+            <div id="c_q3" class="accordion-collapse collapse"
+                data-bs-parent="#questionsAccordion">
+                <div class="accordion-body">MongoDB provides a rich set of <strong>update operators</strong> categorized into field updates, array updates, and bitwise operations. <strong>Field operators</strong>: <code>$set</code> (set field value), <code>$unset</code> (remove field), <code>$inc</code> (increment), <code>$mul</code> (multiply), <code>$rename</code> (rename field), <code>$min/$max</code> (update if less/greater), <code>$setOnInsert</code> (only on upsert insert). <strong>Array operators</strong>: <code>$push</code> (append), <code>$pop</code> (remove first/last), <code>$pull</code> (remove matching), <code>$addToSet</code> (add if not exists), <code>$each</code> (with $push for multiple). <strong>Positional</strong>: <code>$</code> (first match), <code>$[]</code> (all elements), <code>$[identifier]</code> (filtered).
+<pre><code>// $inc — increment views by 1
+db.posts.updateOne({ _id: postId }, { $inc: { views: 1, likes: 1 } });
+
+// $push — add to array
+db.posts.updateOne({ _id: postId }, { $push: { tags: "mongodb" } });
+
+// $addToSet — add only if not already present
+db.users.updateOne({ _id: userId }, { $addToSet: { skills: "React" } });
+
+// $pull — remove matching elements
+db.users.updateOne({ _id: userId }, { $pull: { skills: "jQuery" } });
+
+// $push with $each and $slice (keep last 5)
+db.feeds.updateOne({ _id: userId }, {
+  $push: { activities: { $each: [newActivity], $slice: -5 } }
+});
+
+// $unset — remove a field
+db.users.updateOne({ _id: userId }, { $unset: { tempToken: "" } });
+
+// Positional $ — update matched array element
+db.orders.updateOne(
+  { _id: orderId, "items.productId": "abc" },
+  { $set: { "items.$.status": "shipped" } }
+);</code></pre>
+<p><strong>Why it matters:</strong> Update operators are asked heavily in MongoDB interviews. Mastery of <code>$push</code>, <code>$pull</code>, <code>$addToSet</code>, and positional operators separates intermediate from advanced developers.</p>
+<p><strong>Real applications:</strong> <code>$inc</code> for <strong>counters and analytics</strong>, <code>$addToSet</code> for <strong>tag systems</strong>, positional <code>$</code> for <strong>updating nested array elements</strong> in order management.</p>
+<p><strong>Common mistakes:</strong> Using <code>$push</code> when <code>$addToSet</code> is needed — <code>$push</code> allows duplicate values in arrays.</p>
+                </div>
+            </div>
+        </div>
+        <div class="accordion-item">
+            <h2 class="accordion-header" id="h_q4">
+                <button class="accordion-button collapsed" type="button"
+                    data-bs-toggle="collapse" data-bs-target="#c_q4"
+                    aria-expanded="false">
+                    <span class="question-number">5</span>How do you delete documents in MongoDB?
+                </button>
+            </h2>
+            <div id="c_q4" class="accordion-collapse collapse"
+                data-bs-parent="#questionsAccordion">
+                <div class="accordion-body">MongoDB provides <strong>deleteOne()</strong> (removes first matching document), <strong>deleteMany()</strong> (removes all matching documents), and <strong>drop()</strong> (removes the entire collection including indexes). <strong>findOneAndDelete()</strong> atomically finds, removes, and returns the deleted document in a single operation — useful when you need the document data after deletion. To clear all documents while keeping the collection and its indexes, use <code>deleteMany({})</code>. Use <code>drop()</code> when you want to remove the collection entirely including all indexes.
+<pre><code>// deleteOne — remove first match
+const result = await db.collection('sessions').deleteOne({
+  userId: userId,
+  expiresAt: { $lt: new Date() }
+});
+console.log(result.deletedCount); // 0 or 1
+
+// deleteMany — remove all expired sessions
+const result2 = await db.collection('sessions').deleteMany({
+  expiresAt: { $lt: new Date() }
+});
+console.log(result2.deletedCount); // N
+
+// findOneAndDelete — atomic find + delete, returns document
+const deletedToken = await db.collection('tokens').findOneAndDelete(
+  { token: "abc123" },
+  { returnDocument: "before" } // return doc before deletion
+);
+
+// Drop collection (removes collection + indexes)
+await db.collection('temp_data').drop();
+
+// Delete all documents but keep collection
+await db.collection('cache').deleteMany({});</code></pre>
+<p><strong>Why it matters:</strong> Tests awareness of <strong>atomic operations</strong> and the difference between removing documents vs dropping collections. Important for <strong>cleanup jobs and session management</strong>.</p>
+<p><strong>Real applications:</strong> <strong>TTL indexes</strong> auto-delete expired documents, <code>findOneAndDelete</code> for <strong>job queue consumption</strong> (pop a task atomically).</p>
+<p><strong>Common mistakes:</strong> Running <code>deleteMany({})</code> without a filter in production — this deletes <strong>ALL documents</strong>. Always double-check the filter in deletion operations.</p>
+                </div>
+            </div>
+        </div>
+        <div class="accordion-item">
+            <h2 class="accordion-header" id="h_q5">
+                <button class="accordion-button collapsed" type="button"
+                    data-bs-toggle="collapse" data-bs-target="#c_q5"
+                    aria-expanded="false">
+                    <span class="question-number">6</span>What is findOneAndUpdate() and when is it useful?
+                </button>
+            </h2>
+            <div id="c_q5" class="accordion-collapse collapse"
+                data-bs-parent="#questionsAccordion">
+                <div class="accordion-body"><strong>findOneAndUpdate()</strong> atomically finds a document, applies an update, and returns either the <strong>original or updated</strong> document in a single round-trip. This is crucial for <strong>compare-and-swap operations</strong> where you need to know the document's state before or after the update. The <code>returnDocument: "after"</code> option (or <code>returnNewDocument: true</code> in older drivers) returns the updated document. Combined with <code>upsert: true</code>, it can atomically create or update. This is MongoDB's solution for <strong>atomic read-modify-write</strong> without explicit transactions.
+<pre><code>// Return UPDATED document (after update)
+const updatedUser = await db.collection('users').findOneAndUpdate(
+  { _id: userId },
+  {
+    $inc: { credits: -10 },
+    $push: { purchaseHistory: { item: "Pro Plan", date: new Date() } }
+  },
+  {
+    returnDocument: "after",  // return doc after update
+    projection: { credits: 1, name: 1 }
+  }
+);
+
+// Atomic job queue — "claim" a pending job
+const job = await db.collection('jobs').findOneAndUpdate(
+  { status: "pending" },
+  { $set: { status: "processing", startedAt: new Date(), workerId: WORKER_ID } },
+  { sort: { priority: -1, createdAt: 1 }, returnDocument: "after" }
+);
+
+// Upsert + findOneAndUpdate — thread-safe counter
+const counter = await db.collection('counters').findOneAndUpdate(
+  { _id: "order_seq" },
+  { $inc: { seq: 1 } },
+  { upsert: true, returnDocument: "after" }
+);</code></pre>
+<p><strong>Why it matters:</strong> Shows understanding of <strong>atomic operations</strong> for concurrent environments. This pattern replaces multi-step read-modify-write workflows that are prone to race conditions.</p>
+<p><strong>Real applications:</strong> <strong>Sequence generators</strong>, <strong>job queue systems</strong> (claim a task), <strong>inventory management</strong> (decrement stock and confirm availability atomically).</p>
+<p><strong>Common mistakes:</strong> Using separate <code>findOne()</code> + <code>updateOne()</code> for atomic operations — this is a <strong>race condition</strong> in concurrent systems. Always use <code>findOneAndUpdate()</code> for read-modify-write.</p>
+                </div>
+            </div>
+        </div>
+        <div class="accordion-item">
+            <h2 class="accordion-header" id="h_q6">
+                <button class="accordion-button collapsed" type="button"
+                    data-bs-toggle="collapse" data-bs-target="#c_q6"
+                    aria-expanded="false">
+                    <span class="question-number">7</span>How does the $regex operator work in MongoDB queries?
+                </button>
+            </h2>
+            <div id="c_q6" class="accordion-collapse collapse"
+                data-bs-parent="#questionsAccordion">
+                <div class="accordion-body">The <strong>$regex</strong> operator performs regular expression pattern matching on string fields. MongoDB supports JavaScript-compatible regex with flags: <code>i</code> (case-insensitive), <code>m</code> (multiline), <code>x</code> (extended), <code>s</code> (dotAll). <strong>Performance warning</strong>: unanchored regex (no leading <code>^</code>) cannot use indexes and causes a <strong>full collection scan</strong>. Anchored regex (<code>^prefix</code>) can use an index. For full-text search requirements, use <strong>$text with a text index</strong> which is far more efficient than regex for word searches.
+<pre><code>// Case-insensitive search
+db.users.find({ name: { $regex: /mayur/i } });
+
+// Anchored — uses index if name is indexed
+db.products.find({ name: { $regex: /^laptop/i } });
+
+// $regex operator with options
+db.users.find({
+  email: { $regex: "@gmail\.com$", $options: "i" }
+});
+
+// Inline regex (shorthand)
+db.users.find({ name: /^M/i });
+
+// $regex vs $text comparison:
+// $regex /javascript/ — full collection scan (slow)
+// $text: { $search: "javascript" } — uses text index (fast)
+
+// For autocomplete, use anchored prefix search
+db.products.find({ name: { $regex: `^${searchTerm}`, $options: "i" } });
+
+// AVOID in production on large collections:
+db.users.find({ bio: { $regex: /developer/ } }); // full scan!</code></pre>
+<p><strong>Why it matters:</strong> Tests knowledge of <strong>regex performance implications</strong>. Using regex incorrectly on large collections is a common cause of production performance issues.</p>
+<p><strong>Real applications:</strong> <strong>Autocomplete search</strong> with anchored prefix regex, <strong>email validation queries</strong>, and domain filtering (e.g., find all <code>@company.com</code> emails).</p>
+<p><strong>Common mistakes:</strong> Using unanchored regex like <code>{ name: /mayur/ }</code> on millions of documents — triggers a <strong>full collection scan</strong>. Use text indexes for full-text search instead.</p>
+                </div>
+            </div>
+        </div>
+        <div class="accordion-item">
+            <h2 class="accordion-header" id="h_q7">
+                <button class="accordion-button collapsed" type="button"
+                    data-bs-toggle="collapse" data-bs-target="#c_q7"
+                    aria-expanded="false">
+                    <span class="question-number">8</span>What is projection in MongoDB and how does it work?
+                </button>
+            </h2>
+            <div id="c_q7" class="accordion-collapse collapse"
+                data-bs-parent="#questionsAccordion">
+                <div class="accordion-body"><strong>Projection</strong> is the second argument to <code>find()</code> that specifies which fields to <strong>include or exclude</strong> in the returned documents. Use <code>1</code> to include fields and <code>0</code> to exclude. You cannot mix inclusion and exclusion (except for <code>_id</code>). By default, all fields are returned. Projections are a critical optimization — fetching only needed fields reduces <strong>network transfer, memory usage, and application processing</strong>. The <code>$slice</code> operator in projections limits returned array elements. <code>$elemMatch</code> returns only the first matching array element.
+<pre><code>// Include only name, email (exclude rest)
+db.users.find({}, { name: 1, email: 1 });
+// Returns: { _id: ObjectId, name: "...", email: "..." }
+
+// Exclude sensitive fields
+db.users.find({}, { password: 0, ssn: 0 });
+
+// Exclude _id (only allowed with inclusion)
+db.users.find({}, { name: 1, email: 1, _id: 0 });
+
+// $slice — return only first 3 tags
+db.posts.find({}, { title: 1, tags: { $slice: 3 } });
+
+// $elemMatch — return only matched array element
+db.orders.find(
+  { "items.productId": "abc" },
+  { "items.$": 1 }  // positional projection
+);
+
+// Nested field projection
+db.users.find({}, {
+  "name": 1,
+  "address.city": 1  // only address.city sub-field
+});</code></pre>
+<p><strong>Why it matters:</strong> Projection is a key performance optimization. Interviewers look for awareness of <strong>over-fetching</strong> data and network efficiency especially in high-throughput APIs.</p>
+<p><strong>Real applications:</strong> API endpoints that return <strong>user list views</strong> project only <code>name, email, avatar</code> — not the full 50-field document. Critical for <strong>mobile API responses</strong>.</p>
+<p><strong>Common mistakes:</strong> Mixing inclusion and exclusion: <code>{ name: 1, password: 0 }</code> throws an error. You can only use one mode (except <code>_id: 0</code> with inclusions).</p>
+                </div>
+            </div>
+        </div>
+        <div class="accordion-item">
+            <h2 class="accordion-header" id="h_q8">
+                <button class="accordion-button collapsed" type="button"
+                    data-bs-toggle="collapse" data-bs-target="#c_q8"
+                    aria-expanded="false">
+                    <span class="question-number">9</span>How does the sort(), limit(), and skip() chain work in MongoDB?
+                </button>
+            </h2>
+            <div id="c_q8" class="accordion-collapse collapse"
+                data-bs-parent="#questionsAccordion">
+                <div class="accordion-body"><strong>sort()</strong> orders results by one or more fields (1 = ascending, -1 = descending). <strong>limit()</strong> caps the number of returned documents. <strong>skip()</strong> bypasses a specified number of documents (offset-based pagination). These three are typically chained in the order <strong>sort → skip → limit</strong>. MongoDB processes them in this order internally regardless of chain order. <strong>Offset-based pagination</strong> using skip has a performance problem at large offsets: MongoDB still scans all skipped documents. For large datasets, use <strong>cursor-based pagination</strong> using the last seen _id instead.
+<pre><code>// Sort by age descending, then name ascending
+db.users.find().sort({ age: -1, name: 1 }).limit(10);
+
+// Pagination — page 3, 10 items per page
+const page = 3, perPage = 10;
+db.users.find().sort({ createdAt: -1 }).skip((page-1)*perPage).limit(perPage);
+
+// ⚠️ PERFORMANCE ISSUE: skip(1000000) scans 1M docs!
+
+// Cursor-based pagination (efficient for large collections)
+// First page
+const docs = await db.users.find().sort({ _id: 1 }).limit(10).toArray();
+const lastId = docs[docs.length - 1]._id;
+
+// Next page — use lastId as cursor
+const nextDocs = await db.users.find({ _id: { $gt: lastId } })
+  .sort({ _id: 1 }).limit(10).toArray();
+
+// Sort by multiple fields
+db.orders.find()
+  .sort({ status: 1, createdAt: -1 })
+  .skip(0).limit(20);</code></pre>
+<p><strong>Why it matters:</strong> Pagination is a real-world requirement and a frequent interview topic. Understanding the <strong>skip performance problem</strong> and cursor-based pagination alternatives shows production readiness.</p>
+<p><strong>Real applications:</strong> <strong>Admin dashboards</strong> use offset pagination (small datasets), <strong>infinite scroll feeds</strong> use cursor-based pagination for consistent performance.</p>
+<p><strong>Common mistakes:</strong> Using large skip values on millions of records — <strong>skip(10000)</strong> scans and discards 10,000 documents every time, degrading linearly with offset size.</p>
+                </div>
+            </div>
+        </div>
+        <div class="accordion-item">
+            <h2 class="accordion-header" id="h_q9">
+                <button class="accordion-button collapsed" type="button"
+                    data-bs-toggle="collapse" data-bs-target="#c_q9"
+                    aria-expanded="false">
+                    <span class="question-number">10</span>What is the bulkWrite() operation in MongoDB?
+                </button>
+            </h2>
+            <div id="c_q9" class="accordion-collapse collapse"
+                data-bs-parent="#questionsAccordion">
+                <div class="accordion-body"><strong>bulkWrite()</strong> allows executing multiple write operations (insert, update, delete, replace) in a single request, dramatically reducing round-trip overhead. It accepts an array of operation objects. By default, operations execute in <strong>ordered mode</strong> (stops on first error). Set <code>ordered: false</code> for unordered mode (continues past errors, potentially faster due to parallelism). bulkWrite returns a detailed <strong>BulkWriteResult</strong> with counts of each operation type. This is essential for <strong>batch processing, ETL jobs, and migrations</strong> where individual document operations would be too slow.
+<pre><code>const result = await db.collection('products').bulkWrite([
+  // Insert new product
+  { insertOne: { document: { name: "Keyboard", price: 2500, stock: 100 } } },
+
+  // Update price of existing product
+  { updateOne: {
+    filter: { sku: "LAPTOP-001" },
+    update: { $inc: { price: 500 }, $set: { updatedAt: new Date() } }
+  }},
+
+  // Upsert — insert if not exists
+  { updateOne: {
+    filter: { sku: "MOUSE-002" },
+    update: { $setOnInsert: { price: 800, stock: 50 } },
+    upsert: true
+  }},
+
+  // Delete discontinued products
+  { deleteMany: { filter: { status: "discontinued" } } },
+
+  // Replace entire document
+  { replaceOne: {
+    filter: { sku: "TABLET-003" },
+    replacement: { sku: "TABLET-003", name: "iPad Pro", price: 80000 }
+  }}
+], { ordered: false }); // continue past errors
+
+console.log(result.insertedCount);  // 1
+console.log(result.modifiedCount);  // 1
+console.log(result.deletedCount);   // N</code></pre>
+<p><strong>Why it matters:</strong> Tests knowledge of batch processing efficiency. Single writes per request in ETL jobs or sync operations are a common <strong>performance anti-pattern</strong> that bulkWrite solves.</p>
+<p><strong>Real applications:</strong> <strong>Inventory sync</strong> from ERP system updates 10,000 product prices in one bulkWrite call. <strong>Data migration</strong> scripts use bulkWrite for efficient batch transforms.</p>
+<p><strong>Common mistakes:</strong> Not using bulkWrite for batch operations — inserting 1000 documents with 1000 individual <code>insertOne()</code> calls has 1000× the network overhead vs one <code>bulkWrite()</code>.</p>
+                </div>
+            </div>
+        </div>
+        <div class="accordion-item">
+            <h2 class="accordion-header" id="h_q10">
+                <button class="accordion-button collapsed" type="button"
+                    data-bs-toggle="collapse" data-bs-target="#c_q10"
+                    aria-expanded="false">
+                    <span class="question-number">11</span>How do you use the $where operator and why should it be avoided?
+                </button>
+            </h2>
+            <div id="c_q10" class="accordion-collapse collapse"
+                data-bs-parent="#questionsAccordion">
+                <div class="accordion-body">The <strong>$where</strong> operator allows using JavaScript expressions or functions as query filters, executing JavaScript code on the MongoDB server (via the SpiderMonkey engine). While powerful, it is <strong>extremely slow</strong> because it cannot use indexes and evaluates JavaScript for every document — a full collection scan. It is also a <strong>security risk</strong> if user input is not sanitized (NoSQL injection). MongoDB recommends using <strong>native query operators</strong> ($regex, $expr, $and, $function in aggregation) instead of $where. In MongoDB 4.4+, <code>$function</code> and <code>$accumulator</code> in aggregation pipelines are the safe replacement.
+<pre><code>// ⚠️ AVOID — $where is slow and risky
+db.users.find({ $where: "this.age > 25 && this.firstName === this.lastName" });
+
+// ✅ BETTER — use native operators
+db.users.find({ age: { $gt: 25 }, $expr: { $eq: ["$firstName", "$lastName"] } });
+
+// $expr — compare two fields (safe, can use index)
+db.orders.find({
+  $expr: { $gt: ["$total", "$budget"] }
+});
+
+// $function in aggregation (MongoDB 4.4+)
+db.users.aggregate([{
+  $match: {
+    $expr: {
+      $function: {
+        body: "function(name) { return name.startsWith('M'); }",
+        args: ["$name"],
+        lang: "js"
+      }
+    }
+  }
+}]);</code></pre>
+<p><strong>Why it matters:</strong> Shows security awareness and performance knowledge. Interviewers test whether you know the <strong>security and performance pitfalls</strong> of executing arbitrary JS on the database server.</p>
+<p><strong>Real applications:</strong> Virtually none — <code>$where</code> has no valid modern use case. <strong>$expr</strong> covers all field comparison needs efficiently.</p>
+<p><strong>Common mistakes:</strong> Using unsanitized user input in <code>$where</code> expressions opens <strong>NoSQL injection vulnerabilities</strong> where attackers can execute arbitrary JavaScript on the DB server.</p>
+                </div>
+            </div>
+        </div>
+        <div class="accordion-item">
+            <h2 class="accordion-header" id="h_q11">
+                <button class="accordion-button collapsed" type="button"
+                    data-bs-toggle="collapse" data-bs-target="#c_q11"
+                    aria-expanded="false">
+                    <span class="question-number">12</span>What are write concerns and read concerns in MongoDB?
+                </button>
+            </h2>
+            <div id="c_q11" class="accordion-collapse collapse"
+                data-bs-parent="#questionsAccordion">
+                <div class="accordion-body"><strong>Write concern</strong> specifies how many replica set members must acknowledge a write before MongoDB considers it successful. <code>w: 1</code> (primary acknowledges), <code>w: "majority"</code> (majority of replica members acknowledge — safest), <code>w: 0</code> (fire and forget — no acknowledgment). Adding <code>j: true</code> requires the write to be journaled. <strong>Read concern</strong> controls the consistency of data read by queries. <code>"local"</code> returns most recent data on primary (default), <code>"majority"</code> reads data acknowledged by majority of replica set (prevents reading rolled-back data), <code>"linearizable"</code> guarantees reading the latest committed data.
+<pre><code>// Write concern levels
+await db.collection('transactions').insertOne(
+  { amount: 5000, type: "debit" },
+  { writeConcern: { w: "majority", j: true, wtimeout: 5000 } }
+);
+
+// Read concern options
+const highConsistencyDocs = await db.collection('accounts')
+  .find({}, { readConcern: { level: "majority" } });
+
+// Session-level write/read concern
+const session = client.startSession({
+  defaultTransactionOptions: {
+    writeConcern: { w: "majority" },
+    readConcern: { level: "snapshot" }
+  }
+});
+
+// Write Concern Summary:
+// w: 0    — no ack (fastest, unsafe)
+// w: 1    — primary ack (default)
+// w: 2    — 2 members ack
+// w: "majority" — >50% members ack (safest)
+// j: true — journaled (durable on disk)
+
+// Read Concern Summary:
+// "local"         — default, may see rolled-back data
+// "majority"      — only committed data
+// "snapshot"      — point-in-time snapshot (transactions)</code></pre>
+<p><strong>Why it matters:</strong> Advanced topic testing understanding of <strong>distributed consistency trade-offs</strong>. Critical for designing systems that balance <strong>performance vs data durability</strong>.</p>
+<p><strong>Real applications:</strong> Financial systems use <code>w: "majority", j: true</code> for critical writes. Analytics use <code>w: 0</code> for high-throughput event logging where occasional loss is acceptable.</p>
+<p><strong>Common mistakes:</strong> Using <code>w: "majority"</code> without a proper replica set — on a standalone instance, this will block forever waiting for acknowledgment that can never come.</p>
+                </div>
+            </div>
+        </div>
+        <div class="accordion-item">
+            <h2 class="accordion-header" id="h_q12">
+                <button class="accordion-button collapsed" type="button"
+                    data-bs-toggle="collapse" data-bs-target="#c_q12"
+                    aria-expanded="false">
+                    <span class="question-number">13</span>How do you perform conditional updates with $cond and $expr?
+                </button>
+            </h2>
+            <div id="c_q12" class="accordion-collapse collapse"
+                data-bs-parent="#questionsAccordion">
+                <div class="accordion-body"><strong>$expr</strong> allows using <strong>aggregation expressions</strong> inside query operators, enabling comparisons between fields in the same document. <strong>$cond</strong> (conditional expression in aggregation) evaluates a condition and returns one of two values, similar to a ternary operator. In MongoDB 4.2+, <strong>update with aggregation pipeline</strong> allows using aggregation expressions directly in update operations, enabling conditional field updates, computing from existing field values, and complex transformations — impossible with regular update operators alone.
+<pre><code>// $expr — compare two fields in the same document
+db.orders.find({
+  $expr: { $gt: ["$earned", "$spent"] } // earned > spent
+});
+
+// Update with pipeline (MongoDB 4.2+) — set bonus based on salary
+db.employees.updateMany(
+  {},
+  [{
+    $set: {
+      bonus: {
+        $cond: {
+          if: { $gte: ["$salary", 100000] },
+          then: { $multiply: ["$salary", 0.15] }, // 15% for high earners
+          else: { $multiply: ["$salary", 0.10] }  // 10% for others
+        }
+      },
+      updatedAt: "$$NOW"  // current date in pipeline
+    }
+  }]
+);
+
+// Conditional update — append to array only if field exists
+db.users.updateOne(
+  { _id: userId },
+  [{ $set: {
+    displayName: {
+      $ifNull: ["$nickname", "$name"] // use nickname if exists, else name
+    }
+  }}]
+);</code></pre>
+<p><strong>Why it matters:</strong> Advanced update technique that shows knowledge of <strong>aggregation pipelines in updates</strong>. This feature (MongoDB 4.2+) eliminates many workarounds previously required for conditional updates.</p>
+<p><strong>Real applications:</strong> <strong>Salary adjustment scripts</strong>, <strong>tier-based discount calculations</strong>, and <strong>field normalization</strong> during data migrations.</p>
+<p><strong>Common mistakes:</strong> Not knowing that pipeline-style updates (array syntax) are different from regular update operators — you cannot mix <code>$set</code> operator with pipeline stage <code>$set</code>.</p>
+                </div>
+            </div>
+        </div>
+        <div class="accordion-item">
+            <h2 class="accordion-header" id="h_q13">
+                <button class="accordion-button collapsed" type="button"
+                    data-bs-toggle="collapse" data-bs-target="#c_q13"
+                    aria-expanded="false">
+                    <span class="question-number">14</span>What is the difference between $push and $addToSet?
+                </button>
+            </h2>
+            <div id="c_q13" class="accordion-collapse collapse"
+                data-bs-parent="#questionsAccordion">
+                <div class="accordion-body">Both <code>$push</code> and <code>$addToSet</code> add elements to arrays, but <strong>$push always appends</strong> (allows duplicates) while <strong>$addToSet only adds if the element doesn't already exist</strong> (maintains a unique set). <code>$push</code> combined with <code>$each</code> can add multiple elements and with <code>$slice</code> can limit array size, and with <code>$sort</code> can maintain sorted order. <code>$addToSet</code> cannot be combined with <code>$each</code> and <code>$sort</code>. Use <code>$addToSet</code> for tags, categories, and unique collections; use <code>$push</code> for ordered lists and history logs.
+<pre><code>// $push — allows duplicates
+// First push
+db.posts.updateOne({ _id: postId }, { $push: { tags: "mongodb" } });
+// Tags: ["mongodb"]
+
+// Second push of same value
+db.posts.updateOne({ _id: postId }, { $push: { tags: "mongodb" } });
+// Tags: ["mongodb", "mongodb"] ← duplicate!
+
+// $addToSet — no duplicates
+db.posts.updateOne({ _id: postId }, { $addToSet: { tags: "mongodb" } });
+db.posts.updateOne({ _id: postId }, { $addToSet: { tags: "mongodb" } });
+// Tags: ["mongodb"] ← no duplicate added
+
+// $push with $each + $slice (sliding window — keep last 10)
+db.users.updateOne({ _id: userId }, {
+  $push: {
+    recentActivity: {
+      $each: [{ action: "login", at: new Date() }],
+      $slice: -10, // keep last 10 entries
+      $sort: { at: 1 }
+    }
+  }
+});
+
+// $addToSet with $each — add multiple unique values
+db.users.updateOne({ _id: userId }, {
+  $addToSet: { skills: { $each: ["React", "Node.js", "MongoDB"] } }
+});</code></pre>
+<p><strong>Why it matters:</strong> A common interview question distinguishing array operator knowledge. The <strong>duplicate problem</strong> with <code>$push</code> is a real production bug seen frequently.</p>
+<p><strong>Real applications:</strong> <code>$addToSet</code> for <strong>user skill tags, category lists, follower arrays</strong>. <code>$push + $slice</code> for <strong>activity feeds, recent items</strong> with bounded size.</p>
+<p><strong>Common mistakes:</strong> Using <code>$push</code> for a skill set that should be unique — results in <strong>["JavaScript", "JavaScript", "JavaScript"]</strong> after multiple updates.</p>
+                </div>
+            </div>
+        </div>
+
+            </div>
+            <div class="topic-nav" id="topicNav">
+            <a class="topic-nav-btn prev" href="mongodb-fundamentals.html">
+                <span class="label"><i class="bi bi-arrow-left me-1"></i> Prev</span>
+                <span class="title">MongoDB Fundamentals</span>
+            </a>
+            <a class="topic-nav-btn next" href="aggregation-pipeline.html">
+                <span class="label">Next <i class="bi bi-arrow-right ms-1"></i></span>
+                <span class="title">Aggregation Pipeline</span>
+            </a>
+            </div>
+            <footer class="app-footer">
+                <p>&copy; 2026 InterviewPrep &mdash; MongoDB Interview Questions</p>
+            </footer>
+        </div>
+    </div>
+    <button class="btn-totop" id="backToTop"><i class="bi bi-chevron-up"></i></button>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>
+    <script>
+    (function(){
+        var sb=document.getElementById('sidebar'),bd=document.getElementById('sidebarBackdrop'),
+            tg=document.getElementById('sidebarToggle');
+        if(tg)tg.addEventListener('click',function(){sb.classList.add('open');bd.classList.add('show');});
+        if(bd)bd.addEventListener('click',function(){sb.classList.remove('open');bd.classList.remove('show');});
+        var btt=document.getElementById('backToTop');
+        window.addEventListener('scroll',function(){btt.classList.toggle('show',window.scrollY>400);});
+        btt.addEventListener('click',function(){window.scrollTo({top:0,behavior:'smooth'});});
+        var acc=document.getElementById('questionsAccordion');
+        var totalCount=14;
+        var si=document.getElementById('searchInput');
+        if(si){var t=null;si.addEventListener('input',function(){clearTimeout(t);var v=this.value.trim().toLowerCase();
+        if(v.length<2){acc.querySelectorAll('.accordion-item').forEach(function(el){el.style.display='';});
+        document.getElementById('questionCount').textContent=totalCount+' Questions';return;}
+        t=setTimeout(function(){var c=0;acc.querySelectorAll('.accordion-item').forEach(function(el){
+        var m=el.textContent.toLowerCase().indexOf(v)!==-1;el.style.display=m?'':'none';if(m)c++;});
+        document.getElementById('questionCount').textContent=c+' Questions';},200);});}
+    })();
+    </script>
+</body>
+</html>

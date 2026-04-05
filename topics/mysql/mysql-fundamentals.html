@@ -1,0 +1,624 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="MySQL fundamentals interview questions: DBMS concepts, data organization, SQL basics, and core MySQL architecture.">
+    <meta name="keywords" content="MySQL fundamentals, DBMS, relational database, MySQL architecture, SQL basics">
+    <meta name="author" content="InterviewPrep">
+    <meta name="robots" content="index, follow">
+    <link rel="icon" type="image/svg+xml" href="../../favicon.svg" sizes="any">
+    <meta property="og:type" content="website">
+    <meta property="og:title" content="MySQL Fundamentals — MySQL Interview Questions | InterviewPrep">
+    <meta property="og:description" content="MySQL fundamentals interview questions: DBMS concepts, data organization, SQL basics, and core MySQL architecture.">
+    <meta property="og:url" content="https://coddingquestionhub.com/topics/mysql/mysql-fundamentals.html">
+    <meta name="twitter:card" content="summary_large_image">
+    <meta name="twitter:title" content="MySQL Fundamentals — MySQL Interview Questions | InterviewPrep">
+    <meta name="twitter:description" content="MySQL fundamentals interview questions: DBMS concepts, data organization, SQL basics, and core MySQL architecture.">
+    <meta name="twitter:image" content="https://coddingquestionhub.com/og-mysql.png">
+    <title>MySQL Fundamentals — MySQL Interview Questions | InterviewPrep 2026</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&family=Fira+Code:wght@400;500&display=swap" rel="stylesheet">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="../../css/styles.css">
+    <link rel="canonical" href="https://coddingquestionhub.com/topics/mysql/mysql-fundamentals.html">
+    <script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "FAQPage",
+  "mainEntity": [
+    {
+      "@type": "Question",
+      "name": "MySQL Fundamentals — MySQL Interview Questions | InterviewPrep",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "Interview questions and answers"
+      }
+    }
+  ]
+}
+    </script>
+    <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-8957020141286926" crossorigin="anonymous"></script>
+    <script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "BreadcrumbList",
+  "itemListElement": [
+    {
+      "@type": "ListItem",
+      "position": 1,
+      "name": "Home",
+      "item": "https://coddingquestionhub.com"
+    },
+    {
+      "@type": "ListItem",
+      "position": 2,
+      "name": "Topics",
+      "item": "https://coddingquestionhub.com/topics"
+    },
+    {
+      "@type": "ListItem",
+      "position": 3,
+      "name": "Mysql",
+      "item": "https://coddingquestionhub.com/topics/mysql"
+    },
+    {
+      "@type": "ListItem",
+      "position": 4,
+      "name": "Mysql Fundamentals",
+      "item": "https://coddingquestionhub.com/topics/mysql/mysql-fundamentals.html"
+    }
+  ]
+}
+    </script>
+</head>
+<body class="theme-mysql">
+    <nav class="navbar navbar-expand-lg sticky-top" id="mainNavbar">
+        <div class="container-fluid px-3 px-lg-4">
+            <a class="navbar-brand fw-bold d-flex align-items-center gap-2" href="../../index.html">
+                <span class="brand-icon"><i class="bi bi-braces-asterisk"></i></span>
+                <span>Interview<span class="brand-accent">Prep</span></span>
+            </a>
+            <button class="navbar-toggler border-0 shadow-none" type="button" data-bs-toggle="collapse" data-bs-target="#navbarContent">
+                <i class="bi bi-list fs-3 text-white"></i>
+            </button>
+            <div class="collapse navbar-collapse" id="navbarContent">
+                <ul class="navbar-nav me-auto mb-2 mb-lg-0 ms-lg-3">
+                    <li class="nav-item dropdown">
+                        <a class="nav-link dropdown-toggle fw-500" href="#" role="button" data-bs-toggle="dropdown">
+                            <i class="bi bi-layers me-1"></i> Choose Category
+                        </a>
+                        <ul class="dropdown-menu">
+                            <li><a class="dropdown-item fw-500" href="../../pages/angular.html"><i class="bi bi-bootstrap me-2 text-danger"></i>Angular</a></li>
+                            <li><a class="dropdown-item fw-500" href="../../pages/react.html"><i class="bi bi-infinity me-2 text-info"></i>React</a></li>
+                            <li><a class="dropdown-item fw-500" href="../../pages/node.html"><i class="bi bi-hdd-network me-2 text-success"></i>Node.js</a></li>
+                            <li><a class="dropdown-item fw-500" href="../../pages/javascript.html"><i class="bi bi-filetype-js me-2 text-warning"></i>JavaScript</a></li>
+                            <li><a class="dropdown-item fw-500" href="../../pages/dsa.html"><i class="bi bi-diagram-3-fill me-2" style="color:#8b5cf6"></i>DSA</a></li>
+                            <li><a class="dropdown-item fw-500" href="../../pages/logical.html"><i class="bi bi-lightbulb me-2" style="color:#f59e0b"></i>Logical Reasoning</a></li>
+                            <li><a class="dropdown-item fw-500" href="../../pages/mongodb.html"><i class="bi bi-database-fill me-2" style="color:#4DB33D"></i>MongoDB</a></li>
+                            <li><a class="dropdown-item fw-500" href="../../pages/mysql.html"><i class="bi bi-table me-2" style="color:#0F766E"></i>MySQL</a></li>
+                        </ul>
+                    </li>
+                </ul>
+                <div class="search-wrap">
+                    <i class="bi bi-search search-icon"></i>
+                    <input class="form-control search-input" type="search" placeholder="Search questions..." id="searchInput">
+                </div>
+            </div>
+        </div>
+    </nav>
+    <div class="app-wrapper">
+        <aside class="sidebar" id="sidebar">
+            <div class="sidebar-head">
+                <h6><i class="bi bi-table me-2"></i>MySQL Topics</h6>
+            </div>
+            <nav>
+                <ul class="sidebar-links" id="topicList">
+                    <li><a class="nav-link active" href="mysql-fundamentals.html"><i class="bi-diagram-2"></i><span>MySQL Fundamentals</span></a></li>
+                    <li><a class="nav-link" href="crud-operations.html"><i class="bi-pencil-square"></i><span>CRUD Operations</span></a></li>
+                    <li><a class="nav-link" href="sql-joins.html"><i class="bi-link-45deg"></i><span>SQL Joins</span></a></li>
+                    <li><a class="nav-link" href="indexes.html"><i class="bi-lightning-fill"></i><span>Indexes</span></a></li>
+                    <li><a class="nav-link" href="query-optimization.html"><i class="bi-speedometer2"></i><span>Query Optimization</span></a></li>
+                    <li><a class="nav-link" href="transactions-acid.html"><i class="bi-arrow-repeat"></i><span>Transactions & ACID</span></a></li>
+                    <li><a class="nav-link" href="stored-procedures.html"><i class="bi-code-square"></i><span>Stored Procedures</span></a></li>
+                    <li><a class="nav-link" href="triggers.html"><i class="bi-bell-fill"></i><span>Triggers</span></a></li>
+                    <li><a class="nav-link" href="views.html"><i class="bi-eye"></i><span>Views</span></a></li>
+                    <li><a class="nav-link" href="normalization.html"><i class="bi-diagram-3-fill"></i><span>Normalization</span></a></li>
+                    <li><a class="nav-link" href="data-types.html"><i class="bi-diagram-2"></i><span>Data Types</span></a></li>
+                    <li><a class="nav-link" href="string-functions.html"><i class="bi-chat-square-text"></i><span>String Functions</span></a></li>
+                    <li><a class="nav-link" href="date-time-functions.html"><i class="bi-calendar-event"></i><span>Date & Time</span></a></li>
+                    <li><a class="nav-link" href="aggregate-functions.html"><i class="bi-graph-up"></i><span>Aggregate Functions</span></a></li>
+                    <li><a class="nav-link" href="window-functions.html"><i class="bi-column-gap"></i><span>Window Functions</span></a></li>
+                    <li><a class="nav-link" href="subqueries-ctes.html"><i class="bi-filter"></i><span>Subqueries & CTEs</span></a></li>
+                    <li><a class="nav-link" href="full-text-search.html"><i class="bi-search"></i><span>Full-Text Search</span></a></li>
+                    <li><a class="nav-link" href="replication-ha.html"><i class="bi-diagram-3"></i><span>Replication & HA</span></a></li>
+                    <li><a class="nav-link" href="security-permissions.html"><i class="bi-shield-check"></i><span>Security</span></a></li>
+                    <li><a class="nav-link" href="performance-tuning.html"><i class="bi-sliders"></i><span>Performance Tuning</span></a></li>
+                    <li><a class="nav-link" href="interview-queries-1.html"><i class="bi-gear-fill"></i><span>Interview Queries 1</span></a></li>
+                    <li><a class="nav-link" href="interview-queries-2.html"><i class="bi-gear-fill"></i><span>Interview Queries 2</span></a></li>
+                </ul>
+            </nav>
+        </aside>
+        <div class="sidebar-backdrop" id="sidebarBackdrop"></div>
+        <div class="content-area">
+            <div class="mobile-bar d-lg-none">
+                <button class="btn btn-sm btn-glass" id="sidebarToggle">
+                    <i class="bi bi-layout-sidebar-inset me-1"></i>Topics
+                </button>
+                <span class="badge rounded-pill" style="background:#0F766E;color:#fff;">MySQL</span>
+            </div>
+            <div class="breadcrumb-nav" id="breadcrumb">
+                <a href="../../index.html">Home</a><span class="sep">/</span>
+                <a href="../../pages/mysql.html">MySQL</a><span class="sep">/</span>
+                <span class="current">Fundamentals</span>
+            </div>
+            <div class="qs-header">
+                <h1 class="qs-title" id="topicTitle">MySQL Fundamentals</h1>
+                <span class="badge qs-badge" id="questionCount">15 Questions</span>
+            </div>
+            <div class="accordion" id="questionsAccordion">
+                <div class="accordion-item">
+                    <h2 class="accordion-header" id="h_q0">
+                        <button class="accordion-button" type="button" data-bs-toggle="collapse" data-bs-target="#c_q0" aria-expanded="true">
+                            <span class="question-number">1</span>What is MySQL and how does it differ from other databases?
+                        </button>
+                    </h2>
+                    <div id="c_q0" class="accordion-collapse collapse show" data-bs-parent="#questionsAccordion">
+                        <div class="accordion-body">MySQL is an open-source <strong>relational database management system</strong> that uses <strong>SQL</strong> for data manipulation. It stores data in tables with rows and columns, maintaining relationships through keys. Unlike NoSQL databases like MongoDB which store unstructured data in JSON documents, MySQL enforces strict schema and <strong>ACID</strong> compliance. Compared to PostgreSQL, MySQL is lighter-weight and faster for simple queries, though PostgreSQL offers more advanced features like JSON support and custom data types.
+<pre><code>-- Create a simple database
+CREATE DATABASE users_db;
+USE users_db;
+
+-- Create a table
+CREATE TABLE users (
+    id INT PRIMARY KEY AUTO_INCREMENT,
+    name VARCHAR(100),
+    email VARCHAR(100)
+);</code></pre>
+
+<p><strong>Why it matters:</strong> Understanding MySQL's position in the database ecosystem and its ACID compliance is fundamental for choosing the right database for your application. It tests knowledge of relational vs non-relational databases.</p>
+
+<p><strong>Real applications:</strong> WordPress, Magento, Drupal all use MySQL as their default database. E-commerce platforms choose MySQL for transactional integrity and complex joins.</p>
+
+<p><strong>Common mistakes:</strong> Confusing MySQL with MariaDB (fork of MySQL), or assuming all relational databases work the same way without understanding InnoDB vs MyISAM storage engines.</p>
+                        </div>
+                    </div>
+                </div>
+                <div class="accordion-item">
+                    <h2 class="accordion-header" id="h_q1">
+                        <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#c_q1" aria-expanded="false">
+                            <span class="question-number">2</span>What are storage engines in MySQL?
+                        </button>
+                    </h2>
+                    <div id="c_q1" class="accordion-collapse collapse" data-bs-parent="#questionsAccordion">
+                        <div class="accordion-body">Storage engines determine how MySQL stores and retrieves data from tables. <strong>InnoDB</strong> is the default and recommended engine offering ACID transactions, row-level locking, and foreign key support. <strong>MyISAM</strong> is older and faster for read-heavy operations but lacks transaction support and uses table-level locking. Memory engine stores data in RAM for ultra-fast access but loses data on shutdown. Selecting the right engine impacts performance, reliability, and feature availability.
+<pre><code>-- Create table with specific engine
+CREATE TABLE products (
+    id INT PRIMARY KEY,
+    name VARCHAR(100)
+) ENGINE=InnoDB;
+
+-- Check engine of existing table
+SHOW CREATE TABLE products;
+
+-- Convert table engine
+ALTER TABLE products ENGINE=MyISAM;</code></pre>
+
+<p><strong>Why it matters:</strong> Storage engine choice affects transaction support, locking mechanism, and performance. This determines crucial application behavior like rollback capability and concurrent access.</p>
+
+<p><strong>Real applications:</strong> Financial systems use InnoDB for ACID guarantees. Analytics systems might use MyISAM for read performance on non-transactional data.</p>
+
+<p><strong>Common mistakes:</strong> Using MyISAM for transactional applications, or creating all tables with different engines in the same database causing inconsistent behavior.</p>
+                        </div>
+                    </div>
+                </div>
+                <div class="accordion-item">
+                    <h2 class="accordion-header" id="h_q2">
+                        <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#c_q2" aria-expanded="false">
+                            <span class="question-number">3</span>What are the main data types in MySQL?
+                        </button>
+                    </h2>
+                    <div id="c_q2" class="accordion-collapse collapse" data-bs-parent="#questionsAccordion">
+                        <div class="accordion-body">MySQL supports numeric types (<strong>INT, FLOAT, DECIMAL</strong>), string types (<strong>VARCHAR, CHAR, TEXT</strong>), date/time types (<strong>DATE, DATETIME, TIMESTAMP</strong>), and specialized types like BLOB for binary data and JSON for structured data. Choosing the correct type is crucial for performance and correctness — for example, using <strong>DECIMAL</strong> for prices instead of <strong>FLOAT</strong> avoids floating-point precision errors. VARCHAR is preferred over CHAR for variable-length strings to save storage, while TEXT types support full-text indexing.
+<pre><code>-- Numeric: INT, BIGINT, DECIMAL(10,2)
+-- String: VARCHAR(255), CHAR(10), TEXT
+-- Date: DATE, DATETIME, TIMESTAMP
+-- Special: BLOB, JSON, ENUM
+
+CREATE TABLE orders (
+    order_id INT PRIMARY KEY,
+    total_amount DECIMAL(10,2),
+    customer_name VARCHAR(100),
+    order_date DATETIME,
+    tags JSON
+);</code></pre>
+
+<p><strong>Why it matters:</strong> Correct data type selection prevents data corruption, improves query performance, and ensures SQL constraints work properly. It reflects database design maturity.</p>
+
+<p><strong>Real applications:</strong> E-commerce uses DECIMAL for prices to avoid rounding errors, TIMESTAMP for auto-updated audit fields, and JSON for flexible product attributes.</p>
+
+<p><strong>Common mistakes:</strong> Using FLOAT for monetary values, TEXT for small strings, or storing dates as strings instead of DATE type preventing proper ordering and calculations.</p>
+                        </div>
+                    </div>
+                </div>
+                <div class="accordion-item">
+                    <h2 class="accordion-header" id="h_q3">
+                        <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#c_q3" aria-expanded="false">
+                            <span class="question-number">4</span>What is a primary key and why is it important?
+                        </button>
+                    </h2>
+                    <div id="c_q3" class="accordion-collapse collapse" data-bs-parent="#questionsAccordion">
+                        <div class="accordion-body">A <strong>PRIMARY KEY</strong> uniquely identifies each row in a table, ensuring no duplicate records exist. It can be a single column (simple pk) or multiple columns (composite pk) and is automatically indexed for fast lookups. Primary keys enforce entity integrity by preventing <strong>NULL</strong> values and duplicate entries. Every table should have a primary key to optimize queries, maintain data integrity, and enable efficient foreign key relationships. Auto-increment is commonly used for single-column primary keys.
+<pre><code>-- Simple primary key
+CREATE TABLE users (
+    user_id INT PRIMARY KEY AUTO_INCREMENT,
+    email VARCHAR(100) UNIQUE
+);
+
+-- Composite primary key
+CREATE TABLE user_permissions (
+    user_id INT,
+    permission_id INT,
+    PRIMARY KEY (user_id, permission_id)
+);</code></pre>
+
+<p><strong>Why it matters:</strong> Primary keys are foundational to relational database design. Interviewers assess whether candidates understand uniqueness constraints and data integrity concepts.</p>
+
+<p><strong>Real applications:</strong> User management systems use user_id as primary key, linking to all related tables. Order systems use order_id to track every transaction uniquely.</p>
+
+<p><strong>Common mistakes:</strong> Using business logic values (email, phone) as primary key instead of surrogate keys, or allowing NULL in primary key columns, or creating tables without any primary key.</p>
+                        </div>
+                    </div>
+                </div>
+                <div class="accordion-item">
+                    <h2 class="accordion-header" id="h_q4">
+                        <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#c_q4" aria-expanded="false">
+                            <span class="question-number">5</span>Explain foreign keys and referential integrity.
+                        </button>
+                    </h2>
+                    <div id="c_q4" class="accordion-collapse collapse" data-bs-parent="#questionsAccordion">
+                        <div class="accordion-body">A <strong>foreign key</strong> links records in one table to another table's primary key, enforcing <strong>referential integrity</strong> — ensuring data consistency across tables. If you delete a user, foreign key constraints can prevent orphaned records or automatically delete related data via <strong>CASCADE</strong>. This prevents invalid data relationships like an order referencing a non-existent customer. Foreign keys are only enforced with InnoDB engine; MyISAM ignores them silently, leading to data corruption.
+<pre><code>CREATE TABLE customers (
+    customer_id INT PRIMARY KEY,
+    name VARCHAR(100)
+);
+
+CREATE TABLE orders (
+    order_id INT PRIMARY KEY,
+    customer_id INT,
+    FOREIGN KEY (customer_id) REFERENCES customers(customer_id)
+        ON DELETE CASCADE
+        ON UPDATE CASCADE
+);</code></pre>
+
+<p><strong>Why it matters:</strong> Foreign keys maintain data integrity across related tables. Understanding constraints demonstrates database design maturity and prevents subtle bugs from invalid relationships.</p>
+
+<p><strong>Real applications:</strong> User-to-profile relationships, post-to-comment hierarchies, order-to-item mappings all rely on foreign keys to prevent orphaned records.</p>
+
+<p><strong>Common mistakes:</strong> Using MyISAM engine where foreign keys are ignored, forgetting to define CASCADE behavior causing deletion failures, or creating circular dependencies between tables.</p>
+                        </div>
+                    </div>
+                </div>
+                <div class="accordion-item">
+                    <h2 class="accordion-header" id="h_q5">
+                        <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#c_q5" aria-expanded="false">
+                            <span class="question-number">6</span>What is a unique constraint and how does it differ from primary key?
+                        </button>
+                    </h2>
+                    <div id="c_q5" class="accordion-collapse collapse" data-bs-parent="#questionsAccordion">
+                        <div class="accordion-body">A <strong>unique constraint</strong> ensures all values in a column are different, preventing duplicates. Unlike primary keys, unique constraints allow <strong>NULL</strong> values (multiple NULLs can exist). A table can have only one primary key but multiple unique constraints. Unique constraints are indexed automatically for performance. Use unique constraints for email addresses, usernames, or any field that must be globally unique but isn't the table's main identifier.
+<pre><code>CREATE TABLE users (
+    user_id INT PRIMARY KEY AUTO_INCREMENT,
+    email VARCHAR(100) UNIQUE,
+    username VARCHAR(50) UNIQUE NOT NULL,
+    phone_number VARCHAR(20) UNIQUE
+);</code></pre>
+
+<p><strong>Why it matters:</strong> Understanding the distinction between primary and unique constraints is crucial for proper database modeling and understanding constraint enforcement mechanisms.</p>
+
+<p><strong>Real applications:</strong> User tables use unique constraints on email and username to prevent account creation with existing credentials while user_id is the primary key.</p>
+
+<p><strong>Common mistakes:</strong> Making business fields like email the primary key instead of using a surrogate key, or assuming unique constraints prevent all duplicates when they allow multiple NULLs.</p>
+                        </div>
+                    </div>
+                </div>
+                <div class="accordion-item">
+                    <h2 class="accordion-header" id="h_q6">
+                        <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#c_q6" aria-expanded="false">
+                            <span class="question-number">7</span>What is normalization and why is it important?
+                        </button>
+                    </h2>
+                    <div id="c_q6" class="accordion-collapse collapse" data-bs-parent="#questionsAccordion">
+                        <div class="accordion-body"><strong>Normalization</strong> is a process to organize database structure to minimize data redundancy and dependency, reducing storage waste and preventing update anomalies. It involves breaking large tables into smaller related tables. <strong>First normal form (1NF)</strong> eliminates repeating groups, <strong>second normal form (2NF)</strong> removes partial dependencies, and <strong>third normal form (3NF)</strong> removes transitive dependencies. Over-normalization can cause too many joins degrading performance, so sometimes denormalization is acceptable for analytics.
+<pre><code>-- Unnormalized: stores repeat
+CREATE TABLE orders (
+    order_id INT,
+    customer_name VARCHAR(100),
+    items VARCHAR(500)  -- multiple items in one field
+);
+
+-- Normalized: separate tables
+CREATE TABLE order_items (
+    order_id INT,
+    item_id INT,
+    FOREIGN KEY (order_id) REFERENCES orders(order_id)
+);</code></pre>
+
+<p><strong>Why it matters:</strong> Normalization prevents data anomalies and maintains consistency. Showing normalization understanding demonstrates core database design knowledge fundamental to all developers.</p>
+
+<p><strong>Real applications:</strong> E-commerce systems normalize products, orders, and line items separately to prevent data duplication. Booking systems normalize users, accommodations, and reservations.</p>
+
+<p><strong>Common mistakes:</strong> Over-normalizing causing excessive joins and performance issues, or under-normalizing leading to data duplication and update anomalies requiring manual synchronization.</p>
+                        </div>
+                    </div>
+                </div>
+                <div class="accordion-item">
+                    <h2 class="accordion-header" id="h_q7">
+                        <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#c_q7" aria-expanded="false">
+                            <span class="question-number">8</span>What are NULL values and how should they be handled?
+                        </button>
+                    </h2>
+                    <div id="c_q7" class="accordion-collapse collapse" data-bs-parent="#questionsAccordion">
+                        <div class="accordion-body"><strong>NULL</strong> represents the absence of a value, distinct from empty string or zero. NULL comparisons always return NULL (not TRUE or FALSE), so use <strong>IS NULL</strong> or <strong>IS NOT NULL</strong> operators. Aggregate functions like SUM ignore NULLs, and NULL values in calculations make the entire result NULL. NOT NULL constraints force values to be present. Proper NULL handling is critical because wrong queries like WHERE column = NULL always return no rows, a common bug.
+<pre><code>-- Wrong: WHERE column = NULL always returns nothing
+SELECT * FROM users WHERE phone = NULL;  -- Returns 0 rows
+
+-- Correct: Use IS NULL
+SELECT * FROM users WHERE phone IS NULL;
+
+-- NULL in calculations makes result NULL
+SELECT name, salary + bonus FROM employees;
+-- If bonus is NULL, entire result for that row is NULL
+
+-- Use COALESCE to provide defaults
+SELECT name, COALESCE(bonus, 0) as bonus FROM employees;</code></pre>
+
+<p><strong>Why it matters:</strong> Mishandling NULLs causes subtle bugs where queries return unexpected results. This is a foundational SQL concept frequently tested in interviews.</p>
+
+<p><strong>Real applications:</strong> Optional fields like middle_name, nickname, or secondary_phone are represented as NULL. Reports must carefully handle NULLs in aggregations to avoid missing data.</p>
+
+<p><strong>Common mistakes:</strong> Comparing NULL with = or != operators, forgetting NULL is not equal to NULL, treating NULL as empty string, or not considering NULL in aggregate functions causing wrong totals.</p>
+                        </div>
+                    </div>
+                </div>
+                <div class="accordion-item">
+                    <h2 class="accordion-header" id="h_q8">
+                        <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#c_q8" aria-expanded="false">
+                            <span class="question-number">9</span>What is the difference between CHAR and VARCHAR?
+                        </button>
+                    </h2>
+                    <div id="c_q8" class="accordion-collapse collapse" data-bs-parent="#questionsAccordion">
+                        <div class="accordion-body"><strong>CHAR</strong> stores fixed-length strings, always padding with spaces to reach the declared length, using more storage but offering faster access predictability. <strong>VARCHAR</strong> stores variable-length strings, using only the actual bytes needed plus overhead, saving storage for varying-length data. CHAR is optimal for fixed-length fields like country codes or status flags, while VARCHAR suits names or descriptions. VARCHAR typically performs slightly slower due to variable management, but the storage savings justify its use in most cases.
+<pre><code>-- CHAR: Fixed-length, padded with spaces
+CREATE TABLE countries (
+    country_code CHAR(2),  -- Always 2 bytes
+    country_name CHAR(50)  -- Always 50 bytes even if name is 5 chars
+);
+
+-- VARCHAR: Variable-length, no padding
+CREATE TABLE customers (
+    name VARCHAR(100),     -- Uses actual string length
+    address VARCHAR(255)
+);</code></pre>
+
+<p><strong>Why it matters:</strong> String type choice impacts storage efficiency and performance. Understanding the tradeoffs demonstrates attention to database optimization and design principles.</p>
+
+<p><strong>Real applications:</strong> User names, addresses should use VARCHAR for storage efficiency. Status codes, country codes, state abbreviations use CHAR for predictable fixed length.</p>
+
+<p><strong>Common mistakes:</strong> Overusing CHAR causing wasted space, using VARCHAR for inherently fixed-length values like postal codes, or misunderstanding that CHAR doesn't trim spaces affecting string comparisons.</p>
+                        </div>
+                    </div>
+                </div>
+                <div class="accordion-item">
+                    <h2 class="accordion-header" id="h_q9">
+                        <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#c_q9" aria-expanded="false">
+                            <span class="question-number">10</span>What is AUTO_INCREMENT and when should it be used?
+                        </button>
+                    </h2>
+                    <div id="c_q9" class="accordion-collapse collapse" data-bs-parent="#questionsAccordion">
+                        <div class="accordion-body">AUTO_INCREMENT automatically generates sequential numbers for new rows, ideal for surrogate primary keys. Each table has one AUTO_INCREMENT column, incrementing by 1 with each insert. You can specify starting values and increment steps, and it continues from the highest value even after deletions. AUTO_INCREMENT provides clean, simple keys without business logic, avoiding issues from using natural keys like email addresses that might change.
+<pre><code>-- Define AUTO_INCREMENT
+CREATE TABLE products (
+    product_id INT PRIMARY KEY AUTO_INCREMENT,
+    name VARCHAR(100),
+    price DECIMAL(10,2)
+);
+
+-- Insert without specifying AUTO_INCREMENT column
+INSERT INTO products (name, price) VALUES ('Laptop', 999.99);
+-- product_id automatically becomes 1, 2, 3...
+
+-- Starting from specific value
+ALTER TABLE products AUTO_INCREMENT = 1000;</code></pre>
+
+<p><strong>Why it matters:</strong> AUTO_INCREMENT is the standard for generating surrogate keys. Understanding when and how to use it demonstrates practical database design patterns.</p>
+
+<p><strong>Real applications:</strong> Every user gets a unique user_id via AUTO_INCREMENT, every order gets order_id, every product gets product_id. Universal pattern in enterprise databases.</p>
+
+<p><strong>Common mistakes:</strong> Assuming AUTO_INCREMENT values are densely packed without gaps, relying on AUTO_INCREMENT for business logic, or not understanding it resets on table recreation or in certain backup scenarios.</p>
+                        </div>
+                    </div>
+                </div>
+                <div class="accordion-item">
+                    <h2 class="accordion-header" id="h_q10">
+                        <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#c_q10" aria-expanded="false">
+                            <span class="question-number">11</span>What is the purpose of the DEFAULT keyword?
+                        </button>
+                    </h2>
+                    <div id="c_q10" class="accordion-collapse collapse" data-bs-parent="#questionsAccordion">
+                        <div class="accordion-body">DEFAULT specifies a value automatically inserted when no value is provided during INSERT, reducing the need for NULL handling in application code. Defaults can be literal values (0, 'Active'), functions (CURRENT_TIMESTAMP), or expressions. Using meaningful defaults prevents NULL values, makes queries simpler, and enforces business rules at the database level. Common defaults include status fields defaulting to 'pending', timestamps to current time, and flags to FALSE.
+<pre><code>CREATE TABLE posts (
+    post_id INT PRIMARY KEY AUTO_INCREMENT,
+    title VARCHAR(200),
+    content TEXT,
+    status VARCHAR(20) DEFAULT 'draft',  -- Default status
+    created_at DATETIME DEFAULT CURRENT_TIMESTAMP,  -- Auto-set time
+    is_published BOOLEAN DEFAULT FALSE
+);
+
+-- Insert without specifying defaults
+INSERT INTO posts (title, content) 
+VALUES ('My First Post', 'Content here');
+-- status becomes 'draft', created_at becomes current time</code></pre>
+
+<p><strong>Why it matters:</strong> DEFAULT values reduce NULL handling and implement business rules at the database level. This demonstrates understanding of constraint-based design and data consistency.</p>
+
+<p><strong>Real applications:</strong> User accounts default to 'active' status, posts default to 'draft', creation timestamps auto-set to now, soft-delete flags default to FALSE, discount percentages default to 0.</p>
+
+<p><strong>Common mistakes:</strong> Forgetting to set meaningful defaults for frequently NULL columns, not using CURRENT_TIMESTAMP for audit fields, or creating DEFAULT values in application code instead of database causing inconsistencies.</p>
+                        </div>
+                    </div>
+                </div>
+                <div class="accordion-item">
+                    <h2 class="accordion-header" id="h_q11">
+                        <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#c_q11" aria-expanded="false">
+                            <span class="question-number">12</span>What is a CHECK constraint?
+                        </button>
+                    </h2>
+                    <div id="c_q11" class="accordion-collapse collapse" data-bs-parent="#questionsAccordion">
+                        <div class="accordion-body">CHECK constraints enforce business rules by validating data at the database level — rejecting inserts or updates that violate the condition. This prevents invalid data like negative prices, out-of-range ages, or invalid statuses from entering the database. CHECK constraints work across multiple columns and can use comparison operators and logical AND/OR. Implementing validation at the database prevents bypass through direct SQL manipulation while application-only validation can be circumvented.
+<pre><code>CREATE TABLE employees (
+    emp_id INT PRIMARY KEY,
+    name VARCHAR(100),
+    salary DECIMAL(10,2) CHECK (salary > 0),
+    age INT CHECK (age >= 18 AND age <= 70),
+    status VARCHAR(20) CHECK (status IN ('active', 'inactive', 'on_leave')),
+    end_date DATE CHECK (end_date IS NULL OR end_date > CURDATE())
+);</code></pre>
+
+<p><strong>Why it matters:</strong> CHECK constraints enforce data validity at the database level, preventing invalid data from multiple sources. This demonstrates understanding of constraint-based design and data quality.</p>
+
+<p><strong>Real applications:</strong> E-commerce validates prices > 0, inventory > 0. HR systems validate age ranges, salary minimums. Financial systems enforce debit balance limits, percentage ranges.</p>
+
+<p><strong>Common mistakes:</strong> Relying only on application-level validation without CHECK constraints, creating overly complex CHECK conditions that become hard to maintain, or forgetting that CHECK constraints don't prevent bypass through direct SQL in some databases.</p>
+                        </div>
+                    </div>
+                </div>
+                <div class="accordion-item">
+                    <h2 class="accordion-header" id="h_q12">
+                        <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#c_q12" aria-expanded="false">
+                            <span class="question-number">13</span>Explain the difference between database and schema.
+                        </button>
+                    </h2>
+                    <div id="c_q12" class="accordion-collapse collapse" data-bs-parent="#questionsAccordion">
+                        <div class="accordion-body">In MySQL, database and schema refer to the same concept — a logical grouping of tables and objects. Other databases like Oracle or SQL Server distinguish between them where schema is a namespace within a database. A single MySQL server contains multiple databases, each with its own tables, indexes, and user permissions. You select which database to use, and all subsequent queries operate on that database's objects.
+<pre><code>-- Create database (same as schema in MySQL)
+CREATE DATABASE e_commerce;
+CREATE SCHEMA e_commerce;  -- Equivalent
+
+-- Switch to database
+USE e_commerce;
+
+-- Create table in selected database
+CREATE TABLE products (...);
+
+-- List all databases
+SHOW DATABASES;
+
+-- View tables in current database
+SHOW TABLES;</code></pre>
+
+<p><strong>Why it matters:</strong> Understanding database organization and concepts transfers across SQL database systems. This is fundamental to database administration and multi-tenant application design.</p>
+
+<p><strong>Real applications:</strong> Development, testing, and production often use separate databases for isolation. Multi-tenant applications create separate databases per customer for data segregation.</p>
+
+<p><strong>Common mistakes:</strong> Confusing MySQL terminology with PostgreSQL or Oracle where schema has different meaning. Not understanding that changing database requires explicit USE statement, causing queries to fail on wrong database.</p>
+                        </div>
+                    </div>
+                </div>
+                <div class="accordion-item">
+                    <h2 class="accordion-header" id="h_q13">
+                        <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#c_q13" aria-expanded="false">
+                            <span class="question-number">14</span>What are comments in SQL and why use them?
+                        </button>
+                    </h2>
+                    <div id="c_q13" class="accordion-collapse collapse" data-bs-parent="#questionsAccordion">
+                        <div class="accordion-body">Comments document SQL code for future maintenance and team understanding. Single-line comments use -- or #, multi-line comments use /* */. Comments are ignored during execution and don't affect performance. Well-commented SQL explains complex business logic, assumptions about data, performance considerations, and the purpose of queries. Comments in stored procedures and triggers are especially important since that code is often revisited long after creation.
+<pre><code>-- Single-line comment
+SELECT * FROM users WHERE status = 'active';  # Another single-line
+
+/* Multi-line comment
+   explaining complex business logic
+   across multiple lines */
+SELECT u.*, COUNT(o.order_id) as total_orders
+FROM users u
+LEFT JOIN orders o ON u.user_id = o.user_id
+WHERE u.status = 'active'
+GROUP BY u.user_id;</code></pre>
+
+<p><strong>Why it matters:</strong> Code readability and maintainability matter in production environments. Understanding documentation practices reflects professional development standards and team collaboration skills.</p>
+
+<p><strong>Real applications:</strong> Complex queries with multiple joins get extensive comments explaining the business purpose. Stored procedures include comments about parameters, expected behavior, and assumptions.</p>
+
+<p><strong>Common mistakes:</strong> Non-existent or outdated comments that mislead developers, over-commenting obvious code, or using comments to disable code instead of version control, leaving confusing cruft in production SQL.</p>
+                        </div>
+                    </div>
+                </div>
+                <div class="accordion-item">
+                    <h2 class="accordion-header" id="h_q14">
+                        <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#c_q14" aria-expanded="false">
+                            <span class="question-number">15</span>What is the difference between SHOW DATABASES and SHOW TABLES?
+                        </button>
+                    </h2>
+                    <div id="c_q14" class="accordion-collapse collapse" data-bs-parent="#questionsAccordion">
+                        <div class="accordion-body">SHOW DATABASES lists all databases available on the MySQL server that the current user has privileges to access. SHOW TABLES displays all tables within the currently selected database. Both are utility commands for database navigation and discovery. SHOW DATABASES requires no selected database context, while SHOW TABLES requires you to first USE a database, otherwise it throws an error about no database selected.
+<pre><code>-- List all databases available to current user
+SHOW DATABASES;
+-- Output: information_schema, mysql, performance_schema, myapp_db, etc.
+
+-- Must select database first
+USE myapp_db;
+
+-- List all tables in selected database
+SHOW TABLES;
+-- Output: users, products, orders, payments, etc.
+
+-- Show table structure
+DESCRIBE users;  -- or SHOW COLUMNS FROM users;</code></pre>
+
+<p><strong>Why it matters:</strong> These commands are fundamental navigation tools for database administration. Knowing how to explore database structure demonstrates SQL proficiency and practical experience.</p>
+
+<p><strong>Real applications:</strong> Developers use these commands when connecting to unfamiliar databases to understand available data structures. DBAs use them for inventory and permission auditing.</p>
+
+<p><strong>Common mistakes:</strong> Trying SHOW TABLES without USE database causing error, assuming SHOW DATABASES includes tables, or not understanding that SHOW DATABASES is limited by current user permissions seeing only allowed databases.</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="topic-nav" id="topicNav">
+            <a class="topic-nav-btn next" href="crud-operations.html">
+                <span class="label">Next <i class="bi bi-arrow-right ms-1"></i></span>
+                <span class="title">CRUD Operations</span>
+            </a>
+            </div>
+            <footer class="app-footer">
+                <p>&copy; 2026 InterviewPrep &mdash; MySQL Interview Questions</p>
+            </footer>
+        </div>
+    </div>
+    <button class="btn-totop" id="backToTop"><i class="bi bi-chevron-up"></i></button>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>
+    <script>
+    (function(){
+        var sb=document.getElementById('sidebar'),bd=document.getElementById('sidebarBackdrop'),
+            tg=document.getElementById('sidebarToggle');
+        if(tg)tg.addEventListener('click',function(){sb.classList.add('open');bd.classList.add('show');});
+        if(bd)bd.addEventListener('click',function(){sb.classList.remove('open');bd.classList.remove('show');});
+        var btt=document.getElementById('backToTop');
+        window.addEventListener('scroll',function(){btt.classList.toggle('show',window.scrollY>400);});
+        btt.addEventListener('click',function(){window.scrollTo({top:0,behavior:'smooth'});});
+        var acc=document.getElementById('questionsAccordion');
+        var totalCount=15;
+        var si=document.getElementById('searchInput');
+        if(si){var t=null;si.addEventListener('input',function(){clearTimeout(t);var v=this.value.trim().toLowerCase();
+        if(v.length<2){acc.querySelectorAll('.accordion-item').forEach(function(el){el.style.display='';});
+        document.getElementById('questionCount').textContent=totalCount+' Questions';return;}
+        t=setTimeout(function(){var c=0;acc.querySelectorAll('.accordion-item').forEach(function(el){
+        var m=el.textContent.toLowerCase().indexOf(v)!==-1;el.style.display=m?'':'none';if(m)c++;});
+        document.getElementById('questionCount').textContent=c+' Questions';},200);});}
+    })();
+    </script>
+</body>
+</html>

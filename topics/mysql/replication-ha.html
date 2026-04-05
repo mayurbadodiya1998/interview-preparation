@@ -1,0 +1,488 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="MySQL Replication & HA interview questions: master-slave, failover, high availability, replication lag.">
+    <meta name="keywords" content="MySQL replication, master-slave, high availability, failover, replication lag, MySQL interview">
+    <meta name="author" content="InterviewPrep">
+    <meta name="robots" content="index, follow">
+    <link rel="icon" type="image/svg+xml" href="../../favicon.svg" sizes="any">
+    <meta property="og:type" content="website">
+    <meta property="og:title" content="MySQL Replication & HA — MySQL Interview Questions | InterviewPrep">
+    <meta property="og:description" content="MySQL Replication & HA interview questions: master-slave, failover, high availability, replication lag.">
+    <meta property="og:url" content="https://coddingquestionhub.com/topics/mysql/replication-ha.html">
+    <meta name="twitter:card" content="summary_large_image">
+    <meta name="twitter:title" content="MySQL Replication & HA — MySQL Interview Questions | InterviewPrep">
+    <meta name="twitter:description" content="MySQL Replication & HA interview questions: master-slave, failover, high availability, replication lag.">
+    <meta name="twitter:image" content="https://coddingquestionhub.com/og-mysql.png">
+    <title>MySQL Replication & HA — MySQL Interview Questions | InterviewPrep 2026</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&family=Fira+Code:wght@400;500&display=swap" rel="stylesheet">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="../../css/styles.css">
+    <link rel="canonical" href="https://coddingquestionhub.com/topics/mysql/replication-ha.html">
+    <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-8957020141286926" crossorigin="anonymous"></script>
+    <script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "BreadcrumbList",
+  "itemListElement": [
+    {
+      "@type": "ListItem",
+      "position": 1,
+      "name": "Home",
+      "item": "https://coddingquestionhub.com"
+    },
+    {
+      "@type": "ListItem",
+      "position": 2,
+      "name": "Topics",
+      "item": "https://coddingquestionhub.com/topics"
+    },
+    {
+      "@type": "ListItem",
+      "position": 3,
+      "name": "Mysql",
+      "item": "https://coddingquestionhub.com/topics/mysql"
+    },
+    {
+      "@type": "ListItem",
+      "position": 4,
+      "name": "Replication Ha",
+      "item": "https://coddingquestionhub.com/topics/mysql/replication-ha.html"
+    }
+  ]
+}
+    </script>
+</head>
+<body class="theme-mysql">
+    <nav class="navbar navbar-expand-lg sticky-top" id="mainNavbar">
+        <div class="container-fluid px-3 px-lg-4">
+            <a class="navbar-brand fw-bold d-flex align-items-center gap-2" href="../../index.html">
+                <span class="brand-icon"><i class="bi bi-braces-asterisk"></i></span>
+                <span>Interview<span class="brand-accent">Prep</span></span>
+            </a>
+            <button class="navbar-toggler border-0 shadow-none" type="button" data-bs-toggle="collapse" data-bs-target="#navbarContent">
+                <i class="bi bi-list fs-3 text-white"></i>
+            </button>
+            <div class="collapse navbar-collapse" id="navbarContent">
+                <ul class="navbar-nav me-auto mb-2 mb-lg-0 ms-lg-3">
+                    <li class="nav-item dropdown">
+                        <a class="nav-link dropdown-toggle fw-500" href="#" role="button" data-bs-toggle="dropdown">
+                            <i class="bi bi-layers me-1"></i> Choose Category
+                        </a>
+                        <ul class="dropdown-menu">
+                            <li><a class="dropdown-item fw-500" href="../../pages/angular.html"><i class="bi bi-bootstrap me-2 text-danger"></i>Angular</a></li>
+                            <li><a class="dropdown-item fw-500" href="../../pages/react.html"><i class="bi bi-infinity me-2 text-info"></i>React</a></li>
+                            <li><a class="dropdown-item fw-500" href="../../pages/node.html"><i class="bi bi-hdd-network me-2 text-success"></i>Node.js</a></li>
+                            <li><a class="dropdown-item fw-500" href="../../pages/javascript.html"><i class="bi bi-filetype-js me-2 text-warning"></i>JavaScript</a></li>
+                            <li><a class="dropdown-item fw-500" href="../../pages/dsa.html"><i class="bi bi-diagram-3-fill me-2" style="color:#8b5cf6"></i>DSA</a></li>
+                            <li><a class="dropdown-item fw-500" href="../../pages/logical.html"><i class="bi bi-lightbulb me-2" style="color:#f59e0b"></i>Logical Reasoning</a></li>
+                            <li><a class="dropdown-item fw-500" href="../../pages/mongodb.html"><i class="bi bi-database-fill me-2" style="color:#4DB33D"></i>MongoDB</a></li>
+                            <li><a class="dropdown-item fw-500" href="../../pages/mysql.html"><i class="bi bi-table me-2" style="color:#0F766E"></i>MySQL</a></li>
+                        </ul>
+                    </li>
+                </ul>
+                <div class="search-wrap">
+                    <i class="bi bi-search search-icon"></i>
+                    <input class="form-control search-input" type="search" placeholder="Search questions..." id="searchInput">
+                </div>
+            </div>
+        </div>
+    </nav>
+        <div class="app-wrapper">
+        <aside class="sidebar" id="sidebar">
+            <div class="sidebar-head">
+                <h6><i class="bi bi-table me-2"></i>MySQL Topics</h6>
+            </div>
+            <nav>
+                <ul class="sidebar-links" id="topicList">
+                    <li><a class="nav-link" href="mysql-fundamentals.html"><i class="bi-diagram-2"></i><span>MySQL Fundamentals</span></a></li>
+                    <li><a class="nav-link" href="crud-operations.html"><i class="bi-pencil-square"></i><span>CRUD Operations</span></a></li>
+                    <li><a class="nav-link" href="sql-joins.html"><i class="bi-link-45deg"></i><span>SQL Joins</span></a></li>
+                    <li><a class="nav-link" href="indexes.html"><i class="bi-lightning-fill"></i><span>Indexes</span></a></li>
+                    <li><a class="nav-link" href="query-optimization.html"><i class="bi-speedometer2"></i><span>Query Optimization</span></a></li>
+                    <li><a class="nav-link" href="transactions-acid.html"><i class="bi-arrow-repeat"></i><span>Transactions &amp; ACID</span></a></li>
+                    <li><a class="nav-link" href="stored-procedures.html"><i class="bi-code-square"></i><span>Stored Procedures</span></a></li>
+                    <li><a class="nav-link" href="triggers.html"><i class="bi-bell-fill"></i><span>Triggers</span></a></li>
+                    <li><a class="nav-link" href="views.html"><i class="bi-eye"></i><span>Views</span></a></li>
+                    <li><a class="nav-link" href="normalization.html"><i class="bi-diagram-3-fill"></i><span>Normalization</span></a></li>
+                    <li><a class="nav-link" href="data-types.html"><i class="bi-diagram-2"></i><span>Data Types</span></a></li>
+                    <li><a class="nav-link" href="string-functions.html"><i class="bi-chat-square-text"></i><span>String Functions</span></a></li>
+                    <li><a class="nav-link" href="date-time-functions.html"><i class="bi-calendar-event"></i><span>Date &amp; Time</span></a></li>
+                    <li><a class="nav-link" href="aggregate-functions.html"><i class="bi-graph-up"></i><span>Aggregate Functions</span></a></li>
+                    <li><a class="nav-link" href="window-functions.html"><i class="bi-column-gap"></i><span>Window Functions</span></a></li>
+                    <li><a class="nav-link" href="subqueries-ctes.html"><i class="bi-filter"></i><span>Subqueries &amp; CTEs</span></a></li>
+                    <li><a class="nav-link" href="full-text-search.html"><i class="bi-search"></i><span>Full-Text Search</span></a></li>
+                    <li><a class="nav-link active" href="replication-ha.html"><i class="bi-diagram-3"></i><span>Replication &amp; HA</span></a></li>
+                    <li><a class="nav-link" href="security-permissions.html"><i class="bi-shield-check"></i><span>Security</span></a></li>
+                    <li><a class="nav-link" href="performance-tuning.html"><i class="bi-sliders"></i><span>Performance Tuning</span></a></li>
+                    <li><a class="nav-link" href="interview-queries-1.html"><i class="bi-gear-fill"></i><span>Interview Queries 1</span></a></li>
+                    <li><a class="nav-link" href="interview-queries-2.html"><i class="bi-gear-fill"></i><span>Interview Queries 2</span></a></li>
+                </ul>
+            </nav>
+        </aside>
+        <div class="sidebar-backdrop" id="sidebarBackdrop"></div>
+        <div class="content-area">
+            <div class="mobile-bar d-lg-none">
+                <button class="btn btn-sm btn-glass" id="sidebarToggle">
+                    <i class="bi bi-layout-sidebar-inset me-1"></i>Topics
+                </button>
+                <span class="badge rounded-pill" style="background:#0F766E;color:#fff;">MySQL</span>
+            </div>
+            <div class="breadcrumb-nav" id="breadcrumb">
+                <a href="../../index.html">Home</a><span class="sep">/</span>
+                <a href="../../pages/mysql.html">MySQL</a><span class="sep">/</span>
+                <span class="current">Replication &amp; HA</span>
+            </div>
+            <div class="qs-header">
+                <h1 class="qs-title" id="topicTitle">MySQL Replication &amp; HA Interview Questions</h1>
+                <span class="badge qs-badge" id="questionCount">8 Questions</span>
+            </div>
+
+            <div class="accordion" id="questionsAccordion">
+                <div class="accordion-item">
+                    <h2 class="accordion-header" id="h_q0">
+                        <button class="accordion-button" type="button" data-bs-toggle="collapse" data-bs-target="#c_q0" aria-expanded="true"><span class="question-number">1</span> What is MySQL replication and how does it work?</button>
+                    </h2>
+                    <div id="c_q0" class="accordion-collapse collapse show" data-bs-parent="#questionsAccordion">
+                        <div class="accordion-body"><p><strong>Replication</strong> copies data from master to slave(s). Master logs all changes to binary log. Slave reads and applies changes. Provides read scaling, backups, and failover.</p><pre><code>-- Master configuration (my.cnf)
+[mysqld]
+server-id = 1
+log_bin = mysql-bin
+binlog_format = ROW
+
+-- Create replication user on master
+CREATE USER 'repl'@'slave-ip' IDENTIFIED BY 'password';
+GRANT REPLICATION SLAVE ON *.* TO 'repl'@'slave-ip';
+
+-- Get master status
+SHOW MASTER STATUS;
+-- File: mysql-bin.000001, Position: 154
+
+-- Slave configuration (my.cnf)
+[mysqld]
+server-id = 2
+relay-log = mysql-relay-bin
+
+-- Configure slave replication
+CHANGE MASTER TO 
+    MASTER_HOST='master-ip',
+    MASTER_USER='repl',
+    MASTER_PASSWORD='password',
+    MASTER_LOG_FILE='mysql-bin.000001',
+    MASTER_LOG_POS=154;
+
+-- Start slave
+START SLAVE;
+SHOW SLAVE STATUS;</code></pre><p><strong>Why it matters:</strong> Horizontal scaling, data redundancy, disaster recovery.</p><p><strong>Real applications:</strong> Load balancing reads, backup slaves, geographic redundancy.</p><p><strong>Common mistakes:</strong> Same server-id on multiple servers, not securing replication user.</p></div>
+                    </div>
+                </div>
+
+                <div class="accordion-item">
+                    <h2 class="accordion-header" id="h_q1">
+                        <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#c_q1" aria-expanded="false"><span class="question-number">2</span> What are binlog formats and their differences?</button>
+                    </h2>
+                    <div id="c_q1" class="accordion-collapse collapse" data-bs-parent="#questionsAccordion">
+                        <div class="accordion-body"><p><strong>ROW</strong>: Log actual row changes, safe, larger logs. <strong>STATEMENT</strong>: Log SQL, smaller, can be unsafe. <strong>MIXED</strong>: Use statement usually, row for unsafe cases.</p><pre><code>-- Configure binlog format
+SET GLOBAL binlog_format = 'ROW';  -- Recommended for replication
+
+-- ROW format (safest)
+binlog_format = ROW  -- Logs actual data changes
+-- Advantages: Safe with functions, triggers, UDFs
+-- Disadvantages: Larger binary log size
+
+-- STATEMENT format (space-efficient)
+binlog_format = STATEMENT  -- Logs SQL statements
+-- Advantages: Smaller log size
+-- Disadvantages: Unsafe with RAND(), NOW(), non-deterministic functions
+
+-- MIXED format (compromise)
+binlog_format = MIXED  -- Default to STATEMENT, use ROW when needed
+-- Balanced between size and safety
+
+-- Check current format
+SHOW GLOBAL VARIABLES LIKE 'binlog_format';
+
+-- Check which statements use ROW (when MIXED)
+SELECT * FROM mysql.general_log WHERE command_type = 'Query' AND argument LIKE '%UPDATE%';
+
+-- Disadvantages of STATEMENT
+-- Non-deterministic: SELECT * FROM table LIMIT 1;  -- Different order on slaves
+-- Functions: UPDATE t SET ts = NOW();  -- Different time on each slave</code></pre><p><strong>Why it matters:</strong> Data consistency on replicas.</p><p><strong>Real applications:</strong> High volume replication, complex queries.</p><p><strong>Common mistakes:</strong> Using STATEMENT with unsafe functions, large ROW logs.</p></div>
+                    </div>
+                </div>
+
+                <div class="accordion-item">
+                    <h2 class="accordion-header" id="h_q2">
+                        <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#c_q2" aria-expanded="false"><span class="question-number">3</span> What is replication lag and how do you monitor it?</button>
+                    </h2>
+                    <div id="c_q2" class="accordion-collapse collapse" data-bs-parent="#questionsAccordion">
+                        <div class="accordion-body"><p><strong>Replication lag</strong> is delay between master and slave writes. Caused by slow queries, large transactions, network delays. Monitor with SHOW SLAVE STATUS.</p><pre><code>-- Check replication lag
+SHOW SLAVE STATUS\G
+-- Seconds_Behind_Master: Lag in seconds
+-- Relay_Master_Log_File: Which master binlog being processed
+-- Exec_Master_Log_Pos: Position in master log
+
+-- Example output
+-- Seconds_Behind_Master: 5  -- 5 seconds behind
+
+-- Monitor lag with queries
+SELECT TIMESTAMPDIFF(SECOND, ts, NOW()) as replication_lag_seconds 
+FROM replication_heartbeat LIMIT 1;  -- Your heartbeat table
+
+-- High lag causes
+-- 1. Slow queries on slave
+-- 2. Large transactions on master
+-- 3. Single-threaded replication (MySQL < 5.7)
+-- 4. Network issues
+
+-- Enable parallel replication (MySQL 5.7+)
+SET GLOBAL slave_parallel_workers = 4;
+SET GLOBAL slave_parallel_type = 'LOGICAL_CLOCK';
+
+-- Check lag in scripts
+#!/bin/bash
+mysql -e "SHOW SLAVE STATUS\G" | grep "Seconds_Behind_Master" | awk '{print $2}'</code></pre><p><strong>Why it matters:</strong> Data freshness on slaves, failover readiness.</p><p><strong>Real applications:</strong> Monitoring dashboards, alerting systems.</p><p><strong>Common mistakes:</strong> Ignoring lag, not monitoring during high load.</p></div>
+                    </div>
+                </div>
+
+                <div class="accordion-item">
+                    <h2 class="accordion-header" id="h_q3">
+                        <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#c_q3" aria-expanded="false"><span class="question-number">4</span> What are common replication issues and solutions?</button>
+                    </h2>
+                    <div id="c_q3" class="accordion-collapse collapse" data-bs-parent="#questionsAccordion">
+                        <div class="accordion-body"><p><strong>Common issues</strong>: Duplicate key errors, replication stops, data inconsistency, lag growth. Use binlog position tracking, checksums, and monitoring.</p><pre><code>-- Issue 1: Duplicate key error on slave
+ERROR 1062: Duplicate entry
+-- Solution: Skip error
+STOP SLAVE;
+SET GLOBAL SQL_SLAVE_SKIP_COUNTER = 1;
+START SLAVE;
+
+-- Issue 2: Replication stopped at error
+SHOW SLAVE STATUS\G
+-- Last_Error: error message
+
+-- Fix: Fix data issue then sync
+STOP SLAVE;
+-- Fix data inconsistency manually
+[Fix the data]
+START SLAVE;
+
+-- Issue 3: Verify data consistency
+-- Use pt-table-checksum (Percona)
+pt-table-checksum --replicate=percona.checksums h=master-ip
+
+-- Issue 4: Large lag after restart
+-- Use backup restore + incremental binlog
+mysqldump --master-data > backup.sql
+mysql < backup.sql
+
+-- Issue 5: Master-slave data divergence
+-- Use Percona XtraBackup for consistent snapshot
+xtrabackup --backup --target-dir=/backup
+[Copy to slave]
+xtrabackup --prepare --target-dir=/backup</code></pre><p><strong>Why it matters:</strong> Maintain data consistency across replicas.</p><p><strong>Real applications:</strong> Production troubleshooting, failover procedures.</p><p><strong>Common mistakes:</strong> Forcing replication through errors, not fixing root cause.</p></div>
+                    </div>
+                </div>
+
+                <div class="accordion-item">
+                    <h2 class="accordion-header" id="h_q4">
+                        <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#c_q4" aria-expanded="false"><span class="question-number">5</span> What is master-master replication and its challenges?</button>
+                    </h2>
+                    <div id="c_q4" class="accordion-collapse collapse" data-bs-parent="#questionsAccordion">
+                        <div class="accordion-body"><p><strong>Master-master</strong> replication enables writes on both servers. Useful for geographic distribution. Challenges: Conflict resolution, infinite loops, coordination.</p><pre><code>-- Master A configuration
+server-id = 1
+log_bin = mysql-bin
+binlog_format = ROW
+auto_increment_increment = 2
+auto_increment_offset = 1
+
+-- Master B configuration
+server-id = 2
+log_bin = mysql-bin
+binlog_format = ROW
+auto_increment_increment = 2
+auto_increment_offset = 2
+
+-- Both are masters and slaves of each other
+-- Master A slave setup
+CHANGE MASTER TO MASTER_HOST='master-b-ip', MASTER_USER='repl', ...;
+
+-- Master B slave setup
+CHANGE MASTER TO MASTER_HOST='master-a-ip', MASTER_USER='repl', ...;
+
+-- AUTO_INCREMENT handling
+-- Master A uses IDs: 1, 3, 5, 7, ...
+-- Master B uses IDs: 2, 4, 6, 8, ...
+-- Prevents duplicate key conflicts
+
+-- Challenges
+-- 1. Write conflicts if same row modified on both
+-- 2. Application logic must handle eventual consistency
+-- 3. Failover is complex
+
+-- Monitoring both directions
+SHOW SLAVE STATUS\G  -- Check replication to other master
+SHOW MASTER STATUS;  -- Check outgoing replication</code></pre><p><strong>Why it matters:</strong> Active-active replication, geographic redundancy.</p><p><strong>Real applications:</strong> Multi-region deployments, symmetric failover.</p><p><strong>Common mistakes:</strong> Same auto_increment offsets, writing same data on both.</p></div>
+                    </div>
+                </div>
+
+                <div class="accordion-item">
+                    <h2 class="accordion-header" id="h_q5">
+                        <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#c_q5" aria-expanded="false"><span class="question-number">6</span> What is Percona XtraDB Cluster and group replication?</button>
+                    </h2>
+                    <div id="c_q5" class="accordion-collapse collapse" data-bs-parent="#questionsAccordion">
+                        <div class="accordion-body"><p><strong>PXC</strong> provides synchronous replication with quorum. <strong>Group Replication</strong> (MySQL 5.7+) multi-master clustering. Both ensure data consistency at cost of write latency.</p><pre><code>-- Percona XtraDB Cluster
+-- Multi-master, synchronous replication, quorum-based
+-- Configuration
+pxc_strict_mode = ENFORCED
+
+-- Join cluster
+systemctl start mysql
+
+-- Check cluster status
+SHOW STATUS WHERE variable_name LIKE 'wsrep%';
+-- wsrep_connected: ON (connected to cluster)
+-- wsrep_cluster_size: 3 (cluster members)
+-- wsrep_local_state_uuid: Cluster ID
+
+-- MySQL Group Replication
+-- Initialize group replication plugin
+INSTALL PLUGIN group_replication SONAME 'group_replication.so';
+
+-- Configure host
+SET GLOBAL group_replication_group_name="aaaaaaaa-aaaa-aaaa-aaaa-aaaaaaaaaaaa";
+SET GLOBAL group_replication_start_on_boot=ON;
+
+-- Bootstrap primary
+SET GLOBAL group_replication_bootstrap_group=ON;
+START GROUP_REPLICATION;
+SET GLOBAL group_replication_bootstrap_group=OFF;
+
+-- Join secondary
+START GROUP_REPLICATION;
+
+-- Monitor group
+SELECT * FROM performance_schema.replication_group_members;</code></pre><p><strong>Why it matters:</strong> Synchronous consistency, easier failover.</p><p><strong>Real applications:</strong> Critical systems requiring strong consistency.</p><p><strong>Common mistakes:</strong> Network partitions, quorum loss, latency impact.</p></div>
+                    </div>
+                </div>
+
+                <div class="accordion-item">
+                    <h2 class="accordion-header" id="h_q6">
+                        <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#c_q6" aria-expanded="false"><span class="question-number">7</span> What are backup strategies with replication?</button>
+                    </h2>
+                    <div id="c_q6" class="accordion-collapse collapse" data-bs-parent="#questionsAccordion">
+                        <div class="accordion-body"><p><strong>Backup strategies</strong>: Backup from slave (non-intrusive), use Percona tools, point-in-time recovery with binlogs, binlog server for central backup.</p><pre><code>-- Backup from slave (non-blocking)
+STOP SLAVE;
+mysqldump --all-databases --single-transaction > backup.sql;
+START SLAVE;  -- Lag accumulates during backup
+
+-- Better: Use slave parallel replication, backup compressed
+STOP SLAVE;
+mysqldump --all-databases --single-transaction --compress | gzip > backup.sql.gz;
+START SLAVE;
+
+-- Percona XtraBackup (faster, non-blocking)
+xtrabackup --backup --target-dir=/backup --parallel=4
+-- Slave continues running, xtrabackup reads consistent snapshot
+
+-- Binlog server (central backup point)
+-- Slave collects all binlogs from master
+-- Separate server for backup operations
+[Master] --> [Slave with binlog_server] --> [Backup jobs]
+
+-- Point-in-time recovery
+SHOW BINARY LOGS;  -- List all binary logs
+mysqlbinlog mysql-bin.000001 mysql-bin.000002 | mysql  -- Restore to specific point
+
+-- Setup binlog retention
+SET GLOBAL binlog_expire_logs_seconds = 604800;  -- 7 days
+
+-- Backup strategy example
+-- Day 1: Full backup
+mysqldump --all-databases > /backup/full_backup_day1.sql
+
+-- Day 2-6: Incremental (save binlogs)
+-- Just copy binlog files: mysql-bin.000002, mysql-bin.000003, ...
+
+-- Recovery
+mysql < /backup/full_backup_day1.sql
+mysqlbinlog /backup/mysql-bin.000002 /backup/mysql-bin.000003 | mysql</code></pre><p><strong>Why it matters:</strong> Fast backups without blocking production.</p><p><strong>Real applications:</strong> Disaster recovery, compliance, point-in-time restore.</p><p><strong>Common mistakes:</strong> Blocking backups during peak hours, not testing recovery.</p></div>
+                    </div>
+                </div>
+
+                <div class="accordion-item">
+                    <h2 class="accordion-header" id="h_q7">
+                        <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#c_q7" aria-expanded="false"><span class="question-number">8</span> What are production replication best practices?</button>
+                    </h2>
+                    <div id="c_q7" class="accordion-collapse collapse" data-bs-parent="#questionsAccordion">
+                        <div class="accordion-body"><p><strong>Best practices</strong>: Monitoring lag, testing failover, backup strategy, multiple slaves, replication filters carefully, dedicated slave users.</p><pre><code>-- ✅ Good: Monitor replication with alerts
+SELECT @@hostname, TIMESTAMPDIFF(SECOND, NOW(), 
+       DATE_ADD(NOW(), INTERVAL (SELECT TIMESTAMPDIFF(SECOND, NOW(), NOW())) SECOND)) as lag_seconds
+FROM INFORMATION_SCHEMA.PROCESSLIST WHERE ID = 1;
+
+-- ✅ Good: Multiple slaves for different purposes
+-- Slave 1: Read scaling
+-- Slave 2: Backups  
+-- Slave 3: Analytics (allow 1-2 min lag)
+
+-- ✅ Good: Test failover regularly
+-- Run failover simulation in dev/staging
+-- Document runbook
+-- Train team
+
+-- ✅ Good: Use dedicated replication user
+CREATE USER 'repl'@'%.domain.com' IDENTIFIED BY 'strong_password';
+GRANT REPLICATION SLAVE, REPLICATION CLIENT ON *.* TO 'repl'@'%.domain.com';
+
+-- ❌ Bad: Replication filters (can cause data loss)
+-- replicate-ignore-db = temp  -- Risky!
+-- Breaks slave if master has data in ignored db
+
+-- ✉ Good: Set read-only on slaves
+SET GLOBAL read_only = ON;
+SET GLOBAL super_read_only = ON;  -- Even super users can't write
+
+-- Monitor replication with queries
+SELECT * FROM performance_schema.replication_connection_status;
+SELECT * FROM performance_schema.replication_applier_status;</code></pre><p><strong>Why it matters:</strong> Production reliability and data safety.</p><p><strong>Real applications:</strong> High availability setup, disaster recovery.</p><p><strong>Common mistakes:</strong> Ignoring lag, not testing failover, poor monitoring.</p></div>
+                    </div>
+                </div>
+            </div>
+          
+
+            <div class="topic-nav" id="topicNav">
+            <a class="topic-nav-btn prev" href="full-text-search.html">
+                <span class="label"><i class="bi bi-arrow-left me-1"></i> Previous</span>
+                <span class="title">Full-Text Search</span>
+            </a>
+            <a class="topic-nav-btn next" href="security-permissions.html">
+                <span class="label">Next <i class="bi bi-arrow-right ms-1"></i></span>
+                <span class="title">Security & Permissions</span>
+            </a>
+            </div>
+             <footer class="app-footer">
+                <p>&copy; 2026 InterviewPrep &mdash; MySQL Interview Questions</p>
+            </footer>
+        </div>
+    </div>
+    <button class="btn-totop" id="backToTop"><i class="bi bi-chevron-up"></i></button>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>
+    <script>
+    (function(){
+        var sb=document.getElementById('sidebar'),bd=document.getElementById('sidebarBackdrop'),
+            tg=document.getElementById('sidebarToggle');
+        if(tg)tg.addEventListener('click',function(){sb.classList.add('open');bd.classList.add('show');});
+        if(bd)bd.addEventListener('click',function(){sb.classList.remove('open');bd.classList.remove('show');});
+        var btt=document.getElementById('backToTop');
+        window.addEventListener('scroll',function(){btt.classList.toggle('show',window.scrollY>400);});
+        btt.addEventListener('click',function(){window.scrollTo({top:0,behavior:'smooth'});});
+    })();
+    </script>
+</body>
+
+</html>

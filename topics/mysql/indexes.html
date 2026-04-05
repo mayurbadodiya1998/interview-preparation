@@ -1,0 +1,690 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="MySQL Indexes interview questions: PRIMARY, UNIQUE, composite indexes, index optimization strategies.">
+    <meta name="keywords" content="MySQL indexes, BTREE, composite index, index optimization, query performance, MySQL interview">
+    <meta name="author" content="InterviewPrep">
+    <meta name="robots" content="index, follow">
+    <link rel="icon" type="image/svg+xml" href="../../favicon.svg" sizes="any">
+    <meta property="og:type" content="website">
+    <meta property="og:title" content="MySQL Indexes — MySQL Interview Questions | InterviewPrep">
+    <meta property="og:description" content="MySQL Indexes interview questions: PRIMARY, UNIQUE, composite indexes, index optimization strategies.">
+    <meta property="og:url" content="https://coddingquestionhub.com/topics/mysql/indexes.html">
+    <meta name="twitter:card" content="summary_large_image">
+    <meta name="twitter:title" content="MySQL Indexes — MySQL Interview Questions | InterviewPrep">
+    <meta name="twitter:description" content="MySQL Indexes interview questions: PRIMARY, UNIQUE, composite indexes, index optimization strategies.">
+    <meta name="twitter:image" content="https://coddingquestionhub.com/og-mysql.png">
+    <title>MySQL Indexes — MySQL Interview Questions | InterviewPrep 2026</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&family=Fira+Code:wght@400;500&display=swap" rel="stylesheet">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="../../css/styles.css">
+    <link rel="canonical" href="https://coddingquestionhub.com/topics/mysql/indexes.html">
+    <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-8957020141286926" crossorigin="anonymous"></script>
+    <script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "BreadcrumbList",
+  "itemListElement": [
+    {
+      "@type": "ListItem",
+      "position": 1,
+      "name": "Home",
+      "item": "https://coddingquestionhub.com"
+    },
+    {
+      "@type": "ListItem",
+      "position": 2,
+      "name": "Topics",
+      "item": "https://coddingquestionhub.com/topics"
+    },
+    {
+      "@type": "ListItem",
+      "position": 3,
+      "name": "Mysql",
+      "item": "https://coddingquestionhub.com/topics/mysql"
+    },
+    {
+      "@type": "ListItem",
+      "position": 4,
+      "name": "Indexes",
+      "item": "https://coddingquestionhub.com/topics/mysql/indexes.html"
+    }
+  ]
+}
+    </script>
+</head>
+<body class="theme-mysql">
+    <nav class="navbar navbar-expand-lg sticky-top" id="mainNavbar">
+        <div class="container-fluid px-3 px-lg-4">
+            <a class="navbar-brand fw-bold d-flex align-items-center gap-2" href="../../index.html">
+                <span class="brand-icon"><i class="bi bi-braces-asterisk"></i></span>
+                <span>Interview<span class="brand-accent">Prep</span></span>
+            </a>
+            <button class="navbar-toggler border-0 shadow-none" type="button" data-bs-toggle="collapse" data-bs-target="#navbarContent">
+                <i class="bi bi-list fs-3 text-white"></i>
+            </button>
+            <div class="collapse navbar-collapse" id="navbarContent">
+                <ul class="navbar-nav me-auto mb-2 mb-lg-0 ms-lg-3">
+                    <li class="nav-item dropdown">
+                        <a class="nav-link dropdown-toggle fw-500" href="#" role="button" data-bs-toggle="dropdown">
+                            <i class="bi bi-layers me-1"></i> Choose Category
+                        </a>
+                        <ul class="dropdown-menu">
+                            <li><a class="dropdown-item fw-500" href="../../pages/angular.html"><i class="bi bi-bootstrap me-2 text-danger"></i>Angular</a></li>
+                            <li><a class="dropdown-item fw-500" href="../../pages/react.html"><i class="bi bi-infinity me-2 text-info"></i>React</a></li>
+                            <li><a class="dropdown-item fw-500" href="../../pages/node.html"><i class="bi bi-hdd-network me-2 text-success"></i>Node.js</a></li>
+                            <li><a class="dropdown-item fw-500" href="../../pages/javascript.html"><i class="bi bi-filetype-js me-2 text-warning"></i>JavaScript</a></li>
+                            <li><a class="dropdown-item fw-500" href="../../pages/dsa.html"><i class="bi bi-diagram-3-fill me-2" style="color:#8b5cf6"></i>DSA</a></li>
+                            <li><a class="dropdown-item fw-500" href="../../pages/logical.html"><i class="bi bi-lightbulb me-2" style="color:#f59e0b"></i>Logical Reasoning</a></li>
+                            <li><a class="dropdown-item fw-500" href="../../pages/mongodb.html"><i class="bi bi-database-fill me-2" style="color:#4DB33D"></i>MongoDB</a></li>
+                            <li><a class="dropdown-item fw-500" href="../../pages/mysql.html"><i class="bi bi-table me-2" style="color:#0F766E"></i>MySQL</a></li>
+                        </ul>
+                    </li>
+                </ul>
+                <div class="search-wrap">
+                    <i class="bi bi-search search-icon"></i>
+                    <input class="form-control search-input" type="search" placeholder="Search questions..." id="searchInput">
+                </div>
+            </div>
+        </div>
+    </nav>
+
+        <div class="app-wrapper">
+        <aside class="sidebar" id="sidebar">
+            <div class="sidebar-head">
+                <h6><i class="bi bi-table me-2"></i>MySQL Topics</h6>
+            </div>
+            <nav>
+                <ul class="sidebar-links" id="topicList">
+                    <li><a class="nav-link" href="mysql-fundamentals.html"><i class="bi-diagram-2"></i><span>MySQL Fundamentals</span></a></li>
+                    <li><a class="nav-link" href="crud-operations.html"><i class="bi-pencil-square"></i><span>CRUD Operations</span></a></li>
+                    <li><a class="nav-link" href="sql-joins.html"><i class="bi-link-45deg"></i><span>SQL Joins</span></a></li>
+                    <li><a class="nav-link active" href="indexes.html"><i class="bi-lightning-fill"></i><span>Indexes</span></a></li>
+                    <li><a class="nav-link" href="query-optimization.html"><i class="bi-speedometer2"></i><span>Query Optimization</span></a></li>
+                    <li><a class="nav-link" href="transactions-acid.html"><i class="bi-arrow-repeat"></i><span>Transactions &amp; ACID</span></a></li>
+                    <li><a class="nav-link" href="stored-procedures.html"><i class="bi-code-square"></i><span>Stored Procedures</span></a></li>
+                    <li><a class="nav-link" href="triggers.html"><i class="bi-bell-fill"></i><span>Triggers</span></a></li>
+                    <li><a class="nav-link" href="views.html"><i class="bi-eye"></i><span>Views</span></a></li>
+                    <li><a class="nav-link" href="normalization.html"><i class="bi-diagram-3-fill"></i><span>Normalization</span></a></li>
+                    <li><a class="nav-link" href="data-types.html"><i class="bi-diagram-2"></i><span>Data Types</span></a></li>
+                    <li><a class="nav-link" href="string-functions.html"><i class="bi-chat-square-text"></i><span>String Functions</span></a></li>
+                    <li><a class="nav-link" href="date-time-functions.html"><i class="bi-calendar-event"></i><span>Date &amp; Time</span></a></li>
+                    <li><a class="nav-link" href="aggregate-functions.html"><i class="bi-graph-up"></i><span>Aggregate Functions</span></a></li>
+                    <li><a class="nav-link" href="window-functions.html"><i class="bi-column-gap"></i><span>Window Functions</span></a></li>
+                    <li><a class="nav-link" href="subqueries-ctes.html"><i class="bi-filter"></i><span>Subqueries &amp; CTEs</span></a></li>
+                    <li><a class="nav-link" href="full-text-search.html"><i class="bi-search"></i><span>Full-Text Search</span></a></li>
+                    <li><a class="nav-link" href="replication-ha.html"><i class="bi-diagram-3"></i><span>Replication &amp; HA</span></a></li>
+                    <li><a class="nav-link" href="security-permissions.html"><i class="bi-shield-check"></i><span>Security</span></a></li>
+                    <li><a class="nav-link" href="performance-tuning.html"><i class="bi-sliders"></i><span>Performance Tuning</span></a></li>
+                    <li><a class="nav-link" href="interview-queries-1.html"><i class="bi-gear-fill"></i><span>Interview Queries 1</span></a></li>
+                    <li><a class="nav-link" href="interview-queries-2.html"><i class="bi-gear-fill"></i><span>Interview Queries 2</span></a></li>
+                </ul>
+            </nav>
+        </aside>
+        <div class="sidebar-backdrop" id="sidebarBackdrop"></div>
+        <div class="content-area">
+            <div class="mobile-bar d-lg-none">
+                <button class="btn btn-sm btn-glass" id="sidebarToggle">
+                    <i class="bi bi-layout-sidebar-inset me-1"></i>Topics
+                </button>
+                <span class="badge rounded-pill" style="background:#0F766E;color:#fff;">MySQL</span>
+            </div>
+            <div class="breadcrumb-nav" id="breadcrumb">
+                <a href="../../index.html">Home</a><span class="sep">/</span>
+                <a href="../../pages/mysql.html">MySQL</a><span class="sep">/</span>
+                <span class="current">Indexes</span>
+            </div>
+            <div class="qs-header">
+                <h1 class="qs-title" id="topicTitle">MySQL Indexes Interview Questions</h1>
+                <span class="badge qs-badge" id="questionCount">15 Questions</span>
+            </div>
+<div class="accordion" id="questionsAccordion">
+                <!-- Question 1 -->
+                <div class="accordion-item">
+                    <h2 class="accordion-header" id="h_q0">
+                        <button class="accordion-button" type="button" data-bs-toggle="collapse" data-bs-target="#c_q0" aria-expanded="true"><span class="question-number">1</span> What are indexes and why are they important in MySQL?</button>
+                    </h2>
+                    <div id="c_q0" class="accordion-collapse collapse show" data-bs-parent="#questionsAccordion">
+                        <div class="accordion-body">
+                        <p><strong>Indexes</strong> are data structures that allow the database engine to quickly find rows in a table without scanning every row. They work similarly to a book's index, enabling efficient searching and retrieval of data. <strong>Proper indexing</strong> is crucial for performance as it can dramatically reduce query execution time.</p>
+                        <pre><code>-- Create a simple index
+CREATE INDEX idx_email ON users(email);
+
+-- Query using index is much faster
+SELECT * FROM users WHERE email = 'john@example.com';</code></pre>
+
+                        <p><strong>Why it matters:</strong> Indexes are fundamental to database performance. Without proper indexes, queries must perform full table scans, which become increasingly slow as data grows.</p>
+
+                        <p><strong>Real applications:</strong> E-commerce sites use indexes on product IDs and user emails for instant search results. Banking systems index account numbers for rapid lookups during transactions.</p>
+
+                        <p><strong>Common mistakes:</strong> Creating too many indexes slows down INSERT/UPDATE operations. Beginners often index every column without analyzing query patterns.</p>
+                    </div>
+                </div>
+                </div>
+
+                <!-- Question 2 -->
+                <div class="accordion-item">
+                    <h2 class="accordion-header" id="h_q1">
+                        <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#c_q1" aria-expanded="false"><span class="question-number">2</span> What are the different types of indexes in MySQL?</button>
+                    </h2>
+                    <div id="c_q1" class="accordion-collapse collapse" data-bs-parent="#questionsAccordion">
+                        <div class="accordion-body">
+                        <p>MySQL supports several <strong>index types</strong> including PRIMARY KEY (unique identifier), UNIQUE INDEX (ensures uniqueness), FULLTEXT INDEX (for text searching), and SPATIAL INDEX (for geographic data). Each type serves different query patterns and has specific performance characteristics.</p>
+                        <pre><code>-- Different index types
+CREATE TABLE products (
+    id INT PRIMARY KEY,
+    email VARCHAR(255) UNIQUE,
+    description TEXT,
+    FULLTEXT INDEX idx_description (description)
+);
+
+-- SPATIAL index for geographic queries
+ALTER TABLE locations ADD SPATIAL INDEX idx_geometry (coordinates);</code></pre>
+
+                        <p><strong>Why it matters:</strong> Choosing the right index type ensures optimal query performance for specific access patterns and data types.</p>
+
+                        <p><strong>Real applications:</strong> E-commerce sites use FULLTEXT indexes for product searches, mapping applications use SPATIAL indexes for location queries.</p>
+
+                        <p><strong>Common mistakes:</strong> Using FULLTEXT for simple string matching leads to poor performance. Not understanding when each index type is appropriate.</p>
+                    </div>
+                </div>
+                </div>
+
+                <!-- Question 3 -->
+                <div class="accordion-item">
+                    <h2 class="accordion-header" id="h_q2">
+                        <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#c_q2" aria-expanded="false"><span class="question-number">3</span> What is the difference between PRIMARY KEY and UNIQUE INDEX?</button>
+                    </h2>
+                    <div id="c_q2" class="accordion-collapse collapse" data-bs-parent="#questionsAccordion">
+                        <div class="accordion-body">
+                        <p><strong>PRIMARY KEY</strong> uniquely identifies each row and cannot contain NULL values, while a <strong>UNIQUE INDEX</strong> can have NULL values and there can be multiple NULL values. PRIMARY KEY is typically used as the main identifier, whereas UNIQUE INDEX is used for other fields that must be unique.</p>
+                        <pre><code>CREATE TABLE users (
+    user_id INT PRIMARY KEY,  -- No nulls allowed
+    email VARCHAR(255) UNIQUE, -- Can have NULL values
+    phone VARCHAR(20) UNIQUE   -- Multiple NULLs allowed
+);
+
+-- This is valid - multiple NULLs in unique column
+INSERT INTO users VALUES (1, NULL, NULL);
+INSERT INTO users VALUES (2, NULL, '123-456');</code></pre>
+
+                        <p><strong>Why it matters:</strong> Understanding this distinction helps design proper database constraints and query logic.</p>
+
+                        <p><strong>Real applications:</strong> User IDs use PRIMARY KEY, email uses UNIQUE INDEX (optional registration field), social media handles use UNIQUE INDEX.</p>
+
+                        <p><strong>Common mistakes:</strong> Trying to use multiple PRIMARY KEYs, not understanding NULL handling in UNIQUE indexes.</p>
+                    </div>
+                </div>
+                </div>
+
+                <!-- Question 4 -->
+                <div class="accordion-item">
+                    <h2 class="accordion-header" id="h_q3">
+                        <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#c_q3" aria-expanded="false"><span class="question-number">4</span> How do you create and drop indexes in MySQL?</button>
+                    </h2>
+                    <div id="c_q3" class="accordion-collapse collapse" data-bs-parent="#questionsAccordion">
+                        <div class="accordion-body">
+                        <p><strong>CREATE INDEX</strong> creates an index on one or more columns while <strong>DROP INDEX</strong> removes an existing index. The syntax varies slightly for PRIMARY KEY and UNIQUE constraints which are typically managed through ALTER TABLE statements.</p>
+                        <pre><code>-- Create single-column index
+CREATE INDEX idx_lastname ON employees(last_name);
+
+-- Create multi-column index
+CREATE INDEX idx_name ON employees(last_name, first_name);
+
+-- Create unique index
+CREATE UNIQUE INDEX idx_ssn ON employees(ssn);
+
+-- Drop index
+DROP INDEX idx_lastname ON employees;
+
+-- Alter table to drop primary key
+ALTER TABLE employees DROP PRIMARY KEY;
+
+-- Create index if it doesn't exist
+CREATE INDEX IF NOT EXISTS idx_dept ON employees(department_id);</code></pre>
+
+                        <p><strong>Why it matters:</strong> Proper index management is essential for database maintenance and optimization as requirements change.</p>
+
+                        <p><strong>Real applications:</strong> DBA tasks include adding indexes after production issues and removing unused indexes to free up space.</p>
+
+                        <p><strong>Common mistakes:</strong> Not checking if index exists before dropping, creating duplicate indexes, not considering lock time on large tables.</p>
+                    </div>
+                </div>
+                </div>
+
+                <!-- Question 5 -->
+                <div class="accordion-item">
+                    <h2 class="accordion-header" id="h_q4">
+                        <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#c_q4" aria-expanded="false"><span class="question-number">5</span> What are composite indexes and when should you use them?</button>
+                    </h2>
+                    <div id="c_q4" class="accordion-collapse collapse" data-bs-parent="#questionsAccordion">
+                        <div class="accordion-body">
+                        <p><strong>Composite indexes</strong> (also called multi-column indexes) index multiple columns together, optimizing queries that filter on multiple columns. The order of columns matters significantly due to the <strong>leftmost prefix principle</strong> where MySQL can use the index if the query starts with the leftmost columns.</p>
+                        <pre><code>-- Composite index on last_name, first_name
+CREATE INDEX idx_name ON employees(last_name, first_name);
+
+-- This query uses the index efficiently
+SELECT * FROM employees WHERE last_name='Smith' AND first_name='John';
+
+-- This also uses the index (first column match)
+SELECT * FROM employees WHERE last_name='Smith';
+
+-- This query cannot use the index effectively
+SELECT * FROM employees WHERE first_name='John';</code></pre>
+
+                        <p><strong>Why it matters:</strong> Composite indexes reduce the number of indexes needed and improve queries with multiple WHERE conditions.</p>
+
+                        <p><strong>Real applications:</strong> Address lookups (country, state, city), user searches (department, role, status).</p>
+
+                        <p><strong>Common mistakes:</strong> Creating composite indexes in wrong column order, not understanding leftmost prefix principle, creating redundant single-column indexes when composite exists.</p>
+                    </div>
+                </div>
+                </div>
+
+                <!-- Question 6 -->
+                <div class="accordion-item">
+                    <h2 class="accordion-header" id="h_q5">
+                        <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#c_q5" aria-expanded="false"><span class="question-number">6</span> How do you analyze query performance using EXPLAIN?</button>
+                    </h2>
+                    <div id="c_q5" class="accordion-collapse collapse" data-bs-parent="#questionsAccordion">
+                        <div class="accordion-body">
+                        <p><strong>EXPLAIN</strong> (or EXPLAIN PLAN) shows how MySQL executes a query, including whether indexes are used, row count estimates, and join order. It's essential for performance optimization and understanding query execution plans. The <strong>type</strong> column indicates the join type, with ALL (full scan) being worst.</p>
+                        <pre><code>-- Analyze query performance
+EXPLAIN SELECT * FROM employees WHERE last_name = 'Smith';
+
+-- Output columns: id, select_type, table, type, possible_keys, key, key_len, ref, rows, Extra
+
+-- Type values from best to worst:
+-- system -> const -> eq_ref -> ref -> fulltext -> ref_or_null -> index_merge -> unique_subquery -> index_subquery -> range -> index -> ALL
+
+-- Check if index is used
+EXPLAIN SELECT * FROM employees WHERE employee_id = 123; -- type: const (best)
+EXPLAIN SELECT * FROM employees WHERE last_name = 'Smith'; -- type: ALL (worst, no index)</code></pre>
+
+                        <p><strong>Why it matters:</strong> EXPLAIN reveals whether indexes are being used and identifies slow queries before production issues occur.</p>
+
+                        <p><strong>Real applications:</strong> Performance troubleshooting, query optimization during development, capacity planning.</p>
+
+                        <p><strong>Common mistakes:</strong> Ignoring rows column which indicates estimated rows examined, not checking type column for full scans.</p>
+                    </div>
+                </div>
+                </div>
+
+                <!-- Question 7 -->
+                <div class="accordion-item">
+                    <h2 class="accordion-header" id="h_q6">
+                        <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#c_q6" aria-expanded="false"><span class="question-number">7</span> When should you create indexes on foreign keys?</button>
+                    </h2>
+                    <div id="c_q6" class="accordion-collapse collapse" data-bs-parent="#questionsAccordion">
+                        <div class="accordion-body">
+                        <p><strong>Foreign key indexes</strong> should be created to optimize JOIN operations between tables. When performing JOINs, MySQL needs to quickly find matching rows in the related table. Without indexes on foreign keys, MySQL performs full table scans for each join, significantly impacting performance.</p>
+                        <pre><code>-- Without index on foreign key - slow joins
+CREATE TABLE orders (
+    order_id INT PRIMARY KEY,
+    customer_id INT,  -- Foreign key, but no index
+    order_date DATE
+);
+
+-- With index on foreign key - fast joins
+CREATE TABLE orders (
+    order_id INT PRIMARY KEY,
+    customer_id INT,
+    order_date DATE,
+    FOREIGN KEY (customer_id) REFERENCES customers(customer_id),
+    INDEX idx_customer (customer_id)
+);
+
+-- JOIN benefits from customer_id index
+SELECT o.*, c.name FROM orders o
+JOIN customers c ON o.customer_id = c.customer_id
+WHERE c.country = 'USA';</code></pre>
+
+                        <p><strong>Why it matters:</strong> Foreign key indexes dramatically improve JOIN performance, which is critical in relational databases.</p>
+
+                        <p><strong>Real applications:</strong> Online stores (orders to customers), banking (transactions to accounts), social media (posts to users).</p>
+
+                        <p><strong>Common mistakes:</strong> Assuming foreign keys are automatically indexed, not considering JOIN patterns when designing schema.</p>
+                    </div>
+                </div>
+                </div>
+
+                <!-- Question 8 -->
+                <div class="accordion-item">
+                    <h2 class="accordion-header" id="h_q7">
+                        <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#c_q7" aria-expanded="false"><span class="question-number">8</span> What are covering indexes and how do they improve performance?</button>
+                    </h2>
+                    <div id="c_q7" class="accordion-collapse collapse" data-bs-parent="#questionsAccordion">
+                        <div class="accordion-body">
+                        <p><strong>Covering indexes</strong> include all columns needed for a query result, allowing MySQL to satisfy the entire query from the index without accessing the main table. This eliminates the lookup step and significantly improves performance, especially for large result sets or frequently run queries.</p>
+                        <pre><code>-- Covering index example
+CREATE INDEX idx_covering ON employees(last_name, first_name, salary);
+
+-- Query that uses covering index - no table lookup needed
+SELECT last_name, first_name, salary FROM employees 
+WHERE last_name = 'Smith' AND first_name = 'John';
+
+-- Query that does NOT use covering index - must access table
+SELECT * FROM employees WHERE last_name = 'Smith';
+
+-- EXPLAIN shows 'Using index' for covering index
+EXPLAIN SELECT last_name, first_name, salary FROM employees 
+WHERE last_name = 'Smith'; -- Extra: Using index</code></pre>
+
+                        <p><strong>Why it matters:</strong> Covering indexes can reduce I/O operations significantly, improving query speed especially for frequently executed queries.</p>
+
+                        <p><strong>Real applications:</strong> Leaderboard queries (user_id, score, rank), product listings (product_id, price, rating).</p>
+
+                        <p><strong>Common mistakes:</strong> Creating overly large covering indexes that slow down writes, not considering maintenance overhead.</p>
+                    </div>
+                </div>
+                </div>
+
+                <!-- Question 9 -->
+                <div class="accordion-item">
+                    <h2 class="accordion-header" id="h_q8">
+                        <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#c_q8" aria-expanded="false"><span class="question-number">9</span> What is the B-tree structure used in MySQL indexes?</button>
+                    </h2>
+                    <div id="c_q8" class="accordion-collapse collapse" data-bs-parent="#questionsAccordion">
+                        <div class="accordion-body">
+                        <p>MySQL's default index uses a <strong>B-tree structure</strong>, a self-balancing tree where data is sorted and organized hierarchically. B-trees ensure logarithmic time complexity for searches, inserts, and deletes. The structure automatically rebalances to maintain optimal height, ensuring consistent performance regardless of data distribution.</p>
+                        <pre><code>-- B-tree structure visualization:
+--        [50]
+--       /    \
+--    [20]    [80]
+--   /  \    /   \
+-- [10] [35] [65] [90]
+
+-- All operations have O(log n) complexity
+-- Find: navigate from root to leaf - logarithmic
+-- Insert: find position and rebalance - logarithmic
+-- Delete: remove and rebalance - logarithmic
+
+-- B-tree properties enable efficient range queries
+SELECT * FROM employees 
+WHERE salary BETWEEN 50000 AND 100000;  -- Uses B-tree range scan</code></pre>
+
+                        <p><strong>Why it matters:</strong> Understanding B-tree structure explains why indexes are so effective and ensures proper index design.</p>
+
+                        <p><strong>Real applications:</strong> Any database with indexed data uses B-tree or similar structures for efficiency.</p>
+
+                        <p><strong>Common mistakes:</strong> Not understanding why range queries still benefit from indexes, assuming linear scan pattern.</p>
+                    </div>
+                </div>
+                </div>
+
+                <!-- Question 10 -->
+                <div class="accordion-item">
+                    <h2 class="accordion-header" id="h_q9">
+                        <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#c_q9" aria-expanded="false"><span class="question-number">10</span> What are hash indexes and how do they differ from B-tree indexes?</button>
+                    </h2>
+                    <div id="c_q9" class="accordion-collapse collapse" data-bs-parent="#questionsAccordion">
+                        <div class="accordion-body">
+                        <p><strong>Hash indexes</strong> use hash functions to locate data, optimizing exact-value lookups but not range queries. Unlike B-tree indexes which maintain sorted order, hash indexes scatter data based on hash values. <strong>Memory storage engine</strong> supports hash indexes; InnoDB primarily uses B-tree for reliability and range query support.</p>
+                        <pre><code>-- Hash index characteristics
+-- Pros: O(1) average lookup for exact matches
+-- Cons: Cannot do range queries, no ordering, no prefix matching
+
+-- CREATE HASH INDEX (Memory engine only)
+CREATE TABLE hash_example (
+    id INT PRIMARY KEY USING HASH,
+    email VARCHAR(255) UNIQUE USING HASH
+) ENGINE=MEMORY;
+
+-- Hash index - excellent for
+SELECT * FROM users WHERE user_id = 12345;
+
+-- Hash index - poor for
+SELECT * FROM users WHERE salary > 50000;  -- Must scan all entries
+SELECT * FROM users WHERE email LIKE 'john%';  -- Cannot use hash index
+
+-- InnoDB (default) uses B-tree even for PRIMARY KEY
+CREATE TABLE innodb_example (
+    id INT PRIMARY KEY  -- B-tree, not hash
+);</code></pre>
+
+                        <p><strong>Why it matters:</strong> Choosing between hash and B-tree indexes depends on query patterns and storage engine capabilities.</p>
+
+                        <p><strong>Real applications:</strong> In-memory session stores, cache lookups in memory storage engine.</p>
+
+                        <p><strong>Common mistakes:</strong> Trying to use hash indexes for range queries, not understanding storage engine limitations.</p>
+                    </div>
+                </div>
+                </div>
+
+                <!-- Question 11 -->
+                <div class="accordion-item">
+                    <h2 class="accordion-header" id="h_q10">
+                        <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#c_q10" aria-expanded="false"><span class="question-number">11</span> What are partial or filtered indexes and how do they improve performance?</button>
+                    </h2>
+                    <div id="c_q10" class="accordion-collapse collapse" data-bs-parent="#questionsAccordion">
+                        <div class="accordion-body">
+                        <p><strong>Partial indexes</strong> index only a subset of table rows based on a WHERE condition, reducing index size and improving query performance. MySQL doesn't support partial indexes natively like PostgreSQL, but you can achieve similar benefits through composite indexes with conditional queries or by partitioning data strategically.</p>
+                        <pre><code>-- Partial index concept in MySQL (workaround)
+-- Index only active employees, excluding inactive
+CREATE INDEX idx_active_salary ON employees(salary) 
+WHERE active = 1;  -- MySQL doesn't support WHERE, but query optimization still helpful
+
+-- Optimal approach in MySQL: include filtering columns
+CREATE INDEX idx_emp_status ON employees(active, salary);
+
+-- Query benefits from limited index scope
+SELECT * FROM employees WHERE active = 1 AND salary > 50000;
+
+-- Different approach: separate table for active employees
+CREATE TABLE active_employees AS 
+SELECT * FROM employees WHERE active = 1;
+
+CREATE INDEX idx_salary ON active_employees(salary);
+-- Queries on active employees hit smaller, faster index</code></pre>
+
+                        <p><strong>Why it matters:</strong> Partial indexes reduce storage requirements and improve cache efficiency for frequently filtered queries.</p>
+
+                        <p><strong>Real applications:</strong> Archived data (index only non-archived), soft deletes (index only non-deleted).</p>
+
+                        <p><strong>Common mistakes:</strong> Forgetting to include filter columns in index, creating redundant full-table indexes.</p>
+                    </div>
+                </div>
+                </div>
+
+                <!-- Question 12 -->
+                <div class="accordion-item">
+                    <h2 class="accordion-header" id="h_q11">
+                        <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#c_q11" aria-expanded="false"><span class="question-number">12</span> What are FULLTEXT indexes and when should you use them?</button>
+                    </h2>
+                    <div id="c_q11" class="accordion-collapse collapse" data-bs-parent="#questionsAccordion">
+                        <div class="accordion-body">
+                        <p><strong>FULLTEXT indexes</strong> are specialized for text searching, enabling natural language searches beyond simple LIKE patterns. They support boolean search operators, relevance ranking, and are much faster than LIKE for large text documents. FULLTEXT is ideal for article searches, product descriptions, and content management systems.</p>
+                        <pre><code>-- Create FULLTEXT index
+CREATE TABLE articles (
+    id INT PRIMARY KEY,
+    title VARCHAR(255),
+    content TEXT,
+    FULLTEXT INDEX idx_content (title, content)
+);
+
+-- FULLTEXT search queries
+SELECT * FROM articles WHERE MATCH(content) AGAINST('database' IN BOOLEAN MODE);
+
+-- Boolean search operators
+SELECT * FROM articles WHERE MATCH(content) 
+AGAINST('+MySQL -PostgreSQL' IN BOOLEAN MODE);  -- Must have MySQL, exclude PostgreSQL
+
+-- Natural language search (default)
+SELECT * FROM articles WHERE MATCH(content) 
+AGAINST('database optimization techniques');
+
+-- Relevance ranking
+SELECT *, MATCH(content) AGAINST('database' IN BOOLEAN MODE) as relevance
+FROM articles ORDER BY relevance DESC;</code></pre>
+
+                        <p><strong>Why it matters:</strong> FULLTEXT indexes enable efficient text search functionality critical for content-heavy applications.</p>
+
+                        <p><strong>Real applications:</strong> Article databases, product searches, job postings, documentation systems.</p>
+
+                        <p><strong>Common mistakes:</strong> Using LIKE for large text searches, not understanding boolean mode, ignoring stopwords.</p>
+                    </div>
+                </div>
+                </div>
+
+                <!-- Question 13 -->
+                <div class="accordion-item">
+                    <h2 class="accordion-header" id="h_q12">
+                        <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#c_q12" aria-expanded="false"><span class="question-number">13</span> What are best practices for index design and optimization?</button>
+                    </h2>
+                    <div id="c_q12" class="accordion-collapse collapse" data-bs-parent="#questionsAccordion">
+                        <div class="accordion-body">
+                        <p>Effective index design involves <strong>analyzing query patterns first</strong>, indexing columns used in WHERE clauses and JOINs, considering column cardinality (uniqueness), ordering composite index columns based on query frequency, and regularly monitoring index usage. Avoid over-indexing as each index increases write performance impact.</p>
+                        <pre><code>-- Best practices for index design
+
+-- 1. Index high-cardinality columns first in composite indexes
+CREATE INDEX idx_name ON users(gender, last_name);  -- Bad: gender has low cardinality
+CREATE INDEX idx_name ON users(last_name, gender);  -- Good: last_name has high cardinality
+
+-- 2. Avoid indexing low-cardinality columns
+-- Indexing is_active (only true/false) rarely helps, MySQL may ignore it
+
+-- 3. Index columns in WHERE clause and JOIN conditions
+SELECT * FROM employees e JOIN departments d ON e.dept_id = d.dept_id
+WHERE e.hire_date > '2020-01-01';
+-- Index: employees(hire_date), employees(dept_id), departments(dept_id)
+
+-- 4. Check for unused indexes
+-- Monitor with Performance Schema or INFORMATION_SCHEMA
+
+-- 5. Regular maintenance
+ANALYZE TABLE employees;  -- Update index statistics
+OPTIMIZE TABLE employees;  -- Reclaim space, rebuild indexes
+
+-- 6. Consider insert/update cost
+-- More indexes = slower writes, optimize for read-heavy workloads</code></pre>
+
+                        <p><strong>Why it matters:</strong> Poor index strategy can harm overall database performance, while good design significantly improves it.</p>
+
+                        <p><strong>Real applications:</strong> Production database tuning, schema design for new systems.</p>
+
+                        <p><strong>Common mistakes:</strong> Creating indexes without understanding query patterns, not removing unused indexes, over-indexing.</p>
+                    </div>
+                </div>
+                </div>
+
+                <!-- Question 14 -->
+                <div class="accordion-item">
+                    <h2 class="accordion-header" id="h_q13">
+                        <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#c_q13" aria-expanded="false"><span class="question-number">14</span> How do index prefixes and key length affect performance?</button>
+                    </h2>
+                    <div id="c_q13" class="accordion-collapse collapse" data-bs-parent="#questionsAccordion">
+                        <div class="accordion-body">
+                        <p><strong>Index prefixes</strong> allow indexing only the first N characters of a column, reducing index size while maintaining usefulness for searches. Key length indicates the space used by index, affecting memory usage and cache efficiency. Shorter keys use less memory and cache, enabling more index data in memory.</p>
+                        <pre><code>-- Index prefix on long string columns
+CREATE TABLE products (
+    id INT PRIMARY KEY,
+    description VARCHAR(500),
+    INDEX idx_desc_prefix (description(20))  -- Index only first 20 characters
+);
+
+-- Prefix works for exact matches and LIKE starting with value
+SELECT * FROM products WHERE description LIKE 'High quality%';  -- Uses prefix index
+
+-- But doesn't work for LIKE in middle
+SELECT * FROM products WHERE description LIKE '%durable%';  -- Doesn't use prefix index
+
+-- Check key length in SHOW INDEX
+SHOW INDEX FROM products;
+-- key_len shows actual bytes used (20 for VARCHAR(20) or prefix(20))
+
+-- Memory impact example
+-- Full column index: VARCHAR(255) ≈ 255 bytes per index entry
+-- Prefix index: VARCHAR(255,20) ≈ 20 bytes per index entry (87% smaller)</code></pre>
+
+                        <p><strong>Why it matters:</strong> Prefix indexes reduce memory usage and improve cache hit rates while maintaining search functionality.</p>
+
+                        <p><strong>Real applications:</strong> Long URL columns, JSON fields, product descriptions.</p>
+
+                        <p><strong>Common mistakes:</strong> Using too short a prefix (15 chars) losing search selectivity, not considering prefix limitations.</p>
+                    </div>
+                </div>
+                </div>
+
+                <!-- Question 15 -->
+                <div class="accordion-item">
+                    <h2 class="accordion-header" id="h_q14">
+                        <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#c_q14" aria-expanded="false"><span class="question-number">15</span> When should you NOT use indexes and how to identify unnecessary indexes?</button>
+                    </h2>
+                    <div id="c_q14" class="accordion-collapse collapse" data-bs-parent="#questionsAccordion">
+                        <div class="accordion-body">
+                        <p>Avoid indexing <strong>small tables</strong> (full scan is faster), <strong>low-cardinality columns</strong> (many duplicates make index less effective), <strong>frequently updated columns</strong> (index maintenance overhead), and <strong>rarely accessed columns</strong>. Monitor unused indexes and remove them to reduce write overhead and storage requirements.</p>
+                        <pre><code>-- When NOT to use indexes
+
+-- 1. Small tables - full scan is faster
+-- Size < 1000 rows: Usually no benefit from indexing
+SELECT * FROM lookup_values;  -- Better as full scan
+
+-- 2. Low-cardinality columns
+CREATE TABLE products (
+    id INT,
+    in_stock BOOLEAN  -- Only 2 values (true/false)
+);
+-- Indexing in_stock doesn't help much, MySQL may ignore it
+
+-- 3. Columns always used together with very selective column
+-- Bad: Index on category if always queried with specific product_id
+CREATE INDEX idx_category ON products(category);  -- Redundant if product_id always used first
+
+-- Identify unused indexes
+SELECT * FROM INFORMATION_SCHEMA.STATISTICS 
+WHERE OBJECT_SCHEMA = 'database_name' AND INDEX_NAME != 'PRIMARY';
+
+-- Check Performance Schema (if enabled)
+-- Look for unused indexes in performance_schema.table_io_waits_summary_by_index_usage
+
+-- Remove unused indexes to speed up writes
+DROP INDEX idx_rarely_used ON table_name;</code></pre>
+
+                        <p><strong>Why it matters:</strong> Removing unnecessary indexes improves INSERT/UPDATE performance and reduces storage overhead.</p>
+
+                        <p><strong>Real applications:</strong> Database cleanup, performance optimization after query pattern analysis.</p>
+
+                        <p><strong>Common mistakes:</strong> Creating indexes on small tables, not regularly reviewing index usage, keeping indexes from old features.</p>
+                    </div>
+                </div>
+                </div>
+            </div>
+
+          
+
+
+              <div class="topic-nav" id="topicNav">
+            <a class="topic-nav-btn prev" href="sql-joins.html">
+                <span class="label"><i class="bi bi-arrow-left me-1"></i> Previous</span>
+                <span class="title">SQL Joins</span>
+            </a>
+            <a class="topic-nav-btn next" href="query-optimization.html">
+                <span class="label">Next <i class="bi bi-arrow-right ms-1"></i></span>
+                <span class="title">Query Optimization</span>
+            </a>
+            </div>
+             <footer class="app-footer">
+                <p>&copy; 2026 InterviewPrep &mdash; MySQL Interview Questions</p>
+            </footer>
+        </div>
+    </div>
+    <button class="btn-totop" id="backToTop"><i class="bi bi-chevron-up"></i></button>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>
+    <script>
+    (function(){
+        var sb=document.getElementById('sidebar'),bd=document.getElementById('sidebarBackdrop'),
+            tg=document.getElementById('sidebarToggle');
+        if(tg)tg.addEventListener('click',function(){sb.classList.add('open');bd.classList.add('show');});
+        if(bd)bd.addEventListener('click',function(){sb.classList.remove('open');bd.classList.remove('show');});
+        var btt=document.getElementById('backToTop');
+        window.addEventListener('scroll',function(){btt.classList.toggle('show',window.scrollY>400);});
+        btt.addEventListener('click',function(){window.scrollTo({top:0,behavior:'smooth'});});
+    })();
+    </script>
+</body>
+</html>

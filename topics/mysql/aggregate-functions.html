@@ -1,0 +1,391 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="MySQL Aggregate Functions interview questions: AVG, SUM, COUNT, MIN, MAX with practical examples.">
+    <meta name="keywords" content="MySQL aggregate functions, AVG, SUM, COUNT, MIN, MAX, GROUP BY, MySQL interview">
+    <meta name="author" content="InterviewPrep">
+    <meta name="robots" content="index, follow">
+    <link rel="icon" type="image/svg+xml" href="../../favicon.svg" sizes="any">
+    <meta property="og:type" content="website">
+    <meta property="og:title" content="MySQL Aggregate Functions — MySQL Interview Questions | InterviewPrep">
+    <meta property="og:description" content="MySQL Aggregate Functions interview questions: AVG, SUM, COUNT, MIN, MAX with practical examples.">
+    <meta property="og:url" content="https://coddingquestionhub.com/topics/mysql/aggregate-functions.html">
+    <meta name="twitter:card" content="summary_large_image">
+    <meta name="twitter:title" content="MySQL Aggregate Functions — MySQL Interview Questions | InterviewPrep">
+    <meta name="twitter:description" content="MySQL Aggregate Functions interview questions: AVG, SUM, COUNT, MIN, MAX with practical examples.">
+    <meta name="twitter:image" content="https://coddingquestionhub.com/og-mysql.png">
+    <title>MySQL Aggregate Functions — MySQL Interview Questions | InterviewPrep 2026</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&family=Fira+Code:wght@400;500&display=swap" rel="stylesheet">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="../../css/styles.css">
+    <link rel="canonical" href="https://coddingquestionhub.com/topics/mysql/aggregate-functions.html">
+    <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-8957020141286926" crossorigin="anonymous"></script>
+    <script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "BreadcrumbList",
+  "itemListElement": [
+    {
+      "@type": "ListItem",
+      "position": 1,
+      "name": "Home",
+      "item": "https://coddingquestionhub.com"
+    },
+    {
+      "@type": "ListItem",
+      "position": 2,
+      "name": "Topics",
+      "item": "https://coddingquestionhub.com/topics"
+    },
+    {
+      "@type": "ListItem",
+      "position": 3,
+      "name": "Mysql",
+      "item": "https://coddingquestionhub.com/topics/mysql"
+    },
+    {
+      "@type": "ListItem",
+      "position": 4,
+      "name": "Aggregate Functions",
+      "item": "https://coddingquestionhub.com/topics/mysql/aggregate-functions.html"
+    }
+  ]
+}
+    </script>
+</head>
+<body class="theme-mysql">
+    <nav class="navbar navbar-expand-lg sticky-top" id="mainNavbar">
+        <div class="container-fluid px-3 px-lg-4">
+            <a class="navbar-brand fw-bold d-flex align-items-center gap-2" href="../../index.html">
+                <span class="brand-icon"><i class="bi bi-braces-asterisk"></i></span>
+                <span>Interview<span class="brand-accent">Prep</span></span>
+            </a>
+            <button class="navbar-toggler border-0 shadow-none" type="button" data-bs-toggle="collapse" data-bs-target="#navbarContent">
+                <i class="bi bi-list fs-3 text-white"></i>
+            </button>
+            <div class="collapse navbar-collapse" id="navbarContent">
+                <ul class="navbar-nav me-auto mb-2 mb-lg-0 ms-lg-3">
+                    <li class="nav-item dropdown">
+                        <a class="nav-link dropdown-toggle fw-500" href="#" role="button" data-bs-toggle="dropdown">
+                            <i class="bi bi-layers me-1"></i> Choose Category
+                        </a>
+                        <ul class="dropdown-menu">
+                            <li><a class="dropdown-item fw-500" href="../../pages/angular.html"><i class="bi bi-bootstrap me-2 text-danger"></i>Angular</a></li>
+                            <li><a class="dropdown-item fw-500" href="../../pages/react.html"><i class="bi bi-infinity me-2 text-info"></i>React</a></li>
+                            <li><a class="dropdown-item fw-500" href="../../pages/node.html"><i class="bi bi-hdd-network me-2 text-success"></i>Node.js</a></li>
+                            <li><a class="dropdown-item fw-500" href="../../pages/javascript.html"><i class="bi bi-filetype-js me-2 text-warning"></i>JavaScript</a></li>
+                            <li><a class="dropdown-item fw-500" href="../../pages/dsa.html"><i class="bi bi-diagram-3-fill me-2" style="color:#8b5cf6"></i>DSA</a></li>
+                            <li><a class="dropdown-item fw-500" href="../../pages/logical.html"><i class="bi bi-lightbulb me-2" style="color:#f59e0b"></i>Logical Reasoning</a></li>
+                            <li><a class="dropdown-item fw-500" href="../../pages/mongodb.html"><i class="bi bi-database-fill me-2" style="color:#4DB33D"></i>MongoDB</a></li>
+                            <li><a class="dropdown-item fw-500" href="../../pages/mysql.html"><i class="bi bi-table me-2" style="color:#0F766E"></i>MySQL</a></li>
+                        </ul>
+                    </li>
+                </ul>
+                <div class="search-wrap">
+                    <i class="bi bi-search search-icon"></i>
+                    <input class="form-control search-input" type="search" placeholder="Search questions..." id="searchInput">
+                </div>
+            </div>
+        </div>
+    </nav>
+        <div class="app-wrapper">
+        <aside class="sidebar" id="sidebar">
+            <div class="sidebar-head">
+                <h6><i class="bi bi-table me-2"></i>MySQL Topics</h6>
+            </div>
+            <nav>
+                <ul class="sidebar-links" id="topicList">
+                    <li><a class="nav-link" href="mysql-fundamentals.html"><i class="bi-diagram-2"></i><span>MySQL Fundamentals</span></a></li>
+                    <li><a class="nav-link" href="crud-operations.html"><i class="bi-pencil-square"></i><span>CRUD Operations</span></a></li>
+                    <li><a class="nav-link" href="sql-joins.html"><i class="bi-link-45deg"></i><span>SQL Joins</span></a></li>
+                    <li><a class="nav-link" href="indexes.html"><i class="bi-lightning-fill"></i><span>Indexes</span></a></li>
+                    <li><a class="nav-link" href="query-optimization.html"><i class="bi-speedometer2"></i><span>Query Optimization</span></a></li>
+                    <li><a class="nav-link" href="transactions-acid.html"><i class="bi-arrow-repeat"></i><span>Transactions &amp; ACID</span></a></li>
+                    <li><a class="nav-link" href="stored-procedures.html"><i class="bi-code-square"></i><span>Stored Procedures</span></a></li>
+                    <li><a class="nav-link" href="triggers.html"><i class="bi-bell-fill"></i><span>Triggers</span></a></li>
+                    <li><a class="nav-link" href="views.html"><i class="bi-eye"></i><span>Views</span></a></li>
+                    <li><a class="nav-link" href="normalization.html"><i class="bi-diagram-3-fill"></i><span>Normalization</span></a></li>
+                    <li><a class="nav-link" href="data-types.html"><i class="bi-diagram-2"></i><span>Data Types</span></a></li>
+                    <li><a class="nav-link" href="string-functions.html"><i class="bi-chat-square-text"></i><span>String Functions</span></a></li>
+                    <li><a class="nav-link" href="date-time-functions.html"><i class="bi-calendar-event"></i><span>Date &amp; Time</span></a></li>
+                    <li><a class="nav-link active" href="aggregate-functions.html"><i class="bi-graph-up"></i><span>Aggregate Functions</span></a></li>
+                    <li><a class="nav-link" href="window-functions.html"><i class="bi-column-gap"></i><span>Window Functions</span></a></li>
+                    <li><a class="nav-link" href="subqueries-ctes.html"><i class="bi-filter"></i><span>Subqueries &amp; CTEs</span></a></li>
+                    <li><a class="nav-link" href="full-text-search.html"><i class="bi-search"></i><span>Full-Text Search</span></a></li>
+                    <li><a class="nav-link" href="replication-ha.html"><i class="bi-diagram-3"></i><span>Replication &amp; HA</span></a></li>
+                    <li><a class="nav-link" href="security-permissions.html"><i class="bi-shield-check"></i><span>Security</span></a></li>
+                    <li><a class="nav-link" href="performance-tuning.html"><i class="bi-sliders"></i><span>Performance Tuning</span></a></li>
+                    <li><a class="nav-link" href="interview-queries-1.html"><i class="bi-gear-fill"></i><span>Interview Queries 1</span></a></li>
+                    <li><a class="nav-link" href="interview-queries-2.html"><i class="bi-gear-fill"></i><span>Interview Queries 2</span></a></li>
+                </ul>
+            </nav>
+        </aside>
+        <div class="sidebar-backdrop" id="sidebarBackdrop"></div>
+        <div class="content-area">
+            <div class="mobile-bar d-lg-none">
+                <button class="btn btn-sm btn-glass" id="sidebarToggle">
+                    <i class="bi bi-layout-sidebar-inset me-1"></i>Topics
+                </button>
+                <span class="badge rounded-pill" style="background:#0F766E;color:#fff;">MySQL</span>
+            </div>
+            <div class="breadcrumb-nav" id="breadcrumb">
+                <a href="../../index.html">Home</a><span class="sep">/</span>
+                <a href="../../pages/mysql.html">MySQL</a><span class="sep">/</span>
+                <span class="current">Aggregate Functions</span>
+            </div>
+            <div class="qs-header">
+                <h1 class="qs-title" id="topicTitle">MySQL Aggregate Functions Interview Questions</h1>
+                <span class="badge qs-badge" id="questionCount">8 Questions</span>
+            </div>
+
+            <div class="accordion" id="questionsAccordion">
+                <div class="accordion-item">
+                    <h2 class="accordion-header" id="h_q0">
+                        <button class="accordion-button" type="button" data-bs-toggle="collapse" data-bs-target="#c_q0" aria-expanded="true"><span class="question-number">1</span> What are COUNT, SUM, AVG, MIN, MAX aggregate functions?</button>
+                    </h2>
+                    <div id="c_q0" class="accordion-collapse collapse show" data-bs-parent="#questionsAccordion">
+                        <div class="accordion-body"><p><strong>COUNT</strong> counts rows. <strong>SUM</strong> adds values. <strong>AVG</strong> calculates average. <strong>MIN/MAX</strong> find minimum/maximum. All aggregate functions collapse result sets into single rows.</p><pre><code>-- Basic aggregates
+SELECT COUNT(*) FROM orders;  -- Total rows
+SELECT COUNT(customer_id) FROM orders;  -- Non-NULL values
+SELECT SUM(amount) FROM orders;  -- Total amount
+SELECT AVG(price) FROM products;  -- Average price
+SELECT MIN(created_at), MAX(created_at) FROM orders;  -- Date range
+
+-- Multiple aggregates
+SELECT COUNT(*) as total_orders, SUM(amount) as total_revenue, 
+       AVG(amount) as avg_order FROM orders;
+
+-- With GROUP BY
+SELECT customer_id, COUNT(*) as order_count, SUM(amount) as total_spent
+FROM orders GROUP BY customer_id;</code></pre><p><strong>Why it matters:</strong> Summarize large datasets into meaningful metrics.</p><p><strong>Real applications:</strong> Dashboards, reporting, business analytics.</p><p><strong>Common mistakes:</strong> COUNT(*) vs COUNT(column), NULL handling, GROUP BY without aggregates.</p></div>
+                    </div>
+                </div>
+
+                <div class="accordion-item">
+                    <h2 class="accordion-header" id="h_q1">
+                        <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#c_q1" aria-expanded="false"><span class="question-number">2</span> When does COUNT(*) differ from COUNT(column)?</button>
+                    </h2>
+                    <div id="c_q1" class="accordion-collapse collapse" data-bs-parent="#questionsAccordion">
+                        <div class="accordion-body"><p><strong>COUNT(*)</strong> includes NULLs and counts all rows. <strong>COUNT(column)</strong> counts non-NULL values only. Difference appears when column has NULLs.</p><pre><code>-- Data example
+id | name    | email
+1  | Alice   | alice@ex.com
+2  | Bob     | NULL
+3  | Charlie | charlie@ex.com
+
+-- Comparison
+SELECT COUNT(*) FROM users;  -- 3 (all rows)
+SELECT COUNT(email) FROM users;  -- 2 (non-NULL emails)
+SELECT COUNT(email) as valid_emails FROM users;  -- 2
+
+-- Practical scenario
+SELECT COUNT(*) as total_rows,
+       COUNT(email) as verified_emails,
+       COUNT(*) - COUNT(email) as unverified_emails
+FROM users;</code></pre><p><strong>Why it matters:</strong> Understand NULL impact on aggregates.</p><p><strong>Real applications:</strong> Data quality reports, completeness checks.</p><p><strong>Common mistakes:</strong> Not accounting for NULLs, using COUNT(*) when column count is needed.</p></div>
+                    </div>
+                </div>
+
+                <div class="accordion-item">
+                    <h2 class="accordion-header" id="h_q2">
+                        <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#c_q2" aria-expanded="false"><span class="question-number">3</span> What is GROUP BY and how does it work with aggregates?</button>
+                    </h2>
+                    <div id="c_q2" class="accordion-collapse collapse" data-bs-parent="#questionsAccordion">
+                        <div class="accordion-body"><p><strong>GROUP BY</strong> divides rows into groups based on column values. Aggregates are calculated per group. Essential for breakdowns by category, region, date, etc.</p><pre><code>-- Group by single column
+SELECT product_category, COUNT(*) as product_count, AVG(price) as avg_price
+FROM products GROUP BY product_category;
+
+-- Group by multiple columns
+SELECT YEAR(order_date) as year, MONTH(order_date) as month, 
+       COUNT(*) as monthly_orders, SUM(amount) as monthly_revenue
+FROM orders GROUP BY YEAR(order_date), MONTH(order_date);
+
+-- Group by with ORDER BY
+SELECT customer_id, COUNT(*) as order_count, SUM(amount) as total_spent
+FROM orders GROUP BY customer_id 
+ORDER BY total_spent DESC LIMIT 10;  -- Top 10 customers
+
+-- NULLs in GROUP BY
+SELECT category, COUNT(*) FROM products 
+GROUP BY category;  -- NULL appears as separate group</code></pre><p><strong>Why it matters:</strong> Break down aggregates by dimensions.</p><p><strong>Real applications:</strong> Sales by region, products by category, traffic by source.</p><p><strong>Common mistakes:</strong> SELECT non-aggregate columns not in GROUP BY, wrong aggregate function.</p></div>
+                    </div>
+                </div>
+
+                <div class="accordion-item">
+                    <h2 class="accordion-header" id="h_q3">
+                        <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#c_q3" aria-expanded="false"><span class="question-number">4</span> What is HAVING clause and how does it differ from WHERE?</button>
+                    </h2>
+                    <div id="c_q3" class="accordion-collapse collapse" data-bs-parent="#questionsAccordion">
+                        <div class="accordion-body"><p><strong>WHERE</strong> filters rows before grouping. <strong>HAVING</strong> filters groups after aggregation. HAVING can use aggregate functions.</p><pre><code>-- WHERE: Filter before grouping
+SELECT product_category, COUNT(*) FROM products 
+WHERE price > 100 GROUP BY product_category;
+
+-- HAVING: Filter after grouping
+SELECT product_category, COUNT(*) as count FROM products 
+GROUP BY product_category 
+HAVING count > 5;  -- Only categories with 5+ products
+
+-- Both WHERE and HAVING
+SELECT product_category, AVG(price) as avg_price
+FROM products 
+WHERE stock > 0  -- Filter before grouping
+GROUP BY product_category 
+HAVING AVG(price) > 50;  -- Filter after grouping
+
+-- Common aggregation pattern
+SELECT customer_id, COUNT(*) as order_count, SUM(amount) as total
+FROM orders WHERE created_at >= '2024-01-01'
+GROUP BY customer_id 
+HAVING SUM(amount) > 1000;</code></pre><p><strong>Why it matters:</strong> Filter results at different stages for efficiency.</p><p><strong>Real applications:</strong> Segment customers by spending, filter categories by count.</p><p><strong>Common mistakes:</strong> Using aggregate functions in WHERE, unclear filter placement.</p></div>
+                    </div>
+                </div>
+
+                <div class="accordion-item">
+                    <h2 class="accordion-header" id="h_q4">
+                        <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#c_q4" aria-expanded="false"><span class="question-number">5</span> What is GROUP_CONCAT and how do you use it?</button>
+                    </h2>
+                    <div id="c_q4" class="accordion-collapse collapse" data-bs-parent="#questionsAccordion">
+                        <div class="accordion-body"><p><strong>GROUP_CONCAT</strong> concatenates values within groups into comma-separated strings. Useful for combining related values without extra joins.</p><pre><code>-- Basic GROUP_CONCAT
+SELECT order_id, GROUP_CONCAT(item_name) as items
+FROM order_items GROUP BY order_id;
+
+-- With separator
+SELECT order_id, GROUP_CONCAT(item_name, ', ') as items
+FROM order_items GROUP BY order_id;
+
+-- With ORDER BY within group
+SELECT order_id, GROUP_CONCAT(item_name ORDER BY price DESC)
+FROM order_items GROUP BY order_id;
+
+-- Limit items
+SELECT order_id, GROUP_CONCAT(DISTINCT item_name SEPARATOR '; ')
+FROM order_items WHERE price > 50 GROUP BY order_id;
+
+-- Control length (session variable)
+SET SESSION group_concat_max_len = 10000;
+SELECT user_id, GROUP_CONCAT(tag_name) FROM user_tags GROUP BY user_id;</code></pre><p><strong>Why it matters:</strong> Combine related values without complex JOINs.</p><p><strong>Real applications:</strong> Order items display, tag aggregation, skill listing.</p><p><strong>Common mistakes:</strong> Exceeding default length, performance with large result sets.</p></div>
+                    </div>
+                </div>
+
+                <div class="accordion-item">
+                    <h2 class="accordion-header" id="h_q5">
+                        <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#c_q5" aria-expanded="false"><span class="question-number">6</span> What is WITH ROLLUP and its performance implications?</button>
+                    </h2>
+                    <div id="c_q5" class="accordion-collapse collapse" data-bs-parent="#questionsAccordion">
+                        <div class="accordion-body"><p><strong>WITH ROLLUP</strong> adds grand total and subtotal rows. Generates multiple grouping levels in single result. Useful for hierarchical summaries.</p><pre><code>-- Basic ROLLUP
+SELECT year, quarter, SUM(amount) FROM sales 
+GROUP BY year, quarter WITH ROLLUP;
+-- Results: per quarter, per year (subtotals), grand total
+
+-- Example data
+2024 | Q1 | 100000
+2024 | Q2 | 150000
+2024 | NULL | 250000  -- Q1+Q2 subtotal
+NULL | NULL | 250000  -- Grand total
+
+-- Multiple levels ROLLUP
+SELECT category, subcategory, SUM(sales) FROM products
+GROUP BY category, subcategory WITH ROLLUP;
+
+-- GROUPING function to identify rollup rows
+SELECT COALESCE(category, 'Total') as category, 
+       SUM(amount) FROM sales 
+GROUP BY category WITH ROLLUP;
+
+-- Performance: ROLLUP is memory-intensive
+-- For large datasets, consider separate queries</code></pre><p><strong>Why it matters:</strong> Generate hierarchical summaries efficiently.</p><p><strong>Real applications:</strong> Financial reports, sales rollups, hierarchical totals.</p><p><strong>Common mistakes:</strong> Performance with large groups, misunderstanding NULL meaning.</p></div>
+                    </div>
+                </div>
+
+                <div class="accordion-item">
+                    <h2 class="accordion-header" id="h_q6">
+                        <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#c_q6" aria-expanded="false"><span class="question-number">7</span> How do you use DISTINCT with aggregates?</button>
+                    </h2>
+                    <div id="c_q6" class="accordion-collapse collapse" data-bs-parent="#questionsAccordion">
+                        <div class="accordion-body"><p><strong>COUNT(DISTINCT column)</strong> counts unique values. Works with aggregates to exclude duplicates. Useful for unique counts.</p><pre><code>-- Unique counts
+SELECT COUNT(DISTINCT customer_id) as unique_customers FROM orders;
+SELECT COUNT(DISTINCT category) as category_count FROM products;
+
+-- Multiple column distinct
+SELECT COUNT(DISTINCT CONCAT(city, state)) as unique_locations 
+FROM customers;
+
+-- Distinct with GROUP BY
+SELECT store_id, COUNT(DISTINCT customer_id) as unique_customers,
+       COUNT(*) as total_transactions
+FROM orders GROUP BY store_id;
+
+-- Distinct limitations
+-- Not supported: SUM(DISTINCT column) - OK
+-- Not supported: AVG(DISTINCT column), MIN(DISTINCT) - not typical
+
+-- Alternative: Use subquery
+SELECT AVG(distinct_value) FROM (
+    SELECT DISTINCT salary FROM employees WHERE salary > 50000
+) as distinct_salaries;</code></pre><p><strong>Why it matters:</strong> Count unique values without duplicates.</p><p><strong>Real applications:</strong> Unique customer counts, category analysis.</p><p><strong>Common mistakes:</strong> Assuming all aggregates support DISTINCT, performance impact.</p></div>
+                    </div>
+                </div>
+
+                <div class="accordion-item">
+                    <h2 class="accordion-header" id="h_q7">
+                        <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#c_q7" aria-expanded="false"><span class="question-number">8</span> What are aggregate function performance considerations?</button>
+                    </h2>
+                    <div id="c_q7" class="accordion-collapse collapse" data-bs-parent="#questionsAccordion">
+                        <div class="accordion-body"><p><strong>Performance tips</strong>: Use indexes on GROUP BY columns, avoid aggregates on non-grouped columns, consider HAVING clause optimization, use appropriate functions for data types.</p><pre><code>-- Index GROUP BY columns
+CREATE INDEX idx_order_customer ON orders(customer_id);
+SELECT customer_id, COUNT(*) FROM orders GROUP BY customer_id;  -- Uses index
+
+-- Avoid functions on GROUP BY columns
+SELECT YEAR(order_date), SUM(amount) FROM orders 
+GROUP BY YEAR(order_date);  -- Function prevents index use
+
+-- Better: Use expression index or partition
+ALTER TABLE orders ADD COLUMN year INT GENERATED ALWAYS AS (YEAR(order_date));
+CREATE INDEX idx_year ON orders(year);
+
+-- EXPLAIN to verify
+EXPLAIN SELECT product_id, COUNT(*) FROM order_items GROUP BY product_id;
+
+-- Slow: Multiple aggregates on large dataset
+SELECT category, COUNT(*), SUM(price), AVG(price), MIN(price), MAX(price)
+FROM products GROUP BY category;  -- Can be optimized to fewer aggregates</code></pre><p><strong>Why it matters:</strong> Aggregates on large tables can be slow.</p><p><strong>Real applications:</strong> Optimizing reports and dashboards.</p><p><strong>Common mistakes:</strong> Not indexing GROUP BY columns, redundant aggregates.</p></div>
+                    </div>
+                </div>
+            </div>
+          
+
+              <div class="topic-nav" id="topicNav">
+            <a class="topic-nav-btn prev" href="date-time-functions.html">
+                <span class="label"><i class="bi bi-arrow-left me-1"></i> Previous</span>
+                <span class="title">Date & Time Functions</span>
+            </a>
+            <a class="topic-nav-btn next" href="window-functions.html">
+                <span class="label">Next <i class="bi bi-arrow-right ms-1"></i></span>
+                <span class="title">Window Functions</span>
+            </a>
+            </div>
+             <footer class="app-footer">
+                <p>&copy; 2026 InterviewPrep &mdash; MySQL Interview Questions</p>
+            </footer>
+        </div>
+    </div>
+    <button class="btn-totop" id="backToTop"><i class="bi bi-chevron-up"></i></button>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>
+    <script>
+    (function(){
+        var sb=document.getElementById('sidebar'),bd=document.getElementById('sidebarBackdrop'),
+            tg=document.getElementById('sidebarToggle');
+        if(tg)tg.addEventListener('click',function(){sb.classList.add('open');bd.classList.add('show');});
+        if(bd)bd.addEventListener('click',function(){sb.classList.remove('open');bd.classList.remove('show');});
+        var btt=document.getElementById('backToTop');
+        window.addEventListener('scroll',function(){btt.classList.toggle('show',window.scrollY>400);});
+        btt.addEventListener('click',function(){window.scrollTo({top:0,behavior:'smooth'});});
+    })();
+    </script>
+</body>
+
+</html>

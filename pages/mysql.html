@@ -1,0 +1,274 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="MySQL interview questions covering fundamentals, CRUD, joins, indexes, optimization, transactions, stored procedures, triggers, views, normalization, functions, and advanced topics.">
+    <meta name="keywords" content="MySQL interview questions, SQL interview, database interview, MySQL topics 2026">
+    <meta name="author" content="InterviewPrep">
+    <meta name="robots" content="index, follow">
+    <link rel="icon" type="image/svg+xml" href="../favicon.svg" sizes="any">
+    <meta property="og:type" content="website">
+    <meta property="og:title" content="MySQL Interview Questions | InterviewPrep">
+    <meta property="og:description" content="Comprehensive MySQL interview questions with 22 topics, 300+ Q&A covering CRUD, joins, indexes, optimization, stored procedures, triggers and advanced database concepts.">
+    <meta property="og:url" content="https://coddingquestionhub.com/pages/mysql.html">
+    <title>MySQL Interview Questions | InterviewPrep 2026</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="../css/styles.css">
+    <link rel="canonical" href="https://coddingquestionhub.com/pages/mysql.html">
+    <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-8957020141286926" crossorigin="anonymous"></script>
+    <script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "BreadcrumbList",
+  "itemListElement": [
+    {
+      "@type": "ListItem",
+      "position": 1,
+      "name": "Home",
+      "item": "https://coddingquestionhub.com"
+    },
+    {
+      "@type": "ListItem",
+      "position": 2,
+      "name": "Pages",
+      "item": "https://coddingquestionhub.com/pages"
+    },
+    {
+      "@type": "ListItem",
+      "position": 3,
+      "name": "Mysql",
+      "item": "https://coddingquestionhub.com/pages/mysql.html"
+    }
+  ]
+}
+    </script>
+</head>
+<body>
+    <nav class="navbar navbar-expand-lg sticky-top" id="mainNavbar">
+        <div class="container-fluid px-3 px-lg-4">
+            <a class="navbar-brand fw-bold d-flex align-items-center gap-2" href="../index.html">
+                <span class="brand-icon"><i class="bi bi-braces-asterisk"></i></span>
+                <span>Interview<span class="brand-accent">Prep</span></span>
+            </a>
+            <button class="navbar-toggler border-0 shadow-none" type="button" data-bs-toggle="collapse" data-bs-target="#navbarContent">
+                <i class="bi bi-list fs-3 text-white"></i>
+            </button>
+            <div class="collapse navbar-collapse" id="navbarContent">
+                <ul class="navbar-nav me-auto mb-2 mb-lg-0 ms-lg-3">
+                    <li class="nav-item dropdown">
+                        <a class="nav-link dropdown-toggle fw-500" href="#" role="button" data-bs-toggle="dropdown">
+                            <i class="bi bi-layers me-1"></i> Choose Category
+                        </a>
+                        <ul class="dropdown-menu">
+                            <li><a class="dropdown-item fw-500" href="../pages/angular.html"><i class="bi bi-bootstrap me-2 text-danger"></i>Angular</a></li>
+                            <li><a class="dropdown-item fw-500" href="../pages/react.html"><i class="bi bi-infinity me-2 text-info"></i>React</a></li>
+                            <li><a class="dropdown-item fw-500" href="../pages/node.html"><i class="bi bi-hdd-network me-2 text-success"></i>Node.js</a></li>
+                            <li><a class="dropdown-item fw-500" href="../pages/javascript.html"><i class="bi bi-filetype-js me-2 text-warning"></i>JavaScript</a></li>
+                            <li><a class="dropdown-item fw-500" href="../pages/dsa.html"><i class="bi bi-diagram-3-fill me-2" style="color:#8b5cf6"></i>DSA</a></li>
+                            <li><a class="dropdown-item fw-500" href="../pages/logical.html"><i class="bi bi-lightbulb me-2" style="color:#f59e0b"></i>Logical Reasoning</a></li>
+                            <li><a class="dropdown-item fw-500" href="../pages/mongodb.html"><i class="bi bi-database-fill me-2" style="color:#4DB33D"></i>MongoDB</a></li>
+                            <li><a class="dropdown-item fw-500" href="../pages/mysql.html"><i class="bi bi-table me-2" style="color:#0F766E"></i>MySQL</a></li>
+                        </ul>
+                    </li>
+                </ul>
+            </div>
+        </div>
+    </nav>
+
+    <div class="content-area" style="max-width:1100px;margin:0 auto;">
+        <div class="breadcrumb-nav">
+            <a href="../index.html">Home</a><span class="sep">/</span>
+            <span class="current">MySQL</span>
+        </div>
+        <div class="hub-header">
+            <h1><i class="bi bi-table me-2"></i>MySQL Interview Questions</h1>
+            <p>300+ MySQL Questions — Master CRUD, Joins, Indexes, Optimization, Transactions, Stored Procedures, Triggers and advanced MySQL concepts with detailed answers and real-world examples.</p>
+        </div>
+        <div class="topic-grid">
+        <a href="../topics/mysql/mysql-fundamentals.html" class="topic-card">
+            <div class="topic-card-icon fi-mysql"><i class="bi bi-table"></i></div>
+            <div class="topic-card-body">
+                <h3>MySQL Fundamentals</h3>
+                <p>15 Interview Questions</p>
+            </div>
+            <span class="badge rounded-pill bg-secondary">15</span>
+        </a>
+        <a href="../topics/mysql/crud-operations.html" class="topic-card">
+            <div class="topic-card-icon fi-mysql"><i class="bi bi-plus-circle"></i></div>
+            <div class="topic-card-body">
+                <h3>CRUD Operations</h3>
+                <p>15 Interview Questions</p>
+            </div>
+            <span class="badge rounded-pill bg-secondary">15</span>
+        </a>
+        <a href="../topics/mysql/sql-joins.html" class="topic-card">
+            <div class="topic-card-icon fi-mysql"><i class="bi bi-link-45deg"></i></div>
+            <div class="topic-card-body">
+                <h3>SQL Joins</h3>
+                <p>15 Interview Questions</p>
+            </div>
+            <span class="badge rounded-pill bg-secondary">15</span>
+        </a>
+        <a href="../topics/mysql/indexes.html" class="topic-card">
+            <div class="topic-card-icon fi-mysql"><i class="bi bi-lightning-fill"></i></div>
+            <div class="topic-card-body">
+                <h3>Indexes</h3>
+                <p>15 Interview Questions</p>
+            </div>
+            <span class="badge rounded-pill bg-secondary">15</span>
+        </a>
+        <a href="../topics/mysql/query-optimization.html" class="topic-card">
+            <div class="topic-card-icon fi-mysql"><i class="bi bi-speedometer2"></i></div>
+            <div class="topic-card-body">
+                <h3>Query Optimization</h3>
+                <p>15 Interview Questions</p>
+            </div>
+            <span class="badge rounded-pill bg-secondary">15</span>
+        </a>
+        <a href="../topics/mysql/transactions-acid.html" class="topic-card">
+            <div class="topic-card-icon fi-mysql"><i class="bi bi-arrow-repeat"></i></div>
+            <div class="topic-card-body">
+                <h3>Transactions & ACID</h3>
+                <p>15 Interview Questions</p>
+            </div>
+            <span class="badge rounded-pill bg-secondary">15</span>
+        </a>
+        <a href="../topics/mysql/stored-procedures.html" class="topic-card">
+            <div class="topic-card-icon fi-mysql"><i class="bi bi-code-square"></i></div>
+            <div class="topic-card-body">
+                <h3>Stored Procedures</h3>
+                <p>15 Interview Questions</p>
+            </div>
+            <span class="badge rounded-pill bg-secondary">15</span>
+        </a>
+        <a href="../topics/mysql/triggers.html" class="topic-card">
+            <div class="topic-card-icon fi-mysql"><i class="bi bi-bell-fill"></i></div>
+            <div class="topic-card-body">
+                <h3>Triggers</h3>
+                <p>15 Interview Questions</p>
+            </div>
+            <span class="badge rounded-pill bg-secondary">15</span>
+        </a>
+        <a href="../topics/mysql/views.html" class="topic-card">
+            <div class="topic-card-icon fi-mysql"><i class="bi bi-eye"></i></div>
+            <div class="topic-card-body">
+                <h3>Views</h3>
+                <p>15 Interview Questions</p>
+            </div>
+            <span class="badge rounded-pill bg-secondary">15</span>
+        </a>
+        <a href="../topics/mysql/normalization.html" class="topic-card">
+            <div class="topic-card-icon fi-mysql"><i class="bi bi-diagram-2"></i></div>
+            <div class="topic-card-body">
+                <h3>Normalization</h3>
+                <p>15 Interview Questions</p>
+            </div>
+            <span class="badge rounded-pill bg-secondary">15</span>
+        </a>
+        <a href="../topics/mysql/data-types.html" class="topic-card">
+            <div class="topic-card-icon fi-mysql"><i class="bi bi-diagram-3-fill"></i></div>
+            <div class="topic-card-body">
+                <h3>Data Types</h3>
+                <p>15 Interview Questions</p>
+            </div>
+            <span class="badge rounded-pill bg-secondary">15</span>
+        </a>
+        <a href="../topics/mysql/string-functions.html" class="topic-card">
+            <div class="topic-card-icon fi-mysql"><i class="bi bi-chat-square-text"></i></div>
+            <div class="topic-card-body">
+                <h3>String Functions</h3>
+                <p>15 Interview Questions</p>
+            </div>
+            <span class="badge rounded-pill bg-secondary">15</span>
+        </a>
+        <a href="../topics/mysql/date-time-functions.html" class="topic-card">
+            <div class="topic-card-icon fi-mysql"><i class="bi bi-calendar-event"></i></div>
+            <div class="topic-card-body">
+                <h3>Date & Time Functions</h3>
+                <p>15 Interview Questions</p>
+            </div>
+            <span class="badge rounded-pill bg-secondary">15</span>
+        </a>
+        <a href="../topics/mysql/aggregate-functions.html" class="topic-card">
+            <div class="topic-card-icon fi-mysql"><i class="bi bi-graph-up"></i></div>
+            <div class="topic-card-body">
+                <h3>Aggregate Functions</h3>
+                <p>15 Interview Questions</p>
+            </div>
+            <span class="badge rounded-pill bg-secondary">15</span>
+        </a>
+        <a href="../topics/mysql/window-functions.html" class="topic-card">
+            <div class="topic-card-icon fi-mysql"><i class="bi bi-column-gap"></i></div>
+            <div class="topic-card-body">
+                <h3>Window Functions</h3>
+                <p>15 Interview Questions</p>
+            </div>
+            <span class="badge rounded-pill bg-secondary">15</span>
+        </a>
+        <a href="../topics/mysql/subqueries-ctes.html" class="topic-card">
+            <div class="topic-card-icon fi-mysql"><i class="bi bi-filter"></i></div>
+            <div class="topic-card-body">
+                <h3>Subqueries & CTEs</h3>
+                <p>15 Interview Questions</p>
+            </div>
+            <span class="badge rounded-pill bg-secondary">15</span>
+        </a>
+        <a href="../topics/mysql/full-text-search.html" class="topic-card">
+            <div class="topic-card-icon fi-mysql"><i class="bi bi-search"></i></div>
+            <div class="topic-card-body">
+                <h3>Full-Text Search</h3>
+                <p>15 Interview Questions</p>
+            </div>
+            <span class="badge rounded-pill bg-secondary">15</span>
+        </a>
+        <a href="../topics/mysql/replication-ha.html" class="topic-card">
+            <div class="topic-card-icon fi-mysql"><i class="bi bi-diagram-3"></i></div>
+            <div class="topic-card-body">
+                <h3>Replication & HA</h3>
+                <p>15 Interview Questions</p>
+            </div>
+            <span class="badge rounded-pill bg-secondary">15</span>
+        </a>
+        <a href="../topics/mysql/security-permissions.html" class="topic-card">
+            <div class="topic-card-icon fi-mysql"><i class="bi bi-shield-check"></i></div>
+            <div class="topic-card-body">
+                <h3>Security & Permissions</h3>
+                <p>15 Interview Questions</p>
+            </div>
+            <span class="badge rounded-pill bg-secondary">15</span>
+        </a>
+        <a href="../topics/mysql/performance-tuning.html" class="topic-card">
+            <div class="topic-card-icon fi-mysql"><i class="bi bi-sliders"></i></div>
+            <div class="topic-card-body">
+                <h3>Performance Tuning</h3>
+                <p>15 Interview Questions</p>
+            </div>
+            <span class="badge rounded-pill bg-secondary">15</span>
+        </a>
+        <a href="../topics/mysql/interview-queries-1.html" class="topic-card">
+            <div class="topic-card-icon fi-mysql"><i class="bi bi-gear-fill"></i></div>
+            <div class="topic-card-body">
+                <h3>Interview Queries 1</h3>
+                <p>20 Interview Questions</p>
+            </div>
+            <span class="badge rounded-pill bg-secondary">20</span>
+        </a>
+        <a href="../topics/mysql/interview-queries-2.html" class="topic-card">
+            <div class="topic-card-icon fi-mysql"><i class="bi bi-gear-fill"></i></div>
+            <div class="topic-card-body">
+                <h3>Interview Queries 2</h3>
+                <p>20 Interview Questions</p>
+            </div>
+            <span class="badge rounded-pill bg-secondary">20</span>
+        </a>
+        </div>
+    </div>
+
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>
+</body>
+</html>

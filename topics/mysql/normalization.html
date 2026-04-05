@@ -1,0 +1,1141 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="MySQL Normalization interview questions: 1NF, 2NF, 3NF, BCNF database design principles.">
+    <meta name="keywords" content="MySQL normalization, 1NF 2NF 3NF BCNF, database design, denormalization, MySQL interview">
+    <meta name="author" content="InterviewPrep">
+    <meta name="robots" content="index, follow">
+    <link rel="icon" type="image/svg+xml" href="../../favicon.svg" sizes="any">
+    <meta property="og:type" content="website">
+    <meta property="og:title" content="MySQL Normalization — MySQL Interview Questions | InterviewPrep">
+    <meta property="og:description" content="MySQL Normalization interview questions: 1NF, 2NF, 3NF, BCNF database design principles.">
+    <meta property="og:url" content="https://coddingquestionhub.com/topics/mysql/normalization.html">
+    <meta name="twitter:card" content="summary_large_image">
+    <meta name="twitter:title" content="MySQL Normalization — MySQL Interview Questions | InterviewPrep">
+    <meta name="twitter:description" content="MySQL Normalization interview questions: 1NF, 2NF, 3NF, BCNF database design principles.">
+    <meta name="twitter:image" content="https://coddingquestionhub.com/og-mysql.png">
+    <title>MySQL Normalization — MySQL Interview Questions | InterviewPrep 2026</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&family=Fira+Code:wght@400;500&display=swap" rel="stylesheet">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="../../css/styles.css">
+    <link rel="canonical" href="https://coddingquestionhub.com/topics/mysql/normalization.html">
+    <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-8957020141286926" crossorigin="anonymous"></script>
+    <script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "BreadcrumbList",
+  "itemListElement": [
+    {
+      "@type": "ListItem",
+      "position": 1,
+      "name": "Home",
+      "item": "https://coddingquestionhub.com"
+    },
+    {
+      "@type": "ListItem",
+      "position": 2,
+      "name": "Topics",
+      "item": "https://coddingquestionhub.com/topics"
+    },
+    {
+      "@type": "ListItem",
+      "position": 3,
+      "name": "Mysql",
+      "item": "https://coddingquestionhub.com/topics/mysql"
+    },
+    {
+      "@type": "ListItem",
+      "position": 4,
+      "name": "Normalization",
+      "item": "https://coddingquestionhub.com/topics/mysql/normalization.html"
+    }
+  ]
+}
+    </script>
+</head>
+<body class="theme-mysql">
+    <nav class="navbar navbar-expand-lg sticky-top" id="mainNavbar">
+        <div class="container-fluid px-3 px-lg-4">
+            <a class="navbar-brand fw-bold d-flex align-items-center gap-2" href="../../index.html">
+                <span class="brand-icon"><i class="bi bi-braces-asterisk"></i></span>
+                <span>Interview<span class="brand-accent">Prep</span></span>
+            </a>
+            <button class="navbar-toggler border-0 shadow-none" type="button" data-bs-toggle="collapse" data-bs-target="#navbarContent">
+                <i class="bi bi-list fs-3 text-white"></i>
+            </button>
+            <div class="collapse navbar-collapse" id="navbarContent">
+                <ul class="navbar-nav me-auto mb-2 mb-lg-0 ms-lg-3">
+                    <li class="nav-item dropdown">
+                        <a class="nav-link dropdown-toggle fw-500" href="#" role="button" data-bs-toggle="dropdown">
+                            <i class="bi bi-layers me-1"></i> Choose Category
+                        </a>
+                        <ul class="dropdown-menu">
+                            <li><a class="dropdown-item fw-500" href="../../pages/angular.html"><i class="bi bi-bootstrap me-2 text-danger"></i>Angular</a></li>
+                            <li><a class="dropdown-item fw-500" href="../../pages/react.html"><i class="bi bi-infinity me-2 text-info"></i>React</a></li>
+                            <li><a class="dropdown-item fw-500" href="../../pages/node.html"><i class="bi bi-hdd-network me-2 text-success"></i>Node.js</a></li>
+                            <li><a class="dropdown-item fw-500" href="../../pages/javascript.html"><i class="bi bi-filetype-js me-2 text-warning"></i>JavaScript</a></li>
+                            <li><a class="dropdown-item fw-500" href="../../pages/dsa.html"><i class="bi bi-diagram-3-fill me-2" style="color:#8b5cf6"></i>DSA</a></li>
+                            <li><a class="dropdown-item fw-500" href="../../pages/logical.html"><i class="bi bi-lightbulb me-2" style="color:#f59e0b"></i>Logical Reasoning</a></li>
+                            <li><a class="dropdown-item fw-500" href="../../pages/mongodb.html"><i class="bi bi-database-fill me-2" style="color:#4DB33D"></i>MongoDB</a></li>
+                            <li><a class="dropdown-item fw-500" href="../../pages/mysql.html"><i class="bi bi-table me-2" style="color:#0F766E"></i>MySQL</a></li>
+                        </ul>
+                    </li>
+                </ul>
+                <div class="search-wrap">
+                    <i class="bi bi-search search-icon"></i>
+                    <input class="form-control search-input" type="search" placeholder="Search questions..." id="searchInput">
+                </div>
+            </div>
+        </div>
+    </nav>
+
+        <div class="app-wrapper">
+        <aside class="sidebar" id="sidebar">
+            <div class="sidebar-head">
+                <h6><i class="bi bi-table me-2"></i>MySQL Topics</h6>
+            </div>
+            <nav>
+                <ul class="sidebar-links" id="topicList">
+                    <li><a class="nav-link" href="mysql-fundamentals.html"><i class="bi-diagram-2"></i><span>MySQL Fundamentals</span></a></li>
+                    <li><a class="nav-link" href="crud-operations.html"><i class="bi-pencil-square"></i><span>CRUD Operations</span></a></li>
+                    <li><a class="nav-link" href="sql-joins.html"><i class="bi-link-45deg"></i><span>SQL Joins</span></a></li>
+                    <li><a class="nav-link" href="indexes.html"><i class="bi-lightning-fill"></i><span>Indexes</span></a></li>
+                    <li><a class="nav-link" href="query-optimization.html"><i class="bi-speedometer2"></i><span>Query Optimization</span></a></li>
+                    <li><a class="nav-link" href="transactions-acid.html"><i class="bi-arrow-repeat"></i><span>Transactions &amp; ACID</span></a></li>
+                    <li><a class="nav-link" href="stored-procedures.html"><i class="bi-code-square"></i><span>Stored Procedures</span></a></li>
+                    <li><a class="nav-link" href="triggers.html"><i class="bi-bell-fill"></i><span>Triggers</span></a></li>
+                    <li><a class="nav-link" href="views.html"><i class="bi-eye"></i><span>Views</span></a></li>
+                    <li><a class="nav-link active" href="normalization.html"><i class="bi-diagram-3-fill"></i><span>Normalization</span></a></li>
+                    <li><a class="nav-link" href="data-types.html"><i class="bi-diagram-2"></i><span>Data Types</span></a></li>
+                    <li><a class="nav-link" href="string-functions.html"><i class="bi-chat-square-text"></i><span>String Functions</span></a></li>
+                    <li><a class="nav-link" href="date-time-functions.html"><i class="bi-calendar-event"></i><span>Date &amp; Time</span></a></li>
+                    <li><a class="nav-link" href="aggregate-functions.html"><i class="bi-graph-up"></i><span>Aggregate Functions</span></a></li>
+                    <li><a class="nav-link" href="window-functions.html"><i class="bi-column-gap"></i><span>Window Functions</span></a></li>
+                    <li><a class="nav-link" href="subqueries-ctes.html"><i class="bi-filter"></i><span>Subqueries &amp; CTEs</span></a></li>
+                    <li><a class="nav-link" href="full-text-search.html"><i class="bi-search"></i><span>Full-Text Search</span></a></li>
+                    <li><a class="nav-link" href="replication-ha.html"><i class="bi-diagram-3"></i><span>Replication &amp; HA</span></a></li>
+                    <li><a class="nav-link" href="security-permissions.html"><i class="bi-shield-check"></i><span>Security</span></a></li>
+                    <li><a class="nav-link" href="performance-tuning.html"><i class="bi-sliders"></i><span>Performance Tuning</span></a></li>
+                    <li><a class="nav-link" href="interview-queries-1.html"><i class="bi-gear-fill"></i><span>Interview Queries 1</span></a></li>
+                    <li><a class="nav-link" href="interview-queries-2.html"><i class="bi-gear-fill"></i><span>Interview Queries 2</span></a></li>
+                </ul>
+            </nav>
+        </aside>
+        <div class="sidebar-backdrop" id="sidebarBackdrop"></div>
+        <div class="content-area">
+            <div class="mobile-bar d-lg-none">
+                <button class="btn btn-sm btn-glass" id="sidebarToggle">
+                    <i class="bi bi-layout-sidebar-inset me-1"></i>Topics
+                </button>
+                <span class="badge rounded-pill" style="background:#0F766E;color:#fff;">MySQL</span>
+            </div>
+            <div class="breadcrumb-nav" id="breadcrumb">
+                <a href="../../index.html">Home</a><span class="sep">/</span>
+                <a href="../../pages/mysql.html">MySQL</a><span class="sep">/</span>
+                <span class="current">Normalization</span>
+            </div>
+            <div class="qs-header">
+                <h1 class="qs-title" id="topicTitle">MySQL Database Normalization Interview Questions</h1>
+                <span class="badge qs-badge" id="questionCount">15 Questions</span>
+            </div>
+
+
+            <div class="accordion" id="questionsAccordion">
+                <div class="accordion-item">
+                    <h2 class="accordion-header" id="h_q0">
+                        <button class="accordion-button" type="button" data-bs-toggle="collapse" data-bs-target="#c_q0" aria-expanded="true"><span class="question-number">1</span> What is database normalization and why is it important?</button>
+                    </h2>
+                    <div id="c_q0" class="accordion-collapse collapse show" data-bs-parent="#questionsAccordion">
+                        <div class="accordion-body">
+                        <p><strong>Normalization</strong> is a database design technique that eliminates data redundancy and improves data integrity through logical organization. <strong>Normal forms</strong> (1NF through 5NF) guide design decisions. <strong>Benefits</strong> include reduced anomalies, consistency, easier maintenance, and efficient storage.</p>
+                        <pre><code>-- Un-normalized data: Redundancy and anomalies
+CREATE TABLE employees_bad (
+    id INT PRIMARY KEY,
+    name VARCHAR(100),
+    job_titles VARCHAR(255),  -- Multiple jobs comma-separated
+    department_names VARCHAR(255),  -- Multiple departments
+    project_assignments VARCHAR(500)  -- Projects as text
+);
+
+-- Normalized design: Separate concerns into tables
+CREATE TABLE employees (
+    id INT PRIMARY KEY,
+    name VARCHAR(100),
+    department_id INT,
+    FOREIGN KEY (department_id) REFERENCES departments(id)
+);
+
+CREATE TABLE job_titles (
+    id INT PRIMARY KEY,
+    employee_id INT,
+    title VARCHAR(100),
+    FOREIGN KEY (employee_id) REFERENCES employees(id)
+);
+
+CREATE TABLE project_assignments (
+    id INT PRIMARY KEY,
+    employee_id INT,
+    project_id INT,
+    FOREIGN KEY (employee_id) REFERENCES employees(id),
+    FOREIGN KEY (project_id) REFERENCES projects(id)
+);</code></pre>
+
+                        <p><strong>Why it matters:</strong> Normalization prevents data anomalies and maintains consistency.</p>
+
+                        <p><strong>Real applications:</strong> All databases benefit from proper normalization.</p>
+
+                        <p><strong>Common mistakes:</strong> Over-normalization causing excessive joins, under-normalization causing redundancy.</p>
+                    </div>
+                </div>
+                </div>
+
+                <div class="accordion-item">
+                    <h2 class="accordion-header" id="h_q1">
+                        <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#c_q1" aria-expanded="false"><span class="question-number">2</span> What are the normal forms (1NF through 3NF)?</button>
+                    </h2>
+                    <div id="c_q1" class="accordion-collapse collapse" data-bs-parent="#questionsAccordion">
+                        <div class="accordion-body">
+                        <p><strong>First Normal Form (1NF)</strong> eliminates repeating groups. <strong>Second Normal Form (2NF)</strong> removes partial dependencies. <strong>Third Normal Form (3NF)</strong> removes transitive dependencies. Most practical databases target 3NF, balancing normalization with query complexity.</p>
+                        <pre><code>-- First Normal Form (1NF): Eliminate repeating groups
+-- Bad: Multiple values in one column
+CREATE TABLE orders_1nf_bad (
+    order_id INT PRIMARY KEY,
+    customer_name VARCHAR(100),
+    product_names VARCHAR(500)  -- Multiple products: "Laptop, Mouse, Monitor"
+);
+
+-- Good: One value per field
+CREATE TABLE orders_1nf (
+    order_id INT PRIMARY KEY,
+    customer_name VARCHAR(100)
+);
+
+CREATE TABLE order_items_1nf (
+    item_id INT PRIMARY KEY,
+    order_id INT,
+    product_name VARCHAR(100),
+    FOREIGN KEY (order_id) REFERENCES orders_1nf(order_id)
+);
+
+-- Second Normal Form (2NF): 1NF + Remove partial dependencies
+-- Bad: Non-key attributes depend on part of composite key
+CREATE TABLE student_courses_2nf_bad (
+    student_id INT,
+    course_id INT,
+    instructor_name VARCHAR(100),  -- Depends on course_id, not student_id
+    PRIMARY KEY (student_id, course_id)
+);
+
+-- Good: Separate concerns
+CREATE TABLE courses_2nf (
+    course_id INT PRIMARY KEY,
+    course_name VARCHAR(100),
+    instructor_name VARCHAR(100)
+);
+
+CREATE TABLE student_courses_2nf (
+    student_id INT,
+    course_id INT,
+    grade CHAR(1),
+    PRIMARY KEY (student_id, course_id),
+    FOREIGN KEY (course_id) REFERENCES courses_2nf(course_id)
+);
+
+-- Third Normal Form (3NF): 2NF + Remove transitive dependencies
+-- Bad: Non-key attribute depends on another non-key attribute
+CREATE TABLE employees_3nf_bad (
+    emp_id INT PRIMARY KEY,
+    emp_name VARCHAR(100),
+    department_id INT,
+    department_name VARCHAR(100)  -- Depends on department_id, not emp_id (transitive)
+);
+
+-- Good: Separate tables
+CREATE TABLE departments_3nf (
+    department_id INT PRIMARY KEY,
+    department_name VARCHAR(100)
+);
+
+CREATE TABLE employees_3nf (
+    emp_id INT PRIMARY KEY,
+    emp_name VARCHAR(100),
+    department_id INT,
+    FOREIGN KEY (department_id) REFERENCES departments_3nf(department_id)
+);</code></pre>
+
+                        <p><strong>Why it matters:</strong> Understanding normal forms ensures logical database design.</p>
+
+                        <p><strong>Real applications:</strong> Most enterprise systems use 3NF, data warehouses use denormalized designs.</p>
+
+                        <p><strong>Common mistakes:</strong> Not understanding differences between forms, overusing high normal forms.</p>
+                    </div>
+                </div>
+                </div>
+
+                <div class="accordion-item">
+                    <h2 class="accordion-header" id="h_q2">
+                        <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#c_q2" aria-expanded="false"><span class="question-number">3</span> What are denormalization and when to use it?</button>
+                    </h2>
+                    <div id="c_q2" class="accordion-collapse collapse" data-bs-parent="#questionsAccordion">
+                        <div class="accordion-body">
+                        <p><strong>Denormalization</strong> intentionally duplicates data to improve query performance by reducing joins. <strong>Trade-offs</strong> include potential inconsistency, update complexity, and increased storage. Use denormalization strategically for read-heavy systems or after profiling shows join overhead.</p>
+                        <pre><code>-- Normalized: Multiple joins for summary data
+SELECT o.order_id, o.order_date, c.customer_name,
+       SUM(oi.quantity) as total_items, SUM(oi.price) as total_value
+FROM orders o
+JOIN customers c ON o.customer_id = c.id
+JOIN order_items oi ON o.id = oi.order_id
+GROUP BY o.id;
+
+-- Denormalized: Redundant data for performance
+ALTER TABLE orders ADD COLUMN customer_name VARCHAR(100);
+ALTER TABLE orders ADD COLUMN total_items INT;
+ALTER TABLE orders ADD COLUMN total_value DECIMAL(10,2);
+
+-- Now query is faster: Single table scan
+SELECT order_id, order_date, customer_name, total_items, total_value
+FROM orders;
+
+-- But must maintain consistency with triggers
+DELIMITER //
+CREATE TRIGGER update_order_stats AFTER INSERT ON order_items
+FOR EACH ROW
+BEGIN
+    UPDATE orders SET total_items = total_items + NEW.quantity,
+                      total_value = total_value + (NEW.quantity * NEW.price)
+    WHERE id = NEW.order_id;
+END //
+DELIMITER //
+
+-- Denormalization strategies
+// 1. Summary tables: Aggregate results stored separately
+// 2. Redundant columns: Store frequently joined values
+// 3. Materialized views: Pre-computed complex queries
+// 4. Calculated fields: Store results of expensive calculations</code></pre>
+
+                        <p><strong>Why it matters:</strong> Strategic denormalization significantly improves performance for reporting systems.</p>
+
+                        <p><strong>Real applications:</strong> Data warehouses, analytics systems, caching layers.</p>
+
+                        <p><strong>Common mistakes:</strong> Denormalizing without profiling, not maintaining consistency.</p>
+                    </div>
+                </div>
+                </div>
+
+                <div class="accordion-item">
+                    <h2 class="accordion-header" id="h_q3">
+                        <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#c_q3" aria-expanded="false"><span class="question-number">4</span> What are normal forms beyond 3NF (BCNF, 4NF, 5NF)?</button>
+                    </h2>
+                    <div id="c_q3" class="accordion-collapse collapse" data-bs-parent="#questionsAccordion">
+                        <div class="accordion-body">
+                        <p><strong>Boyce-Codd Normal Form (BCNF)</strong> strengthens 3NF handling edge cases. <strong>Fourth Normal Form (4NF)</strong> eliminates multivalued dependencies. <strong>Fifth Normal Form (5NF)</strong> handles join dependencies. Most practical systems use 3NF; higher forms are rare.</p>
+                        <pre><code>-- Boyce-Codd Normal Form (BCNF): Stricter than 3NF
+-- Handles cases where non-key column determines key column
+-- Practical impact: Rarely needed, 3NF usually sufficient
+
+-- Fourth Normal Form (4NF): Independent multivalued dependencies
+-- Bad: Mixing independent multivalued dependencies
+CREATE TABLE course_teacher_book_4nf_bad (
+    course_id INT,
+    teacher_id INT,
+    book_id INT,
+    PRIMARY KEY (course_id, teacher_id, book_id)
+);
+
+-- Good: Separate tables for independent relationships
+CREATE TABLE course_teacher_4nf (
+    course_id INT,
+    teacher_id INT,
+    PRIMARY KEY (course_id, teacher_id)
+);
+
+CREATE TABLE course_book_4nf (
+    course_id INT,
+    book_id INT,
+    PRIMARY KEY (course_id, book_id)
+);
+
+-- 5NF: Rarely used in practice
+// Handles join dependencies not covered by earlier forms
+// Most systems never reach 5NF normalization
+
+-- Practical consideration:
+// 1NF to 3NF: Essential, standard practice
+// BCNF: Sometimes needed, edge cases
+// 4NF, 5NF: Theoretical, rarely needed in practice</code></pre>
+
+                        <p><strong>Why it matters:</strong> Understanding advanced normal forms handles edge cases in complex designs.</p>
+
+                        <p><strong>Real applications:</strong> Complex analytical systems sometimes need BCNF or 4NF.</p>
+
+                        <p><strong>Common mistakes:</strong> Over-normalizing beyond practical benefits, not understanding practical trade-offs.</p>
+                    </div>
+                </div>
+                </div>
+
+                <div class="accordion-item">
+                    <h2 class="accordion-header" id="h_q4">
+                        <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#c_q4" aria-expanded="false"><span class="question-number">5</span> What are types of anomalies in un-normalized data?</button>
+                    </h2>
+                    <div id="c_q4" class="accordion-collapse collapse" data-bs-parent="#questionsAccordion">
+                        <div class="accordion-body">
+                        <p><strong>Insertion anomaly</strong>: Can't insert data without parent record. <strong>Deletion anomaly</strong>: Removing a record loses unrelated information. <strong>Update anomaly</strong>: Changing one value requires updating multiple places. Normalization prevents all three.</p>
+                        <pre><code>-- Un-normalized table showing anomalies
+CREATE TABLE student_courses_bad (
+    student_id INT PRIMARY KEY,
+    student_name VARCHAR(100),
+    course_id INT,
+    course_name VARCHAR(100),
+    instructor_name VARCHAR(100),
+    grade CHAR(1)
+);
+
+-- Insertion Anomaly: Can't add new course without student
+-- We want to add a new course but have no student yet
+
+-- Deletion Anomaly: Deleting student loses course info
+-- If student 5 is deleted, we lose that course information
+
+-- Update Anomaly: Changing instructor name requires multiple updates
+-- If instructor changes, update affects multiple student records
+
+-- Normalized design eliminates anomalies
+CREATE TABLE students (
+    student_id INT PRIMARY KEY,
+    student_name VARCHAR(100)
+);
+
+CREATE TABLE courses (
+    course_id INT PRIMARY KEY,
+    course_name VARCHAR(100),
+    instructor_name VARCHAR(100)
+);
+
+CREATE TABLE enrollments (
+    student_id INT,
+    course_id INT,
+    grade CHAR(1),
+    PRIMARY KEY (student_id, course_id),
+    FOREIGN KEY (student_id) REFERENCES students(student_id),
+    FOREIGN KEY (course_id) REFERENCES courses(course_id)
+);
+
+-- Now:
+-- Insertion: Add new course without any student
+INSERT INTO courses VALUES (101, 'Database Design', 'Dr. Smith');
+
+-- Deletion: Delete a student, courses remain intact
+DELETE FROM students WHERE student_id = 5;
+
+-- Update: Change instructor once, affects all students
+UPDATE courses SET instructor_name = 'Dr. Johnson' WHERE course_id = 101;</code></pre>
+
+                        <p><strong>Why it matters:</strong> Understanding anomalies motivates normalization decisions.</p>
+
+                        <p><strong>Real applications:</strong> All databases benefit from avoiding these anomalies.</p>
+
+                        <p><strong>Common mistakes:</strong> Not recognizing anomalies in design, accepting them for "convenience".</p>
+                    </div>
+                </div>
+                </div>
+
+                <div class="accordion-item">
+                    <h2 class="accordion-header" id="h_q5">
+                        <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#c_q5" aria-expanded="false"><span class="question-number">6</span> How do you identify and fix normalization issues?</button>
+                    </h2>
+                    <div id="c_q5" class="accordion-collapse collapse" data-bs-parent="#questionsAccordion">
+                        <div class="accordion-body">
+                        <p><strong>Identifying issues</strong> involves checking for repeating groups (1NF), partial dependencies (2NF), and transitive dependencies (3NF). <strong>Fixing</strong> requires decomposing tables, creating new entities, and establishing relationships through foreign keys.</p>
+                        <pre><code>-- Identifying 1NF violation: Repeating groups
+CREATE TABLE projects_bad (
+    project_id INT PRIMARY KEY,
+    project_name VARCHAR(100),
+    employees VARCHAR(500)  -- Violation: Multiple values in one field
+);
+
+-- Fix: Create separate table
+CREATE TABLE project_employees (
+    project_id INT,
+    employee_id INT,
+    FOREIGN KEY (project_id) REFERENCES projects(project_id),
+    FOREIGN KEY (employee_id) REFERENCES employees(employee_id)
+);
+
+-- Identifying 2NF violation: Partial dependency in composite key
+CREATE TABLE course_enrollment_bad (
+    student_id INT,
+    course_id INT,
+    instructor_name VARCHAR(100),  -- Depends on course_id only, not student_id
+    PRIMARY KEY (student_id, course_id)
+);
+
+-- Fix: Separate into two tables
+CREATE TABLE courses (
+    course_id INT PRIMARY KEY,
+    instructor_name VARCHAR(100)
+);
+
+CREATE TABLE enrollment (
+    student_id INT,
+    course_id INT,
+    PRIMARY KEY (student_id, course_id),
+    FOREIGN KEY (course_id) REFERENCES courses(course_id)
+);
+
+-- Identifying 3NF violation: Transitive dependency
+CREATE TABLE employee_bad (
+    emp_id INT PRIMARY KEY,
+    emp_name VARCHAR(100),
+    dept_id INT,
+    dept_name VARCHAR(100)  -- Depends on dept_id, not emp_id
+);
+
+-- Fix: Separate departments
+CREATE TABLE departments (
+    dept_id INT PRIMARY KEY,
+    dept_name VARCHAR(100)
+);
+
+CREATE TABLE employees (
+    emp_id INT PRIMARY KEY,
+    emp_name VARCHAR(100),
+    dept_id INT,
+    FOREIGN KEY (dept_id) REFERENCES departments(dept_id)
+);</code></pre>
+
+                        <p><strong>Why it matters:</strong> Systematic identification and fixing prevents design flaws.</p>
+
+                        <p><strong>Real applications:</strong> Database design review and refactoring.</p>
+
+                        <p><strong>Common mistakes:</strong> Not following systematic approach, addressing issues piecemeal.</p>
+                    </div>
+                </div>
+                </div>
+
+                <div class="accordion-item">
+                    <h2 class="accordion-header" id="h_q6">
+                        <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#c_q6" aria-expanded="false"><span class="question-number">7</span> What is the relationship between normalization and performance?</button>
+                    </h2>
+                    <div id="c_q6" class="accordion-collapse collapse" data-bs-parent="#questionsAccordion">
+                        <div class="accordion-body">
+                        <p><strong>Normalized design</strong> usually improves INSERT/UPDATE/DELETE performance (less redundancy to maintain) but may slow SELECT queries (more joins). <strong>Balance</strong> is needed: normalize for correctness, denormalize strategically for read performance.</p>
+                        <pre><code>-- Normalized: Faster writes, slower reads
+-- Many small tables, fewer updates needed
+CREATE TABLE orders (id INT PRIMARY KEY, customer_id INT, total DECIMAL(10,2));
+CREATE TABLE order_items (id INT PRIMARY KEY, order_id INT, product_id INT, quantity INT);
+CREATE TABLE customers (id INT PRIMARY KEY, name VARCHAR(100));
+
+-- Query requires multiple joins (slower)
+SELECT o.id, c.name, oi.product_id, oi.quantity
+FROM orders o
+JOIN customers c ON o.customer_id = c.id
+JOIN order_items oi ON o.id = oi.order_id;
+
+-- Denormalized: Slower writes, faster reads
+-- Single table with redundancy
+CREATE TABLE orders_denorm (
+    id INT PRIMARY KEY,
+    customer_id INT,
+    customer_name VARCHAR(100),  -- Redundant
+    total DECIMAL(10,2),
+    product_id INT,
+    quantity INT
+);
+
+-- Query is fast: Single table scan
+SELECT * FROM orders_denorm WHERE customer_id = 1;
+
+-- But updates are slower: Must maintain redundancy
+UPDATE orders_denorm SET customer_name = 'John' 
+WHERE customer_id = 1;  -- Must update all rows for customer
+
+-- Performance optimization strategy:
+// 1. Start normalized (3NF)
+// 2. Profile query performance
+// 3. Denormalize strategically where needed
+// 4. Maintain consistency with triggers/procedures</code></pre>
+
+                        <p><strong>Why it matters:</strong> Understanding trade-offs guides optimization decisions.</p>
+
+                        <p><strong>Real applications:</strong> OLTP (online transaction processing) uses more normalization; data warehouses use more denormalization.</p>
+
+                        <p><strong>Common mistakes:</strong> Assuming denormalization always improves performance, not measuring.</p>
+                    </div>
+                </div>
+                </div>
+
+                <div class="accordion-item">
+                    <h2 class="accordion-header" id="h_q7">
+                        <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#c_q7" aria-expanded="false"><span class="question-number">8</span> What are practical examples of 1NF violations?</button>
+                    </h2>
+                    <div id="c_q7" class="accordion-collapse collapse" data-bs-parent="#questionsAccordion">
+                        <div class="accordion-body">
+                        <p><strong>1NF violations</strong> include comma-separated values, JSON in single columns, array data types, and repeating groups. Fix by creating separate tables with proper relationships.</p>
+                        <pre><code>-- 1NF Violation 1: Comma-separated values
+CREATE TABLE employees_bad (
+    id INT PRIMARY KEY,
+    name VARCHAR(100),
+    phone_numbers VARCHAR(255)  -- "555-1234, 555-5678, 555-9012"
+);
+
+-- Fix
+CREATE TABLE phones (
+    id INT PRIMARY KEY AUTO_INCREMENT,
+    employee_id INT,
+    phone_number VARCHAR(20),
+    FOREIGN KEY (employee_id) REFERENCES employees(id)
+);
+
+-- 1NF Violation 2: JSON/nested data
+CREATE TABLE users_bad (
+    id INT PRIMARY KEY,
+    name VARCHAR(100),
+    addresses JSON  -- {"street": "123 Main", "city": "NYC", "zip": "10001"}
+);
+
+-- Fix
+CREATE TABLE addresses (
+    id INT PRIMARY KEY AUTO_INCREMENT,
+    user_id INT,
+    street VARCHAR(100),
+    city VARCHAR(50),
+    zip VARCHAR(10),
+    FOREIGN KEY (user_id) REFERENCES users(id)
+);
+
+-- 1NF Violation 3: Repeating columns
+CREATE TABLE students_bad (
+    id INT PRIMARY KEY,
+    name VARCHAR(100),
+    grade1 CHAR(1),
+    grade2 CHAR(1),
+    grade3 CHAR(1)  -- Pattern repeats
+);
+
+-- Fix
+CREATE TABLE grades (
+    id INT PRIMARY KEY AUTO_INCREMENT,
+    student_id INT,
+    course_number INT,
+    grade CHAR(1),
+    FOREIGN KEY (student_id) REFERENCES students(id)
+);</code></pre>
+
+                        <p><strong>Why it matters:</strong> Recognizing 1NF violations helps catch early design problems.</p>
+
+                        <p><strong>Real applications:</strong> Legacy systems often have 1NF violations requiring cleanup.</p>
+
+                        <p><strong>Common mistakes:</strong> Using JSON/arrays to avoid proper normalization, comma-separated storage.</p>
+                    </div>
+                </div>
+                </div>
+
+                <div class="accordion-item">
+                    <h2 class="accordion-header" id="h_q8">
+                        <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#c_q8" aria-expanded="false"><span class="question-number">9</span> What are practical examples of 2NF and 3NF violations?</button>
+                    </h2>
+                    <div id="c_q8" class="accordion-collapse collapse" data-bs-parent="#questionsAccordion">
+                        <div class="accordion-body">
+                        <p><strong>2NF violations</strong> occur with partial dependencies in composite key tables. <strong>3NF violations</strong> involve transitive dependencies where non-key attributes determine each other.</p>
+                        <pre><code>-- 2NF Violation: Partial dependency
+CREATE TABLE enrollment_bad (
+    student_id INT,
+    course_id INT,
+    course_name VARCHAR(100),  -- Depends on course_id, not (student_id, course_id)
+    instructor_name VARCHAR(100),  -- Depends on course_id, not (student_id, course_id)
+    enrollment_date DATE,  -- Depends on full composite key
+    PRIMARY KEY (student_id, course_id)
+);
+
+-- Fix: Separate tables
+CREATE TABLE courses_2nf (
+    course_id INT PRIMARY KEY,
+    course_name VARCHAR(100),
+    instructor_name VARCHAR(100)
+);
+
+CREATE TABLE enrollment_2nf (
+    student_id INT,
+    course_id INT,
+    enrollment_date DATE,
+    PRIMARY KEY (student_id, course_id),
+    FOREIGN KEY (course_id) REFERENCES courses_2nf(course_id)
+);
+
+-- 3NF Violation: Transitive dependency
+CREATE TABLE employee_bad (
+    emp_id INT PRIMARY KEY,
+    emp_name VARCHAR(100),
+    dept_id INT,
+    dept_name VARCHAR(100),  -- Depends on dept_id, not emp_id
+    dept_manager VARCHAR(100)  -- Depends on dept_id, not emp_id
+);
+
+-- Fix: Separate into tables
+CREATE TABLE departments_3nf (
+    dept_id INT PRIMARY KEY,
+    dept_name VARCHAR(100),
+    dept_manager VARCHAR(100)
+);
+
+CREATE TABLE employees_3nf (
+    emp_id INT PRIMARY KEY,
+    emp_name VARCHAR(100),
+    dept_id INT,
+    FOREIGN KEY (dept_id) REFERENCES departments_3nf(dept_id)
+);</code></pre>
+
+                        <p><strong>Why it matters:</strong> Recognizing dependency violations ensures designs don't suffer anomalies.</p>
+
+                        <p><strong>Real applications:</strong> Systematic checklist prevents common design errors.</p>
+
+                        <p><strong>Common mistakes:</strong> Mixing concerns in single tables, not separating concerns properly.</p>
+                    </div>
+                </div>
+                </div>
+
+                <div class="accordion-item">
+                    <h2 class="accordion-header" id="h_q9">
+                        <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#c_q9" aria-expanded="false"><span class="question-number">10</span> What are star schema and snowflake schema for data warehouses?</button>
+                    </h2>
+                    <div id="c_q9" class="accordion-collapse collapse" data-bs-parent="#questionsAccordion">
+                        <div class="accordion-body">
+                        <p><strong>Star schema</strong> uses centralized fact table surrounded by dimension tables (denormalized). <strong>Snowflake schema</strong> has normalized dimension tables (hierarchical). Star is simpler and faster, snowflake is more normalized and scalable.</p>
+                        <pre><code>-- Star Schema: Fact table surrounded by dimension tables
+-- Denormalized dimension tables for fast queries
+
+CREATE TABLE fact_sales (
+    sale_id INT PRIMARY KEY,
+    customer_id INT,
+    product_id INT,
+    store_id INT,
+    date_id INT,
+    quantity INT,
+    sales_amount DECIMAL(10,2)
+);
+
+CREATE TABLE dim_customer (customer_id, name, city, zip);
+CREATE TABLE dim_product (product_id, product_name, category, supplier);
+CREATE TABLE dim_store (store_id, store_name, city, region);
+CREATE TABLE dim_date (date_id, month, quarter, year);
+
+-- Query is fast: Joins with dimension tables
+SELECT dc.name, SUM(fs.sales_amount)
+FROM fact_sales fs
+JOIN dim_customer dc ON fs.customer_id = dc.customer_id
+GROUP BY dc.name;
+
+-- Snowflake Schema: Normalized dimension tables
+-- More hierarchical structure
+
+CREATE TABLE fact_sales_sf (
+    sale_id INT PRIMARY KEY,
+    customer_id INT,
+    product_id INT,
+    store_id INT,
+    date_key INT,
+    quantity INT,
+    amount DECIMAL(10,2)
+);
+
+-- Normalized dimensions
+CREATE TABLE dim_customer_sf (
+    customer_id INT PRIMARY KEY,
+    name VARCHAR(100),
+    city_id INT
+);
+
+CREATE TABLE dim_city_sf (
+    city_id INT PRIMARY KEY,
+    city_name VARCHAR(100),
+    region_id INT
+);
+
+CREATE TABLE dim_region_sf (
+    region_id INT PRIMARY KEY,
+    region_name VARCHAR(100)
+);
+
+-- Query requires more joins but uses less storage
+SELECT DISTINCT name FROM fact_sales_sf
+JOIN dim_customer_sf ON fact_sales_sf.customer_id = dim_customer_sf.customer_id;</code></pre>
+
+                        <p><strong>Why it matters:</strong> Schema choice affects data warehouse performance and maintainability.</p>
+
+                        <p><strong>Real applications:</strong> BI systems, analytics platforms, data marts.</p>
+
+                        <p><strong>Common mistakes:</strong> Over-normalization in data warehouse (should use star), over-denormalization in OLTP.</p>
+                    </div>
+                </div>
+                </div>
+
+                <div class="accordion-item">
+                    <h2 class="accordion-header" id="h_q10">
+                        <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#c_q10" aria-expanded="false"><span class="question-number">11</span> What are functional dependencies and how do they relate to normalization?</button>
+                    </h2>
+                    <div id="c_q10" class="accordion-collapse collapse" data-bs-parent="#questionsAccordion">
+                        <div class="accordion-body">
+                        <p><strong>Functional dependency</strong> means value of one attribute determines value of another (A → B). Understanding functional dependencies helps identify which normal form table violates. Systematic analysis prevents design errors.</p>
+                        <pre><code>-- Functional Dependency notation: A → B means A determines B
+-- emp_id → emp_name: Each employee has one name
+-- dept_id → dept_name: Each department has one name
+-- (student_id, course_id) → grade: For each enrollment, one grade
+
+-- Example: Find functional dependencies
+CREATE TABLE student_enrollment (
+    student_id INT,
+    course_id INT,
+    semester INT,
+    grade CHAR(1),
+    professor_name VARCHAR(100)
+);
+
+-- Functional dependencies present:
+// (student_id, course_id, semester) → grade (full key)
+// course_id → professor_name (VIOLATION: 3NF)
+// student_id → student_name (if existed)
+
+-- This violates 3NF because professor_name depends only on course_id,
+-- not on the full key
+
+-- Fix: Separate tables
+CREATE TABLE courses (
+    course_id INT PRIMARY KEY,
+    professor_name VARCHAR(100)
+);
+
+CREATE TABLE enrollment (
+    student_id INT,
+    course_id INT,
+    semester INT,
+    grade CHAR(1),
+    FOREIGN KEY (course_id) REFERENCES courses(course_id)
+);
+
+-- Now functional dependencies are clean:
+// (student_id, course_id, semester) → grade
+// course_id → professor_name (in different table)</code></pre>
+
+                        <p><strong>Why it matters:</strong> Functional dependency analysis provides systematic normalization approach.</p>
+
+                        <p><strong>Real applications:</strong> Formal design reviews, complex schema analysis.</p>
+
+                        <p><strong>Common mistakes:</strong> Not analyzing dependencies systematically, introducing implicit dependencies.</p>
+                    </div>
+                </div>
+                </div>
+
+                <div class="accordion-item">
+                    <h2 class="accordion-header" id="h_q11">
+                        <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#c_q11" aria-expanded="false"><span class="question-number">12</span> What is the role of primary and foreign keys in normalization?</button>
+                    </h2>
+                    <div id="c_q11" class="accordion-collapse collapse" data-bs-parent="#questionsAccordion">
+                        <div class="accordion-body">
+                        <p><strong>Primary keys</strong> uniquely identify records and form basis for dependencies. <strong>Foreign keys</strong> establish relationships and maintain referential integrity. Both are essential for normalization—they enforce relationships and prevent anomalies.</p>
+                        <pre><code>-- Primary key: Uniquely identifies records
+CREATE TABLE employees (
+    emp_id INT PRIMARY KEY,  -- Uniquely identifies each employee
+    name VARCHAR(100),
+    dept_id INT
+);
+
+-- Foreign key: Establishes relationships
+CREATE TABLE departments (
+    dept_id INT PRIMARY KEY,
+    dept_name VARCHAR(100)
+);
+
+-- emp_id is primary key identifying employee
+-- dept_id is primary key of departments table
+-- dept_id in employees is foreign key linking to departments
+
+ALTER TABLE employees
+ADD FOREIGN KEY (dept_id) REFERENCES departments(dept_id);
+
+-- Normalization enforced by keys:
+// 1. Primary key ensures no duplicate records (1NF requirement)
+// 2. Foreign key establishes proper relationships (reduces redundancy)
+// 3. Keys prevent referential integrity violations
+
+-- Composite primary key
+CREATE TABLE course_student (
+    student_id INT,
+    course_id INT,
+    grade CHAR(1),
+    PRIMARY KEY (student_id, course_id)
+);
+
+-- Composite key:
+// student_id identifies student
+// course_id identifies course
+// Together they uniquely identify enrollment record
+
+-- Check key constraints
+SHOW KEYS FROM employees;
+SHOW CREATE TABLE employees;\G  -- Shows all constraints</code></pre>
+
+                        <p><strong>Why it matters:</strong> Keys are the foundation of normalization and data integrity.</p>
+
+                        <p><strong>Real applications:</strong> Every table needs appropriate keys for consistency.</p>
+
+                        <p><strong>Common mistakes:</strong> Missing foreign keys, unclear composite key purposes.</p>
+                    </div>
+                </div>
+                </div>
+
+                <div class="accordion-item">
+                    <h2 class="accordion-header" id="h_q12">
+                        <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#c_q12" aria-expanded="false"><span class="question-number">13</span> How do you design a normalized schema from scratch?</button>
+                    </h2>
+                    <div id="c_q12" class="accordion-collapse collapse" data-bs-parent="#questionsAccordion">
+                        <div class="accordion-body">
+                        <p><strong>Schema design process</strong> involves gathering requirements, identifying entities, determining relationships, creating entity-relationship diagram (ER diagram), normalizing tables, and validating against anomalies.</p>
+                        <pre><code>-- Step 1: Identify entities
+// Entities: Student, Course, Enrollment, Department, Teacher
+
+-- Step 2: Identify attributes
+// Student: student_id, name, email, phone
+// Course: course_id, course_name, credits
+// Enrollment: enrollment_id, grade, semester
+// Department: dept_id, dept_name
+// Teacher: teacher_id, teacher_name
+
+-- Step 3: Determine relationships
+// Student enrolls in Course (many-to-many)
+// Student belongs to Department (many-to-one)
+// Course taught by Teacher (many-to-one)
+// Course belongs to Department (many-to-one)
+
+-- Step 4: Create tables
+CREATE TABLE departments (
+    dept_id INT PRIMARY KEY AUTO_INCREMENT,
+    dept_name VARCHAR(100) NOT NULL
+);
+
+CREATE TABLE students (
+    student_id INT PRIMARY KEY AUTO_INCREMENT,
+    name VARCHAR(100) NOT NULL,
+    email VARCHAR(100) UNIQUE,
+    phone VARCHAR(20),
+    dept_id INT NOT NULL,
+    FOREIGN KEY (dept_id) REFERENCES departments(dept_id)
+);
+
+CREATE TABLE teachers (
+    teacher_id INT PRIMARY KEY AUTO_INCREMENT,
+    teacher_name VARCHAR(100) NOT NULL,
+    dept_id INT NOT NULL,
+    FOREIGN KEY (dept_id) REFERENCES departments(dept_id)
+);
+
+CREATE TABLE courses (
+    course_id INT PRIMARY KEY AUTO_INCREMENT,
+    course_name VARCHAR(100) NOT NULL,
+    credits INT NOT NULL,
+    teacher_id INT NOT NULL,
+    dept_id INT NOT NULL,
+    FOREIGN KEY (teacher_id) REFERENCES teachers(teacher_id),
+    FOREIGN KEY (dept_id) REFERENCES departments(dept_id)
+);
+
+CREATE TABLE enrollments (
+    enrollment_id INT PRIMARY KEY AUTO_INCREMENT,
+    student_id INT NOT NULL,
+    course_id INT NOT NULL,
+    semester VARCHAR(10),
+    grade CHAR(1),
+    UNIQUE KEY unique_enrollment (student_id, course_id),
+    FOREIGN KEY (student_id) REFERENCES students(student_id),
+    FOREIGN KEY (course_id) REFERENCES courses(course_id)
+);
+
+-- Step 5: Verify normalization
+// Check 1NF: No repeating groups ✓
+// Check 2NF: No partial dependencies ✓
+// Check 3NF: No transitive dependencies ✓</code></pre>
+
+                        <p><strong>Why it matters:</strong> Systematic design produces robust, maintainable schemas.</p>
+
+                        <p><strong>Real applications:</strong> Every new database project follows this process.</p>
+
+                        <p><strong>Common mistakes:</strong> Skipping requirements gathering, rushing to code without design.</p>
+                    </div>
+                </div>
+                </div>
+
+                <div class="accordion-item">
+                    <h2 class="accordion-header" id="h_q13">
+                        <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#c_q13" aria-expanded="false"><span class="question-number">14</span> What are lessons from real database design failures?</button>
+                    </h2>
+                    <div id="c_q13" class="accordion-collapse collapse" data-bs-parent="#questionsAccordion">
+                        <div class="accordion-body">
+                        <p><strong>Common failures</strong> include insufficient normalization (update anomalies), over-normalization (excessive joins), poor key design, and lack of planning. Learning from mistakes improves future designs.</p>
+                        <pre><code>-- Failure 1: Mixing concerns in single table
+-- Causes update anomalies, difficult to maintain
+CREATE TABLE bad_design (
+    id INT PRIMARY KEY,
+    customer_name VARCHAR(100),
+    product_name VARCHAR(100),  -- Multiple products per customer
+    supplier_name VARCHAR(100),
+    order_date DATE
+);
+
+-- Problem: To update supplier, must find all orders
+// Solution: Use proper normalization
+
+-- Failure 2: Over-normalization
+-- Too many joins slow down queries
+CREATE TABLE over_normalized (
+    id INT,
+    lookup_id INT,
+    FOREIGN KEY (lookup_id) REFERENCES lookups(id)
+);
+
+-- Problem: Even simple queries require many joins
+// Solution: Balance normalization with performance
+
+-- Failure 3: Missing foreign keys
+-- Orphaned records, inconsistent data
+CREATE TABLE no_fk (
+    order_id INT PRIMARY KEY,
+    customer_id INT  -- No foreign key!
+);
+
+-- Problem: Can insert non-existent customer_id
+// Solution: Add foreign key constraints
+
+-- Failure 4: Poor naming conventions
+-- Difficult to understand schema
+CREATE TABLE t1 (
+    c1 INT,  -- What is this?
+    c2 VARCHAR(100),  -- What does it store?
+    c3 DATE  -- Related to what?
+);
+
+-- Problem: Unmaintainable schema
+// Solution: Use clear, consistent naming
+
+-- Lessons learned checks:
+// 1. Review requirements thoroughly
+// 2. Use ER diagrams before coding
+// 3. Test queries early
+// 4. Involve DBA in design
+// 5. Document decisions and assumptions</code></pre>
+
+                        <p><strong>Why it matters:</strong> Learning from failures prevents repeating costly mistakes.</p>
+
+                        <p><strong>Real applications:</strong> Legacy systems often suffer from design decisions made years ago.</p>
+
+                        <p><strong>Common mistakes:</strong> Rushing to implementation, not learning from past projects.</p>
+                    </div>
+                </div>
+                </div>
+
+                <div class="accordion-item">
+                    <h2 class="accordion-header" id="h_q14">
+                        <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#c_q14" aria-expanded="false"><span class="question-number">15</span> How do you migrate a non-normalized database to normalized form?</button>
+                    </h2>
+                    <div id="c_q14" class="accordion-collapse collapse" data-bs-parent="#questionsAccordion">
+                        <div class="accordion-body">
+                        <p><strong>Migration process</strong> involves analyzing current schema, designing normalized target, creating new tables, migrating data with transformations, implementing validation, and cutover. Data integrity and downtime minimization are critical.</p>
+                        <pre><code>-- Migration steps
+
+-- Step 1: Analyze current (bad) structure
+-- Table: employee_projects_bad (1NF violation)
+-- Columns: emp_id, name, projects (comma-separated)
+
+-- Step 2: Design normalized structure
+CREATE TABLE employees_target (
+    emp_id INT PRIMARY KEY,
+    name VARCHAR(100)
+);
+
+CREATE TABLE projects_target (
+    project_id INT PRIMARY KEY,
+    project_name VARCHAR(100)
+);
+
+CREATE TABLE employee_projects_target (
+    emp_id INT,
+    project_id INT,
+    PRIMARY KEY (emp_id, project_id),
+    FOREIGN KEY (emp_id) REFERENCES employees_target(emp_id),
+    FOREIGN KEY (project_id) REFERENCES projects_target(project_id)
+);
+
+-- Step 3: Migrate data with transformation
+-- Extract employees
+INSERT INTO employees_target (emp_id, name)
+SELECT DISTINCT emp_id, name FROM employee_projects_bad;
+
+-- Extract and normalize projects
+-- Assuming projects stored as "proj1;proj2;proj3"
+-- This would need application-level parsing or stored procedure
+
+-- Step 4: Validate data integrity
+SELECT COUNT(*) FROM employees_target;
+SELECT COUNT(*) FROM projects_target;
+SELECT COUNT(*) FROM employee_projects_target;
+
+-- Step 5: Verify no data loss
+-- Check original and new row counts align
+
+-- Step 6: Decommission old table
+-- DROP TABLE employee_projects_bad;  -- After validation
+
+-- Cutover strategy: Minimal downtime migration
+// 1. Create new schema in parallel
+// 2. Set up replication/sync process
+// 3. Validate continuously during sync
+// 4. Switch connections to new schema
+// 5. Monitor for issues
+// 6. Remove old schema after validation period</code></pre>
+
+                        <p><strong>Why it matters:</strong> Safe migration preserves data while improving design.</p>
+
+                        <p><strong>Real applications:</strong> Legacy system modernization, database refactoring.</p>
+
+                        <p><strong>Common mistakes:</strong> Not testing migration thoroughly, inadequate data validation, too-tight cutover window.</p>
+                    </div>
+                </div>
+                </div>
+            </div>
+
+        
+
+              <div class="topic-nav" id="topicNav">
+            <a class="topic-nav-btn prev" href="views.html">
+                <span class="label"><i class="bi bi-arrow-left me-1"></i> Previous</span>
+                <span class="title">Views</span>
+            </a>
+            <a class="topic-nav-btn next" href="data-types.html">
+                <span class="label">Next <i class="bi bi-arrow-right ms-1"></i></span>
+                <span class="title">Data Types</span>
+            </a>
+            </div>
+             <footer class="app-footer">
+                <p>&copy; 2026 InterviewPrep &mdash; MySQL Interview Questions</p>
+            </footer>
+        </div>
+    </div>
+    <button class="btn-totop" id="backToTop"><i class="bi bi-chevron-up"></i></button>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>
+    <script>
+    (function(){
+        var sb=document.getElementById('sidebar'),bd=document.getElementById('sidebarBackdrop'),
+            tg=document.getElementById('sidebarToggle');
+        if(tg)tg.addEventListener('click',function(){sb.classList.add('open');bd.classList.add('show');});
+        if(bd)bd.addEventListener('click',function(){sb.classList.remove('open');bd.classList.remove('show');});
+        var btt=document.getElementById('backToTop');
+        window.addEventListener('scroll',function(){btt.classList.toggle('show',window.scrollY>400);});
+        btt.addEventListener('click',function(){window.scrollTo({top:0,behavior:'smooth'});});
+    })();
+    </script>
+</body>
+
+</html>

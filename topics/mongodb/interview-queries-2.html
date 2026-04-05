@@ -1,0 +1,1377 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="20 advanced MongoDB interview queries — $graphLookup, $facet, $setWindowFields, $merge, geospatial, time-series, and change stream patterns with complete solutions.">
+    <meta name="keywords" content="MongoDB advanced queries, MongoDB $graphLookup interview, MongoDB $facet aggregation, MongoDB $setWindowFields, MongoDB geospatial query interview 2026">
+    <meta name="author" content="InterviewPrep">
+    <meta name="robots" content="index, follow">
+    <link rel="icon" type="image/svg+xml" href="../../favicon.svg" sizes="any">
+    <meta property="og:type" content="website">
+    <meta property="og:title" content="Interview Queries 2 — MongoDB Interview Questions | InterviewPrep">
+    <meta property="og:description" content="20 advanced MongoDB interview queries — $graphLookup, $facet, $setWindowFields, $merge, geospatial, time-series, and change stream patterns with complete solutions.">
+    <meta property="og:url" content="https://coddingquestionhub.com/topics/mongodb/interview-queries-2.html">
+    <title>Interview Queries 2 — MongoDB Interview Questions | InterviewPrep 2026</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&family=Fira+Code:wght@400;500&display=swap" rel="stylesheet">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="../../css/styles.css">
+    <link rel="canonical" href="https://coddingquestionhub.com/topics/mongodb/interview-queries-2.html">
+    <script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "FAQPage",
+  "mainEntity": [
+    {
+      "@type": "Question",
+      "name": "Interview Queries 2 — MongoDB Interview Questions | InterviewPrep",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "20 advanced MongoDB interview queries — $graphLookup, $facet, $setWindowFields, $merge, geospatial, time-series, and change stream patterns with complete solutions."
+      }
+    }
+  ]
+}
+    </script>
+    <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-8957020141286926" crossorigin="anonymous"></script>
+    <script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "BreadcrumbList",
+  "itemListElement": [
+    {
+      "@type": "ListItem",
+      "position": 1,
+      "name": "Home",
+      "item": "https://coddingquestionhub.com"
+    },
+    {
+      "@type": "ListItem",
+      "position": 2,
+      "name": "Topics",
+      "item": "https://coddingquestionhub.com/topics"
+    },
+    {
+      "@type": "ListItem",
+      "position": 3,
+      "name": "Mongodb",
+      "item": "https://coddingquestionhub.com/topics/mongodb"
+    },
+    {
+      "@type": "ListItem",
+      "position": 4,
+      "name": "Interview Queries 2",
+      "item": "https://coddingquestionhub.com/topics/mongodb/interview-queries-2.html"
+    }
+  ]
+}
+    </script>
+</head>
+<body class="theme-mongodb">
+    <nav class="navbar navbar-expand-lg sticky-top" id="mainNavbar">
+        <div class="container-fluid px-3 px-lg-4">
+            <a class="navbar-brand fw-bold d-flex align-items-center gap-2" href="../../index.html">
+                <span class="brand-icon"><i class="bi bi-braces-asterisk"></i></span>
+                <span>Interview<span class="brand-accent">Prep</span></span>
+            </a>
+            <button class="navbar-toggler border-0 shadow-none" type="button"
+                    data-bs-toggle="collapse" data-bs-target="#navbarContent">
+                <i class="bi bi-list fs-3 text-white"></i>
+            </button>
+            <div class="collapse navbar-collapse" id="navbarContent">
+                <ul class="navbar-nav me-auto mb-2 mb-lg-0 ms-lg-3">
+                    <li class="nav-item dropdown">
+                        <a class="nav-link dropdown-toggle fw-500" href="#" role="button"
+                           data-bs-toggle="dropdown">
+                            <i class="bi bi-layers me-1"></i> Choose Category
+                        </a>
+                        <ul class="dropdown-menu">
+                            <li><a class="dropdown-item fw-500" href="../../pages/angular.html"><i class="bi bi-bootstrap me-2 text-danger"></i>Angular</a></li>
+                            <li><a class="dropdown-item fw-500" href="../../pages/react.html"><i class="bi bi-infinity me-2 text-info"></i>React</a></li>
+                            <li><a class="dropdown-item fw-500" href="../../pages/node.html"><i class="bi bi-hdd-network me-2 text-success"></i>Node.js</a></li>
+                            <li><a class="dropdown-item fw-500" href="../../pages/javascript.html"><i class="bi bi-filetype-js me-2 text-warning"></i>JavaScript</a></li>
+                            <li><a class="dropdown-item fw-500" href="../../pages/dsa.html"><i class="bi bi-diagram-3-fill me-2" style="color:#8b5cf6"></i>DSA</a></li>
+                            <li><a class="dropdown-item fw-500" href="../../pages/logical.html"><i class="bi bi-lightbulb me-2" style="color:#f59e0b"></i>Logical Reasoning</a></li>
+                            <li><a class="dropdown-item fw-500" href="../../pages/mongodb.html"><i class="bi bi-database-fill me-2" style="color:#4DB33D"></i>MongoDB</a></li>
+                            <li><a class="dropdown-item fw-500" href="../../pages/mysql.html"><i class="bi bi-table me-2" style="color:#0F766E"></i>MySQL</a></li>
+                        </ul>
+                    </li>
+                </ul>
+                <div class="search-wrap">
+                    <i class="bi bi-search search-icon"></i>
+                    <input class="form-control search-input" type="search"
+                           placeholder="Search questions..." id="searchInput">
+                </div>
+            </div>
+        </div>
+    </nav>
+    <div class="app-wrapper">
+        <aside class="sidebar" id="sidebar">
+            <div class="sidebar-head">
+                <h6><i class="bi bi-database-fill me-2"></i>MongoDB Topics</h6>
+            </div>
+            <nav>
+                <ul class="sidebar-links" id="topicList">
+                    <li><a class="nav-link" href="mongodb-fundamentals.html"><i class="bi-diagram-2"></i><span>MongoDB Fundamentals</span></a></li>
+                    <li><a class="nav-link" href="crud-operations.html"><i class="bi-pencil-square"></i><span>CRUD Operations</span></a></li>
+                    <li><a class="nav-link" href="aggregation-pipeline.html"><i class="bi-shuffle"></i><span>Aggregation Pipeline</span></a></li>
+                    <li><a class="nav-link" href="indexes.html"><i class="bi-lightning-fill"></i><span>Indexes</span></a></li>
+                    <li><a class="nav-link" href="schema-design.html"><i class="bi-layout-wtf"></i><span>Schema Design</span></a></li>
+                    <li><a class="nav-link" href="relationships.html"><i class="bi-link-45deg"></i><span>Relationships</span></a></li>
+                    <li><a class="nav-link" href="transactions.html"><i class="bi-arrow-repeat"></i><span>Transactions</span></a></li>
+                    <li><a class="nav-link" href="mongoose-odm.html"><i class="bi-code-square"></i><span>Mongoose ODM</span></a></li>
+                    <li><a class="nav-link" href="performance-optimization.html"><i class="bi-speedometer2"></i><span>Performance Optimization</span></a></li>
+                    <li><a class="nav-link" href="replication-sharding.html"><i class="bi-diagram-3-fill"></i><span>Replication &amp; Sharding</span></a></li>
+                    <li><a class="nav-link" href="security.html"><i class="bi-shield-check"></i><span>Security</span></a></li>
+                    <li><a class="nav-link" href="text-search-geospatial.html"><i class="bi-search"></i><span>Text Search &amp; Geo</span></a></li>
+                    <li><a class="nav-link" href="change-streams-watchers.html"><i class="bi-eye"></i><span>Change Streams</span></a></li>
+                    <li><a class="nav-link" href="interview-queries-1.html"><i class="bi-gear-fill"></i><span>Interview Queries 1</span></a></li>
+                    <li><a class="nav-link active" href="interview-queries-2.html"><i class="bi-gear-fill"></i><span>Interview Queries 2</span></a></li>
+                </ul>
+            </nav>
+        </aside>
+        <div class="sidebar-backdrop" id="sidebarBackdrop"></div>
+        <div class="content-area">
+            <div class="mobile-bar d-lg-none">
+                <button class="btn btn-sm btn-glass" id="sidebarToggle">
+                    <i class="bi bi-layout-sidebar-inset me-1"></i>Topics
+                </button>
+                <span class="badge rounded-pill bg-success">MongoDB</span>
+            </div>
+            <div class="breadcrumb-nav" id="breadcrumb">
+                <a href="../../index.html">Home</a><span class="sep">/</span>
+                <a href="../../pages/mongodb.html">MongoDB</a><span class="sep">/</span>
+                <span class="current">Interview Queries 2</span>
+            </div>
+            <div class="qs-header">
+                <h1 class="qs-title" id="topicTitle">Interview Queries 2</h1>
+                <span class="badge qs-badge" id="questionCount">20 Queries</span>
+            </div>
+            <div class="accordion" id="questionsAccordion">
+        <div class="accordion-item">
+            <h2 class="accordion-header" id="h_q0">
+                <button class="accordion-button" type="button"
+                    data-bs-toggle="collapse" data-bs-target="#c_q0"
+                    aria-expanded="true">
+                    <span class="question-number">1</span>Traverse an org-chart hierarchy using $graphLookup.
+                </button>
+            </h2>
+            <div id="c_q0" class="accordion-collapse collapse show"
+                data-bs-parent="#questionsAccordion">
+                <div class="accordion-body"><strong>Problem:</strong> The <code>employees</code> collection has a <code>managerId</code> field. Find all direct and indirect reports of a given manager (full subtree traversal).
+<pre><code>// employees collection structure:
+// { _id: ObjectId, name: "Alice", managerId: ObjectId | null, level: 1 }
+
+// Find all reports under manager with id "managerId"
+db.employees.aggregate([
+  { $match: { _id: ObjectId("64a1b2c3d4e5f6789abcdef0") } },  // start from manager
+  {
+    $graphLookup: {
+      from: "employees",
+      startWith: "$_id",
+      connectFromField: "_id",
+      connectToField: "managerId",
+      as: "allReports",
+      maxDepth: 10,               // limit traversal depth
+      depthField: "reportLevel",  // adds depth info to each result
+      restrictSearchWithMatch: { isActive: true }  // only active employees
+    }
+  },
+  {
+    $project: {
+      _id: 0,
+      manager: "$name",
+      totalReports: { $size: "$allReports" },
+      reportTree: {
+        $sortArray: { input: "$allReports", sortBy: { reportLevel: 1 } }
+      }
+    }
+  }
+])
+
+// Find ancestors (chain of managers) for a given employee
+db.employees.aggregate([
+  { $match: { _id: ObjectId("64a1b2c3d4e5f6789abcdef9") } },
+  {
+    $graphLookup: {
+      from: "employees",
+      startWith: "$managerId",
+      connectFromField: "managerId",
+      connectToField: "_id",
+      as: "managementChain",
+      depthField: "level"
+    }
+  }
+])</code></pre>
+                </div>
+            </div>
+        </div>
+        <div class="accordion-item">
+            <h2 class="accordion-header" id="h_q1">
+                <button class="accordion-button collapsed" type="button"
+                    data-bs-toggle="collapse" data-bs-target="#c_q1"
+                    aria-expanded="false">
+                    <span class="question-number">2</span>Run multiple aggregation facets in a single query using $facet.
+                </button>
+            </h2>
+            <div id="c_q1" class="accordion-collapse collapse"
+                data-bs-parent="#questionsAccordion">
+                <div class="accordion-body"><strong>Problem:</strong> Build a product search results page that simultaneously returns: (1) paginated results, (2) category count distribution, (3) price range buckets, and (4) total match count — all in one MongoDB query.
+<pre><code>db.products.aggregate([
+  { $match: { isActive: true, name: { $regex: "laptop", $options: "i" } } },
+  {
+    $facet: {
+      // Paginated results
+      results: [
+        { $sort: { rating: -1, price: 1 } },
+        { $skip: 0 },
+        { $limit: 20 },
+        { $project: { name: 1, price: 1, category: 1, rating: 1 } }
+      ],
+      // Category distribution
+      categories: [
+        { $group: { _id: "$category", count: { $sum: 1 } } },
+        { $sort: { count: -1 } }
+      ],
+      // Price buckets
+      priceBuckets: [
+        {
+          $bucket: {
+            groupBy: "$price",
+            boundaries: [0, 500, 1000, 2500, 5000, 10000],
+            default: "10000+",
+            output: { count: { $sum: 1 }, avgPrice: { $avg: "$price" } }
+          }
+        }
+      ],
+      // Total count
+      totalCount: [
+        { $count: "count" }
+      ],
+      // Brand distribution
+      brands: [
+        { $group: { _id: "$brand", count: { $sum: 1 } } },
+        { $sort: { count: -1 } },
+        { $limit: 10 }
+      ]
+    }
+  }
+])</code></pre>
+                </div>
+            </div>
+        </div>
+        <div class="accordion-item">
+            <h2 class="accordion-header" id="h_q2">
+                <button class="accordion-button collapsed" type="button"
+                    data-bs-toggle="collapse" data-bs-target="#c_q2"
+                    aria-expanded="false">
+                    <span class="question-number">3</span>Write aggregation results to another collection using $merge.
+                </button>
+            </h2>
+            <div id="c_q2" class="accordion-collapse collapse"
+                data-bs-parent="#questionsAccordion">
+                <div class="accordion-body"><strong>Problem:</strong> Every night, compute a daily analytics summary (total orders, revenue, new users) and store the results in a <code>dailyStats</code> collection. Use <code>$merge</code> to upsert without deleting previous data.
+<pre><code">db.orders.aggregate([
+  {
+    $match: {
+      createdAt: {
+        $gte: new Date("2024-01-15"),
+        $lt:  new Date("2024-01-16")
+      }
+    }
+  },
+  {
+    $group: {
+      _id: { $dateToString: { format: "%Y-%m-%d", date: "$createdAt" } },
+      totalOrders: { $sum: 1 },
+      totalRevenue: { $sum: "$amount" },
+      avgOrderValue: { $avg: "$amount" },
+      completedOrders: {
+        $sum: { $cond: [{ $eq: ["$status", "completed"] }, 1, 0] }
+      }
+    }
+  },
+  {
+    $merge: {
+      into: "dailyStats",           // target collection
+      on: "_id",                    // merge key (match by date)
+      whenMatched: "merge",         // merge fields if document exists
+      whenNotMatched: "insert"      // insert if no match
+    }
+  }
+])
+
+// Can be scheduled as a cron job — safe to run multiple times
+// $merge options:
+// whenMatched:    "replace" | "merge" | "keepExisting" | "fail" | [pipeline]
+// whenNotMatched: "insert" | "discard" | "fail"</code></pre>
+                </div>
+            </div>
+        </div>
+        <div class="accordion-item">
+            <h2 class="accordion-header" id="h_q3">
+                <button class="accordion-button collapsed" type="button"
+                    data-bs-toggle="collapse" data-bs-target="#c_q3"
+                    aria-expanded="false">
+                    <span class="question-number">4</span>Find orders from users within 10 km using geospatial aggregation.
+                </button>
+            </h2>
+            <div id="c_q3" class="accordion-collapse collapse"
+                data-bs-parent="#questionsAccordion">
+                <div class="accordion-body"><strong>Problem:</strong> Users have a <code>location</code> field (GeoJSON Point). Find all orders placed by users within 10 km of a given store location, including distance from the store.
+<pre><code">// Users collection has: { location: { type: "Point", coordinates: [lng, lat] } }
+// Ensure 2dsphere index exists
+db.users.createIndex({ location: "2dsphere" });
+
+// Step 1: Find nearby users with distance
+const storeCoords = [-73.9857, 40.7484];  // [lng, lat] of the store
+
+const nearbyUserIds = await db.collection('users').aggregate([
+  {
+    $geoNear: {
+      near: { type: "Point", coordinates: storeCoords },
+      distanceField: "distanceMeters",
+      maxDistance: 10000,        // 10 km in meters
+      spherical: true,
+      query: { isActive: true }  // optional pre-filter
+    }
+  },
+  {
+    $project: {
+      _id: 1,
+      name: 1,
+      distanceKm: { $divide: ["$distanceMeters", 1000] }
+    }
+  }
+]).toArray();
+
+// Step 2: Fetch orders for those users
+const ids = nearbyUserIds.map(u => u._id);
+const orders = await db.collection('orders').find({
+  customerId: { $in: ids },
+  status: "completed"
+}).sort({ createdAt: -1 }).toArray();
+
+// All-in-one pipeline with $lookup
+db.users.aggregate([
+  { $geoNear: { near: { type: "Point", coordinates: storeCoords }, distanceField: "dist", maxDistance: 10000, spherical: true } },
+  { $lookup: { from: "orders", localField: "_id", foreignField: "customerId", as: "orders" } },
+  { $match: { "orders.0": { $exists: true } } }
+])</code></pre>
+                </div>
+            </div>
+        </div>
+        <div class="accordion-item">
+            <h2 class="accordion-header" id="h_q4">
+                <button class="accordion-button collapsed" type="button"
+                    data-bs-toggle="collapse" data-bs-target="#c_q4"
+                    aria-expanded="false">
+                    <span class="question-number">5</span>Group and analyze data by week, month, and quarter in one query.
+                </button>
+            </h2>
+            <div id="c_q4" class="accordion-collapse collapse"
+                data-bs-parent="#questionsAccordion">
+                <div class="accordion-body"><strong>Problem:</strong> Build a flexible time-series report for orders showing weekly, monthly, and quarterly totals simultaneously using a single aggregation pipeline.
+<pre><code>db.orders.aggregate([
+  { $match: { status: "completed", createdAt: { $gte: new Date("2024-01-01") } } },
+  {
+    $addFields: {
+      week:    { $week: "$createdAt" },
+      month:   { $month: "$createdAt" },
+      quarter: {
+        $ceil: { $divide: [{ $month: "$createdAt" }, 3] }
+      },
+      year: { $year: "$createdAt" }
+    }
+  },
+  {
+    $facet: {
+      byWeek: [
+        { $group: { _id: { year: "$year", week: "$week" }, revenue: { $sum: "$amount" }, count: { $sum: 1 } } },
+        { $sort: { "_id.year": 1, "_id.week": 1 } }
+      ],
+      byMonth: [
+        { $group: { _id: { year: "$year", month: "$month" }, revenue: { $sum: "$amount" }, count: { $sum: 1 } } },
+        { $sort: { "_id.year": 1, "_id.month": 1 } }
+      ],
+      byQuarter: [
+        { $group: { _id: { year: "$year", quarter: "$quarter" }, revenue: { $sum: "$amount" }, count: { $sum: 1 } } },
+        { $sort: { "_id.year": 1, "_id.quarter": 1 } }
+      ]
+    }
+  }
+])
+
+// For date truncation (MongoDB 5.0+) — cleaner approach:
+{ $dateTrunc: { date: "$createdAt", unit: "week" } }
+{ $dateTrunc: { date: "$createdAt", unit: "month" } }
+{ $dateTrunc: { date: "$createdAt", unit: "quarter" } }</code></pre>
+                </div>
+            </div>
+        </div>
+        <div class="accordion-item">
+            <h2 class="accordion-header" id="h_q5">
+                <button class="accordion-button collapsed" type="button"
+                    data-bs-toggle="collapse" data-bs-target="#c_q5"
+                    aria-expanded="false">
+                    <span class="question-number">6</span>Find users with missing or null fields across multiple fields.
+                </button>
+            </h2>
+            <div id="c_q5" class="accordion-collapse collapse"
+                data-bs-parent="#questionsAccordion">
+                <div class="accordion-body"><strong>Problem:</strong> Generate a data quality report: find all users missing any required profile fields (phone, address, dateOfBirth), and count how many users are missing each field.
+<pre><code">// Find users with any missing required field
+db.users.find({
+  $or: [
+    { phone: { $exists: false } },
+    { phone: null },
+    { "address.street": { $exists: false } },
+    { "address.city": null },
+    { dateOfBirth: { $exists: false } },
+    { profileComplete: false }
+  ]
+}, { name: 1, email: 1, phone: 1, address: 1, dateOfBirth: 1 })
+
+// Count missing fields per field name (data quality dashboard)
+db.users.aggregate([
+  {
+    $facet: {
+      missingPhone: [
+        { $match: { $or: [{ phone: { $exists: false } }, { phone: null }] } },
+        { $count: "count" }
+      ],
+      missingAddress: [
+        { $match: { $or: [{ address: { $exists: false } }, { address: null }] } },
+        { $count: "count" }
+      ],
+      missingDOB: [
+        { $match: { $or: [{ dateOfBirth: { $exists: false } }, { dateOfBirth: null }] } },
+        { $count: "count" }
+      ],
+      totalUsers: [ { $count: "count" } ]
+    }
+  }
+])
+
+// Remove null fields from all documents
+db.users.updateMany(
+  { phone: null },
+  { $unset: { phone: "" } }
+)</code></pre>
+                </div>
+            </div>
+        </div>
+        <div class="accordion-item">
+            <h2 class="accordion-header" id="h_q6">
+                <button class="accordion-button collapsed" type="button"
+                    data-bs-toggle="collapse" data-bs-target="#c_q6"
+                    aria-expanded="false">
+                    <span class="question-number">7</span>Compute customer lifetime value (CLV) for all customers.
+                </button>
+            </h2>
+            <div id="c_q6" class="accordion-collapse collapse"
+                data-bs-parent="#questionsAccordion">
+                <div class="accordion-body"><strong>Problem:</strong> Calculate Customer Lifetime Value: total revenue per customer, average order frequency, and customer tenure in days. Segment customers into High/Medium/Low CLV tiers.
+<pre><code>db.orders.aggregate([
+  { $match: { status: "completed" } },
+  {
+    $group: {
+      _id: "$customerId",
+      totalRevenue: { $sum: "$amount" },
+      orderCount: { $sum: 1 },
+      avgOrderValue: { $avg: "$amount" },
+      firstOrder: { $min: "$createdAt" },
+      lastOrder: { $max: "$createdAt" }
+    }
+  },
+  {
+    $addFields: {
+      tenureDays: {
+        $divide: [{ $subtract: ["$$NOW", "$firstOrder"] }, 86400000]
+      },
+      avgMonthlyRevenue: {
+        $divide: [
+          "$totalRevenue",
+          { $add: [{ $divide: [{ $subtract: ["$$NOW", "$firstOrder"] }, 2592000000] }, 1] }
+        ]
+      }
+    }
+  },
+  {
+    $addFields: {
+      clvTier: {
+        $switch: {
+          branches: [
+            { case: { $gte: ["$totalRevenue", 10000] }, then: "High" },
+            { case: { $gte: ["$totalRevenue", 3000] }, then: "Medium" }
+          ],
+          default: "Low"
+        }
+      }
+    }
+  },
+  {
+    $lookup: {
+      from: "users",
+      localField: "_id",
+      foreignField: "_id",
+      as: "user"
+    }
+  },
+  { $unwind: "$user" },
+  { $sort: { totalRevenue: -1 } }
+])</code></pre>
+                </div>
+            </div>
+        </div>
+        <div class="accordion-item">
+            <h2 class="accordion-header" id="h_q7">
+                <button class="accordion-button collapsed" type="button"
+                    data-bs-toggle="collapse" data-bs-target="#c_q7"
+                    aria-expanded="false">
+                    <span class="question-number">8</span>Use $lookup with a pipeline for complex join conditions.
+                </button>
+            </h2>
+            <div id="c_q7" class="accordion-collapse collapse"
+                data-bs-parent="#questionsAccordion">
+                <div class="accordion-body"><strong>Problem:</strong> For each product, find all active discount codes that apply to it — matching either by <code>productId</code> OR by <code>category</code>, and only if the discount is not expired.
+<pre><code">// Standard $lookup can only match on equality of one field.
+// Use pipeline $lookup for complex/conditional joins.
+
+db.products.aggregate([
+  { $match: { isActive: true } },
+  {
+    $lookup: {
+      from: "discounts",
+      let: { prodId: "$_id", prodCategory: "$category" },  // define variables
+      pipeline: [
+        {
+          $match: {
+            $expr: {
+              $and: [
+                { $gt: ["$expiresAt", "$$NOW"] },       // not expired
+                { $eq: ["$isActive", true] },
+                {
+                  $or: [
+                    { $in: ["$$prodId", "$applicableProducts"] },    // product-specific
+                    { $in: ["$$prodCategory", "$applicableCategories"] }  // category-wide
+                  ]
+                }
+              ]
+            }
+          }
+        },
+        { $project: { code: 1, discountPct: 1, expiresAt: 1 } }
+      ],
+      as: "activeDiscounts"
+    }
+  },
+  {
+    $project: {
+      name: 1,
+      price: 1,
+      category: 1,
+      discountCount: { $size: "$activeDiscounts" },
+      bestDiscount: { $max: "$activeDiscounts.discountPct" },
+      activeDiscounts: 1
+    }
+  },
+  { $match: { discountCount: { $gt: 0 } } }  // only show discounted products
+])</code></pre>
+                </div>
+            </div>
+        </div>
+        <div class="accordion-item">
+            <h2 class="accordion-header" id="h_q8">
+                <button class="accordion-button collapsed" type="button"
+                    data-bs-toggle="collapse" data-bs-target="#c_q8"
+                    aria-expanded="false">
+                    <span class="question-number">9</span>Use conditional expressions to flag orders for fraud detection.
+                </button>
+            </h2>
+            <div id="c_q8" class="accordion-collapse collapse"
+                data-bs-parent="#questionsAccordion">
+                <div class="accordion-body"><strong>Problem:</strong> Flag orders as potential fraud using multiple conditions: order amount &gt; 3× customer's average, order placed at unusual hour (2AM–5AM), or shipping address differs from IP country. Score each order with a risk score.
+<pre><code">db.orders.aggregate([
+  {
+    $lookup: {
+      from: "customerStats",  // pre-computed avg order value per customer
+      localField: "customerId",
+      foreignField: "_id",
+      as: "stats"
+    }
+  },
+  { $unwind: { path: "$stats", preserveNullAndEmpty: true } },
+  {
+    $addFields: {
+      orderHour: { $hour: { date: "$createdAt", timezone: "UTC" } },
+      riskScore: {
+        $add: [
+          // High amount risk: +40 if order > 3x customer's avg
+          {
+            $cond: [
+              { $gt: ["$amount", { $multiply: [{ $ifNull: ["$stats.avgOrderValue", 500] }, 3] }] },
+              40, 0
+            ]
+          },
+          // Unusual hour: +30 if ordered between 2AM-5AM
+          {
+            $cond: [
+              { $and: [{ $gte: [{ $hour: "$createdAt" }, 2] }, { $lte: [{ $hour: "$createdAt" }, 5] }] },
+              30, 0
+            ]
+          },
+          // New account: +20 if account created less than 24h ago
+          {
+            $cond: [
+              { $lt: [{ $subtract: ["$createdAt", "$customerCreatedAt"] }, 86400000] },
+              20, 0
+            ]
+          },
+          // Country mismatch: +10
+          {
+            $cond: [{ $ne: ["$shippingCountry", "$ipCountry"] }, 10, 0]
+          }
+        ]
+      }
+    }
+  },
+  {
+    $addFields: {
+      riskLevel: {
+        $switch: {
+          branches: [
+            { case: { $gte: ["$riskScore", 70] }, then: "HIGH" },
+            { case: { $gte: ["$riskScore", 40] }, then: "MEDIUM" }
+          ],
+          default: "LOW"
+        }
+      }
+    }
+  },
+  { $match: { riskLevel: { $ne: "LOW" } } },
+  { $sort: { riskScore: -1 } }
+])</code></pre>
+                </div>
+            </div>
+        </div>
+        <div class="accordion-item">
+            <h2 class="accordion-header" id="h_q9">
+                <button class="accordion-button collapsed" type="button"
+                    data-bs-toggle="collapse" data-bs-target="#c_q9"
+                    aria-expanded="false">
+                    <span class="question-number">10</span>Compress array fields and deduplicate tag lists.
+                </button>
+            </h2>
+            <div id="c_q9" class="accordion-collapse collapse"
+                data-bs-parent="#questionsAccordion">
+                <div class="accordion-body"><strong>Problem:</strong> Blog posts have a <code>tags</code> array that may contain duplicates and mixed-case entries (e.g., "JavaScript", "javascript", "JAVASCRIPT"). Normalize all tags to lowercase and remove duplicates across the entire collection.
+<pre><code">// Normalize tags in all documents using aggregation update pipeline (MongoDB 4.2+)
+await db.collection('posts').updateMany(
+  { tags: { $exists: true, $ne: [] } },
+  [
+    {
+      $set: {
+        tags: {
+          $setUnion: [  // $setUnion removes duplicates
+            {
+              $map: {
+                input: "$tags",
+                as: "tag",
+                in: { $toLower: "$$tag" }  // normalize to lowercase
+              }
+            },
+            []  // $setUnion requires two arrays
+          ]
+        }
+      }
+    }
+  ]
+);
+
+// Count tag frequency across all posts
+db.posts.aggregate([
+  { $unwind: "$tags" },
+  { $addFields: { tag: { $toLower: "$tags" } } },
+  { $group: { _id: "$tag", postCount: { $sum: 1 } } },
+  { $sort: { postCount: -1 } },
+  { $limit: 20 }
+])
+
+// Find posts that share at least 2 tags  
+db.posts.aggregate([
+  { $project: { tags: { $map: { input: "$tags", as: "t", in: { $toLower: "$$t" } } } } },
+  {
+    $lookup: {
+      from: "posts",
+      let: { myTags: "$tags", myId: "$_id" },
+      pipeline: [
+        { $match: { $expr: { $and: [{ $ne: ["$_id", "$$myId"] }, { $gte: [{ $size: { $setIntersection: ["$tags", "$$myTags"] } }, 2] }] } } }
+      ],
+      as: "relatedPosts"
+    }
+  }
+])</code></pre>
+                </div>
+            </div>
+        </div>
+        <div class="accordion-item">
+            <h2 class="accordion-header" id="h_q10">
+                <button class="accordion-button collapsed" type="button"
+                    data-bs-toggle="collapse" data-bs-target="#c_q10"
+                    aria-expanded="false">
+                    <span class="question-number">11</span>Perform a multi-stage aggregation with $bucket and $bucketAuto.
+                </button>
+            </h2>
+            <div id="c_q10" class="accordion-collapse collapse"
+                data-bs-parent="#questionsAccordion">
+                <div class="accordion-body"><strong>Problem:</strong> Analyze the distribution of product prices using fixed buckets (for display) and auto-computed buckets (for statistical analysis). Identify the price ranges that contain the most products.
+<pre><code>// Fixed price buckets (manually defined)
+db.products.aggregate([
+  { $match: { isActive: true } },
+  {
+    $bucket: {
+      groupBy: "$price",
+      boundaries: [0, 100, 500, 1000, 5000, 10000, 50000],
+      default: "50000+",
+      output: {
+        count: { $sum: 1 },
+        avgPrice: { $avg: "$price" },
+        minPrice: { $min: "$price" },
+        maxPrice: { $max: "$price" },
+        products: { $push: "$name" }
+      }
+    }
+  }
+])
+
+// Auto buckets — MongoDB figures out optimal boundaries
+db.products.aggregate([
+  { $match: { isActive: true } },
+  {
+    $bucketAuto: {
+      groupBy: "$price",
+      buckets: 5,           // number of buckets
+      granularity: "R20",   // ISO standard rounding series
+      output: {
+        count: { $sum: 1 },
+        avgPrice: { $avg: "$price" },
+        totalValue: { $sum: "$price" }
+      }
+    }
+  }
+])
+
+// Percentile distribution
+db.products.aggregate([
+  {
+    $setWindowFields: {
+      sortBy: { price: 1 },
+      output: {
+        percentileRank: { $percentRank: {} }
+      }
+    }
+  },
+  { $match: { percentileRank: { $gte: 0.9 } } }  // top 10% by price
+])</code></pre>
+                </div>
+            </div>
+        </div>
+        <div class="accordion-item">
+            <h2 class="accordion-header" id="h_q11">
+                <button class="accordion-button collapsed" type="button"
+                    data-bs-toggle="collapse" data-bs-target="#c_q11"
+                    aria-expanded="false">
+                    <span class="question-number">12</span>Build a real-time notification system with Change Streams.
+                </button>
+            </h2>
+            <div id="c_q11" class="accordion-collapse collapse"
+                data-bs-parent="#questionsAccordion">
+                <div class="accordion-body"><strong>Problem:</strong> When a high-value order (&gt;$5000) is placed or when an order status changes to "refunded", send real-time notifications to the admin dashboard via WebSocket.
+<pre><code">const { MongoClient } = require('mongodb');
+
+async function startOrderChangeStream(io) {  // io = Socket.io instance
+  const client = await MongoClient.connect(process.env.MONGODB_URI);
+  const db = client.db('shopdb');
+  
+  // Only watch for specific high-value events
+  const pipeline = [
+    {
+      $match: {
+        $or: [
+          // New high-value order inserted
+          {
+            operationType: 'insert',
+            'fullDocument.amount': { $gt: 5000 }
+          },
+          // Order status changed to refunded
+          {
+            operationType: 'update',
+            'updateDescription.updatedFields.status': 'refunded'
+          }
+        ]
+      }
+    }
+  ];
+  
+  const changeStream = db.collection('orders').watch(pipeline, {
+    fullDocument: 'updateLookup'  // include full doc on updates
+  });
+  
+  changeStream.on('change', async (event) => {
+    const order = event.fullDocument;
+    
+    if (event.operationType === 'insert') {
+      io.to('admins').emit('highValueOrder', {
+        orderId: order._id,
+        amount: order.amount,
+        customer: order.customerId
+      });
+    } else if (event.operationType === 'update') {
+      io.to('admins').emit('refundAlert', {
+        orderId: order._id,
+        amount: order.amount
+      });
+    }
+  });
+  
+  // Reconnect on error
+  changeStream.on('error', async (err) => {
+    console.error('Change stream error:', err);
+    await changeStream.close();
+    setTimeout(() => startOrderChangeStream(io), 5000);
+  });
+  
+  return changeStream;
+}</code></pre>
+                </div>
+            </div>
+        </div>
+        <div class="accordion-item">
+            <h2 class="accordion-header" id="h_q12">
+                <button class="accordion-button collapsed" type="button"
+                    data-bs-toggle="collapse" data-bs-target="#c_q12"
+                    aria-expanded="false">
+                    <span class="question-number">13</span>Auto-expire documents with TTL index (session management).
+                </button>
+            </h2>
+            <div id="c_q12" class="accordion-collapse collapse"
+                data-bs-parent="#questionsAccordion">
+                <div class="accordion-body"><strong>Problem:</strong> Implement session expiry for a web app: user sessions should automatically delete after 24 hours of inactivity. Refresh the TTL on every request without manual cleanup jobs.
+<pre><code">// Create TTL index — documents expire 24 hours after lastActiveAt
+db.sessions.createIndex(
+  { lastActiveAt: 1 },
+  { expireAfterSeconds: 86400 }  // 24 hours
+);
+
+// Create session
+async function createSession(userId, req) {
+  const sessionId = crypto.randomUUID();
+  await db.collection('sessions').insertOne({
+    _id: sessionId,
+    userId,
+    ipAddress: req.ip,
+    userAgent: req.headers['user-agent'],
+    createdAt: new Date(),
+    lastActiveAt: new Date(),  // TTL starts from here
+    data: {}
+  });
+  return sessionId;
+}
+
+// Refresh session on every authenticated request (reset TTL)
+async function refreshSession(sessionId) {
+  const result = await db.collection('sessions').updateOne(
+    { _id: sessionId },
+    { $set: { lastActiveAt: new Date() } }  // reset the TTL clock
+  );
+  if (result.matchedCount === 0) {
+    throw new Error('Session not found or expired');
+  }
+}
+
+// TTL index with fixed expiry (absolute expiry time field)
+// Documents expire AT a specific time stored in the field:
+db.passwordResets.createIndex(
+  { expiresAt: 1 },
+  { expireAfterSeconds: 0 }  // expire when field time is reached
+);
+
+// Insert: expires at a specific time
+db.passwordResets.insertOne({
+  email: "user@example.com",
+  token: hashedToken,
+  expiresAt: new Date(Date.now() + 15 * 60 * 1000)  // 15 min from now
+});</code></pre>
+                </div>
+            </div>
+        </div>
+        <div class="accordion-item">
+            <h2 class="accordion-header" id="h_q13">
+                <button class="accordion-button collapsed" type="button"
+                    data-bs-toggle="collapse" data-bs-target="#c_q13"
+                    aria-expanded="false">
+                    <span class="question-number">14</span>Apply field-level encryption (CSFLE) for sensitive data.
+                </button>
+            </h2>
+            <div id="c_q13" class="accordion-collapse collapse"
+                data-bs-parent="#questionsAccordion">
+                <div class="accordion-body"><strong>Problem:</strong> Store payment card numbers and SSNs in MongoDB such that even a database admin cannot read plaintext values. Use Client-Side Field Level Encryption (CSFLE) with the Node.js driver.
+<pre><code">const { MongoClient, ClientEncryption } = require('mongodb');
+
+// Step 1: Create a data encryption key (DEK)
+async function createEncryptionKey() {
+  const keyVaultClient = new MongoClient(process.env.MONGODB_URI);
+  await keyVaultClient.connect();
+  
+  const encryption = new ClientEncryption(keyVaultClient, {
+    keyVaultNamespace: 'encryption.__dataKeys',
+    kmsProviders: {
+      local: {
+        key: Buffer.from(process.env.LOCAL_MASTER_KEY, 'base64')  // 96-byte key
+      }
+    }
+  });
+  
+  const dataKeyId = await encryption.createDataKey('local', {
+    keyAltNames: ['user-pii-key']
+  });
+  return dataKeyId;
+}
+
+// Step 2: Configure encrypted client with JSON schema
+const encryptedFieldsMap = {
+  'mydb.users': {
+    fields: [
+      { path: 'ssn',     bsonType: 'string', algorithm: 'AEAD_AES_256_CBC_HMAC_SHA_512-Deterministic' },
+      { path: 'cardNum', bsonType: 'string', algorithm: 'AEAD_AES_256_CBC_HMAC_SHA_512-Random' }
+    ]
+  }
+};
+
+// Deterministic: same plaintext → same ciphertext (allows equality queries)
+// Random:        same plaintext → different ciphertext (more secure, no queries)
+
+// Step 3: Use encrypted client — encryption/decryption is automatic
+const encryptedClient = new MongoClient(process.env.MONGODB_URI, {
+  autoEncryption: {
+    keyVaultNamespace: 'encryption.__dataKeys',
+    kmsProviders: { local: { key: Buffer.from(process.env.LOCAL_MASTER_KEY, 'base64') } },
+    encryptedFieldsMap
+  }
+});
+
+// Insert — ssn and cardNum are automatically encrypted
+await encryptedClient.db('mydb').collection('users').insertOne({
+  name: 'John Doe',
+  ssn: '123-45-6789',     // stored as ciphertext
+  cardNum: '4111111111111111'  // stored as ciphertext
+});</code></pre>
+                </div>
+            </div>
+        </div>
+        <div class="accordion-item">
+            <h2 class="accordion-header" id="h_q14">
+                <button class="accordion-button collapsed" type="button"
+                    data-bs-toggle="collapse" data-bs-target="#c_q14"
+                    aria-expanded="false">
+                    <span class="question-number">15</span>Flatten a nested category hierarchy using $unwind.
+                </button>
+            </h2>
+            <div id="c_q14" class="accordion-collapse collapse"
+                data-bs-parent="#questionsAccordion">
+                <div class="accordion-body"><strong>Problem:</strong> Products have a nested <code>categories</code> array where each category has sub-categories (e.g., <code>{main: "Electronics", sub: ["Phones", "Tablets"]}</code>). Generate a flat list of all main+sub category combinations with product counts.
+<pre><code">// Product structure: { name, price, categories: [{ main: "Electronics", subs: ["Phones", "Tablets"] }] }
+
+db.products.aggregate([
+  { $unwind: "$categories" },          // expand categories array
+  { $unwind: "$categories.subs" },     // expand subs array within each category
+  {
+    $group: {
+      _id: {
+        main: "$categories.main",
+        sub: "$categories.subs"
+      },
+      productCount: { $sum: 1 },
+      avgPrice: { $avg: "$price" },
+      products: {
+        $push: { id: "$_id", name: "$name", price: "$price" }
+      }
+    }
+  },
+  {
+    $group: {
+      _id: "$_id.main",
+      totalProducts: { $sum: "$productCount" },
+      subCategories: {
+        $push: {
+          name: "$_id.sub",
+          count: "$productCount",
+          avgPrice: { $round: ["$avgPrice", 2] }
+        }
+      }
+    }
+  },
+  { $sort: { totalProducts: -1 } },
+  {
+    $project: {
+      _id: 0,
+      mainCategory: "$_id",
+      totalProducts: 1,
+      subCategories: {
+        $sortArray: { input: "$subCategories", sortBy: { count: -1 } }
+      }
+    }
+  }
+])</code></pre>
+                </div>
+            </div>
+        </div>
+        <div class="accordion-item">
+            <h2 class="accordion-header" id="h_q15">
+                <button class="accordion-button collapsed" type="button"
+                    data-bs-toggle="collapse" data-bs-target="#c_q15"
+                    aria-expanded="false">
+                    <span class="question-number">16</span>Perform a bulk mixed-operation write (insert + update + delete).
+                </button>
+            </h2>
+            <div id="c_q15" class="accordion-collapse collapse"
+                data-bs-parent="#questionsAccordion">
+                <div class="accordion-body"><strong>Problem:</strong> Sync a catalogue from an external source: insert new products, update existing ones, and delete products that are no longer in the source — all in one efficient batch operation.
+<pre><code">async function syncProductCatalog(externalProducts, clientDb) {
+  // Fetch current product IDs from DB
+  const existingIds = new Set(
+    (await clientDb.collection('products').distinct('externalId')).map(String)
+  );
+  
+  const incomingIds = new Set(externalProducts.map(p => String(p.externalId)));
+  const toDelete = [...existingIds].filter(id => !incomingIds.has(id));
+  
+  const operations = [];
+  
+  // Insert new + update existing
+  for (const product of externalProducts) {
+    operations.push({
+      updateOne: {
+        filter: { externalId: product.externalId },
+        update: {
+          $set: {
+            name: product.name,
+            price: product.price,
+            stock: product.stock,
+            updatedAt: new Date()
+          },
+          $setOnInsert: { createdAt: new Date() }
+        },
+        upsert: true
+      }
+    });
+  }
+  
+  // Delete removed products
+  for (const id of toDelete) {
+    operations.push({
+      deleteOne: { filter: { externalId: id } }
+    });
+  }
+  
+  const result = await clientDb.collection('products').bulkWrite(
+    operations,
+    { ordered: false }  // continue even on partial failure
+  );
+  
+  return {
+    inserted: result.upsertedCount,
+    updated: result.modifiedCount,
+    deleted: result.deletedCount
+  };
+}</code></pre>
+                </div>
+            </div>
+        </div>
+        <div class="accordion-item">
+            <h2 class="accordion-header" id="h_q16">
+                <button class="accordion-button collapsed" type="button"
+                    data-bs-toggle="collapse" data-bs-target="#c_q16"
+                    aria-expanded="false">
+                    <span class="question-number">17</span>Archive old data to a separate collection using $out or $merge.
+                </button>
+            </h2>
+            <div id="c_q16" class="accordion-collapse collapse"
+                data-bs-parent="#questionsAccordion">
+                <div class="accordion-body"><strong>Problem:</strong> Orders older than 1 year should be moved to an <code>orders_archive</code> collection to keep the main collection small. Do this without data loss using a safe two-phase approach.
+<pre><code">// Phase 1: Copy to archive using $merge (safe — no data deleted yet)
+const oneYearAgo = new Date();
+oneYearAgo.setFullYear(oneYearAgo.getFullYear() - 1);
+
+await db.collection('orders').aggregate([
+  { $match: { createdAt: { $lt: oneYearAgo } } },
+  {
+    $merge: {
+      into: "orders_archive",
+      on: "_id",
+      whenMatched: "keepExisting",  // don't overwrite already archived docs
+      whenNotMatched: "insert"
+    }
+  }
+]).toArray();  // must exhaust cursor
+
+// Phase 2: Verify archive count before deleting
+const archiveCount = await db.collection('orders_archive').countDocuments({
+  createdAt: { $lt: oneYearAgo }
+});
+const sourceCount = await db.collection('orders').countDocuments({
+  createdAt: { $lt: oneYearAgo }
+});
+
+if (archiveCount >= sourceCount) {
+  // Phase 3: Safe to delete from main collection
+  const result = await db.collection('orders').deleteMany({
+    createdAt: { $lt: oneYearAgo }
+  });
+  console.log(`Archived and removed ${result.deletedCount} orders`);
+} else {
+  throw new Error(`Archive count mismatch! Expected ${sourceCount}, got ${archiveCount}`);
+}
+
+// Add index on archive collection for queries
+db.orders_archive.createIndex({ createdAt: 1 });</code></pre>
+                </div>
+            </div>
+        </div>
+        <div class="accordion-item">
+            <h2 class="accordion-header" id="h_q17">
+                <button class="accordion-button collapsed" type="button"
+                    data-bs-toggle="collapse" data-bs-target="#c_q17"
+                    aria-expanded="false">
+                    <span class="question-number">18</span>Query a MongoDB time-series collection for IoT sensor analytics.
+                </button>
+            </h2>
+            <div id="c_q17" class="accordion-collapse collapse"
+                data-bs-parent="#questionsAccordion">
+                <div class="accordion-body"><strong>Problem:</strong> An IoT device sends temperature readings every 5 seconds. Store in a time-series collection and query: average hourly temperature, detect anomalies (&gt; 2 standard deviations), and compute 1-hour rolling average.
+<pre><code">// Create time-series collection (MongoDB 5.0+)
+await db.createCollection('sensorReadings', {
+  timeseries: {
+    timeField: 'timestamp',
+    metaField: 'metadata',      // { deviceId, location }
+    granularity: 'seconds'      // seconds | minutes | hours
+  },
+  expireAfterSeconds: 7776000   // auto-expire after 90 days
+});
+
+// Insert sensor data
+await db.collection('sensorReadings').insertMany([
+  { timestamp: new Date(), metadata: { deviceId: 'sensor-01', location: 'factory-floor' }, temperature: 23.5, humidity: 65 },
+  // ...
+]);
+
+// Query 1: Average hourly temperature per sensor
+db.sensorReadings.aggregate([
+  { $match: {
+    'metadata.deviceId': 'sensor-01',
+    timestamp: { $gte: new Date(Date.now() - 86400000) }  // last 24h
+  }},
+  { $group: {
+    _id: { $dateTrunc: { date: "$timestamp", unit: "hour" } },
+    avgTemp: { $avg: "$temperature" },
+    minTemp: { $min: "$temperature" },
+    maxTemp: { $max: "$temperature" },
+    readings: { $sum: 1 }
+  }},
+  { $sort: { _id: 1 } }
+])
+
+// Query 2: Rolling 1-hour average (window functions)
+db.sensorReadings.aggregate([
+  { $match: { 'metadata.deviceId': 'sensor-01' } },
+  { $sort: { timestamp: 1 } },
+  {
+    $setWindowFields: {
+      partitionBy: "$metadata.deviceId",
+      sortBy: { timestamp: 1 },
+      output: {
+        rollingAvgTemp: {
+          $avg: "$temperature",
+          window: { range: [-3600, 0], unit: "second" }  // 1 hour window
+        },
+        stdDev: { $stdDevSamp: "$temperature", window: { range: [-3600, 0], unit: "second" } }
+      }
+    }
+  },
+  { $addFields: {
+    isAnomaly: { $gt: [
+      { $abs: { $subtract: ["$temperature", "$rollingAvgTemp"] } },
+      { $multiply: ["$stdDev", 2] }
+    ]}
+  }},
+  { $match: { isAnomaly: true } }
+])</code></pre>
+                </div>
+            </div>
+        </div>
+        <div class="accordion-item">
+            <h2 class="accordion-header" id="h_q18">
+                <button class="accordion-button collapsed" type="button"
+                    data-bs-toggle="collapse" data-bs-target="#c_q18"
+                    aria-expanded="false">
+                    <span class="question-number">19</span>Implement optimistic concurrency control to prevent lost updates.
+                </button>
+            </h2>
+            <div id="c_q18" class="accordion-collapse collapse"
+                data-bs-parent="#questionsAccordion">
+                <div class="accordion-body"><strong>Problem:</strong> Two users may update the same document simultaneously. Implement optimistic concurrency control using a version number to detect conflicts and retry, preventing lost updates without using transactions.
+<pre><code">// Document has a __v (version) field — increment on every update
+// If __v doesn't match, another update happened in between
+
+async function updateProductPrice(productId, newPrice, expectedVersion, maxRetries = 3) {
+  for (let attempt = 1; attempt <= maxRetries; attempt++) {
+    // Only update if version matches — guarantees no intermediate updates
+    const result = await db.collection('products').findOneAndUpdate(
+      {
+        _id: ObjectId(productId),
+        __v: expectedVersion          // version guard
+      },
+      {
+        $set: { price: newPrice, updatedAt: new Date() },
+        $inc: { __v: 1 }              // increment version
+      },
+      { returnDocument: 'after' }
+    );
+    
+    if (result) {
+      return result;  // success
+    }
+    
+    // Conflict! Re-read current version and retry
+    const current = await db.collection('products').findOne({ _id: ObjectId(productId) });
+    if (!current) throw new Error('Product not found');
+    
+    console.log(`Conflict on attempt ${attempt}. Re-reading version ${current.__v}`);
+    expectedVersion = current.__v;
+    
+    // Could apply business logic to merge changes here
+    if (attempt === maxRetries) {
+      throw new Error(`Optimistic lock conflict after ${maxRetries} attempts`);
+    }
+    
+    await new Promise(r => setTimeout(r, 50 * attempt));  // backoff
+  }
+}
+
+// Usage
+update = await updateProductPrice("product123", 2999.99, 5);
+// If someone changed the product between read and write,
+// we get a conflict and automatically retry with fresh data</code></pre>
+                </div>
+            </div>
+        </div>
+        <div class="accordion-item">
+            <h2 class="accordion-header" id="h_q19">
+                <button class="accordion-button collapsed" type="button"
+                    data-bs-toggle="collapse" data-bs-target="#c_q19"
+                    aria-expanded="false">
+                    <span class="question-number">20</span>Design a social feed query: paginated posts from followed users.
+                </button>
+            </h2>
+            <div id="c_q19" class="accordion-collapse collapse"
+                data-bs-parent="#questionsAccordion">
+                <div class="accordion-body"><strong>Problem:</strong> A social platform where users follow others. Implement a news feed query that returns paginated posts from all followed users, sorted by most recent. Handle the fan-out and performance efficiently.
+<pre><code">// Approach 1: Fan-out on read (pull model) — good for users with few follows
+async function getFeedPullModel(userId, lastPostId = null, limit = 20) {
+  // Get followed user IDs
+  const user = await db.collection('users').findOne(
+    { _id: userId },
+    { projection: { following: 1 } }
+  );
+  
+  const filter = {
+    authorId: { $in: user.following },
+    isPublic: true
+  };
+  
+  // Cursor-based pagination for stability
+  if (lastPostId) {
+    const lastPost = await db.collection('posts').findOne({ _id: ObjectId(lastPostId) });
+    filter.createdAt = { $lt: lastPost.createdAt };
+  }
+  
+  return db.collection('posts')
+    .find(filter)
+    .sort({ createdAt: -1 })
+    .limit(limit)
+    .toArray();
+}
+
+// Support index: { authorId: 1, createdAt: -1, isPublic: 1 }
+
+// Approach 2: Fan-out on write (push model) — good for high-traffic feeds
+// When a user posts, write to each follower's feed collection
+async function createPost(authorId, content) {
+  const post = await db.collection('posts').insertOne({
+    authorId, content, createdAt: new Date()
+  });
+  
+  // Get followers
+  const author = await db.collection('users').findOne({ _id: authorId }, { projection: { followers: 1 } });
+  
+  // Fan out to each follower's feed (async, via queue in production)
+  if (author.followers.length < 10000) {  // only for non-celebrities
+    const feedEntries = author.followers.map(followerId => ({
+      userId: followerId,
+      postId: post.insertedId,
+      authorId,
+      createdAt: new Date()
+    }));
+    await db.collection('feeds').insertMany(feedEntries);
+  }
+}
+
+// Reading feed is now simple and fast:
+const feed = await db.collection('feeds')
+  .find({ userId: currentUser._id })
+  .sort({ createdAt: -1 })
+  .limit(20)
+  .toArray();</code></pre>
+                </div>
+            </div>
+        </div>
+            </div>
+            <div class="topic-nav" id="topicNav">
+            <a class="topic-nav-btn prev" href="interview-queries-1.html">
+                <span class="label"><i class="bi bi-arrow-left me-1"></i> Previous</span>
+                <span class="title">Interview Queries 1</span>
+            </a>
+            </div>
+            <footer class="app-footer">
+                <p>&copy; 2026 InterviewPrep &mdash; MongoDB Interview Questions</p>
+            </footer>
+        </div>
+    </div>
+    <button class="btn-totop" id="backToTop"><i class="bi bi-chevron-up"></i></button>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>
+    <script>
+    (function(){
+        var sb=document.getElementById('sidebar'),bd=document.getElementById('sidebarBackdrop'),
+            tg=document.getElementById('sidebarToggle');
+        if(tg)tg.addEventListener('click',function(){sb.classList.add('open');bd.classList.add('show');});
+        if(bd)bd.addEventListener('click',function(){sb.classList.remove('open');bd.classList.remove('show');});
+        var btt=document.getElementById('backToTop');
+        window.addEventListener('scroll',function(){btt.classList.toggle('show',window.scrollY>400);});
+        btt.addEventListener('click',function(){window.scrollTo({top:0,behavior:'smooth'});});
+        var acc=document.getElementById('questionsAccordion');
+        var totalCount=20;
+        var si=document.getElementById('searchInput');
+        if(si){var t=null;si.addEventListener('input',function(){clearTimeout(t);var v=this.value.trim().toLowerCase();
+        if(v.length<2){acc.querySelectorAll('.accordion-item').forEach(function(el){el.style.display='';});
+        document.getElementById('questionCount').textContent=totalCount+' Queries';return;}
+        t=setTimeout(function(){var c=0;acc.querySelectorAll('.accordion-item').forEach(function(el){
+        var m=el.textContent.toLowerCase().indexOf(v)!==-1;el.style.display=m?'':'none';if(m)c++;});
+        document.getElementById('questionCount').textContent=c+' Queries';},200);});}
+    })();
+    </script>
+</body>
+</html>

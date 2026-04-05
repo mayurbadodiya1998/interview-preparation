@@ -367,6 +367,22 @@ body {
 .theme-dsa .sidebar-links .nav-link.active { background: linear-gradient(135deg, #7c3aed, #6d28d9); }
 .theme-logical .sidebar-links .nav-link.active { background: linear-gradient(135deg, #d97706, #b45309); }
 .theme-java .sidebar-links .nav-link.active { background: linear-gradient(135deg, #ea580c, #c2410c); }
+.theme-mongodb .sidebar-links .nav-link.active { background: linear-gradient(135deg, #4DB33D, #3a8c2e); }
+.theme-mongodb .accordion-button:not(.collapsed) { background: #dcfce7; color: #166534; }
+.theme-mongodb .accordion-button:focus { box-shadow: 0 0 0 3px rgba(77,179,61,.15); }
+.theme-mongodb .question-number { background: linear-gradient(135deg, #4DB33D, #3a8c2e); }
+.theme-mongodb .badge.qs-badge { background: #4DB33D !important; }
+.theme-mongodb .breadcrumb-nav a { color: #4DB33D; }
+.theme-mongodb h1.qs-title { color: #166534; }
+.fi-mongodb { background: #f0fdf4; color: #15803d; }
+.theme-mysql .sidebar-links .nav-link.active { background: linear-gradient(135deg, #0F766E, #0a4f47); }
+.theme-mysql .accordion-button:not(.collapsed) { background: #e0f2f1; color: #004d40; }
+.theme-mysql .accordion-button:focus { box-shadow: 0 0 0 3px rgba(15,118,110,.15); }
+.theme-mysql .question-number { background: linear-gradient(135deg, #0F766E, #0a4f47); }
+.theme-mysql .badge.qs-badge { background: #0F766E !important; }
+.theme-mysql .breadcrumb-nav a { color: #0F766E; }
+.theme-mysql h1.qs-title { color: #004d40; }
+.fi-mysql { background: #e0f2f1; color: #004d40; }
 
 @media print {
     .sidebar, #mainNavbar, .btn-totop, .topic-nav, .mobile-bar { display: none !important; }

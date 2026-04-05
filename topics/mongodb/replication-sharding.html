@@ -1,0 +1,677 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="MongoDB Replication and Sharding interview questions covering replica sets, read preferences, shard keys, horizontal scaling, and cluster architecture.">
+    <meta name="keywords" content="MongoDB replication, MongoDB sharding, replica set, shard key, MongoDB cluster, horizontal scaling, MongoDB interview 2026">
+    <meta name="author" content="InterviewPrep">
+    <meta name="robots" content="index, follow">
+    <link rel="icon" type="image/svg+xml" href="../../favicon.svg" sizes="any">
+    <meta property="og:type" content="website">
+    <meta property="og:title" content="Replication & Sharding — MongoDB Interview Questions | InterviewPrep">
+    <meta property="og:description" content="MongoDB Replication and Sharding interview questions covering replica sets, read preferences, shard keys, horizontal scaling, and cluster architecture.">
+    <meta property="og:url" content="https://coddingquestionhub.com/topics/mongodb/replication-sharding.html">
+    <title>Replication &amp; Sharding — MongoDB Interview Questions | InterviewPrep 2026</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&family=Fira+Code:wght@400;500&display=swap" rel="stylesheet">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="../../css/styles.css">
+    <link rel="canonical" href="https://coddingquestionhub.com/topics/mongodb/replication-sharding.html">
+    <script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "FAQPage",
+  "mainEntity": [
+    {
+      "@type": "Question",
+      "name": "Replication & Sharding — MongoDB Interview Questions | InterviewPrep",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "MongoDB Replication and Sharding interview questions covering replica sets, read preferences, shard keys, horizontal scaling, and cluster architecture."
+      }
+    }
+  ]
+}
+    </script>
+    <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-8957020141286926" crossorigin="anonymous"></script>
+    <script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "BreadcrumbList",
+  "itemListElement": [
+    {
+      "@type": "ListItem",
+      "position": 1,
+      "name": "Home",
+      "item": "https://coddingquestionhub.com"
+    },
+    {
+      "@type": "ListItem",
+      "position": 2,
+      "name": "Topics",
+      "item": "https://coddingquestionhub.com/topics"
+    },
+    {
+      "@type": "ListItem",
+      "position": 3,
+      "name": "Mongodb",
+      "item": "https://coddingquestionhub.com/topics/mongodb"
+    },
+    {
+      "@type": "ListItem",
+      "position": 4,
+      "name": "Replication Sharding",
+      "item": "https://coddingquestionhub.com/topics/mongodb/replication-sharding.html"
+    }
+  ]
+}
+    </script>
+</head>
+<body class="theme-mongodb">
+    <nav class="navbar navbar-expand-lg sticky-top" id="mainNavbar">
+        <div class="container-fluid px-3 px-lg-4">
+            <a class="navbar-brand fw-bold d-flex align-items-center gap-2" href="../../index.html">
+                <span class="brand-icon"><i class="bi bi-braces-asterisk"></i></span>
+                <span>Interview<span class="brand-accent">Prep</span></span>
+            </a>
+            <button class="navbar-toggler border-0 shadow-none" type="button"
+                    data-bs-toggle="collapse" data-bs-target="#navbarContent">
+                <i class="bi bi-list fs-3 text-white"></i>
+            </button>
+            <div class="collapse navbar-collapse" id="navbarContent">
+                <ul class="navbar-nav me-auto mb-2 mb-lg-0 ms-lg-3">
+                    <li class="nav-item dropdown">
+                        <a class="nav-link dropdown-toggle fw-500" href="#" role="button"
+                           data-bs-toggle="dropdown">
+                            <i class="bi bi-layers me-1"></i> Choose Category
+                        </a>
+                        <ul class="dropdown-menu">
+                            <li><a class="dropdown-item fw-500" href="../../pages/angular.html"><i class="bi bi-bootstrap me-2 text-danger"></i>Angular</a></li>
+                            <li><a class="dropdown-item fw-500" href="../../pages/react.html"><i class="bi bi-infinity me-2 text-info"></i>React</a></li>
+                            <li><a class="dropdown-item fw-500" href="../../pages/node.html"><i class="bi bi-hdd-network me-2 text-success"></i>Node.js</a></li>
+                            <li><a class="dropdown-item fw-500" href="../../pages/javascript.html"><i class="bi bi-filetype-js me-2 text-warning"></i>JavaScript</a></li>
+                            <li><a class="dropdown-item fw-500" href="../../pages/dsa.html"><i class="bi bi-diagram-3-fill me-2" style="color:#8b5cf6"></i>DSA</a></li>
+                            <li><a class="dropdown-item fw-500" href="../../pages/logical.html"><i class="bi bi-lightbulb me-2" style="color:#f59e0b"></i>Logical Reasoning</a></li>
+                            <li><a class="dropdown-item fw-500" href="../../pages/mongodb.html"><i class="bi bi-database-fill me-2" style="color:#4DB33D"></i>MongoDB</a></li>
+                            <li><a class="dropdown-item fw-500" href="../../pages/mysql.html"><i class="bi bi-table me-2" style="color:#0F766E"></i>MySQL</a></li>
+                        </ul>
+                    </li>
+                </ul>
+                <div class="search-wrap">
+                    <i class="bi bi-search search-icon"></i>
+                    <input class="form-control search-input" type="search"
+                           placeholder="Search questions..." id="searchInput">
+                </div>
+            </div>
+        </div>
+    </nav>
+    <div class="app-wrapper">
+        <aside class="sidebar" id="sidebar">
+            <div class="sidebar-head">
+                <h6><i class="bi bi-database-fill me-2"></i>MongoDB Topics</h6>
+            </div>
+            <nav>
+                <ul class="sidebar-links" id="topicList">
+                    <li><a class="nav-link" href="mongodb-fundamentals.html"><i class="bi-diagram-2"></i><span>MongoDB Fundamentals</span></a></li>
+                    <li><a class="nav-link" href="crud-operations.html"><i class="bi-pencil-square"></i><span>CRUD Operations</span></a></li>
+                    <li><a class="nav-link" href="aggregation-pipeline.html"><i class="bi-shuffle"></i><span>Aggregation Pipeline</span></a></li>
+                    <li><a class="nav-link" href="indexes.html"><i class="bi-lightning-fill"></i><span>Indexes</span></a></li>
+                    <li><a class="nav-link" href="schema-design.html"><i class="bi-layout-wtf"></i><span>Schema Design</span></a></li>
+                    <li><a class="nav-link" href="relationships.html"><i class="bi-link-45deg"></i><span>Relationships</span></a></li>
+                    <li><a class="nav-link" href="transactions.html"><i class="bi-arrow-repeat"></i><span>Transactions</span></a></li>
+                    <li><a class="nav-link" href="mongoose-odm.html"><i class="bi-code-square"></i><span>Mongoose ODM</span></a></li>
+                    <li><a class="nav-link" href="performance-optimization.html"><i class="bi-speedometer2"></i><span>Performance Optimization</span></a></li>
+                    <li><a class="nav-link active" href="replication-sharding.html"><i class="bi-diagram-3-fill"></i><span>Replication &amp; Sharding</span></a></li>
+                    <li><a class="nav-link" href="security.html"><i class="bi-shield-check"></i><span>Security</span></a></li>
+                    <li><a class="nav-link" href="text-search-geospatial.html"><i class="bi-search"></i><span>Text Search &amp; Geo</span></a></li>
+                    <li><a class="nav-link" href="change-streams-watchers.html"><i class="bi-eye"></i><span>Change Streams</span></a></li>
+                    <li><a class="nav-link" href="interview-queries-1.html"><i class="bi-gear-fill"></i><span>Interview Queries 1</span></a></li>
+                    <li><a class="nav-link" href="interview-queries-2.html"><i class="bi-gear-fill"></i><span>Interview Queries 2</span></a></li>
+                </ul>
+            </nav>
+        </aside>
+        <div class="sidebar-backdrop" id="sidebarBackdrop"></div>
+        <div class="content-area">
+            <div class="mobile-bar d-lg-none">
+                <button class="btn btn-sm btn-glass" id="sidebarToggle">
+                    <i class="bi bi-layout-sidebar-inset me-1"></i>Topics
+                </button>
+                <span class="badge rounded-pill bg-success">MongoDB</span>
+            </div>
+            <div class="breadcrumb-nav" id="breadcrumb">
+                <a href="../../index.html">Home</a><span class="sep">/</span>
+                <a href="../../pages/mongodb.html">MongoDB</a><span class="sep">/</span>
+                <span class="current">Replication &amp; Sharding</span>
+            </div>
+            <div class="qs-header">
+                <h1 class="qs-title" id="topicTitle">Replication &amp; Sharding</h1>
+                <span class="badge qs-badge" id="questionCount">15 Questions</span>
+            </div>
+            <div class="accordion" id="questionsAccordion">
+        <div class="accordion-item">
+            <h2 class="accordion-header" id="h_q0">
+                <button class="accordion-button" type="button"
+                    data-bs-toggle="collapse" data-bs-target="#c_q0"
+                    aria-expanded="true">
+                    <span class="question-number">1</span>What is a replica set in MongoDB?
+                </button>
+            </h2>
+            <div id="c_q0" class="accordion-collapse collapse show"
+                data-bs-parent="#questionsAccordion">
+                <div class="accordion-body">A <strong>replica set</strong> is a group of MongoDB instances (typically 3 or more) that maintain the same data through <strong>automatic replication</strong>. One member is the <strong>primary</strong> and accepts all writes; the others are <strong>secondaries</strong> that replicate from the primary's <strong>oplog</strong> (operations log). If the primary fails, the remaining members hold an <strong>election</strong> to choose a new primary within seconds, providing automatic failover. The minimum recommended replica set size is 3 nodes to ensure a majority can always elect a primary. Replica sets are the foundation of MongoDB's high availability architecture.
+<pre><code>// Initialize a replica set in the shell
+rs.initiate({
+  _id: "myReplicaSet",
+  members: [
+    { _id: 0, host: "mongo1:27017" },
+    { _id: 1, host: "mongo2:27017" },
+    { _id: 2, host: "mongo3:27017" }
+  ]
+})
+
+// Check replica set status
+rs.status()
+
+// Connection string with replica set
+mongodb://mongo1:27017,mongo2:27017,mongo3:27017/mydb?replicaSet=myReplicaSet</code></pre>
+                <p><strong>Why it matters:</strong> Replica sets are the foundation of MongoDB's high availability and a core concept tested in every interview focused on production systems and reliability.</p>
+                <p><strong>Real applications:</strong> All production MongoDB deployments use replica sets to eliminate single points of failure; when the primary crashes, a new primary is elected within seconds, ensuring continuous availability.</p>
+                <p><strong>Common mistakes:</strong> Using fewer than 3 members (preventing majority elections), treating arbiters as a substitute for data nodes, or misconfiguring replica set names in connection strings.</p>
+                </div>
+            </div>
+        </div>
+        <div class="accordion-item">
+            <h2 class="accordion-header" id="h_q1">
+                <button class="accordion-button collapsed" type="button"
+                    data-bs-toggle="collapse" data-bs-target="#c_q1"
+                    aria-expanded="false">
+                    <span class="question-number">2</span>How does MongoDB replication work via the oplog?
+                </button>
+            </h2>
+            <div id="c_q1" class="accordion-collapse collapse"
+                data-bs-parent="#questionsAccordion">
+                <div class="accordion-body">The <strong>oplog</strong> (operations log) is a special capped collection (<code>local.oplog.rs</code>) on the primary that records every write operation as an <strong>idempotent</strong> statement. Secondaries continuously poll the primary's oplog and replay operations in order. Because the oplog uses idempotent operations (e.g., <code>$set</code> instead of <code>$inc</code>), replaying an operation multiple times yields the same result. Oplog size is critical — if a secondary falls too far behind (e.g., during network partition), it can no longer find its last seen position in the oplog and must perform an initial sync (full data copy). Monitor <code>rs.printReplicationInfo()</code> to check oplog capacity.
+<pre><code>// Check oplog status
+rs.printReplicationInfo()
+// Output: configured oplog size: 990MB
+//         log length start to end: 86400 secs (24hrs)
+//         oplog first event time: ...
+
+// Check secondary replication lag
+rs.printSecondaryReplicationInfo()
+
+// View raw oplog entries
+use local
+db.oplog.rs.find().sort({ $natural: -1 }).limit(5)</code></pre>
+                <p><strong>Why it matters:</strong> Understanding oplog mechanics is essential for comprehending how replication actually works and recognizing when to investigate replication lag issues.</p>
+                <p><strong>Real applications:</strong> When a secondary falls too far behind and runs out of oplog history, it must perform an expensive full data resync; monitoring oplog capacity prevents this automatic syncing from triggering unexpectedly.</p>
+                <p><strong>Common mistakes:</strong> Not understanding idempotent operations (use $set, not $inc for replication), ignoring oplog size during planning, or assuming small oplog sizes are acceptable on high-write systems.</p>
+                </div>
+            </div>
+        </div>
+        <div class="accordion-item">
+            <h2 class="accordion-header" id="h_q2">
+                <button class="accordion-button collapsed" type="button"
+                    data-bs-toggle="collapse" data-bs-target="#c_q2"
+                    aria-expanded="false">
+                    <span class="question-number">3</span>What is a MongoDB arbiter and when should you use it?
+                </button>
+            </h2>
+            <div id="c_q2" class="accordion-collapse collapse"
+                data-bs-parent="#questionsAccordion">
+                <div class="accordion-body">An <strong>arbiter</strong> is a lightweight replica set member that participates in <strong>elections</strong> but holds no data. It provides an odd number of voting members to prevent election splits without the cost of a full data-bearing node. Use an arbiter when you have only 2 data nodes and need a tiebreaker for elections. However, MongoDB recommends against arbiters in new deployments — adding a third data node is preferred because it also serves reads and provides an additional data backup. Arbiters cannot become primary, cannot serve reads, and do not provide data redundancy.
+<pre><code>// Add an arbiter to existing replica set
+rs.addArb("mongo-arbiter:27017")
+
+// Arbiter config (priority and votes set to 0 for data members optionally)
+rs.reconfig({
+  _id: "myRS",
+  members: [
+    { _id: 0, host: "mongo1:27017" },
+    { _id: 1, host: "mongo2:27017" },
+    { _id: 2, host: "mongo-arbiter:27017", arbiterOnly: true }
+  ]
+})
+
+// Check member roles
+rs.status().members.map(m => ({ host: m.name, state: m.stateStr }))</code></pre>
+                <p><strong>Why it matters:</strong> Arbiters are a special replica set member type; understanding their role and limitations shows grasp of election mechanics and HA architecture.</p>
+                <p><strong>Real applications:</strong> Legacy two-node setups sometimes use arbiters for cost reasons, though MongoDB now recommends always adding a third full data node for better HA and read redundancy.</p>
+                <p><strong>Common mistakes:</strong> Using an arbiter when a third data node is feasible, configuring arbiters to hold data or accept writes, or not realizing arbiters can't provide data backup or serve reads.</p>
+                </div>
+            </div>
+        </div>
+        <div class="accordion-item">
+            <h2 class="accordion-header" id="h_q3">
+                <button class="accordion-button collapsed" type="button"
+                    data-bs-toggle="collapse" data-bs-target="#c_q3"
+                    aria-expanded="false">
+                    <span class="question-number">4</span>What is sharding in MongoDB and why is it needed?
+                </button>
+            </h2>
+            <div id="c_q3" class="accordion-collapse collapse"
+                data-bs-parent="#questionsAccordion">
+                <div class="accordion-body"><strong>Sharding</strong> is MongoDB's horizontal scaling strategy that distributes data across multiple servers called <strong>shards</strong>. Each shard is itself a replica set. When a single server can no longer handle the data volume or write throughput, sharding partitions the collection across shards using a <strong>shard key</strong>. A sharded cluster consists of: <strong>shards</strong> (data), <strong>config servers</strong> (metadata, 3-node replica set), and <strong>mongos routers</strong> (query routing). Sharding allows virtually unlimited horizontal scaling for both storage and throughput, which is why companies like Instagram and Forbes use MongoDB sharding for their massive datasets.
+<pre><code>// Enable sharding on a database
+sh.enableSharding("myDatabase")
+
+// Shard a collection on a key
+sh.shardCollection("myDatabase.orders", { customerId: 1 })
+
+// Check sharding status
+sh.status()
+
+// View chunk distribution
+db.getSiblingDB("config").chunks.find(
+  { ns: "myDatabase.orders" }
+).count()</code></pre>                <p><strong>Why it matters:</strong> Sharding enables unlimited horizontal scaling and is essential knowledge for engineers working with massive datasets or very high write throughput systems.</p>
+                <p><strong>Real applications:</strong> Companies like Instagram, Uber, and Airbnb shard across thousands of MongoDB nodes to handle petabytes of data and millions of operations per second.</p>
+                <p><strong>Common mistakes:</strong> Sharding prematurely before vertical scaling limits are reached, choosing a poor shard key, or underestimating operational complexity that sharding introduces.</p>                </div>
+            </div>
+        </div>
+        <div class="accordion-item">
+            <h2 class="accordion-header" id="h_q4">
+                <button class="accordion-button collapsed" type="button"
+                    data-bs-toggle="collapse" data-bs-target="#c_q4"
+                    aria-expanded="false">
+                    <span class="question-number">5</span>How do you choose a good shard key?
+                </button>
+            </h2>
+            <div id="c_q4" class="accordion-collapse collapse"
+                data-bs-parent="#questionsAccordion">
+                <div class="accordion-body">A good <strong>shard key</strong> must have high <strong>cardinality</strong> (many distinct values), even <strong>write distribution</strong> (avoid hotspots), and should match common query patterns for <strong>targeted queries</strong>. Monotonically increasing keys like timestamps or auto-increment IDs make terrible shard keys — all writes go to one shard (hotspot). <strong>Hashed shard keys</strong> distribute data randomly but scatter range queries across all shards. A <strong>compound shard key</strong> like <code>{ userId: 1, createdAt: 1 }</code> balances distribution with query targeting. Consider using a <strong>zone sharding</strong> strategy for geographic or tenant-based partitioning.
+<pre><code>// BAD — monotonically increasing (all writes to last shard)
+sh.shardCollection("db.events", { createdAt: 1 })
+
+// BAD — low cardinality (too few values = too few chunks)
+sh.shardCollection("db.orders", { status: 1 })
+
+// GOOD — hashed (even distribution, scattered ranges)
+sh.shardCollection("db.users", { _id: "hashed" })
+
+// GOOD — compound (balances distribution + targeted queries)
+sh.shardCollection("db.orders", { customerId: 1, createdAt: 1 })
+
+// Check chunk balance
+sh.status()  // shows chunk counts per shard</code></pre>
+                <p><strong>Why it matters:</strong> Shard key selection is THE most critical decision for sharded clusters; a bad shard key creates permanent performance problems that are extremely difficult to fix later.</p>
+                <p><strong>Real applications:</strong> A system that accidentally uses timestamps as a shard key will have all writes concentrated on the latest timestamp chunk, creating a massive performance bottleneck and preventing horizontal scaling.</p>
+                <p><strong>Common mistakes:</strong> Using monotonically increasing keys (timestamps, sequences) causing writes to one shard, choosing low-cardinality keys reducing parallelization, or not considering query patterns in shard key design.</p>
+                </div>
+            </div>
+        </div>
+        <div class="accordion-item">
+            <h2 class="accordion-header" id="h_q5">
+                <button class="accordion-button collapsed" type="button"
+                    data-bs-toggle="collapse" data-bs-target="#c_q5"
+                    aria-expanded="false">
+                    <span class="question-number">6</span>What is the difference between targeted and scatter-gather queries in a sharded cluster?
+                </button>
+            </h2>
+            <div id="c_q5" class="accordion-collapse collapse"
+                data-bs-parent="#questionsAccordion">
+                <div class="accordion-body"><strong>Targeted queries</strong> include the shard key, allowing the <strong>mongos router</strong> to direct the query to the specific shard(s) that hold the data. <strong>Scatter-gather queries</strong> lack the shard key, so mongos broadcasts to all shards and merges results — these are expensive and should be avoided in hot paths. Always include the shard key in your most frequent queries. If not possible, consider whether your shard key choice is wrong for your access pattern. Use <code>explain()</code> to check if a query is a <code>SHARD_MERGE</code> (scatter-gather) or <code>SINGLE_SHARD</code> (targeted).
+<pre><code>// TARGETED — includes shard key (customerId)
+db.orders.find({ customerId: "cust123", status: "pending" })
+// mongos sends to ONLY the shard holding customerId: "cust123"
+
+// SCATTER-GATHER — no shard key
+db.orders.find({ status: "pending" })
+// mongos broadcasts to ALL shards, merges results
+
+// Check query type with explain
+db.orders.find({ customerId: "cust123" })
+  .explain("executionStats")
+// Look for: winningPlan.stage: "SINGLE_SHARD" vs "SHARD_MERGE"</code></pre>
+                <p><strong>Why it matters:</strong> Query targeting efficiency directly determines sharding success; scatter-gather queries can degrade performance by orders of magnitude compared to targeted queries.</p>
+                <p><strong>Real applications:</strong> A targeted query on a 100-shard cluster hits 1 shard in milliseconds; the same query without a shard key broadcasts to all 100 shards, combines results from each, and takes seconds.</p>
+                <p><strong>Common mistakes:</strong> Not including the shard key in queries, not using explain() to verify query targeting, or failing to redesign queries to include the shard key when possible.</p>
+                </div>
+            </div>
+        </div>
+        <div class="accordion-item">
+            <h2 class="accordion-header" id="h_q6">
+                <button class="accordion-button collapsed" type="button"
+                    data-bs-toggle="collapse" data-bs-target="#c_q6"
+                    aria-expanded="false">
+                    <span class="question-number">7</span>What happens during a replica set election?
+                </button>
+            </h2>
+            <div id="c_q6" class="accordion-collapse collapse"
+                data-bs-parent="#questionsAccordion">
+                <div class="accordion-body">A <strong>replica set election</strong> is triggered when the primary becomes unavailable (network failure, crash, or maintenance). Eligible members initiate an election by sending <code>replSetRequestVotes</code> to other members. A member wins by receiving votes from a <strong>majority</strong> of all voting members (not just available ones). MongoDB uses the <strong>Raft consensus algorithm</strong> for elections with priority and oplog recency as tiebreakers. The election process typically completes in under 12 seconds (elections were faster in MongoDB 3.2+ with electionTimeoutMillis = 10s). During election, the cluster is in a <strong>read-only</strong> state — writes are temporarily unavailable.
+<pre><code>// Manually trigger an election (step down current primary)
+rs.stepDown(60) // primary steps down for 60 seconds
+
+// Check who is primary
+rs.isMaster() // or rs.hello() in newer versions
+// { ismaster: true, primary: "mongo1:27017", ... }
+
+// Set member priority (higher = preferred primary)
+cfg = rs.conf()
+cfg.members[0].priority = 2  // preferred primary
+cfg.members[1].priority = 1
+cfg.members[2].priority = 0  // never becomes primary
+rs.reconfig(cfg)</code></pre>
+                <p><strong>Why it matters:</strong> Elections are the core of replica set failover; understanding election mechanics and timing is crucial for designing resilient systems.</p>
+                <p><strong>Real applications:</strong> In production, you design failover expectations knowing elections take 10-30 seconds; applications must handle temporary write unavailability gracefully.</p>
+                <p><strong>Common mistakes:</strong> Not configuring member priorities, assuming elections are instant, using arbiters as tiebreakers when they cause confusion, or failing to account for election time in SLA calculations.</p>
+                </div>
+            </div>
+        </div>
+        <div class="accordion-item">
+            <h2 class="accordion-header" id="h_q7">
+                <button class="accordion-button collapsed" type="button"
+                    data-bs-toggle="collapse" data-bs-target="#c_q7"
+                    aria-expanded="false">
+                    <span class="question-number">8</span>What is chunk migration in a sharded MongoDB cluster?
+                </button>
+            </h2>
+            <div id="c_q7" class="accordion-collapse collapse"
+                data-bs-parent="#questionsAccordion">
+                <div class="accordion-body">MongoDB divides sharded collection data into <strong>chunks</strong> (default 128MB). The <strong>balancer</strong> runs on the config servers and automatically migrates chunks between shards to maintain even distribution. When a shard has too many chunks compared to others (threshold: 8 chunks by default), the balancer moves chunks to underloaded shards. Chunk migrations are transparent to applications but consume I/O and network resources. You can <strong>disable the balancer</strong> during maintenance windows or scheduled jobs. Moving a chunk involves copying all documents in that chunk's key range to the destination shard, then updating the config server metadata.
+<pre><code>// Check balancer status
+sh.isBalancerRunning()
+sh.getBalancerState()
+
+// Disable balancer (e.g., during backup)
+sh.stopBalancer()
+sh.startBalancer()
+
+// Manual chunk split and move
+sh.splitAt("mydb.orders", { customerId: "cust500" })
+sh.moveChunk("mydb.orders", { customerId: "cust500" }, "shard2")
+
+// View current chunk distribution
+db.getSiblingDB("config").chunks.aggregate([
+  { $group: { _id: "$shard", count: { $sum: 1 } } }
+])</code></pre>
+                <p><strong>Why it matters:</strong> Chunk migration is the background process that enables sharding's load balancing; understanding its mechanics helps diagnose performance issues during data rebalancing.</p>
+                <p><strong>Real applications:</strong> When adding a new shard to a 10-shard cluster, the balancer automatically migrates billions of chunks to distribute data evenly, consuming I/O resources for days or weeks.</p>
+                <p><strong>Common mistakes:</strong> Permanently disabling the balancer without remembering to enable it, not considering chunk migration I/O when scheduling backups, or adding too many shards at once causing migration storms.</p>
+                </div>
+            </div>
+        </div>
+        <div class="accordion-item">
+            <h2 class="accordion-header" id="h_q8">
+                <button class="accordion-button collapsed" type="button"
+                    data-bs-toggle="collapse" data-bs-target="#c_q8"
+                    aria-expanded="false">
+                    <span class="question-number">9</span>What is zone sharding (tag-aware sharding) in MongoDB?
+                </button>
+            </h2>
+            <div id="c_q8" class="accordion-collapse collapse"
+                data-bs-parent="#questionsAccordion">
+                <div class="accordion-body"><strong>Zone sharding</strong> (previously tag-aware sharding) assigns specific shard key ranges to designated shards, enabling geographic data locality or tenant isolation. This is used for <strong>data residency compliance</strong> (GDPR, data sovereignty), multi-tenant SaaS applications, and tiered storage (hot/warm/cold data on different hardware). Zones are defined on shards using <code>sh.addShardTag()</code> (or <code>sh.addShardToZone()</code> in newer versions) and key ranges are mapped to zones with <code>sh.addTagRange()</code>. All documents with shard keys in the defined range are routed exclusively to shards in that zone.
+<pre><code>// Assign zones to shards
+sh.addShardToZone("shard-us-east", "US")
+sh.addShardToZone("shard-eu-west", "EU")
+
+// Map key ranges to zones (countryCode as shard key)
+sh.updateZoneKeyRange(
+  "mydb.users",
+  { countryCode: "US-MIN" }, // min key
+  { countryCode: "US-MAX" }, // max key
+  "US"
+)
+sh.updateZoneKeyRange(
+  "mydb.users",
+  { countryCode: "DE" },
+  { countryCode: "DZ" },
+  "EU"
+)</code></pre>
+                </div>
+            </div>
+        </div>
+        <div class="accordion-item">
+            <h2 class="accordion-header" id="h_q9">
+                <button class="accordion-button collapsed" type="button"
+                    data-bs-toggle="collapse" data-bs-target="#c_q9"
+                    aria-expanded="false">
+                    <span class="question-number">10</span>What is replication lag and how do you monitor and reduce it?
+                </button>
+            </h2>
+            <div id="c_q9" class="accordion-collapse collapse"
+                data-bs-parent="#questionsAccordion">
+                <div class="accordion-body"><strong>Replication lag</strong> is the delay between when the primary writes an operation to the oplog and when a secondary applies it. High lag means secondaries are behind the primary, and read operations on secondaries may return stale data. Common causes: high write volume, under-resourced secondary hardware, network congestion, or long-running operations blocking secondary replication. Monitor lag with <code>rs.printSecondaryReplicationInfo()</code>. Reduce it by upgrading secondary hardware, increasing oplog size, enabling secondary <strong>flow control</strong> (MongoDB 4.2+), or adjusting write concern to allow the secondary to acknowledge receipt before fully applying operations.
+<pre><code>// Monitor replication lag
+rs.printSecondaryReplicationInfo()
+// Output:
+// source: mongo2:27017
+// syncedTo: Thu Jan 01 2026 12:00:00 GMT+0000
+// 5 secs (0.08 hrs) behind the primary
+
+// Programmatic lag check
+rs.status().members.forEach(m => {
+  if (m.state === 2) { // SECONDARY
+    const lagSecs = (new Date() - m.optimeDate) / 1000;
+    print(`${m.name} lag: ${lagSecs}s`);
+  }
+});
+
+// Increase oplog size (avoid secondary needing full re-sync)
+// In mongod.conf:
+// replication:
+//   oplogSizeMB: 10240</code></pre>
+                <p><strong>Why it matters:</strong> Replication lag directly impacts data consistency guarantees and reliability; monitoring lag is mandatory in production for detecting problems early.</p>
+                <p><strong>Real applications:</strong> If secondaries lag 1 hour behind the primary and the primary fails, you lose 1 hour of data not yet replicated to the secondary that gets promoted to primary.</p>
+                <p><strong>Common mistakes:</strong> Not monitoring lag until users complain about stale reads, ignoring flow control features that prevent excessive lag, or upgrading hardware without verifying lag improves.</p>
+                </div>
+            </div>
+        </div>
+        <div class="accordion-item">
+            <h2 class="accordion-header" id="h_q10">
+                <button class="accordion-button collapsed" type="button"
+                    data-bs-toggle="collapse" data-bs-target="#c_q10"
+                    aria-expanded="false">
+                    <span class="question-number">11</span>How does MongoDB handle writes during a replica set failover?
+                </button>
+            </h2>
+            <div id="c_q10" class="accordion-collapse collapse"
+                data-bs-parent="#questionsAccordion">
+                <div class="accordion-body">During a <strong>failover</strong>, write operations fail with <code>NotMasterError</code> or <code>NotWritablePrimary</code> until a new primary is elected (typically 10–30 seconds). Applications using the MongoDB driver with <strong>retryable writes</strong> (enabled by default since MongoDB 4.0) automatically retry eligible write operations once after a failover, providing seamless handling for transient errors. Operations that ran on the old primary but weren't yet replicated may be <strong>rolled back</strong> to a rollback directory. Design applications to expect and handle write errors during elections. Use a connection string with all replica set members so the driver discovers the new primary automatically.
+<pre><code>// Retryable writes enabled by default in modern drivers
+const client = new MongoClient(
+  "mongodb://mongo1,mongo2,mongo3/?replicaSet=rs0",
+  { retryWrites: true } // default true in recent drivers
+);
+
+// Driver automatically retries this on failover:
+await db.collection('orders').insertOne(order);
+
+// For operations that CANNOT be retried (multi-document without session):
+try {
+  await db.collection('logs').insertMany(batch);
+} catch (err) {
+  if (err.code === 91 || err.message.includes('NotWritablePrimary')) {
+    // Wait and retry after new primary election
+    await sleep(5000);
+    await db.collection('logs').insertMany(batch);
+  }
+}</code></pre>
+                <p><strong>Why it matters:</strong> Failover handling is crucial for building resilient applications; understanding write error scenarios helps design robust error handling logic.</p>
+                <p><strong>Real applications:</strong> During a failover, applications must gracefully handle write errors and retry; modern MongoDB drivers support retryable writes that make this transparent to most applications.</p>
+                <p><strong>Common mistakes:</strong> Not enabling retryable writes, assuming writes never fail during normal operation, or not having retry logic in critical write paths.</p>
+                </div>
+            </div>
+        </div>
+        <div class="accordion-item">
+            <h2 class="accordion-header" id="h_q11">
+                <button class="accordion-button collapsed" type="button"
+                    data-bs-toggle="collapse" data-bs-target="#c_q11"
+                    aria-expanded="false">
+                    <span class="question-number">12</span>What is a hidden replica set member and when is it used?
+                </button>
+            </h2>
+            <div id="c_q11" class="accordion-collapse collapse"
+                data-bs-parent="#questionsAccordion">
+                <div class="accordion-body">A <strong>hidden member</strong> replicates data like a normal secondary but is invisible to client applications — it never receives read requests via read preferences and is never elected primary (priority must be 0). Hidden members are ideal for <strong>dedicated backups</strong>, running intensive analytics, reporting, or <strong>ETL jobs</strong> that would otherwise impact the primary or application-facing secondaries. They can participate in elections as voters or be configured as non-voting. To take a point-in-time backup, you can lock a hidden member with <code>db.fsyncLock()</code> without impacting application availability.
+<pre><code>// Configure a hidden member
+cfg = rs.conf()
+cfg.members[3] = {
+  _id: 3,
+  host: "mongo-hidden:27017",
+  priority: 0,   // cannot become primary
+  hidden: true,  // invisible to client read preferences
+  votes: 1       // still participates in elections
+}
+rs.reconfig(cfg)
+
+// Verify (hidden members won't appear in isMaster().hosts)
+rs.conf().members.filter(m => m.hidden)
+
+// Use hidden member for backup
+// On hidden member:
+db.fsyncLock()
+// ... take file system snapshot ...
+db.fsyncUnlock()</code></pre>
+                <p><strong>Why it matters:</strong> Hidden members enable dedicated workload separation; understanding specialized member types shows advanced MongoDB architecture knowledge.</p>
+                <p><strong>Real applications:</strong> Large data warehouses use hidden members to run nightly ETL jobs and analytics without impacting user-facing read and write performance.</p>
+                <p><strong>Common mistakes:</strong> Configuring hidden members to accept user read traffic (defeating their purpose), setting wrong priority or votes, or not securing hidden members as they still replicate all data.</p>
+                </div>
+            </div>
+        </div>
+        <div class="accordion-item">
+            <h2 class="accordion-header" id="h_q12">
+                <button class="accordion-button collapsed" type="button"
+                    data-bs-toggle="collapse" data-bs-target="#c_q12"
+                    aria-expanded="false">
+                    <span class="question-number">13</span>How does mongos route queries in a sharded cluster?
+                </button>
+            </h2>
+            <div id="c_q12" class="accordion-collapse collapse"
+                data-bs-parent="#questionsAccordion">
+                <div class="accordion-body">The <strong>mongos</strong> router acts as a query coordinator, holding a local cache of the cluster's <strong>chunk map</strong> from the config servers. When a query arrives, mongos inspects the shard key in the query predicate. For targeted queries (shard key present), it routes to the specific shard(s) owning that key range. For scatter-gather queries, it broadcasts to all shards and <strong>merges, sorts, and deduplicates</strong> results in memory. Aggregation pipelines with <code>$sort</code> and <code>$group</code> may require a <strong>merge pipeline</strong> on mongos. Always deploy multiple mongos instances behind a load balancer for high availability and distribute routing load.
+<pre><code>// mongos connection (same driver API as standalone)
+// Application connects to mongos, not shards directly
+const client = new MongoClient("mongodb://mongos1:27017,mongos2:27017/mydb");
+
+// mongos performs merge sort for sorted queries across shards
+db.orders.find({ status: "shipped" }).sort({ createdAt: -1 }).limit(10)
+// mongos: sends sort query to all shards, gets top 10 from each,
+// then merges all results, re-sorts, returns final top 10
+
+// Aggregation on sharded cluster: $sort, $group happen on mongos
+db.orders.aggregate([
+  { $match: { status: "shipped" } },
+  { $group: { _id: "$customerId", total: { $sum: "$amount" } } }
+])</code></pre>
+                <p><strong>Why it matters:</strong> Understanding mongos routing is essential for diagnosing sharded cluster performance issues and designing efficient queries.</p>
+                <p><strong>Real applications:</strong> Developers must learn that aggregation pipelines execute stages on shards first (filtered data as early as possible), then the merge pipeline runs on mongos for final operations.</p>
+                <p><strong>Common mistakes:</strong> Running $sort or $group early in pipelines without upstream $match (forcing all shards to sort/group first), not realizing mongos must hold merge results in memory.</p>
+                </div>
+            </div>
+        </div>
+        <div class="accordion-item">
+            <h2 class="accordion-header" id="h_q13">
+                <button class="accordion-button collapsed" type="button"
+                    data-bs-toggle="collapse" data-bs-target="#c_q13"
+                    aria-expanded="false">
+                    <span class="question-number">14</span>What is the difference between vertical scaling and horizontal scaling for MongoDB?
+                </button>
+            </h2>
+            <div id="c_q13" class="accordion-collapse collapse"
+                data-bs-parent="#questionsAccordion">
+                <div class="accordion-body"><strong>Vertical scaling</strong> (scaling up) means adding more CPU, RAM, or disk to the existing server. It's limited by hardware maximums and becomes prohibitively expensive. <strong>Horizontal scaling</strong> (scaling out) distributes load across multiple commodity servers using sharding. MongoDB is designed for horizontal scaling — adding shards linearly increases both storage capacity and write throughput. The rule of thumb: start with vertical scaling (simpler, no sharding complexity), add replica sets for HA, and introduce sharding only when a single replica set can no longer handle your workload. Sharding introduces significant operational complexity and should not be used prematurely.
+<pre><code>// Cluster architecture decision:
+// Single node → replica set → sharded cluster
+
+// Phase 1: Single mongod (development/small apps)
+// mongodb://localhost:27017
+
+// Phase 2: Replica set (HA, read scaling)
+// mongodb://m1:27017,m2:27017,m3:27017/?replicaSet=rs0
+
+// Phase 3: Sharded cluster (write scaling beyond single RS)
+// Connect to mongos:
+// mongodb://mongos1:27017,mongos2:27017/mydb
+
+// Monitor when to shard: watch for
+// - Single shard CPU consistently > 80%
+// - Disk I/O saturation
+// - Write throughput hitting hardware limits</code></pre>
+                <p><strong>Why it matters:</strong> Knowing when to scale and how (vertical vs. horizontal) determines whether you build a sustainable or problematic system; premature sharding adds massive operational complexity.</p>
+                <p><strong>Real applications:</strong> Start with a single replica set; only introduce sharding when a single shard replica set consistently hits resource limits even after optimization.</p>
+                <p><strong>Common mistakes:</strong> Sharding from day one (premature optimization), not maximizing vertical scaling first, or underestimating operational overhead of sharded clusters.</p>
+                </div>
+            </div>
+        </div>
+        <div class="accordion-item">
+            <h2 class="accordion-header" id="h_q14">
+                <button class="accordion-button collapsed" type="button"
+                    data-bs-toggle="collapse" data-bs-target="#c_q14"
+                    aria-expanded="false">
+                    <span class="question-number">15</span>What is a delayed replica set member and how is it configured?
+                </button>
+            </h2>
+            <div id="c_q14" class="accordion-collapse collapse"
+                data-bs-parent="#questionsAccordion">
+                <div class="accordion-body">A <strong>delayed member</strong> replicates data with a configured time lag (e.g., 1 hour behind the primary). This provides a <strong>rolling backup window</strong> — if data is accidentally deleted or corrupted on the primary, the delayed member still has the pre-corruption state up to the delay duration. Delayed members must have priority 0, can be hidden, and are ideal for protection against human errors (accidental <code>db.dropCollection()</code>, wrong bulk updates). The delay is set via the <code>secondaryDelaySecs</code> (previously <code>slaveDelay</code>) field. Note: the delayed member's data is always behind, so it should never serve application reads.
+<pre><code>// Configure a delayed member (1 hour delay)
+cfg = rs.conf()
+cfg.members[2] = {
+  _id: 2,
+  host: "mongo-delayed:27017",
+  priority: 0,              // cannot become primary
+  hidden: true,             // invisible to drivers
+  secondaryDelaySecs: 3600  // 1 hour delay
+}
+rs.reconfig(cfg)
+
+// Verify
+rs.conf().members.find(m => m.secondaryDelaySecs > 0)
+// { host: 'mongo-delayed:27017', secondaryDelaySecs: 3600 }
+
+// Use case: accidental drop recovery
+// Primary: db.users.drop()  <- disaster!
+// Delayed member still has users data for next 60 minutes</code></pre>
+                <p><strong>Why it matters:</strong> Delayed members provide a safety net against human errors and accidental data destruction; understanding this protection mechanism is valuable for building resilient systems.</p>
+                <p><strong>Real applications:</strong> If an automated job or developer query accidentally drops a collection or deletes millions of records, the delayed member preserves the data in a recoverable state.</p>
+                <p><strong>Common mistakes:</strong> Using delayed members as read replicas (they have stale data), setting delays too short to be useful, or not documenting the point-in-time recovery procedure.</p>
+                </div>
+            </div>
+        </div>
+            </div>
+            <div class="topic-nav" id="topicNav">
+  <a class="topic-nav-btn prev" href="performance-optimization.html">
+    <span class="label"><i class="bi bi-arrow-left me-1"></i>Previous</span>
+    <span class="title">Performance Optimization</span>
+  </a>
+  <a class="topic-nav-btn next" href="security.html">
+    <span class="label">Next <i class="bi bi-arrow-right ms-1"></i></span>
+    <span class="title">Security</span>
+  </a>
+</div>
+         
+            <footer class="app-footer">
+                <p>&copy; 2026 InterviewPrep &mdash; MongoDB Interview Questions</p>
+            </footer>
+        </div>
+    </div>
+    <button class="btn-totop" id="backToTop"><i class="bi bi-chevron-up"></i></button>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>
+    <script>
+    (function(){
+        var sb=document.getElementById('sidebar'),bd=document.getElementById('sidebarBackdrop'),
+            tg=document.getElementById('sidebarToggle');
+        if(tg)tg.addEventListener('click',function(){sb.classList.add('open');bd.classList.add('show');});
+        if(bd)bd.addEventListener('click',function(){sb.classList.remove('open');bd.classList.remove('show');});
+        var btt=document.getElementById('backToTop');
+        window.addEventListener('scroll',function(){btt.classList.toggle('show',window.scrollY>400);});
+        btt.addEventListener('click',function(){window.scrollTo({top:0,behavior:'smooth'});});
+        var acc=document.getElementById('questionsAccordion');
+        var totalCount=15;
+        var si=document.getElementById('searchInput');
+        if(si){var t=null;si.addEventListener('input',function(){clearTimeout(t);var v=this.value.trim().toLowerCase();
+        if(v.length<2){acc.querySelectorAll('.accordion-item').forEach(function(el){el.style.display='';});
+        document.getElementById('questionCount').textContent=totalCount+' Questions';return;}
+        t=setTimeout(function(){var c=0;acc.querySelectorAll('.accordion-item').forEach(function(el){
+        var m=el.textContent.toLowerCase().indexOf(v)!==-1;el.style.display=m?'':'none';if(m)c++;});
+        document.getElementById('questionCount').textContent=c+' Questions';},200);});}
+    })();
+    </script>
+</body>
+</html>

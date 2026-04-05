@@ -1,0 +1,445 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="MySQL Subqueries & CTEs interview questions: WITH clause, correlated subqueries, performance.">
+    <meta name="keywords" content="MySQL subqueries, CTE WITH clause, correlated subqueries, nested queries, MySQL interview">
+    <meta name="author" content="InterviewPrep">
+    <meta name="robots" content="index, follow">
+    <link rel="icon" type="image/svg+xml" href="../../favicon.svg" sizes="any">
+    <meta property="og:type" content="website">
+    <meta property="og:title" content="MySQL Subqueries & CTEs — MySQL Interview Questions | InterviewPrep">
+    <meta property="og:description" content="MySQL Subqueries & CTEs interview questions: WITH clause, correlated subqueries, performance.">
+    <meta property="og:url" content="https://coddingquestionhub.com/topics/mysql/subqueries-ctes.html">
+    <meta name="twitter:card" content="summary_large_image">
+    <meta name="twitter:title" content="MySQL Subqueries & CTEs — MySQL Interview Questions | InterviewPrep">
+    <meta name="twitter:description" content="MySQL Subqueries & CTEs interview questions: WITH clause, correlated subqueries, performance.">
+    <meta name="twitter:image" content="https://coddingquestionhub.com/og-mysql.png">
+    <title>MySQL Subqueries & CTEs — MySQL Interview Questions | InterviewPrep 2026</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&family=Fira+Code:wght@400;500&display=swap" rel="stylesheet">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="../../css/styles.css">
+    <link rel="canonical" href="https://coddingquestionhub.com/topics/mysql/subqueries-ctes.html">
+    <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-8957020141286926" crossorigin="anonymous"></script>
+    <script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "BreadcrumbList",
+  "itemListElement": [
+    {
+      "@type": "ListItem",
+      "position": 1,
+      "name": "Home",
+      "item": "https://coddingquestionhub.com"
+    },
+    {
+      "@type": "ListItem",
+      "position": 2,
+      "name": "Topics",
+      "item": "https://coddingquestionhub.com/topics"
+    },
+    {
+      "@type": "ListItem",
+      "position": 3,
+      "name": "Mysql",
+      "item": "https://coddingquestionhub.com/topics/mysql"
+    },
+    {
+      "@type": "ListItem",
+      "position": 4,
+      "name": "Subqueries Ctes",
+      "item": "https://coddingquestionhub.com/topics/mysql/subqueries-ctes.html"
+    }
+  ]
+}
+    </script>
+</head>
+<body class="theme-mysql">
+    <nav class="navbar navbar-expand-lg sticky-top" id="mainNavbar">
+        <div class="container-fluid px-3 px-lg-4">
+            <a class="navbar-brand fw-bold d-flex align-items-center gap-2" href="../../index.html">
+                <span class="brand-icon"><i class="bi bi-braces-asterisk"></i></span>
+                <span>Interview<span class="brand-accent">Prep</span></span>
+            </a>
+            <button class="navbar-toggler border-0 shadow-none" type="button" data-bs-toggle="collapse" data-bs-target="#navbarContent">
+                <i class="bi bi-list fs-3 text-white"></i>
+            </button>
+            <div class="collapse navbar-collapse" id="navbarContent">
+                <ul class="navbar-nav me-auto mb-2 mb-lg-0 ms-lg-3">
+                    <li class="nav-item dropdown">
+                        <a class="nav-link dropdown-toggle fw-500" href="#" role="button" data-bs-toggle="dropdown">
+                            <i class="bi bi-layers me-1"></i> Choose Category
+                        </a>
+                        <ul class="dropdown-menu">
+                            <li><a class="dropdown-item fw-500" href="../../pages/angular.html"><i class="bi bi-bootstrap me-2 text-danger"></i>Angular</a></li>
+                            <li><a class="dropdown-item fw-500" href="../../pages/react.html"><i class="bi bi-infinity me-2 text-info"></i>React</a></li>
+                            <li><a class="dropdown-item fw-500" href="../../pages/node.html"><i class="bi bi-hdd-network me-2 text-success"></i>Node.js</a></li>
+                            <li><a class="dropdown-item fw-500" href="../../pages/javascript.html"><i class="bi bi-filetype-js me-2 text-warning"></i>JavaScript</a></li>
+                            <li><a class="dropdown-item fw-500" href="../../pages/dsa.html"><i class="bi bi-diagram-3-fill me-2" style="color:#8b5cf6"></i>DSA</a></li>
+                            <li><a class="dropdown-item fw-500" href="../../pages/logical.html"><i class="bi bi-lightbulb me-2" style="color:#f59e0b"></i>Logical Reasoning</a></li>
+                            <li><a class="dropdown-item fw-500" href="../../pages/mongodb.html"><i class="bi bi-database-fill me-2" style="color:#4DB33D"></i>MongoDB</a></li>
+                            <li><a class="dropdown-item fw-500" href="../../pages/mysql.html"><i class="bi bi-table me-2" style="color:#0F766E"></i>MySQL</a></li>
+                        </ul>
+                    </li>
+                </ul>
+                <div class="search-wrap">
+                    <i class="bi bi-search search-icon"></i>
+                    <input class="form-control search-input" type="search" placeholder="Search questions..." id="searchInput">
+                </div>
+            </div>
+        </div>
+    </nav>
+        <div class="app-wrapper">
+        <aside class="sidebar" id="sidebar">
+            <div class="sidebar-head">
+                <h6><i class="bi bi-table me-2"></i>MySQL Topics</h6>
+            </div>
+            <nav>
+                <ul class="sidebar-links" id="topicList">
+                    <li><a class="nav-link" href="mysql-fundamentals.html"><i class="bi-diagram-2"></i><span>MySQL Fundamentals</span></a></li>
+                    <li><a class="nav-link" href="crud-operations.html"><i class="bi-pencil-square"></i><span>CRUD Operations</span></a></li>
+                    <li><a class="nav-link" href="sql-joins.html"><i class="bi-link-45deg"></i><span>SQL Joins</span></a></li>
+                    <li><a class="nav-link" href="indexes.html"><i class="bi-lightning-fill"></i><span>Indexes</span></a></li>
+                    <li><a class="nav-link" href="query-optimization.html"><i class="bi-speedometer2"></i><span>Query Optimization</span></a></li>
+                    <li><a class="nav-link" href="transactions-acid.html"><i class="bi-arrow-repeat"></i><span>Transactions &amp; ACID</span></a></li>
+                    <li><a class="nav-link" href="stored-procedures.html"><i class="bi-code-square"></i><span>Stored Procedures</span></a></li>
+                    <li><a class="nav-link" href="triggers.html"><i class="bi-bell-fill"></i><span>Triggers</span></a></li>
+                    <li><a class="nav-link" href="views.html"><i class="bi-eye"></i><span>Views</span></a></li>
+                    <li><a class="nav-link" href="normalization.html"><i class="bi-diagram-3-fill"></i><span>Normalization</span></a></li>
+                    <li><a class="nav-link" href="data-types.html"><i class="bi-diagram-2"></i><span>Data Types</span></a></li>
+                    <li><a class="nav-link" href="string-functions.html"><i class="bi-chat-square-text"></i><span>String Functions</span></a></li>
+                    <li><a class="nav-link" href="date-time-functions.html"><i class="bi-calendar-event"></i><span>Date &amp; Time</span></a></li>
+                    <li><a class="nav-link" href="aggregate-functions.html"><i class="bi-graph-up"></i><span>Aggregate Functions</span></a></li>
+                    <li><a class="nav-link" href="window-functions.html"><i class="bi-column-gap"></i><span>Window Functions</span></a></li>
+                    <li><a class="nav-link active" href="subqueries-ctes.html"><i class="bi-filter"></i><span>Subqueries &amp; CTEs</span></a></li>
+                    <li><a class="nav-link" href="full-text-search.html"><i class="bi-search"></i><span>Full-Text Search</span></a></li>
+                    <li><a class="nav-link" href="replication-ha.html"><i class="bi-diagram-3"></i><span>Replication &amp; HA</span></a></li>
+                    <li><a class="nav-link" href="security-permissions.html"><i class="bi-shield-check"></i><span>Security</span></a></li>
+                    <li><a class="nav-link" href="performance-tuning.html"><i class="bi-sliders"></i><span>Performance Tuning</span></a></li>
+                    <li><a class="nav-link" href="interview-queries-1.html"><i class="bi-gear-fill"></i><span>Interview Queries 1</span></a></li>
+                    <li><a class="nav-link" href="interview-queries-2.html"><i class="bi-gear-fill"></i><span>Interview Queries 2</span></a></li>
+                </ul>
+            </nav>
+        </aside>
+        <div class="sidebar-backdrop" id="sidebarBackdrop"></div>
+        <div class="content-area">
+            <div class="mobile-bar d-lg-none">
+                <button class="btn btn-sm btn-glass" id="sidebarToggle">
+                    <i class="bi bi-layout-sidebar-inset me-1"></i>Topics
+                </button>
+                <span class="badge rounded-pill" style="background:#0F766E;color:#fff;">MySQL</span>
+            </div>
+            <div class="breadcrumb-nav" id="breadcrumb">
+                <a href="../../index.html">Home</a><span class="sep">/</span>
+                <a href="../../pages/mysql.html">MySQL</a><span class="sep">/</span>
+                <span class="current">Subqueries &amp; CTEs</span>
+            </div>
+            <div class="qs-header">
+                <h1 class="qs-title" id="topicTitle">MySQL Subqueries &amp; CTEs Interview Questions</h1>
+                <span class="badge qs-badge" id="questionCount">8 Questions</span>
+            </div>
+
+            <div class="accordion" id="questionsAccordion">
+                <div class="accordion-item">
+                    <h2 class="accordion-header" id="h_q0">
+                        <button class="accordion-button" type="button" data-bs-toggle="collapse" data-bs-target="#c_q0" aria-expanded="true"><span class="question-number">1</span> What are scalar subqueries vs table subqueries?</button>
+                    </h2>
+                    <div id="c_q0" class="accordion-collapse collapse show" data-bs-parent="#questionsAccordion">
+                        <div class="accordion-body"><p><strong>Scalar subqueries</strong> return single value. <strong>Table subqueries</strong> return result set. Scalar subqueries work in SELECT, WHERE, HAVING. Table subqueries typically in FROM or WHERE IN.</p><pre><code>-- Scalar subquery (returns one value)
+SELECT name, salary, (SELECT AVG(salary) FROM employees) as avg_salary
+FROM employees;  -- Allowed in SELECT
+
+-- Subquery in WHERE
+SELECT * FROM employees 
+WHERE salary > (SELECT AVG(salary) FROM employees);
+
+-- Table subquery
+SELECT * FROM (SELECT id, name FROM employees WHERE salary > 50000) as e;
+
+-- IN with table subquery
+SELECT * FROM orders 
+WHERE customer_id IN (SELECT id FROM customers WHERE country = 'USA');
+
+-- EXISTS (alternative to IN)
+SELECT * FROM customers c 
+WHERE EXISTS (SELECT 1 FROM orders o WHERE o.customer_id = c.id);</code></pre><p><strong>Why it matters:</strong> Different patterns for different filtering needs.</p><p><strong>Real applications:</strong> Average comparisons, EXISTS checks, IN filters.</p><p><strong>Common mistakes:</strong> Scalar subquery returning multiple rows, efficiency of IN vs EXISTS.</p></div>
+                    </div>
+                </div>
+
+                <div class="accordion-item">
+                    <h2 class="accordion-header" id="h_q1">
+                        <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#c_q1" aria-expanded="false"><span class="question-number">2</span> What are correlated subqueries and when to use them?</button>
+                    </h2>
+                    <div id="c_q1" class="accordion-collapse collapse" data-bs-parent="#questionsAccordion">
+                        <div class="accordion-body"><p><strong>Correlated subqueries</strong> reference outer query. Execute once per outer row. Useful for row-by-row comparisons but can be slow on large datasets.</p><pre><code>-- Correlated subquery
+SELECT id, name, salary FROM employees e1
+WHERE salary > (SELECT AVG(salary) FROM employees e2 WHERE e2.department = e1.department);
+
+-- Per-row comparison
+SELECT order_id, amount FROM orders o
+WHERE amount > (SELECT AVG(amount) FROM orders WHERE customer_id = o.customer_id);
+
+-- EXISTS with correlation
+SELECT c.id, c.name FROM customers c
+WHERE EXISTS (SELECT 1 FROM orders o WHERE o.customer_id = c.id AND o.amount > 100);
+
+-- Performance issue: Executes subquery for each outer row
+SELECT * FROM employees e1
+WHERE salary = (SELECT MAX(salary) FROM employees e2 WHERE e2.department_id = e1.department_id);
+
+-- Better: Use window function
+SELECT * FROM (
+    SELECT *, MAX(salary) OVER (PARTITION BY department_id) as max_dept_salary
+    FROM employees
+) t WHERE salary = max_dept_salary;</code></pre><p><strong>Why it matters:</strong> Performance trade-offs with correlation.</p><p><strong>Real applications:</strong> Above/below average, row-by-row filtering.</p><p><strong>Common mistakes:</strong> Performance on large tables, using when JOINs are more efficient.</p></div>
+                    </div>
+                </div>
+
+                <div class="accordion-item">
+                    <h2 class="accordion-header" id="h_q2">
+                        <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#c_q2" aria-expanded="false"><span class="question-number">3</span> How do IN and EXISTS differ in performance?</button>
+                    </h2>
+                    <div id="c_q2" class="accordion-collapse collapse" data-bs-parent="#questionsAccordion">
+                        <div class="accordion-body"><p><strong>IN</strong> typically requires value matching. <strong>EXISTS</strong> stops after finding first match. EXISTS often more efficient for large result sets, especially with NOT variations.</p><pre><code>-- IN: Collects all matching values
+SELECT * FROM customers 
+WHERE customer_id IN (SELECT customer_id FROM orders WHERE amount > 100);
+
+-- EXISTS: Stops after finding match
+SELECT * FROM customers c
+WHERE EXISTS (SELECT 1 FROM orders o WHERE o.customer_id = c.id AND o.amount > 100);
+
+-- NOT IN: Problematic with NULLs
+SELECT * FROM customers WHERE id NOT IN (SELECT customer_id FROM orders);
+-- If customer_id has NULLs, returns empty result!
+
+-- NOT EXISTS: Better than NOT IN
+SELECT * FROM customers c
+WHERE NOT EXISTS (SELECT 1 FROM orders WHERE customer_id = c.id);
+
+-- IN with subquery - can be optimized to JOIN
+SELECT * FROM orders WHERE customer_id IN (SELECT id FROM customers WHERE country = 'USA');
+-- Equivalent to:
+SELECT DISTINCT o.* FROM orders o 
+JOIN customers c ON o.customer_id = c.id WHERE c.country = 'USA';</code></pre><p><strong>Why it matters:</strong> Query performance and correctness.</p><p><strong>Real applications:</strong> Filtering by related records, excluding records.</p><p><strong>Common mistakes:</strong> NOT IN with NULLs, not considering DISTINCT.</p></div>
+                    </div>
+                </div>
+
+                <div class="accordion-item">
+                    <h2 class="accordion-header" id="h_q3">
+                        <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#c_q3" aria-expanded="false"><span class="question-number">4</span> What are Common Table Expressions (CTEs) and WITH clause?</button>
+                    </h2>
+                    <div id="c_q3" class="accordion-collapse collapse" data-bs-parent="#questionsAccordion">
+                        <div class="accordion-body"><p><strong>CTEs (WITH clause)</strong> create named temporary result sets. Improve readability and enable recursion. Available MySQL 8.0+. Can be referenced multiple times in main query.</p><pre><code>-- Basic CTE
+WITH high_earners AS (
+    SELECT id, name, salary FROM employees WHERE salary > 100000
+)
+SELECT * FROM high_earners;
+
+-- Multiple CTEs
+WITH recent_orders AS (
+    SELECT * FROM orders WHERE order_date >= CURDATE() - INTERVAL 30 DAY
+),
+large_orders AS (
+    SELECT * FROM recent_orders WHERE amount > 1000
+)
+SELECT * FROM large_orders;
+
+-- CTE in aggregate
+WITH customer_spending AS (
+    SELECT customer_id, SUM(amount) as total_spent FROM orders GROUP BY customer_id
+)
+SELECT * FROM customer_spending WHERE total_spent > 500;
+
+-- Recursive CTE (hierarchy)
+WITH RECURSIVE hierarchy AS (
+    SELECT id, parent_id, name, 1 as level FROM categories WHERE parent_id IS NULL
+    UNION ALL
+    SELECT c.id, c.parent_id, c.name, h.level + 1 
+    FROM categories c JOIN hierarchy h ON c.parent_id = h.id
+)
+SELECT * FROM hierarchy;</code></pre><p><strong>Why it matters:</strong> Readability and recursion support.</p><p><strong>Real applications:</strong> Hierarchies, temporary aggregations, complex queries.</p><p><strong>Common mistakes:</strong> MySQL < 8.0 not supported, recursive limits.</p></div>
+                    </div>
+                </div>
+
+                <div class="accordion-item">
+                    <h2 class="accordion-header" id="h_q4">
+                        <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#c_q4" aria-expanded="false"><span class="question-number">5</span> How do you compare subqueries with JOINs and CTEs?</button>
+                    </h2>
+                    <div id="c_q4" class="accordion-collapse collapse" data-bs-parent="#questionsAccordion">
+                        <div class="accordion-body"><p><strong>Subqueries vs JOINs vs CTEs</strong>: All achieve similar results but with different readability/performance. JOINs often more efficient. CTEs improve readability. Choice depends on query complexity and optimizer behavior.</p><pre><code>-- Subquery approach
+SELECT * FROM customers WHERE id IN (SELECT customer_id FROM orders WHERE amount > 100);
+
+-- JOIN approach
+SELECT DISTINCT c.* FROM customers c 
+JOIN orders o ON c.id = o.customer_id WHERE o.amount > 100;
+
+-- CTE approach
+WITH qualified_customers AS (
+    SELECT DISTINCT customer_id FROM orders WHERE amount > 100
+)
+SELECT c.* FROM customers c JOIN qualified_customers q ON c.id = q.customer_id;
+
+-- Performance depends on:
+-- - Query optimizer (different in each MySQL version)
+-- - Index availability
+-- - Data volume
+-- - Join selectivity
+
+-- EXPLAIN to compare
+EXPLAIN SELECT * FROM customers c WHERE EXISTS (SELECT 1 FROM orders o WHERE o.customer_id = c.id);
+EXPLAIN SELECT DISTINCT c.* FROM customers c JOIN orders o ON c.id = o.customer_id;
+
+-- Best practice: Use to maximize code readability, then optimize if needed</code></pre><p><strong>Why it matters:</strong> Query performance and code clarity.</p><p><strong>Real applications:</strong> Complex filtering, multi-step transformations.</p><p><strong>Common mistakes:</strong> Premature optimization, unclear intent.</p></div>
+                    </div>
+                </div>
+
+                <div class="accordion-item">
+                    <h2 class="accordion-header" id="h_q5">
+                        <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#c_q5" aria-expanded="false"><span class="question-number">6</span> What are recursive CTEs and hierarchy queries?</button>
+                    </h2>
+                    <div id="c_q5" class="accordion-collapse collapse" data-bs-parent="#questionsAccordion">
+                        <div class="accordion-body"><p><strong>Recursive CTEs</strong> reference themselves. Used for hierarchies, trees, organizational structures. Contain anchor (base) and recursive parts.</p><pre><code>-- Basic recursive CTE
+WITH RECURSIVE numbers AS (
+    SELECT 1 as n  -- Anchor member
+    UNION ALL
+    SELECT n + 1 FROM numbers WHERE n < 10  -- Recursive member
+)
+SELECT * FROM numbers;
+
+-- Organization hierarchy
+WITH RECURSIVE org_hierarchy AS (
+    -- Anchor: Get top-level managers
+    SELECT id, name, manager_id, 1 as level FROM employees WHERE manager_id IS NULL
+    UNION ALL
+    -- Recursive: Get direct reports
+    SELECT e.id, e.name, e.manager_id, oh.level + 1 
+    FROM employees e 
+    JOIN org_hierarchy oh ON e.manager_id = oh.id
+    WHERE oh.level < 10  -- Prevent infinite loops
+)
+SELECT * FROM org_hierarchy ORDER BY level, name;
+
+-- Generate date series
+WITH RECURSIVE date_series AS (
+    SELECT CURDATE() as date
+    UNION ALL
+    SELECT DATE_ADD(date, INTERVAL 1 DAY) FROM date_series WHERE date < DATE_ADD(CURDATE(), INTERVAL 30 DAY)
+)
+SELECT * FROM date_series;</code></pre><p><strong>Why it matters:</strong> Handle hierarchical data naturally.</p><p><strong>Real applications:</strong> Org charts, category hierarchies, bill-of-materials.</p><p><strong>Common mistakes:</strong> Infinite loops (missing WHERE), stack limits, MySQL < 8.0.</p></div>
+                    </div>
+                </div>
+
+                <div class="accordion-item">
+                    <h2 class="accordion-header" id="h_q6">
+                        <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#c_q6" aria-expanded="false"><span class="question-number">7</span> What are materialized CTEs and performance considerations?</button>
+                    </h2>
+                    <div id="c_q6" class="accordion-collapse collapse" data-bs-parent="#questionsAccordion">
+                        <div class="accordion-body"><p><strong>Materialized CTEs</strong> execute once and store results. Non-materialized CTEs might re-execute. MySQL handles materialization automatically. Can optimize complex queries but consume memory.</p><pre><code>-- CTE used multiple times (materialized)
+WITH order_stats AS (
+    SELECT customer_id, COUNT(*) as order_count, AVG(amount) as avg_amount
+    FROM orders GROUP BY customer_id
+)
+SELECT * FROM order_stats WHERE order_count > 5;
+
+-- Reference multiple times - usually materialized once
+SELECT * FROM order_stats WHERE avg_amount > 100;
+
+-- CTE for aggregation then filtering
+WITH sales_by_region AS (
+    SELECT region, SUM(amount) as total_sales FROM orders GROUP BY region
+)
+SELECT * FROM sales_by_region WHERE total_sales > 50000;
+
+-- Performance tuning
+-- 1. CTE results are materialized unless simple enough to inline
+-- 2. Materialized CTEs stored in temporary tables/memory
+-- 3. EXPLAIN shows CTE materilization
+
+-- Avoid: CTE with all data then filter heavily
+WITH all_orders AS (SELECT * FROM orders)  -- Loads everything
+SELECT * FROM all_orders WHERE id = 1;  -- Then filters
+
+-- Better: Filter in CTE
+WITH order_detail AS (SELECT * FROM orders WHERE id = 1)
+SELECT * FROM order_detail;</code></pre><p><strong>Why it matters:</strong> Memory and performance with CTEs.</p><p><strong>Real applications:</strong> Complex multi-step queries, hierarchies.</p><p><strong>Common mistakes:</strong> Large CTEs materialized to memory, redundant CTEs.</p></div>
+                    </div>
+                </div>
+
+                <div class="accordion-item">
+                    <h2 class="accordion-header" id="h_q7">
+                        <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#c_q7" aria-expanded="false"><span class="question-number">8</span> What are best practices for subqueries and CTEs?</button>
+                    </h2>
+                    <div id="c_q7" class="accordion-collapse collapse" data-bs-parent="#questionsAccordion">
+                        <div class="accordion-body"><p><strong>Best practices</strong>: Use CTEs for readability and recursion. Use subqueries for simple filters. Prefer JOINs for performance when possible. Test with EXPLAIN. Avoid unnecessary nesting.</p><pre><code>-- ✅ Good: CTE for complex logic
+WITH inactive_customers AS (
+    SELECT customer_id FROM orders 
+    WHERE order_date < DATE_SUB(CURDATE(), INTERVAL 1 YEAR)
+    GROUP BY customer_id
+),
+active_customers AS (
+    SELECT customer_id FROM orders 
+    WHERE order_date >= DATE_SUB(CURDATE(), INTERVAL 1 YEAR)
+    GROUP BY customer_id
+)
+SELECT a.customer_id, a.total_spent FROM active_customers a
+WHERE a.customer_id NOT IN (SELECT customer_id FROM inactive_customers);
+
+-- ❌ Bad: Overly nested subqueries
+SELECT * FROM (
+    SELECT * FROM (
+        SELECT * FROM (SELECT * FROM orders) o1
+    ) o2
+) o3;
+
+-- ✅ Good: Simple subquery for value
+SELECT * FROM employees 
+WHERE salary > (SELECT AVG(salary) FROM employees);
+
+-- ✅ Good: Join for clarity
+SELECT c.name, COUNT(o.id) as order_count FROM customers c
+LEFT JOIN orders o ON c.id = o.customer_id
+GROUP BY c.id;
+
+-- Use EXPLAIN
+EXPLAIN SELECT * FROM customers c WHERE id IN (SELECT customer_id FROM orders WHERE amount > 100);</code></pre><p><strong>Why it matters:</strong> Code quality and performance.</p><p><strong>Real applications:</strong> Complex reports, data transformations.</p><p><strong>Common mistakes:</strong> Unnecessary nesting, not testing performance.</p></div>
+                    </div>
+                </div>
+            </div>
+           
+
+
+            <div class="topic-nav" id="topicNav">
+            <a class="topic-nav-btn prev" href="window-functions.html">
+                <span class="label"><i class="bi bi-arrow-left me-1"></i> Previous</span>
+                <span class="title">Window Functions</span>
+            </a>
+            <a class="topic-nav-btn next" href="full-text-search.html">
+                <span class="label">Next <i class="bi bi-arrow-right ms-1"></i></span>
+                <span class="title">Full-Text Search</span>
+            </a>
+            </div>
+             <footer class="app-footer">
+                <p>&copy; 2026 InterviewPrep &mdash; MySQL Interview Questions</p>
+            </footer>
+        </div>
+    </div>
+    <button class="btn-totop" id="backToTop"><i class="bi bi-chevron-up"></i></button>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>
+    <script>
+    (function(){
+        var sb=document.getElementById('sidebar'),bd=document.getElementById('sidebarBackdrop'),
+            tg=document.getElementById('sidebarToggle');
+        if(tg)tg.addEventListener('click',function(){sb.classList.add('open');bd.classList.add('show');});
+        if(bd)bd.addEventListener('click',function(){sb.classList.remove('open');bd.classList.remove('show');});
+        var btt=document.getElementById('backToTop');
+        window.addEventListener('scroll',function(){btt.classList.toggle('show',window.scrollY>400);});
+        btt.addEventListener('click',function(){window.scrollTo({top:0,behavior:'smooth'});});
+    })();
+    </script>
+</body>
+
+</html>

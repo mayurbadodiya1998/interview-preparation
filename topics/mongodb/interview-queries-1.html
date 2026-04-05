@@ -1,0 +1,1159 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="20 practical MongoDB interview queries — real-world aggregation, CRUD, and analytical problems with complete solutions for interview preparation.">
+    <meta name="keywords" content="MongoDB interview queries, MongoDB practical questions, MongoDB aggregation problems, MongoDB coding interview, MongoDB query solutions 2026">
+    <meta name="author" content="InterviewPrep">
+    <meta name="robots" content="index, follow">
+    <link rel="icon" type="image/svg+xml" href="../../favicon.svg" sizes="any">
+    <meta property="og:type" content="website">
+    <meta property="og:title" content="Interview Queries 1 — MongoDB Interview Questions | InterviewPrep">
+    <meta property="og:description" content="20 practical MongoDB interview queries — real-world aggregation, CRUD, and analytical problems with complete solutions for interview preparation.">
+    <meta property="og:url" content="https://coddingquestionhub.com/topics/mongodb/interview-queries-1.html">
+    <title>Interview Queries 1 — MongoDB Interview Questions | InterviewPrep 2026</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&family=Fira+Code:wght@400;500&display=swap" rel="stylesheet">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="../../css/styles.css">
+    <link rel="canonical" href="https://coddingquestionhub.com/topics/mongodb/interview-queries-1.html">
+    <script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "FAQPage",
+  "mainEntity": [
+    {
+      "@type": "Question",
+      "name": "Interview Queries 1 — MongoDB Interview Questions | InterviewPrep",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "20 practical MongoDB interview queries — real-world aggregation, CRUD, and analytical problems with complete solutions for interview preparation."
+      }
+    }
+  ]
+}
+    </script>
+    <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-8957020141286926" crossorigin="anonymous"></script>
+    <script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "BreadcrumbList",
+  "itemListElement": [
+    {
+      "@type": "ListItem",
+      "position": 1,
+      "name": "Home",
+      "item": "https://coddingquestionhub.com"
+    },
+    {
+      "@type": "ListItem",
+      "position": 2,
+      "name": "Topics",
+      "item": "https://coddingquestionhub.com/topics"
+    },
+    {
+      "@type": "ListItem",
+      "position": 3,
+      "name": "Mongodb",
+      "item": "https://coddingquestionhub.com/topics/mongodb"
+    },
+    {
+      "@type": "ListItem",
+      "position": 4,
+      "name": "Interview Queries 1",
+      "item": "https://coddingquestionhub.com/topics/mongodb/interview-queries-1.html"
+    }
+  ]
+}
+    </script>
+</head>
+<body class="theme-mongodb">
+    <nav class="navbar navbar-expand-lg sticky-top" id="mainNavbar">
+        <div class="container-fluid px-3 px-lg-4">
+            <a class="navbar-brand fw-bold d-flex align-items-center gap-2" href="../../index.html">
+                <span class="brand-icon"><i class="bi bi-braces-asterisk"></i></span>
+                <span>Interview<span class="brand-accent">Prep</span></span>
+            </a>
+            <button class="navbar-toggler border-0 shadow-none" type="button"
+                    data-bs-toggle="collapse" data-bs-target="#navbarContent">
+                <i class="bi bi-list fs-3 text-white"></i>
+            </button>
+            <div class="collapse navbar-collapse" id="navbarContent">
+                <ul class="navbar-nav me-auto mb-2 mb-lg-0 ms-lg-3">
+                    <li class="nav-item dropdown">
+                        <a class="nav-link dropdown-toggle fw-500" href="#" role="button"
+                           data-bs-toggle="dropdown">
+                            <i class="bi bi-layers me-1"></i> Choose Category
+                        </a>
+                        <ul class="dropdown-menu">
+                            <li><a class="dropdown-item fw-500" href="../../pages/angular.html"><i class="bi bi-bootstrap me-2 text-danger"></i>Angular</a></li>
+                            <li><a class="dropdown-item fw-500" href="../../pages/react.html"><i class="bi bi-infinity me-2 text-info"></i>React</a></li>
+                            <li><a class="dropdown-item fw-500" href="../../pages/node.html"><i class="bi bi-hdd-network me-2 text-success"></i>Node.js</a></li>
+                            <li><a class="dropdown-item fw-500" href="../../pages/javascript.html"><i class="bi bi-filetype-js me-2 text-warning"></i>JavaScript</a></li>
+                            <li><a class="dropdown-item fw-500" href="../../pages/dsa.html"><i class="bi bi-diagram-3-fill me-2" style="color:#8b5cf6"></i>DSA</a></li>
+                            <li><a class="dropdown-item fw-500" href="../../pages/logical.html"><i class="bi bi-lightbulb me-2" style="color:#f59e0b"></i>Logical Reasoning</a></li>
+                            <li><a class="dropdown-item fw-500" href="../../pages/mongodb.html"><i class="bi bi-database-fill me-2" style="color:#4DB33D"></i>MongoDB</a></li>
+                            <li><a class="dropdown-item fw-500" href="../../pages/mysql.html"><i class="bi bi-table me-2" style="color:#0F766E"></i>MySQL</a></li>
+                        </ul>
+                    </li>
+                </ul>
+                <div class="search-wrap">
+                    <i class="bi bi-search search-icon"></i>
+                    <input class="form-control search-input" type="search"
+                           placeholder="Search questions..." id="searchInput">
+                </div>
+            </div>
+        </div>
+    </nav>
+    <div class="app-wrapper">
+        <aside class="sidebar" id="sidebar">
+            <div class="sidebar-head">
+                <h6><i class="bi bi-database-fill me-2"></i>MongoDB Topics</h6>
+            </div>
+            <nav>
+                <ul class="sidebar-links" id="topicList">
+                    <li><a class="nav-link" href="mongodb-fundamentals.html"><i class="bi-diagram-2"></i><span>MongoDB Fundamentals</span></a></li>
+                    <li><a class="nav-link" href="crud-operations.html"><i class="bi-pencil-square"></i><span>CRUD Operations</span></a></li>
+                    <li><a class="nav-link" href="aggregation-pipeline.html"><i class="bi-shuffle"></i><span>Aggregation Pipeline</span></a></li>
+                    <li><a class="nav-link" href="indexes.html"><i class="bi-lightning-fill"></i><span>Indexes</span></a></li>
+                    <li><a class="nav-link" href="schema-design.html"><i class="bi-layout-wtf"></i><span>Schema Design</span></a></li>
+                    <li><a class="nav-link" href="relationships.html"><i class="bi-link-45deg"></i><span>Relationships</span></a></li>
+                    <li><a class="nav-link" href="transactions.html"><i class="bi-arrow-repeat"></i><span>Transactions</span></a></li>
+                    <li><a class="nav-link" href="mongoose-odm.html"><i class="bi-code-square"></i><span>Mongoose ODM</span></a></li>
+                    <li><a class="nav-link" href="performance-optimization.html"><i class="bi-speedometer2"></i><span>Performance Optimization</span></a></li>
+                    <li><a class="nav-link" href="replication-sharding.html"><i class="bi-diagram-3-fill"></i><span>Replication &amp; Sharding</span></a></li>
+                    <li><a class="nav-link" href="security.html"><i class="bi-shield-check"></i><span>Security</span></a></li>
+                    <li><a class="nav-link" href="text-search-geospatial.html"><i class="bi-search"></i><span>Text Search &amp; Geo</span></a></li>
+                    <li><a class="nav-link" href="change-streams-watchers.html"><i class="bi-eye"></i><span>Change Streams</span></a></li>
+                    <li><a class="nav-link active" href="interview-queries-1.html"><i class="bi-gear-fill"></i><span>Interview Queries 1</span></a></li>
+                    <li><a class="nav-link" href="interview-queries-2.html"><i class="bi-gear-fill"></i><span>Interview Queries 2</span></a></li>
+                </ul>
+            </nav>
+        </aside>
+        <div class="sidebar-backdrop" id="sidebarBackdrop"></div>
+        <div class="content-area">
+            <div class="mobile-bar d-lg-none">
+                <button class="btn btn-sm btn-glass" id="sidebarToggle">
+                    <i class="bi bi-layout-sidebar-inset me-1"></i>Topics
+                </button>
+                <span class="badge rounded-pill bg-success">MongoDB</span>
+            </div>
+            <div class="breadcrumb-nav" id="breadcrumb">
+                <a href="../../index.html">Home</a><span class="sep">/</span>
+                <a href="../../pages/mongodb.html">MongoDB</a><span class="sep">/</span>
+                <span class="current">Interview Queries 1</span>
+            </div>
+            <div class="qs-header">
+                <h1 class="qs-title" id="topicTitle">Interview Queries 1</h1>
+                <span class="badge qs-badge" id="questionCount">20 Queries</span>
+            </div>
+            <div class="accordion" id="questionsAccordion">
+        <div class="accordion-item">
+            <h2 class="accordion-header" id="h_q0">
+                <button class="accordion-button" type="button"
+                    data-bs-toggle="collapse" data-bs-target="#c_q0"
+                    aria-expanded="true">
+                    <span class="question-number">1</span>Find the top 5 customers by total order amount in the last 30 days.
+                </button>
+            </h2>
+            <div id="c_q0" class="accordion-collapse collapse show"
+                data-bs-parent="#questionsAccordion">
+                <div class="accordion-body"><strong>Problem:</strong> You have an <code>orders</code> collection. Each order has <code>customerId</code>, <code>amount</code>, and <code>createdAt</code> fields. Find the top 5 customers ranked by total spending in the last 30 days.
+<pre><code>db.orders.aggregate([
+  {
+    $match: {
+      createdAt: { $gte: new Date(Date.now() - 30 * 24 * 60 * 60 * 1000) }
+    }
+  },
+  {
+    $group: {
+      _id: "$customerId",
+      totalAmount: { $sum: "$amount" },
+      orderCount: { $sum: 1 }
+    }
+  },
+  { $sort: { totalAmount: -1 } },
+  { $limit: 5 },
+  {
+    $lookup: {
+      from: "customers",
+      localField: "_id",
+      foreignField: "_id",
+      as: "customer"
+    }
+  },
+  { $unwind: "$customer" },
+  {
+    $project: {
+      _id: 0,
+      customerId: "$_id",
+      name: "$customer.name",
+      email: "$customer.email",
+      totalAmount: 1,
+      orderCount: 1
+    }
+  }
+])</code></pre>
+                </div>
+            </div>
+        </div>
+        <div class="accordion-item">
+            <h2 class="accordion-header" id="h_q1">
+                <button class="accordion-button collapsed" type="button"
+                    data-bs-toggle="collapse" data-bs-target="#c_q1"
+                    aria-expanded="false">
+                    <span class="question-number">2</span>Find all users who have duplicate email addresses.
+                </button>
+            </h2>
+            <div id="c_q1" class="accordion-collapse collapse"
+                data-bs-parent="#questionsAccordion">
+                <div class="accordion-body"><strong>Problem:</strong> The <code>users</code> collection may have duplicate emails due to a bug. Find all email addresses that appear more than once, along with the count.
+<pre><code>db.users.aggregate([
+  {
+    $group: {
+      _id: { $toLower: "$email" },  // normalize case
+      count: { $sum: 1 },
+      userIds: { $push: "$_id" }
+    }
+  },
+  { $match: { count: { $gt: 1 } } },
+  { $sort: { count: -1 } },
+  {
+    $project: {
+      _id: 0,
+      email: "$_id",
+      duplicateCount: "$count",
+      affectedUserIds: "$userIds"
+    }
+  }
+])
+
+// To delete duplicates (keep the oldest _id):
+db.users.aggregate([
+  { $group: { _id: "$email", ids: { $push: "$_id" }, count: { $sum: 1 } } },
+  { $match: { count: { $gt: 1 } } }
+]).forEach(doc => {
+  doc.ids.shift(); // keep first, delete rest
+  db.users.deleteMany({ _id: { $in: doc.ids } });
+});</code></pre>
+                </div>
+            </div>
+        </div>
+        <div class="accordion-item">
+            <h2 class="accordion-header" id="h_q2">
+                <button class="accordion-button collapsed" type="button"
+                    data-bs-toggle="collapse" data-bs-target="#c_q2"
+                    aria-expanded="false">
+                    <span class="question-number">3</span>Calculate monthly revenue report for the current year.
+                </button>
+            </h2>
+            <div id="c_q2" class="accordion-collapse collapse"
+                data-bs-parent="#questionsAccordion">
+                <div class="accordion-body"><strong>Problem:</strong> Generate a month-by-month revenue breakdown for the current year, including total amount, number of orders, and average order value.
+<pre><code>const currentYear = new Date().getFullYear();
+
+db.orders.aggregate([
+  {
+    $match: {
+      status: "completed",
+      createdAt: {
+        $gte: new Date(`${currentYear}-01-01`),
+        $lt: new Date(`${currentYear + 1}-01-01`)
+      }
+    }
+  },
+  {
+    $group: {
+      _id: { month: { $month: "$createdAt" } },
+      totalRevenue: { $sum: "$amount" },
+      orderCount: { $sum: 1 },
+      avgOrderValue: { $avg: "$amount" }
+    }
+  },
+  { $sort: { "_id.month": 1 } },
+  {
+    $project: {
+      _id: 0,
+      month: "$_id.month",
+      totalRevenue: { $round: ["$totalRevenue", 2] },
+      orderCount: 1,
+      avgOrderValue: { $round: ["$avgOrderValue", 2] }
+    }
+  }
+])</code></pre>
+                </div>
+            </div>
+        </div>
+        <div class="accordion-item">
+            <h2 class="accordion-header" id="h_q3">
+                <button class="accordion-button collapsed" type="button"
+                    data-bs-toggle="collapse" data-bs-target="#c_q3"
+                    aria-expanded="false">
+                    <span class="question-number">4</span>Find products that have never been ordered.
+                </button>
+            </h2>
+            <div id="c_q3" class="accordion-collapse collapse"
+                data-bs-parent="#questionsAccordion">
+                <div class="accordion-body"><strong>Problem:</strong> The <code>products</code> collection has all products; <code>orders</code> collection embeds an <code>items</code> array with <code>productId</code>. Find products with zero orders (left join equivalent using $lookup + $match).
+<pre><code>db.products.aggregate([
+  {
+    $lookup: {
+      from: "orders",
+      localField: "_id",
+      foreignField: "items.productId",
+      as: "orderRefs"
+    }
+  },
+  { $match: { orderRefs: { $size: 0 } } },  // no orders
+  {
+    $project: {
+      _id: 1,
+      name: 1,
+      price: 1,
+      category: 1,
+      createdAt: 1
+    }
+  },
+  { $sort: { createdAt: -1 } }
+])
+
+// Alternative: using $in with two queries (efficient for large datasets)
+const orderedProductIds = await db.collection('orders')
+  .distinct('items.productId');
+const neverOrdered = await db.collection('products')
+  .find({ _id: { $nin: orderedProductIds } })
+  .toArray();</code></pre>
+                </div>
+            </div>
+        </div>
+        <div class="accordion-item">
+            <h2 class="accordion-header" id="h_q4">
+                <button class="accordion-button collapsed" type="button"
+                    data-bs-toggle="collapse" data-bs-target="#c_q4"
+                    aria-expanded="false">
+                    <span class="question-number">5</span>Update all pending orders older than 7 days to "expired" status.
+                </button>
+            </h2>
+            <div id="c_q4" class="accordion-collapse collapse"
+                data-bs-parent="#questionsAccordion">
+                <div class="accordion-body"><strong>Problem:</strong> Business logic requires marking all <code>status: "pending"</code> orders that are older than 7 days as <code>status: "expired"</code>. Also update an <code>expiredAt</code> timestamp.
+<pre><code>const sevenDaysAgo = new Date(Date.now() - 7 * 24 * 60 * 60 * 1000);
+
+// Update many documents in one operation
+const result = await db.collection('orders').updateMany(
+  {
+    status: "pending",
+    createdAt: { $lt: sevenDaysAgo }
+  },
+  {
+    $set: {
+      status: "expired",
+      expiredAt: new Date()
+    },
+    $inc: { __version: 1 }  // optimistic concurrency tracking
+  }
+);
+
+console.log(`Expired ${result.modifiedCount} orders`);
+
+// With aggregation pipeline update (MongoDB 4.2+):
+await db.collection('orders').updateMany(
+  { status: "pending", createdAt: { $lt: sevenDaysAgo } },
+  [
+    {
+      $set: {
+        status: "expired",
+        expiredAt: "$$NOW",
+        daysToExpiry: {
+          $divide: [{ $subtract: ["$$NOW", "$createdAt"] }, 86400000]
+        }
+      }
+    }
+  ]
+);</code></pre>
+                </div>
+            </div>
+        </div>
+        <div class="accordion-item">
+            <h2 class="accordion-header" id="h_q5">
+                <button class="accordion-button collapsed" type="button"
+                    data-bs-toggle="collapse" data-bs-target="#c_q5"
+                    aria-expanded="false">
+                    <span class="question-number">6</span>Find the most popular product in each category.
+                </button>
+            </h2>
+            <div id="c_q5" class="accordion-collapse collapse"
+                data-bs-parent="#questionsAccordion">
+                <div class="accordion-body"><strong>Problem:</strong> The <code>orders</code> collection has an <code>items</code> array with <code>productId</code>, <code>category</code>, and <code>quantity</code>. Find the product with the highest total quantity sold in each category.
+<pre><code>db.orders.aggregate([
+  { $match: { status: "completed" } },
+  { $unwind: "$items" },
+  {
+    $group: {
+      _id: { category: "$items.category", productId: "$items.productId" },
+      totalQuantity: { $sum: "$items.quantity" },
+      productName: { $first: "$items.name" }
+    }
+  },
+  { $sort: { totalQuantity: -1 } },
+  {
+    $group: {
+      _id: "$_id.category",
+      topProduct: {
+        $first: {
+          productId: "$_id.productId",
+          name: "$productName",
+          totalQuantity: "$totalQuantity"
+        }
+      }
+    }
+  },
+  { $sort: { _id: 1 } },
+  {
+    $project: {
+      _id: 0,
+      category: "$_id",
+      topProduct: 1
+    }
+  }
+])</code></pre>
+                </div>
+            </div>
+        </div>
+        <div class="accordion-item">
+            <h2 class="accordion-header" id="h_q6">
+                <button class="accordion-button collapsed" type="button"
+                    data-bs-toggle="collapse" data-bs-target="#c_q6"
+                    aria-expanded="false">
+                    <span class="question-number">7</span>Count users registered per day for the last 7 days.
+                </button>
+            </h2>
+            <div id="c_q6" class="accordion-collapse collapse"
+                data-bs-parent="#questionsAccordion">
+                <div class="accordion-body"><strong>Problem:</strong> Generate a daily user registration report for the past week, showing the date and count of new users registered, ensuring missing days show as 0.
+<pre><code>const sevenDaysAgo = new Date();
+sevenDaysAgo.setDate(sevenDaysAgo.getDate() - 7);
+sevenDaysAgo.setHours(0, 0, 0, 0);
+
+db.users.aggregate([
+  { $match: { createdAt: { $gte: sevenDaysAgo } } },
+  {
+    $group: {
+      _id: {
+        $dateToString: { format: "%Y-%m-%d", date: "$createdAt" }
+      },
+      count: { $sum: 1 }
+    }
+  },
+  { $sort: { _id: 1 } },
+  {
+    $project: {
+      _id: 0,
+      date: "$_id",
+      newUsers: "$count"
+    }
+  }
+])
+
+// To fill missing days (no registrations), use $densify (MongoDB 5.1+):
+db.users.aggregate([
+  { $match: { createdAt: { $gte: sevenDaysAgo } } },
+  { $group: { _id: { $dateTrunc: { date: "$createdAt", unit: "day" } }, count: { $sum: 1 } } },
+  { $densify: { field: "_id", range: { step: 1, unit: "day", bounds: "full" } } },
+  { $fill: { output: { count: { value: 0 } } } }
+])</code></pre>
+                </div>
+            </div>
+        </div>
+        <div class="accordion-item">
+            <h2 class="accordion-header" id="h_q7">
+                <button class="accordion-button collapsed" type="button"
+                    data-bs-toggle="collapse" data-bs-target="#c_q7"
+                    aria-expanded="false">
+                    <span class="question-number">8</span>Implement a leaderboard: rank users by points with ties handled correctly.
+                </button>
+            </h2>
+            <div id="c_q7" class="accordion-collapse collapse"
+                data-bs-parent="#questionsAccordion">
+                <div class="accordion-body"><strong>Problem:</strong> The <code>users</code> collection has a <code>points</code> field. Create a leaderboard with proper rank numbering — users with equal scores get the same rank, and the next rank skips accordingly (dense or standard ranking).
+<pre><code>// Standard ranking (1, 1, 3 — skip on tie)
+db.users.aggregate([
+  { $sort: { points: -1 } },
+  {
+    $setWindowFields: {
+      sortBy: { points: -1 },
+      output: {
+        rank: { $rank: {} }
+      }
+    }
+  },
+  { $limit: 100 },
+  {
+    $project: {
+      _id: 0,
+      username: 1,
+      points: 1,
+      rank: 1
+    }
+  }
+])
+
+// Dense ranking (1, 1, 2 — no skip)
+db.users.aggregate([
+  { $sort: { points: -1 } },
+  {
+    $setWindowFields: {
+      sortBy: { points: -1 },
+      output: { rank: { $denseRank: {} } }
+    }
+  },
+  { $limit: 10 }
+])
+
+// User's own rank (efficient — no full sort needed)
+const userPoints = 850;
+const rank = await db.collection('users').countDocuments({ points: { $gt: userPoints } });
+// rank + 1 = user's position</code></pre>
+                </div>
+            </div>
+        </div>
+        <div class="accordion-item">
+            <h2 class="accordion-header" id="h_q8">
+                <button class="accordion-button collapsed" type="button"
+                    data-bs-toggle="collapse" data-bs-target="#c_q8"
+                    aria-expanded="false">
+                    <span class="question-number">9</span>Find all orders where a specific product was part of the order.
+                </button>
+            </h2>
+            <div id="c_q8" class="accordion-collapse collapse"
+                data-bs-parent="#questionsAccordion">
+                <div class="accordion-body"><strong>Problem:</strong> Orders have an embedded <code>items</code> array. Find all orders that contain a specific product ID, and include only that product's line item details from the array.
+<pre><code>const targetProductId = ObjectId("64a1f2b3c4d5e6f7a8b9c0d1");
+
+// Find orders containing the product
+db.orders.find(
+  { "items.productId": targetProductId },
+  { customerId: 1, createdAt: 1, status: 1,
+    items: { $elemMatch: { productId: targetProductId } } }
+)
+
+// With aggregation — filter array to show only matching item
+db.orders.aggregate([
+  { $match: { "items.productId": targetProductId } },
+  {
+    $project: {
+      customerId: 1,
+      createdAt: 1,
+      status: 1,
+      orderedItem: {
+        $filter: {
+          input: "$items",
+          as: "item",
+          cond: { $eq: ["$$item.productId", targetProductId] }
+        }
+      }
+    }
+  },
+  { $sort: { createdAt: -1 } }
+])
+
+// Index to support this query:
+db.orders.createIndex({ "items.productId": 1 })</code></pre>
+                </div>
+            </div>
+        </div>
+        <div class="accordion-item">
+            <h2 class="accordion-header" id="h_q9">
+                <button class="accordion-button collapsed" type="button"
+                    data-bs-toggle="collapse" data-bs-target="#c_q9"
+                    aria-expanded="false">
+                    <span class="question-number">10</span>Add a tag to all documents that match a condition (bulk update array field).
+                </button>
+            </h2>
+            <div id="c_q9" class="accordion-collapse collapse"
+                data-bs-parent="#questionsAccordion">
+                <div class="accordion-body"><strong>Problem:</strong> Products with <code>price &gt; 5000</code> should have the tag <code>"premium"</code> added to their <code>tags</code> array. Avoid duplicates — don't add "premium" if it's already there.
+<pre><code>// $addToSet prevents duplicates in arrays
+await db.collection('products').updateMany(
+  { price: { $gt: 5000 } },
+  { $addToSet: { tags: "premium" } }
+);
+
+// Remove a tag from all documents
+await db.collection('products').updateMany(
+  { tags: "outdated" },
+  { $pull: { tags: "outdated" } }
+);
+
+// Add multiple tags to matching documents
+await db.collection('products').updateMany(
+  { category: "electronics", price: { $gt: 10000 } },
+  {
+    $addToSet: {
+      tags: { $each: ["premium", "featured", "electronics-flagship"] }
+    }
+  }
+);
+
+// Bulk update with different values per document using bulkWrite
+const operations = products.map(p => ({
+  updateOne: {
+    filter: { _id: p._id },
+    update: { $addToSet: { tags: p.isPopular ? "trending" : "standard" } }
+  }
+}));
+await db.collection('products').bulkWrite(operations, { ordered: false });</code></pre>
+                </div>
+            </div>
+        </div>
+        <div class="accordion-item">
+            <h2 class="accordion-header" id="h_q10">
+                <button class="accordion-button collapsed" type="button"
+                    data-bs-toggle="collapse" data-bs-target="#c_q10"
+                    aria-expanded="false">
+                    <span class="question-number">11</span>Calculate the running total of daily sales using window functions.
+                </button>
+            </h2>
+            <div id="c_q10" class="accordion-collapse collapse"
+                data-bs-parent="#questionsAccordion">
+                <div class="accordion-body"><strong>Problem:</strong> Generate a report showing daily sales and the running (cumulative) total of sales for the month, to identify when the monthly target was reached.
+<pre><code>db.orders.aggregate([
+  {
+    $match: {
+      status: "completed",
+      createdAt: {
+        $gte: new Date("2024-01-01"),
+        $lt: new Date("2024-02-01")
+      }
+    }
+  },
+  {
+    $group: {
+      _id: { $dateToString: { format: "%Y-%m-%d", date: "$createdAt" } },
+      dailySales: { $sum: "$amount" }
+    }
+  },
+  { $sort: { _id: 1 } },
+  {
+    $setWindowFields: {
+      sortBy: { _id: 1 },
+      output: {
+        cumulativeSales: {
+          $sum: "$dailySales",
+          window: { documents: ["unbounded", "current"] }
+        },
+        movingAvg7Day: {
+          $avg: "$dailySales",
+          window: { documents: [-6, "current"] }  // last 7 days
+        }
+      }
+    }
+  },
+  {
+    $project: {
+      _id: 0,
+      date: "$_id",
+      dailySales: { $round: ["$dailySales", 2] },
+      cumulativeSales: { $round: ["$cumulativeSales", 2] },
+      movingAvg7Day: { $round: ["$movingAvg7Day", 2] }
+    }
+  }
+])</code></pre>
+                </div>
+            </div>
+        </div>
+        <div class="accordion-item">
+            <h2 class="accordion-header" id="h_q11">
+                <button class="accordion-button collapsed" type="button"
+                    data-bs-toggle="collapse" data-bs-target="#c_q11"
+                    aria-expanded="false">
+                    <span class="question-number">12</span>Find users who placed orders in consecutive months.
+                </button>
+            </h2>
+            <div id="c_q11" class="accordion-collapse collapse"
+                data-bs-parent="#questionsAccordion">
+                <div class="accordion-body"><strong>Problem:</strong> Identify "loyal" customers who placed at least one order in each of the last 3 consecutive months.
+<pre><code>const now = new Date();
+const threeMonthsAgo = new Date(now.getFullYear(), now.getMonth() - 2, 1);
+
+db.orders.aggregate([
+  {
+    $match: {
+      status: "completed",
+      createdAt: { $gte: threeMonthsAgo }
+    }
+  },
+  {
+    $group: {
+      _id: {
+        customerId: "$customerId",
+        yearMonth: {
+          $dateToString: { format: "%Y-%m", date: "$createdAt" }
+        }
+      }
+    }
+  },
+  {
+    $group: {
+      _id: "$_id.customerId",
+      activeMonths: { $addToSet: "$_id.yearMonth" }
+    }
+  },
+  {
+    $match: { $expr: { $gte: [{ $size: "$activeMonths" }, 3] } }
+  },
+  {
+    $lookup: {
+      from: "users",
+      localField: "_id",
+      foreignField: "_id",
+      as: "user"
+    }
+  },
+  { $unwind: "$user" },
+  {
+    $project: {
+      name: "$user.name",
+      email: "$user.email",
+      activeMonths: 1
+    }
+  }
+])</code></pre>
+                </div>
+            </div>
+        </div>
+        <div class="accordion-item">
+            <h2 class="accordion-header" id="h_q12">
+                <button class="accordion-button collapsed" type="button"
+                    data-bs-toggle="collapse" data-bs-target="#c_q12"
+                    aria-expanded="false">
+                    <span class="question-number">13</span>Implement a stock management system: decrement inventory on order.
+                </button>
+            </h2>
+            <div id="c_q12" class="accordion-collapse collapse"
+                data-bs-parent="#questionsAccordion">
+                <div class="accordion-body"><strong>Problem:</strong> When an order is placed for multiple products, decrement each product's stock atomically. Ensure no product goes below 0 (reject if insufficient stock). Use transactions for atomicity.
+<pre><code>async function placeOrder(customerId, items, session) {
+  // Start a transaction
+  const txSession = session || client.startSession();
+  try {
+    await txSession.withTransaction(async () => {
+      // Check and decrement stock for each item atomically
+      for (const item of items) {
+        const result = await db.collection('products').updateOne(
+          {
+            _id: item.productId,
+            stock: { $gte: item.quantity }  // only update if enough stock
+          },
+          { $inc: { stock: -item.quantity } },
+          { session: txSession }
+        );
+        
+        if (result.matchedCount === 0) {
+          throw new Error(`Insufficient stock for product ${item.productId}`);
+        }
+      }
+      
+      // Create the order
+      await db.collection('orders').insertOne({
+        customerId,
+        items,
+        status: "confirmed",
+        totalAmount: items.reduce((sum, i) => sum + i.price * i.quantity, 0),
+        createdAt: new Date()
+      }, { session: txSession });
+    });
+    console.log("Order placed successfully");
+  } finally {
+    if (!session) await txSession.endSession();
+  }
+}</code></pre>
+                </div>
+            </div>
+        </div>
+        <div class="accordion-item">
+            <h2 class="accordion-header" id="h_q13">
+                <button class="accordion-button collapsed" type="button"
+                    data-bs-toggle="collapse" data-bs-target="#c_q13"
+                    aria-expanded="false">
+                    <span class="question-number">14</span>Find the second highest salary in a collection.
+                </button>
+            </h2>
+            <div id="c_q13" class="accordion-collapse collapse"
+                data-bs-parent="#questionsAccordion">
+                <div class="accordion-body"><strong>Problem:</strong> The <code>employees</code> collection has a <code>salary</code> field. Find the second highest salary value and all employees who earn that salary.
+<pre><code>// Method 1: Two-stage approach
+const salaries = await db.collection('employees').aggregate([
+  { $group: { _id: "$salary" } },
+  { $sort: { _id: -1 } },
+  { $skip: 1 },   // skip the highest
+  { $limit: 1 }   // take second
+]).toArray();
+
+const secondHighest = salaries[0]?._id;
+const employees = await db.collection('employees')
+  .find({ salary: secondHighest }).toArray();
+
+// Method 2: Using $setWindowFields (elegant)
+db.employees.aggregate([
+  {
+    $setWindowFields: {
+      sortBy: { salary: -1 },
+      output: {
+        denseRank: { $denseRank: {} }
+      }
+    }
+  },
+  { $match: { denseRank: 2 } },
+  { $project: { _id: 0, name: 1, salary: 1, department: 1 } }
+])
+
+// Method 3: Single query with $bucket
+db.employees.aggregate([
+  { $sort: { salary: -1 } },
+  { $group: { _id: null, salaries: { $push: "$salary" } } },
+  { $project: { second: { $arrayElemAt: [{ $setUnion: ["$salaries"] }, 1] } } }
+])</code></pre>
+                </div>
+            </div>
+        </div>
+        <div class="accordion-item">
+            <h2 class="accordion-header" id="h_q14">
+                <button class="accordion-button collapsed" type="button"
+                    data-bs-toggle="collapse" data-bs-target="#c_q14"
+                    aria-expanded="false">
+                    <span class="question-number">15</span>Build a category-wise sales summary with percentage contribution.
+                </button>
+            </h2>
+            <div id="c_q14" class="accordion-collapse collapse"
+                data-bs-parent="#questionsAccordion">
+                <div class="accordion-body"><strong>Problem:</strong> Generate a category-wise sales report showing total revenue per category and each category's percentage contribution to total revenue.
+<pre><code>db.orders.aggregate([
+  { $match: { status: "completed" } },
+  { $unwind: "$items" },
+  {
+    $group: {
+      _id: "$items.category",
+      categoryRevenue: { $sum: { $multiply: ["$items.price", "$items.quantity"] } },
+      itemsSold: { $sum: "$items.quantity" }
+    }
+  },
+  { $sort: { categoryRevenue: -1 } },
+  {
+    $group: {
+      _id: null,
+      categories: {
+        $push: {
+          category: "$_id",
+          revenue: "$categoryRevenue",
+          itemsSold: "$itemsSold"
+        }
+      },
+      grandTotal: { $sum: "$categoryRevenue" }
+    }
+  },
+  { $unwind: "$categories" },
+  {
+    $project: {
+      _id: 0,
+      category: "$categories.category",
+      revenue: { $round: ["$categories.revenue", 2] },
+      itemsSold: "$categories.itemsSold",
+      percentage: {
+        $round: [
+          { $multiply: [{ $divide: ["$categories.revenue", "$grandTotal"] }, 100] },
+          2
+        ]
+      }
+    }
+  },
+  { $sort: { revenue: -1 } }
+])</code></pre>
+                </div>
+            </div>
+        </div>
+        <div class="accordion-item">
+            <h2 class="accordion-header" id="h_q15">
+                <button class="accordion-button collapsed" type="button"
+                    data-bs-toggle="collapse" data-bs-target="#c_q15"
+                    aria-expanded="false">
+                    <span class="question-number">16</span>Find users who signed up but never logged in after registration.
+                </button>
+            </h2>
+            <div id="c_q15" class="accordion-collapse collapse"
+                data-bs-parent="#questionsAccordion">
+                <div class="accordion-body"><strong>Problem:</strong> The <code>users</code> collection has <code>createdAt</code> and <code>lastLoginAt</code> fields. Find users who registered more than 7 days ago but have never logged in (lastLoginAt is null or equals createdAt).
+<pre><code>const sevenDaysAgo = new Date(Date.now() - 7 * 24 * 60 * 60 * 1000);
+
+// Find dormant users
+const dormantUsers = await db.collection('users').find({
+  createdAt: { $lt: sevenDaysAgo },
+  $or: [
+    { lastLoginAt: null },
+    { lastLoginAt: { $exists: false } }
+  ],
+  isActive: true
+}).project({ name: 1, email: 1, createdAt: 1 }).toArray();
+
+// Count by registration cohort (week)
+db.users.aggregate([
+  {
+    $match: {
+      createdAt: { $lt: sevenDaysAgo },
+      $or: [{ lastLoginAt: null }, { lastLoginAt: { $exists: false } }]
+    }
+  },
+  {
+    $group: {
+      _id: {
+        week: { $week: "$createdAt" },
+        year: { $year: "$createdAt" }
+      },
+      neverLoggedIn: { $sum: 1 }
+    }
+  },
+  { $sort: { "_id.year": -1, "_id.week": -1 } }
+])</code></pre>
+                </div>
+            </div>
+        </div>
+        <div class="accordion-item">
+            <h2 class="accordion-header" id="h_q16">
+                <button class="accordion-button collapsed" type="button"
+                    data-bs-toggle="collapse" data-bs-target="#c_q16"
+                    aria-expanded="false">
+                    <span class="question-number">17</span>Write a query to paginate comments sorted by most liked.
+                </button>
+            </h2>
+            <div id="c_q16" class="accordion-collapse collapse"
+                data-bs-parent="#questionsAccordion">
+                <div class="accordion-body"><strong>Problem:</strong> Implement stable pagination for comments sorted by <code>likes</code> descending, then by <code>_id</code> descending (for tie-breaking). Support both page-number and cursor-based approaches.
+<pre><code>// Cursor-based pagination (efficient, recommended)
+// First page
+const firstPage = await db.collection('comments')
+  .find({ postId: targetPostId })
+  .sort({ likes: -1, _id: -1 })
+  .limit(20)
+  .toArray();
+
+// Next page — cursor after last item
+const lastItem = firstPage[firstPage.length - 1];
+const nextPage = await db.collection('comments').find({
+  postId: targetPostId,
+  $or: [
+    { likes: { $lt: lastItem.likes } },
+    { likes: lastItem.likes, _id: { $lt: lastItem._id } }
+  ]
+}).sort({ likes: -1, _id: -1 }).limit(20).toArray();
+
+// Index to support this query efficiently
+db.comments.createIndex({ postId: 1, likes: -1, _id: -1 })
+
+// Express route implementation
+app.get('/api/posts/:postId/comments', async (req, res) => {
+  const { afterLikes, afterId } = req.query;
+  const filter = { postId: req.params.postId };
+  if (afterLikes && afterId) {
+    filter.$or = [
+      { likes: { $lt: parseInt(afterLikes) } },
+      { likes: parseInt(afterLikes), _id: { $lt: ObjectId(afterId) } }
+    ];
+  }
+  const comments = await db.collection('comments')
+    .find(filter).sort({ likes: -1, _id: -1 }).limit(20).toArray();
+  res.json({ comments, nextCursor: comments[19]?._id });
+});</code></pre>
+                </div>
+            </div>
+        </div>
+        <div class="accordion-item">
+            <h2 class="accordion-header" id="h_q17">
+                <button class="accordion-button collapsed" type="button"
+                    data-bs-toggle="collapse" data-bs-target="#c_q17"
+                    aria-expanded="false">
+                    <span class="question-number">18</span>Implement atomic counter with findOneAndUpdate.
+                </button>
+            </h2>
+            <div id="c_q17" class="accordion-collapse collapse"
+                data-bs-parent="#questionsAccordion">
+                <div class="accordion-body"><strong>Problem:</strong> Implement a thread-safe sequential ID generator (like an auto-increment counter) using MongoDB. Multiple concurrent requests must each get a unique, sequential number.
+<pre><code">// Counter collection approach
+async function getNextSequenceValue(sequenceName) {
+  const result = await db.collection('counters').findOneAndUpdate(
+    { _id: sequenceName },
+    { $inc: { seq: 1 } },
+    {
+      returnDocument: 'after',  // return updated document
+      upsert: true              // create if doesn't exist
+    }
+  );
+  return result.seq;
+}
+
+// Usage
+const invoiceNumber = await getNextSequenceValue('invoices');  // 1001
+const orderId = await getNextSequenceValue('orders');           // 5001
+
+// Initialize counters with starting values
+await db.collection('counters').insertMany([
+  { _id: 'invoices', seq: 1000 },
+  { _id: 'orders',   seq: 5000 },
+  { _id: 'tickets',  seq: 0 }
+]);
+
+// Thread-safe — findOneAndUpdate is atomic
+// 1000 concurrent requests all get unique numbers
+// No two requests ever get the same value</code></pre>
+                </div>
+            </div>
+        </div>
+        <div class="accordion-item">
+            <h2 class="accordion-header" id="h_q18">
+                <button class="accordion-button collapsed" type="button"
+                    data-bs-toggle="collapse" data-bs-target="#c_q18"
+                    aria-expanded="false">
+                    <span class="question-number">19</span>Find average order value by customer segment (new vs returning).
+                </button>
+            </h2>
+            <div id="c_q18" class="accordion-collapse collapse"
+                data-bs-parent="#questionsAccordion">
+                <div class="accordion-body"><strong>Problem:</strong> Segment customers into "new" (first order ever) and "returning" (second order or more) and compare their average order values to understand purchasing behavior differences.
+<pre><code>db.orders.aggregate([
+  { $match: { status: "completed" } },
+  { $sort: { customerId: 1, createdAt: 1 } },
+  {
+    $setWindowFields: {
+      partitionBy: "$customerId",
+      sortBy: { createdAt: 1 },
+      output: {
+        orderNumber: { $documentNumber: {} }  // 1st, 2nd, 3rd order per customer
+      }
+    }
+  },
+  {
+    $addFields: {
+      segment: {
+        $cond: [{ $eq: ["$orderNumber", 1] }, "new_customer", "returning_customer"]
+      }
+    }
+  },
+  {
+    $group: {
+      _id: "$segment",
+      avgOrderValue: { $avg: "$amount" },
+      totalOrders: { $sum: 1 },
+      totalRevenue: { $sum: "$amount" }
+    }
+  },
+  {
+    $project: {
+      _id: 0,
+      segment: "$_id",
+      avgOrderValue: { $round: ["$avgOrderValue", 2] },
+      totalOrders: 1,
+      totalRevenue: { $round: ["$totalRevenue", 2] }
+    }
+  }
+])</code></pre>
+                </div>
+            </div>
+        </div>
+        <div class="accordion-item">
+            <h2 class="accordion-header" id="h_q19">
+                <button class="accordion-button collapsed" type="button"
+                    data-bs-toggle="collapse" data-bs-target="#c_q19"
+                    aria-expanded="false">
+                    <span class="question-number">20</span>Bulk upsert user profiles from an external data source.
+                </button>
+            </h2>
+            <div id="c_q19" class="accordion-collapse collapse"
+                data-bs-parent="#questionsAccordion">
+                <div class="accordion-body"><strong>Problem:</strong> You receive a daily batch of 10,000 user profile records from an external API. Upsert them into MongoDB — update existing users and insert new ones — as efficiently as possible.
+<pre><code">// Efficient bulk upsert with bulkWrite — unordered for max performance
+async function bulkUpsertUsers(userBatch) {
+  const BATCH_SIZE = 1000;
+  const results = { upserted: 0, modified: 0 };
+
+  for (let i = 0; i < userBatch.length; i += BATCH_SIZE) {
+    const chunk = userBatch.slice(i, i + BATCH_SIZE);
+    
+    const operations = chunk.map(user => ({
+      updateOne: {
+        filter: { externalId: user.externalId },  // unique external ID
+        update: {
+          $set: {
+            name: user.name,
+            email: user.email,
+            phone: user.phone,
+            updatedAt: new Date()
+          },
+          $setOnInsert: {
+            createdAt: new Date(),
+            isActive: true,
+            plan: 'free'
+          }
+        },
+        upsert: true  // insert if not exists
+      }
+    }));
+
+    const result = await db.collection('users').bulkWrite(
+      operations,
+      { ordered: false }  // continue even if some fail
+    );
+    
+    results.upserted += result.upsertedCount;
+    results.modified += result.modifiedCount;
+  }
+  
+  return results;
+}
+
+const result = await bulkUpsertUsers(externalUsers);
+console.log(`Upserted: ${result.upserted}, Modified: ${result.modified}`);</code></pre>
+                </div>
+            </div>
+        </div>
+            </div>
+            <div class="topic-nav" id="topicNav">
+            <a class="topic-nav-btn prev" href="change-streams-watchers.html">
+                <span class="label"><i class="bi bi-arrow-left me-1"></i> Previous</span>
+                <span class="title">Change Streams</span>
+            </a>
+            <a class="topic-nav-btn next" href="interview-queries-2.html">
+                <span class="label">Next <i class="bi bi-arrow-right ms-1"></i></span>
+                <span class="title">Interview Queries 2</span>
+            </a>
+            </div>
+            <footer class="app-footer">
+                <p>&copy; 2026 InterviewPrep &mdash; MongoDB Interview Questions</p>
+            </footer>
+        </div>
+    </div>
+    <button class="btn-totop" id="backToTop"><i class="bi bi-chevron-up"></i></button>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>
+    <script>
+    (function(){
+        var sb=document.getElementById('sidebar'),bd=document.getElementById('sidebarBackdrop'),
+            tg=document.getElementById('sidebarToggle');
+        if(tg)tg.addEventListener('click',function(){sb.classList.add('open');bd.classList.add('show');});
+        if(bd)bd.addEventListener('click',function(){sb.classList.remove('open');bd.classList.remove('show');});
+        var btt=document.getElementById('backToTop');
+        window.addEventListener('scroll',function(){btt.classList.toggle('show',window.scrollY>400);});
+        btt.addEventListener('click',function(){window.scrollTo({top:0,behavior:'smooth'});});
+        var acc=document.getElementById('questionsAccordion');
+        var totalCount=20;
+        var si=document.getElementById('searchInput');
+        if(si){var t=null;si.addEventListener('input',function(){clearTimeout(t);var v=this.value.trim().toLowerCase();
+        if(v.length<2){acc.querySelectorAll('.accordion-item').forEach(function(el){el.style.display='';});
+        document.getElementById('questionCount').textContent=totalCount+' Queries';return;}
+        t=setTimeout(function(){var c=0;acc.querySelectorAll('.accordion-item').forEach(function(el){
+        var m=el.textContent.toLowerCase().indexOf(v)!==-1;el.style.display=m?'':'none';if(m)c++;});
+        document.getElementById('questionCount').textContent=c+' Queries';},200);});}
+    })();
+    </script>
+</body>
+</html>

@@ -1,0 +1,348 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="MySQL Data Types interview questions: numeric, string, date/time, JSON, spatial types and best practices.">
+    <meta name="keywords" content="MySQL data types, INT, VARCHAR, TEXT, DATE, DATETIME, JSON, BLOB, MySQL interview">
+    <meta name="author" content="InterviewPrep">
+    <meta name="robots" content="index, follow">
+    <link rel="icon" type="image/svg+xml" href="../../favicon.svg" sizes="any">
+    <meta property="og:type" content="website">
+    <meta property="og:title" content="MySQL Data Types — MySQL Interview Questions | InterviewPrep">
+    <meta property="og:description" content="MySQL Data Types interview questions: numeric, string, date/time, JSON, spatial types and best practices.">
+    <meta property="og:url" content="https://coddingquestionhub.com/topics/mysql/data-types.html">
+    <meta name="twitter:card" content="summary_large_image">
+    <meta name="twitter:title" content="MySQL Data Types — MySQL Interview Questions | InterviewPrep">
+    <meta name="twitter:description" content="MySQL Data Types interview questions: numeric, string, date/time, JSON, spatial types and best practices.">
+    <meta name="twitter:image" content="https://coddingquestionhub.com/og-mysql.png">
+    <title>MySQL Data Types — MySQL Interview Questions | InterviewPrep 2026</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&family=Fira+Code:wght@400;500&display=swap" rel="stylesheet">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="../../css/styles.css">
+    <link rel="canonical" href="https://coddingquestionhub.com/topics/mysql/data-types.html">
+    <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-8957020141286926" crossorigin="anonymous"></script>
+    <script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "BreadcrumbList",
+  "itemListElement": [
+    {
+      "@type": "ListItem",
+      "position": 1,
+      "name": "Home",
+      "item": "https://coddingquestionhub.com"
+    },
+    {
+      "@type": "ListItem",
+      "position": 2,
+      "name": "Topics",
+      "item": "https://coddingquestionhub.com/topics"
+    },
+    {
+      "@type": "ListItem",
+      "position": 3,
+      "name": "Mysql",
+      "item": "https://coddingquestionhub.com/topics/mysql"
+    },
+    {
+      "@type": "ListItem",
+      "position": 4,
+      "name": "Data Types",
+      "item": "https://coddingquestionhub.com/topics/mysql/data-types.html"
+    }
+  ]
+}
+    </script>
+</head>
+<body class="theme-mysql">
+    <nav class="navbar navbar-expand-lg sticky-top" id="mainNavbar">
+        <div class="container-fluid px-3 px-lg-4">
+            <a class="navbar-brand fw-bold d-flex align-items-center gap-2" href="../../index.html">
+                <span class="brand-icon"><i class="bi bi-braces-asterisk"></i></span>
+                <span>Interview<span class="brand-accent">Prep</span></span>
+            </a>
+            <button class="navbar-toggler border-0 shadow-none" type="button" data-bs-toggle="collapse" data-bs-target="#navbarContent">
+                <i class="bi bi-list fs-3 text-white"></i>
+            </button>
+            <div class="collapse navbar-collapse" id="navbarContent">
+                <ul class="navbar-nav me-auto mb-2 mb-lg-0 ms-lg-3">
+                    <li class="nav-item dropdown">
+                        <a class="nav-link dropdown-toggle fw-500" href="#" role="button" data-bs-toggle="dropdown">
+                            <i class="bi bi-layers me-1"></i> Choose Category
+                        </a>
+                        <ul class="dropdown-menu">
+                            <li><a class="dropdown-item fw-500" href="../../pages/angular.html"><i class="bi bi-bootstrap me-2 text-danger"></i>Angular</a></li>
+                            <li><a class="dropdown-item fw-500" href="../../pages/react.html"><i class="bi bi-infinity me-2 text-info"></i>React</a></li>
+                            <li><a class="dropdown-item fw-500" href="../../pages/node.html"><i class="bi bi-hdd-network me-2 text-success"></i>Node.js</a></li>
+                            <li><a class="dropdown-item fw-500" href="../../pages/javascript.html"><i class="bi bi-filetype-js me-2 text-warning"></i>JavaScript</a></li>
+                            <li><a class="dropdown-item fw-500" href="../../pages/dsa.html"><i class="bi bi-diagram-3-fill me-2" style="color:#8b5cf6"></i>DSA</a></li>
+                            <li><a class="dropdown-item fw-500" href="../../pages/logical.html"><i class="bi bi-lightbulb me-2" style="color:#f59e0b"></i>Logical Reasoning</a></li>
+                            <li><a class="dropdown-item fw-500" href="../../pages/mongodb.html"><i class="bi bi-database-fill me-2" style="color:#4DB33D"></i>MongoDB</a></li>
+                            <li><a class="dropdown-item fw-500" href="../../pages/mysql.html"><i class="bi bi-table me-2" style="color:#0F766E"></i>MySQL</a></li>
+                        </ul>
+                    </li>
+                </ul>
+                <div class="search-wrap">
+                    <i class="bi bi-search search-icon"></i>
+                    <input class="form-control search-input" type="search" placeholder="Search questions..." id="searchInput">
+                </div>
+            </div>
+        </div>
+    </nav>
+
+    <div class="app-wrapper">
+        <aside class="sidebar" id="sidebar">
+            <div class="sidebar-head">
+                <h6><i class="bi bi-table me-2"></i>MySQL Topics</h6>
+            </div>
+            <nav>
+                <ul class="sidebar-links" id="topicList">
+                    <li><a class="nav-link" href="mysql-fundamentals.html"><i class="bi-diagram-2"></i><span>MySQL Fundamentals</span></a></li>
+                    <li><a class="nav-link" href="crud-operations.html"><i class="bi-pencil-square"></i><span>CRUD Operations</span></a></li>
+                    <li><a class="nav-link" href="sql-joins.html"><i class="bi-link-45deg"></i><span>SQL Joins</span></a></li>
+                    <li><a class="nav-link" href="indexes.html"><i class="bi-lightning-fill"></i><span>Indexes</span></a></li>
+                    <li><a class="nav-link" href="query-optimization.html"><i class="bi-speedometer2"></i><span>Query Optimization</span></a></li>
+                    <li><a class="nav-link" href="transactions-acid.html"><i class="bi-arrow-repeat"></i><span>Transactions &amp; ACID</span></a></li>
+                    <li><a class="nav-link" href="stored-procedures.html"><i class="bi-code-square"></i><span>Stored Procedures</span></a></li>
+                    <li><a class="nav-link" href="triggers.html"><i class="bi-bell-fill"></i><span>Triggers</span></a></li>
+                    <li><a class="nav-link" href="views.html"><i class="bi-eye"></i><span>Views</span></a></li>
+                    <li><a class="nav-link" href="normalization.html"><i class="bi-diagram-3-fill"></i><span>Normalization</span></a></li>
+                    <li><a class="nav-link active" href="data-types.html"><i class="bi-diagram-2"></i><span>Data Types</span></a></li>
+                    <li><a class="nav-link" href="string-functions.html"><i class="bi-chat-square-text"></i><span>String Functions</span></a></li>
+                    <li><a class="nav-link" href="date-time-functions.html"><i class="bi-calendar-event"></i><span>Date &amp; Time</span></a></li>
+                    <li><a class="nav-link" href="aggregate-functions.html"><i class="bi-graph-up"></i><span>Aggregate Functions</span></a></li>
+                    <li><a class="nav-link" href="window-functions.html"><i class="bi-column-gap"></i><span>Window Functions</span></a></li>
+                    <li><a class="nav-link" href="subqueries-ctes.html"><i class="bi-filter"></i><span>Subqueries &amp; CTEs</span></a></li>
+                    <li><a class="nav-link" href="full-text-search.html"><i class="bi-search"></i><span>Full-Text Search</span></a></li>
+                    <li><a class="nav-link" href="replication-ha.html"><i class="bi-diagram-3"></i><span>Replication &amp; HA</span></a></li>
+                    <li><a class="nav-link" href="security-permissions.html"><i class="bi-shield-check"></i><span>Security</span></a></li>
+                    <li><a class="nav-link" href="performance-tuning.html"><i class="bi-sliders"></i><span>Performance Tuning</span></a></li>
+                    <li><a class="nav-link" href="interview-queries-1.html"><i class="bi-gear-fill"></i><span>Interview Queries 1</span></a></li>
+                    <li><a class="nav-link" href="interview-queries-2.html"><i class="bi-gear-fill"></i><span>Interview Queries 2</span></a></li>
+                </ul>
+            </nav>
+        </aside>
+        <div class="sidebar-backdrop" id="sidebarBackdrop"></div>
+        <div class="content-area">
+            <div class="mobile-bar d-lg-none">
+                <button class="btn btn-sm btn-glass" id="sidebarToggle">
+                    <i class="bi bi-layout-sidebar-inset me-1"></i>Topics
+                </button>
+                <span class="badge rounded-pill" style="background:#0F766E;color:#fff;">MySQL</span>
+            </div>
+            <div class="breadcrumb-nav" id="breadcrumb">
+                <a href="../../index.html">Home</a><span class="sep">/</span>
+                <a href="../../pages/mysql.html">MySQL</a><span class="sep">/</span>
+                <span class="current">Data Types</span>
+            </div>
+            <div class="qs-header">
+                <h1 class="qs-title" id="topicTitle">MySQL Data Types Interview Questions</h1>
+                <span class="badge qs-badge" id="questionCount">5 Questions</span>
+            </div>
+
+            <div class="accordion" id="questionsAccordion">
+                <div class="accordion-item">
+                    <h2 class="accordion-header" id="h_q0">
+                        <button class="accordion-button" type="button" data-bs-toggle="collapse" data-bs-target="#c_q0" aria-expanded="true"><span class="question-number">1</span> What are numeric data types in MySQL?</button>
+                    </h2>
+                    <div id="c_q0" class="accordion-collapse collapse show" data-bs-parent="#questionsAccordion">
+                        <div class="accordion-body">
+                        <p><strong>Numeric types</strong> include TINYINT, SMALLINT, INT, BIGINT for integers; FLOAT, DOUBLE for decimals; and DECIMAL for precise calculations. Each has size and range implications affecting storage and performance.</p>
+                        <pre><code>-- Integer types with ranges
+TINYINT: -128 to 127 (1 byte)
+SMALLINT: -32,768 to 32,767 (2 bytes)
+INT: -2.1B to 2.1B (4 bytes)
+BIGINT: -9.2E18 to 9.2E18 (8 bytes)
+
+-- Decimal types
+FLOAT: Approximate, fast, 4 bytes
+DOUBLE: Approximate, faster, 8 bytes
+DECIMAL(10,2): Exact, precise, 5 bytes (10 digits, 2 decimals)
+
+-- Examples
+CREATE TABLE products (
+    id INT PRIMARY KEY AUTO_INCREMENT,
+    price DECIMAL(10,2),  -- $999,999.99
+    rating FLOAT,  -- 4.5 stars
+    inventory SMALLINT UNSIGNED
+);
+
+-- UNSIGNED keyword for positive only
+-- Doubles positive range, halves negative</code></pre>
+                        <p><strong>Why it matters:</strong> Correct type selection prevents overflow and saves storage.</p>
+                        <p><strong>Real applications:</strong> INT for IDs, DECIMAL for money, FLOAT for metrics.</p>
+                        <p><strong>Common mistakes:</strong> Using FLOAT for money, wrong sizes for ranges.</p>
+                    </div>
+                </div>
+                </div>
+
+                <div class="accordion-item">
+                    <h2 class="accordion-header" id="h_q1">
+                        <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#c_q1" aria-expanded="false"><span class="question-number">2</span> What are string data types and their differences?</button>
+                    </h2>
+                    <div id="c_q1" class="accordion-collapse collapse" data-bs-parent="#questionsAccordion">
+                        <div class="accordion-body">
+                        <p><strong>String types</strong> include CHAR (fixed-length), VARCHAR (variable-length), TEXT (large text), and BLOB (binary). <strong>Choice</strong> depends on data size and performance needs. CHAR is faster for fixed-width, VARCHAR saves space for variable content.</p>
+                        <pre><code>-- String types
+CHAR(50): Fixed 50 bytes (padded if shorter)
+VARCHAR(255): Variable up to 255 bytes
+TEXT: Large text up to 65KB
+LONGTEXT: Very large text up to 4GB
+BLOB: Binary data up to 64KB
+LONGBLOB: Large binaries up to 4GB
+
+-- Examples
+CREATE TABLE users (
+    id INT PRIMARY KEY,
+    country_code CHAR(2),  -- Always 2 chars
+    email VARCHAR(255),  -- Variable length
+    bio TEXT,  -- Long text
+    photo BLOB  -- Image data
+);
+
+-- Performance: CHAR faster but wastes space
+-- VARCHAR flexible, saves space but slower</code></pre>
+                        <p><strong>Why it matters:</strong> String type choice affects storage and query speed.</p>
+                        <p><strong>Real applications:</strong> Email uses VARCHAR, country codes use CHAR.</p>
+                        <p><strong>Common mistakes:</strong> Using VARCHAR(1000) when 255 sufficient, CHAR for variable.</p>
+                    </div>
+                </div>
+                </div>
+
+                <div class="accordion-item">
+                    <h2 class="accordion-header" id="h_q2">
+                        <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#c_q2" aria-expanded="false"><span class="question-number">3</span> What are date and time data types?</button>
+                    </h2>
+                    <div id="c_q2" class="accordion-collapse collapse" data-bs-parent="#questionsAccordion">
+                        <div class="accordion-body">
+                        <p><strong>Date/time types</strong> include DATE (YYYY-MM-DD), TIME (HH:MM:SS), DATETIME (both), TIMESTAMP (with timezone), and YEAR. <strong>TIMESTAMP</strong> auto-updates and uses less storage than DATETIME.</p>
+                        <pre><code>-- Date/Time types
+DATE: Stores date only (3 bytes)
+TIME: Stores time only (3 bytes)
+DATETIME: Stores date & time (8 bytes)
+TIMESTAMP: Date & time + timezone (4 bytes)
+YEAR: Year only (1 byte)
+
+-- Examples
+CREATE TABLE events (
+    event_date DATE,  -- '2024-12-25'
+    event_time TIME,  -- '14:30:00'
+    created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,  -- Auto-set on insert
+    updated_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP
+);
+
+-- Range considerations
+DATE: 1000-01-01 to 9999-12-31
+DATETIME: 1000-01-01 00:00:00 to 9999-12-31 23:59:59
+TIMESTAMP: 1970-01-01 to 2038-01-19 (Y2K38 concern)</code></pre>
+                        <p><strong>Why it matters:</strong> Right type ensures efficient storage and correct calculations.</p>
+                        <p><strong>Real applications:</strong> TIMESTAMP for audit trails, DATE for birthdays.</p>
+                        <p><strong>Common mistakes:</strong> DATETIME instead of TIMESTAMP for auto-update, not considering Y2K38.</p>
+                    </div>
+                </div>
+                </div>
+
+                <div class="accordion-item">
+                    <h2 class="accordion-header" id="h_q3">
+                        <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#c_q3" aria-expanded="false"><span class="question-number">4</span> What are enum and set data types?</button>
+                    </h2>
+                    <div id="c_q3" class="accordion-collapse collapse" data-bs-parent="#questionsAccordion">
+                        <div class="accordion-body">
+                        <p><strong>ENUM</strong> stores one value from predefined list (1-65535 options). <strong>SET</strong> stores multiple values from list. Both are space-efficient but inflexible if values change frequently.</p>
+                        <pre><code>-- ENUM: One value from list
+CREATE TABLE orders (
+    status ENUM('pending', 'processing', 'shipped', 'delivered', 'cancelled')
+);
+
+INSERT INTO orders VALUES ('shipped');  -- Valid
+INSERT INTO orders VALUES ('invalid');  -- Error
+
+-- SET: Multiple values from list
+CREATE TABLE permissions (
+    user_roles SET('admin', 'editor', 'viewer', 'commenter')
+);
+
+INSERT INTO permissions VALUES ('admin, editor');  -- Multiple values
+
+-- Storage-efficient
+-- ENUM: 1 byte for <256 options
+-- SET: 1-8 bytes depending on number of options
+
+-- Performance trade-off
+-- PROS: Efficient storage, prevents invalid values
+// CONS: Inflexible, adding values requires ALTER TABLE</code></pre>
+                        <p><strong>Why it matters:</strong> Efficient storage for fixed values, prevents invalid data.</p>
+                        <p><strong>Real applications:</strong> Status fields, user permissions, predefined categories.</p>
+                        <p><strong>Common mistakes:</strong> Using ENUM for frequently changing values, not considering future expansion.</p>
+                    </div>
+                </div>
+                </div>
+
+                <div class="accordion-item">
+                    <h2 class="accordion-header" id="h_q4">
+                        <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#c_q4" aria-expanded="false"><span class="question-number">5</span> How do you choose data types for storage efficiency?</button>
+                    </h2>
+                    <div id="c_q4" class="accordion-collapse collapse" data-bs-parent="#questionsAccordion">
+                        <div class="accordion-body">
+                        <p><strong>Efficiency strategy</strong> involves right-sizing types (INT not BIGINT for IDs), using ENUM/SET for fixed values, DECIMAL for precision, and VARCHAR for variable-length. <strong>Profile</strong> to eliminate waste.</p>
+                        <pre><code>-- Inefficient: Over-sized types
+CREATE TABLE inefficient (
+    id BIGINT,  -- Could be INT
+    name VARCHAR(1000),  -- Rarely >100 chars
+    age INT,  -- Could be TINYINT
+    phone VARCHAR(255)  -- Always ~11 chars, use CHAR(11)
+);
+
+-- Efficient: Right-sized types
+CREATE TABLE efficient (
+    id INT AUTO_INCREMENT,  -- Sufficient for most tables
+    name VARCHAR(100),  -- Practical limit
+    age TINYINT UNSIGNED,  -- 0-255, perfect for ages
+    phone CHAR(11),  -- Fixed length
+    status ENUM('active', 'inactive'),  -- One byte
+    created TIMESTAMP  -- Auto-managed
+);
+
+-- Storage calculation
+-- Inefficient: 8 + 1000 + 4 + 255 = 1267 bytes per row
+// Efficient: 4 + 100 + 1 + 11 + 1 + 4 = 121 bytes per row
+// 10x more efficient!           
+             </div>
+          
+        </div>
+
+
+    </div>
+    <div class="topic-nav" id="topicNav">
+  <a class="topic-nav-btn prev" href="normalization.html">
+      <span class="label"><i class="bi bi-arrow-left me-1"></i> Previous</span>
+      <span class="title">Normalization</span>
+  </a>
+  <a class="topic-nav-btn next" href="string-functions.html">
+      <span class="label">Next <i class="bi bi-arrow-right ms-1"></i></span>
+      <span class="title">String Functions</span>
+  </a>
+  </div>
+   <footer class="app-footer">
+      <p>&copy; 2026 InterviewPrep &mdash; MySQL Interview Questions</p>
+  </footer>
+    <button class="btn-totop" id="backToTop"><i class="bi bi-chevron-up"></i></button>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>
+    <script>
+    (function(){
+        var sb=document.getElementById('sidebar'),bd=document.getElementById('sidebarBackdrop'),
+            tg=document.getElementById('sidebarToggle');
+        if(tg)tg.addEventListener('click',function(){sb.classList.add('open');bd.classList.add('show');});
+        if(bd)bd.addEventListener('click',function(){sb.classList.remove('open');bd.classList.remove('show');});
+        var btt=document.getElementById('backToTop');
+        window.addEventListener('scroll',function(){btt.classList.toggle('show',window.scrollY>400);});
+        btt.addEventListener('click',function(){window.scrollTo({top:0,behavior:'smooth'});});
+    })();
+    </script>
+</body>
+
+</html>

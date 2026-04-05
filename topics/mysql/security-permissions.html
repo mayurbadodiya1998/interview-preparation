@@ -1,0 +1,503 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="MySQL Security & Permissions interview questions: users, roles, GRANT, authentication, SQL injection.">
+    <meta name="keywords" content="MySQL security, user permissions, GRANT REVOKE, authentication, SQL injection, MySQL interview">
+    <meta name="author" content="InterviewPrep">
+    <meta name="robots" content="index, follow">
+    <link rel="icon" type="image/svg+xml" href="../../favicon.svg" sizes="any">
+    <meta property="og:type" content="website">
+    <meta property="og:title" content="MySQL Security & Permissions — MySQL Interview Questions | InterviewPrep">
+    <meta property="og:description" content="MySQL Security & Permissions interview questions: users, roles, GRANT, authentication, SQL injection.">
+    <meta property="og:url" content="https://coddingquestionhub.com/topics/mysql/security-permissions.html">
+    <meta name="twitter:card" content="summary_large_image">
+    <meta name="twitter:title" content="MySQL Security & Permissions — MySQL Interview Questions | InterviewPrep">
+    <meta name="twitter:description" content="MySQL Security & Permissions interview questions: users, roles, GRANT, authentication, SQL injection.">
+    <meta name="twitter:image" content="https://coddingquestionhub.com/og-mysql.png">
+    <title>MySQL Security & Permissions — MySQL Interview Questions | InterviewPrep 2026</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&family=Fira+Code:wght@400;500&display=swap" rel="stylesheet">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="../../css/styles.css">
+    <link rel="canonical" href="https://coddingquestionhub.com/topics/mysql/security-permissions.html">
+    <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-8957020141286926" crossorigin="anonymous"></script>
+    <script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "BreadcrumbList",
+  "itemListElement": [
+    {
+      "@type": "ListItem",
+      "position": 1,
+      "name": "Home",
+      "item": "https://coddingquestionhub.com"
+    },
+    {
+      "@type": "ListItem",
+      "position": 2,
+      "name": "Topics",
+      "item": "https://coddingquestionhub.com/topics"
+    },
+    {
+      "@type": "ListItem",
+      "position": 3,
+      "name": "Mysql",
+      "item": "https://coddingquestionhub.com/topics/mysql"
+    },
+    {
+      "@type": "ListItem",
+      "position": 4,
+      "name": "Security Permissions",
+      "item": "https://coddingquestionhub.com/topics/mysql/security-permissions.html"
+    }
+  ]
+}
+    </script>
+</head>
+<body class="theme-mysql">
+    <nav class="navbar navbar-expand-lg sticky-top" id="mainNavbar">
+        <div class="container-fluid px-3 px-lg-4">
+            <a class="navbar-brand fw-bold d-flex align-items-center gap-2" href="../../index.html">
+                <span class="brand-icon"><i class="bi bi-braces-asterisk"></i></span>
+                <span>Interview<span class="brand-accent">Prep</span></span>
+            </a>
+            <button class="navbar-toggler border-0 shadow-none" type="button" data-bs-toggle="collapse" data-bs-target="#navbarContent">
+                <i class="bi bi-list fs-3 text-white"></i>
+            </button>
+            <div class="collapse navbar-collapse" id="navbarContent">
+                <ul class="navbar-nav me-auto mb-2 mb-lg-0 ms-lg-3">
+                    <li class="nav-item dropdown">
+                        <a class="nav-link dropdown-toggle fw-500" href="#" role="button" data-bs-toggle="dropdown">
+                            <i class="bi bi-layers me-1"></i> Choose Category
+                        </a>
+                        <ul class="dropdown-menu">
+                            <li><a class="dropdown-item fw-500" href="../../pages/angular.html"><i class="bi bi-bootstrap me-2 text-danger"></i>Angular</a></li>
+                            <li><a class="dropdown-item fw-500" href="../../pages/react.html"><i class="bi bi-infinity me-2 text-info"></i>React</a></li>
+                            <li><a class="dropdown-item fw-500" href="../../pages/node.html"><i class="bi bi-hdd-network me-2 text-success"></i>Node.js</a></li>
+                            <li><a class="dropdown-item fw-500" href="../../pages/javascript.html"><i class="bi bi-filetype-js me-2 text-warning"></i>JavaScript</a></li>
+                            <li><a class="dropdown-item fw-500" href="../../pages/dsa.html"><i class="bi bi-diagram-3-fill me-2" style="color:#8b5cf6"></i>DSA</a></li>
+                            <li><a class="dropdown-item fw-500" href="../../pages/logical.html"><i class="bi bi-lightbulb me-2" style="color:#f59e0b"></i>Logical Reasoning</a></li>
+                            <li><a class="dropdown-item fw-500" href="../../pages/mongodb.html"><i class="bi bi-database-fill me-2" style="color:#4DB33D"></i>MongoDB</a></li>
+                            <li><a class="dropdown-item fw-500" href="../../pages/mysql.html"><i class="bi bi-table me-2" style="color:#0F766E"></i>MySQL</a></li>
+                        </ul>
+                    </li>
+                </ul>
+                <div class="search-wrap">
+                    <i class="bi bi-search search-icon"></i>
+                    <input class="form-control search-input" type="search" placeholder="Search questions..." id="searchInput">
+                </div>
+            </div>
+        </div>
+    </nav>
+        <div class="app-wrapper">
+        <aside class="sidebar" id="sidebar">
+            <div class="sidebar-head">
+                <h6><i class="bi bi-table me-2"></i>MySQL Topics</h6>
+            </div>
+            <nav>
+                <ul class="sidebar-links" id="topicList">
+                    <li><a class="nav-link" href="mysql-fundamentals.html"><i class="bi-diagram-2"></i><span>MySQL Fundamentals</span></a></li>
+                    <li><a class="nav-link" href="crud-operations.html"><i class="bi-pencil-square"></i><span>CRUD Operations</span></a></li>
+                    <li><a class="nav-link" href="sql-joins.html"><i class="bi-link-45deg"></i><span>SQL Joins</span></a></li>
+                    <li><a class="nav-link" href="indexes.html"><i class="bi-lightning-fill"></i><span>Indexes</span></a></li>
+                    <li><a class="nav-link" href="query-optimization.html"><i class="bi-speedometer2"></i><span>Query Optimization</span></a></li>
+                    <li><a class="nav-link" href="transactions-acid.html"><i class="bi-arrow-repeat"></i><span>Transactions &amp; ACID</span></a></li>
+                    <li><a class="nav-link" href="stored-procedures.html"><i class="bi-code-square"></i><span>Stored Procedures</span></a></li>
+                    <li><a class="nav-link" href="triggers.html"><i class="bi-bell-fill"></i><span>Triggers</span></a></li>
+                    <li><a class="nav-link" href="views.html"><i class="bi-eye"></i><span>Views</span></a></li>
+                    <li><a class="nav-link" href="normalization.html"><i class="bi-diagram-3-fill"></i><span>Normalization</span></a></li>
+                    <li><a class="nav-link" href="data-types.html"><i class="bi-diagram-2"></i><span>Data Types</span></a></li>
+                    <li><a class="nav-link" href="string-functions.html"><i class="bi-chat-square-text"></i><span>String Functions</span></a></li>
+                    <li><a class="nav-link" href="date-time-functions.html"><i class="bi-calendar-event"></i><span>Date &amp; Time</span></a></li>
+                    <li><a class="nav-link" href="aggregate-functions.html"><i class="bi-graph-up"></i><span>Aggregate Functions</span></a></li>
+                    <li><a class="nav-link" href="window-functions.html"><i class="bi-column-gap"></i><span>Window Functions</span></a></li>
+                    <li><a class="nav-link" href="subqueries-ctes.html"><i class="bi-filter"></i><span>Subqueries &amp; CTEs</span></a></li>
+                    <li><a class="nav-link" href="full-text-search.html"><i class="bi-search"></i><span>Full-Text Search</span></a></li>
+                    <li><a class="nav-link" href="replication-ha.html"><i class="bi-diagram-3"></i><span>Replication &amp; HA</span></a></li>
+                    <li><a class="nav-link active" href="security-permissions.html"><i class="bi-shield-check"></i><span>Security</span></a></li>
+                    <li><a class="nav-link" href="performance-tuning.html"><i class="bi-sliders"></i><span>Performance Tuning</span></a></li>
+                    <li><a class="nav-link" href="interview-queries-1.html"><i class="bi-gear-fill"></i><span>Interview Queries 1</span></a></li>
+                    <li><a class="nav-link" href="interview-queries-2.html"><i class="bi-gear-fill"></i><span>Interview Queries 2</span></a></li>
+                </ul>
+            </nav>
+        </aside>
+        <div class="sidebar-backdrop" id="sidebarBackdrop"></div>
+        <div class="content-area">
+            <div class="mobile-bar d-lg-none">
+                <button class="btn btn-sm btn-glass" id="sidebarToggle">
+                    <i class="bi bi-layout-sidebar-inset me-1"></i>Topics
+                </button>
+                <span class="badge rounded-pill" style="background:#0F766E;color:#fff;">MySQL</span>
+            </div>
+            <div class="breadcrumb-nav" id="breadcrumb">
+                <a href="../../index.html">Home</a><span class="sep">/</span>
+                <a href="../../pages/mysql.html">MySQL</a><span class="sep">/</span>
+                <span class="current">Security</span>
+            </div>
+            <div class="qs-header">
+                <h1 class="qs-title" id="topicTitle">MySQL Security &amp; Permissions Interview Questions</h1>
+                <span class="badge qs-badge" id="questionCount">8 Questions</span>
+            </div>
+
+            <div class="accordion" id="questionsAccordion">
+                <div class="accordion-item">
+                    <h2 class="accordion-header" id="h_q0">
+                        <button class="accordion-button" type="button" data-bs-toggle="collapse" data-bs-target="#c_q0" aria-expanded="true"><span class="question-number">1</span> How do user accounts and privileges work in MySQL?</button>
+                    </h2>
+                    <div id="c_q0" class="accordion-collapse collapse show" data-bs-parent="#questionsAccordion">
+                        <div class="accordion-body"><p><strong>User accounts</strong> defined by username and host. Privileges granted at different levels: global, database, table, column. GRANT/REVOKE manage permissions.</p><pre><code>-- Create user
+CREATE USER 'appuser'@'192.168.1.%' IDENTIFIED BY 'strong_password';
+CREATE USER 'webapp'@'app-server.domain.com' IDENTIFIED BY 'password';
+
+-- Grant privileges (global)
+GRANT ALL PRIVILEGES ON *.* TO 'admin'@'localhost';
+
+-- Grant privileges (database level)
+GRANT SELECT, INSERT, UPDATE, DELETE ON mydb.* TO 'appuser'@'192.168.1.%';
+
+-- Grant privileges (table level)
+GRANT SELECT, UPDATE ON mydb.orders TO 'analyst'@'%';
+
+-- Grant privileges (column level)
+GRANT UPDATE(salary, commission) ON hr.employees TO 'payroll'@'localhost';
+
+-- Grant with GRANT OPTION (delegate)
+GRANT SELECT ON mydb.* TO 'user'@'localhost' WITH GRANT OPTION;
+
+-- View user privileges
+SHOW GRANTS FOR 'appuser'@'192.168.1.%';
+
+-- Remove privileges
+REVOKE INSERT, UPDATE ON mydb.* FROM 'appuser'@'192.168.1.%';
+
+-- Delete user
+DROP USER 'appuser'@'192.168.1.%';</code></pre><p><strong>Why it matters:</strong> Enforce principle of least privilege.</p><p><strong>Real applications:</strong> Application users, DBA users, read-only access.</p><p><strong>Common mistakes:</strong> Overly permissive grants, weak passwords, root access for apps.</p></div>
+                    </div>
+                </div>
+
+                <div class="accordion-item">
+                    <h2 class="accordion-header" id="h_q1">
+                        <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#c_q1" aria-expanded="false"><span class="question-number">2</span> How are MySQL passwords stored and authenticated?</button>
+                    </h2>
+                    <div id="c_q1" class="accordion-collapse collapse" data-bs-parent="#questionsAccordion">
+                        <div class="accordion-body"><p><strong>Password storage</strong>: Hashed in mysql.user table. MySQL 8.0 uses caching_sha2_password (SHA-256). Older versions use mysql_native_password. Support for role-based login.</p><pre><code>-- Check password plugin
+SELECT user, host, plugin FROM mysql.user;
+-- Result: plugin = 'caching_sha2_password' (MySQL 8.0+)
+
+-- Set password
+SET PASSWORD FOR 'user'@'localhost' = 'new_password';
+ALTER USER 'user'@'localhost' IDENTIFIED BY 'new_password';
+
+-- Set password with specific hash
+ALTER USER 'user'@'localhost' IDENTIFIED WITH mysql_native_password BY 'password';
+ALTER USER 'user'@'localhost' IDENTIFIED WITH caching_sha2_password BY 'password';
+
+-- Password validation policy
+SHOW VARIABLES LIKE 'validate_password%';
+-- validate_password_policy: MEDIUM (default)
+-- validate_password_length: 8 (minimum length)
+
+-- Setup password policy
+SET GLOBAL validate_password.policy = 'STRONG';
+SET GLOBAL validate_password.length = 12;
+
+-- Password expiration
+ALTER USER 'user'@'localhost' PASSWORD EXPIRE INTERVAL 90 DAY;
+SELECT * FROM mysql.user WHERE password_expired = 'Y';
+
+-- Account locking
+ALTER USER 'user'@'localhost' ACCOUNT LOCK;
+ALTER USER 'user'@'localhost' ACCOUNT UNLOCK;</code></pre><p><strong>Why it matters:</strong> Authentication security, password best practices.</p><p><strong>Real applications:</strong> User management, compliance requirements.</p><p><strong>Common mistakes:</strong> Weak passwords, old password plugins, no expiration policy.</p></div>
+                    </div>
+                </div>
+
+                <div class="accordion-item">
+                    <h2 class="accordion-header" id="h_q2">
+                        <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#c_q2" aria-expanded="false"><span class="question-number">3</span> What are MySQL roles and how do you use them?</button>
+                    </h2>
+                    <div id="c_q2" class="accordion-collapse collapse" data-bs-parent="#questionsAccordion">
+                        <div class="accordion-body"><p><strong>Roles</strong> (MySQL 8.0+) group permissions for users. Simplify permission management for similar users. Can be nested.</p><pre><code>-- Create role
+CREATE ROLE 'app_read_only', 'app_write', 'app_admin';
+
+-- Grant privileges to role
+GRANT SELECT ON mydb.* TO 'app_read_only';
+GRANT SELECT, INSERT, UPDATE, DELETE ON mydb.* TO 'app_write';
+GRANT ALL PRIVILEGES ON mydb.* TO 'app_admin';
+
+-- Assign role to user
+CREATE USER 'user1'@'localhost' IDENTIFIED BY 'password';
+GRANT 'app_read_only' TO 'user1'@'localhost';
+
+-- Set default role
+SET DEFAULT ROLE 'app_read_only' FOR 'user1'@'localhost';
+
+-- User must activate role on connect
+-- Add to connection or my.cnf
+SET ROLE ALL;  -- Activate all assigned roles
+
+-- View role assignments
+SELECT * FROM mysql.role_edges;
+SELECT CURRENT_ROLE;
+
+-- Role hierarchy
+CREATE ROLE 'developer';
+GRANT 'app_read_only' TO 'developer';  -- Nested role
+GRANT 'developer' TO 'user2'@'localhost';  -- User gets all permissions</code></pre><p><strong>Why it matters:</strong> Simplified permission management at scale.</p><p><strong>Real applications:</strong> Multi-app environments, standardized permissions.</p><p><strong>Common mistakes:</strong> Roles not set as default, MySQL < 8.0 not supported.</p></div>
+                    </div>
+                </div>
+
+                <div class="accordion-item">
+                    <h2 class="accordion-header" id="h_q3">
+                        <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#c_q3" aria-expanded="false"><span class="question-number">4</span> How do you secure connections with SSL/TLS?</button>
+                    </h2>
+                    <div id="c_q3" class="accordion-collapse collapse" data-bs-parent="#questionsAccordion">
+                        <div class="accordion-body"><p><strong>SSL/TLS</strong> encrypts connections. Prevents credential interception. Configure with server certificates and require REQUIRE SSL for users.</p><pre><code>-- Generate SSL certificates (one time)
+openssl genrsa -out ca-key.pem 4096
+openssl req -new -x509 -days 365 -key ca-key.pem -out ca.pem
+openssl genrsa -out server-key.pem 4096
+openssl req -new -key server-key.pem -out server.csr
+openssl x509 -req -days 365 -in server.csr -CA ca.pem -CAkey ca-key.pem -CAcreateserial -out server-cert.pem
+openssl genrsa -out client-key.pem 4096
+openssl req -new -key client-key.pem -out client.csr
+openssl x509 -req -days 365 -in client.csr -CA ca.pem -CAkey ca-key.pem -CAcreateserial -out client-cert.pem
+
+-- Configure MySQL server (my.cnf)
+[mysqld]
+ssl-ca=/path/to/ca.pem
+ssl-cert=/path/to/server-cert.pem
+ssl-key=/path/to/server-key.pem
+
+-- Restart MySQL
+systemctl restart mysql
+
+-- Verify SSL enabled
+SHOW VARIABLES LIKE 'have_ssl';  -- Result: YES
+
+-- Require SSL for user
+CREATE USER 'secuser'@'192.168.1.%' IDENTIFIED BY 'password' REQUIRE SSL;
+ALTER USER 'secuser'@'192.168.1.%' REQUIRE SSL;
+
+-- Connect with SSL
+mysql --ssl-ca=ca.pem --ssl-cert=client-cert.pem --ssl-key=client-key.pem -h servername
+mysql --ssl-mode=REQUIRED -h servername
+
+-- Verify SSL connection
+SHOW STATUS LIKE 'Ssl_version';  -- Result: TLSv1.2</code></pre><p><strong>Why it matters:</strong> Credential and data encryption in transit.</p><p><strong>Real applications:</strong> Remote connections, compliance (GDPR, HIPAA).</p><p><strong>Common mistakes:</strong> Not enforcing SSL, self-signed certificates in production.</p></div>
+                    </div>
+                </div>
+
+                <div class="accordion-item">
+                    <h2 class="accordion-header" id="h_q4">
+                        <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#c_q4" aria-expanded="false"><span class="question-number">5</span> How do you use GRANT and REVOKE statements?</button>
+                    </h2>
+                    <div id="c_q4" class="accordion-collapse collapse" data-bs-parent="#questionsAccordion">
+                        <div class="accordion-body"><p><strong>GRANT</strong> assigns permissions. <strong>REVOKE</strong> removes permissions. Privilege levels: global, database, table, column, procedure. WITH GRANT OPTION allows delegation.</p><pre><code>-- Global privileges (*.*)
+GRANT SELECT, SHOW DATABASES ON *.* TO 'user'@'host';
+
+-- Database privileges (database.*)
+GRANT CREATE, ALTER, DROP ON testdb.* TO 'user'@'host';
+
+-- Table privileges (database.table)
+GRANT SELECT, UPDATE, DELETE ON testdb.orders TO 'user'@'host';
+
+-- Column privileges (specific columns)
+GRANT UPDATE(price, discount), SELECT ON sales.products TO 'analyst'@'host';
+
+-- Procedure/Function privileges
+GRANT EXECUTE ON PROCEDURE testdb.calculate_revenue TO 'user'@'host';
+
+-- With grant option (can delegate)
+GRANT SELECT ON *.* TO 'user'@'host' WITH GRANT OPTION;
+
+-- Revoke specific privilege
+REVOKE INSERT ON testdb.* FROM 'user'@'host';
+
+-- Revoke all privileges
+REVOKE ALL PRIVILEGES ON *.* FROM 'user'@'host';
+
+-- Revoke grant option
+REVOKE GRANT OPTION ON *.* FROM 'user'@'host';
+
+-- Common privilege sets
+-- SELECT: Read data
+-- INSERT: Insert new data
+-- UPDATE: Modify data
+-- DELETE: Remove data
+-- ALL: All privileges (except WITH GRANT OPTION)
+-- USAGE: No access
+
+-- Application user (principle of least privilege)
+GRANT SELECT, INSERT, UPDATE ON appdb.* TO 'app'@'app-server' IDENTIFIED BY 'password';</code></pre><p><strong>Why it matters:</strong> Enforce least privilege principle.</p><p><strong>Real applications:</strong> Application users, analyst access, contractor accounts.</p><p><strong>Common mistakes:</strong> ALL PRIVILEGES to app users, not revoking stale privileges.</p></div>
+                    </div>
+                </div>
+
+                <div class="accordion-item">
+                    <h2 class="accordion-header" id="h_q5">
+                        <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#c_q5" aria-expanded="false"><span class="question-number">6</span> How do you audit user activities?</button>
+                    </h2>
+                    <div id="c_q5" class="accordion-collapse collapse" data-bs-parent="#questionsAccordion">
+                        <div class="accordion-body"><p><strong>Auditing</strong> tracks user actions via general log, audit plugin, or application logging. Important for compliance and security investigations.</p><pre><code>-- Enable general query log
+SET GLOBAL general_log = ON;
+SET GLOBAL log_output = 'TABLE';  -- Log to mysql.general_log table
+
+-- Query log (includes connection, disconnection, queries)
+SELECT * FROM mysql.general_log WHERE user = 'appuser' ORDER BY event_time DESC LIMIT 10;
+
+-- Disable query log (verbose)
+SET GLOBAL general_log = OFF;
+
+-- MySQL Audit Plugin
+INSTALL PLUGIN audit_log SONAME 'audit_log.so';
+SET GLOBAL audit_log_events = 'Connect,Query_ddl,Query_dml';
+
+-- Slow query log (for query analysis)
+SET GLOBAL slow_query_log = ON;
+SET GLOBAL long_query_time = 2;  -- Queries > 2 seconds
+SELECT * FROM mysql.slow_log;
+
+-- Application-level audit table
+CREATE TABLE audit_log (
+    id INT AUTO_INCREMENT PRIMARY KEY,
+    user VARCHAR(100),
+    action VARCHAR(50),
+    table_name VARCHAR(100),
+    record_id INT,
+    old_value TEXT,
+    new_value TEXT,
+    timestamp DATETIME DEFAULT NOW()
+);
+
+-- Trigger for audit
+CREATE TRIGGER orders_update_audit AFTER UPDATE ON orders
+FOR EACH ROW
+INSERT INTO audit_log (user, action, table_name, record_id, old_value, new_value)
+VALUES (USER(), 'UPDATE', 'orders', NEW.id, JSON_OBJECT('status', OLD.status), JSON_OBJECT('status', NEW.status));</code></pre><p><strong>Why it matters:</strong> Compliance, threat detection, investigation.</p><p><strong>Real applications:</strong> Security audits, PCI-DSS compliance, forensics.</p><p><strong>Common mistakes:</strong> Not logging to persistent storage, performance impact ignored.</p></div>
+                    </div>
+                </div>
+
+                <div class="accordion-item">
+                    <h2 class="accordion-header" id="h_q6">
+                        <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#c_q6" aria-expanded="false"><span class="question-number">7</span> What are common security vulnerabilities?</button>
+                    </h2>
+                    <div id="c_q6" class="accordion-collapse collapse" data-bs-parent="#questionsAccordion">
+                        <div class="accordion-body"><p><strong>SQL injection</strong>: Unsanitized input. <strong>Default credentials</strong>: Weak passwords. <strong>Privilege escalation</strong>: Overpermissive grants. <strong>Unencrypted transport</strong>: No SSL/TLS. <strong>Exposed backups</strong>: World-readable dump files.</p><pre><code>-- SQL Injection vulnerability
+// Vulnerable code
+SELECT * FROM users WHERE username = '$username' AND password = '$password';
+// Injection: $username = "admin' --"
+
+-- Prevention: Use prepared statements
+PREPARE stmt FROM 'SELECT * FROM users WHERE username = ? AND password = ?';
+SET @u = 'user', @p = 'pass';
+EXECUTE stmt USING @u, @p;
+
+-- Default credentials vulnerability
+-- Change root password
+ALTER USER 'root'@'localhost' IDENTIFIED BY 'strong_password';
+
+-- Delete anonymous users
+DROP USER ''@'localhost';
+DROP USER ''@'%.%.%.%';
+
+-- Privilege escalation
+-- Don't grant too much
+GRANT ALL ON *.* TO 'app'@'app-server';  -- BAD
+GRANT SELECT ON db.* TO 'app'@'app-server';  -- GOOD
+
+-- Unencrypted transport
+-- Require SSL
+ALTER USER 'user'@'host' REQUIRE SSL;
+
+-- Exposed backups
+-- Restrict permissions on dump files
+chmod 600 backup.sql
+# Encrypt backups
+gpg --encrypt backup.sql
+
+-- Data exposure
+-- Don't select * in logs
+SELECT user, host FROM mysql.user;  -- DON'T SELECT password!
+SELECT id, amount FROM orders;  -- DON'T SELECT credit_card_number!</code></pre><p><strong>Why it matters:</strong> Prevent data breaches and unauthorized access.</p><p><strong>Real applications:</strong> Secure application design, regulatory compliance.</p><p><strong>Common mistakes:</strong> No input validation, weak passwords, overpermissive access.</p></div>
+                    </div>
+                </div>
+
+                <div class="accordion-item">
+                    <h2 class="accordion-header" id="h_q7">
+                        <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#c_q7" aria-expanded="false"><span class="question-number">8</span> What are security best practices?</button>
+                    </h2>
+                    <div id="c_q7" class="accordion-collapse collapse" data-bs-parent="#questionsAccordion">
+                        <div class="accordion-body"><p><strong>Best practices</strong>: Least privilege principle, strong passwords, SSL/TLS, regular audits, principle of separation, backup security, update regularly.</p><pre><code>-- ✅ Good: Least privilege for applications
+CREATE USER 'webdb'@'web-server' IDENTIFIED BY 'long_random_password';
+GRANT SELECT, INSERT, UPDATE ON webdb.* TO 'webdb'@'web-server';
+-- NO DELETE, NO ADMIN PRIVILEGES
+
+-- ✅ Good: Separate users by role
+CREATE USER 'app'@'app-host';  -- Application
+CREATE USER 'backup'@'backup-host';  -- Backup jobs
+CREATE USER 'analytics'@'analytics-host';  -- Read-only analytics
+-- Each with minimal required permissions
+
+-- ✅ Good: Strong password policy
+SET GLOBAL validate_password.policy = 'STRONG';
+SET GLOBAL validate_password.length = 12;
+ALTER USER 'user'@'host' PASSWORD EXPIRE INTERVAL 90 DAY;
+
+-- ✅ Good: Secure connections
+ALTER USER 'remote-user'@'%.domain.com' REQUIRE SSL;
+CREATE USER 'local-admin'@'localhost' IDENTIFIED BY 'pass';  -- Local is OK
+
+-- ✅ Good: Regular audits
+SELECT user, host, plugin FROM mysql.user;  -- Review users
+SHOW GRANTS FOR 'appuser'@'%';  -- Verify permissions
+
+-- ❌ Bad: Root access for applications
+GRANT ALL ON *.* TO 'app'@'app-host';  -- Dangerous!
+
+-- ❌ Bad: Weak passwords
+CREATE USER 'user'@'host' IDENTIFIED BY '123';  -- Weak!
+
+-- ❌ Bad: Exposed backups
+mysqldump > backup.sql  # Readable by all!
+chmod 644 backup.sql  # World readable!
+
+-- ✅ Good: Encrypted backups
+mysqldump | gpg -e > backup.sql.gpg
+chmod 600 backup.sql.gpg</code></pre><p><strong>Why it matters:</strong> Prevent data breaches and compliance violations.</p><p><strong>Real applications:</strong> Production systems, regulated industries.</p><p><strong>Common mistakes:</strong> Overpermissive access, weak passwords, unencrypted backups.</p></div>
+                    </div>
+                </div>
+            </div>
+           
+            <div class="topic-nav" id="topicNav">
+            <a class="topic-nav-btn prev" href="replication-ha.html">
+                <span class="label"><i class="bi bi-arrow-left me-1"></i> Previous</span>
+                <span class="title">Replication & HA</span>
+            </a>
+            <a class="topic-nav-btn next" href="performance-tuning.html">
+                <span class="label">Next <i class="bi bi-arrow-right ms-1"></i></span>
+                <span class="title">Performance Tuning</span>
+            </a>
+            </div>
+            <footer class="app-footer">
+                <p>&copy; 2026 InterviewPrep &mdash; MySQL Interview Questions</p>
+            </footer>
+        </div>
+    </div>
+    <button class="btn-totop" id="backToTop"><i class="bi bi-chevron-up"></i></button>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>
+    <script>
+    (function(){
+        var sb=document.getElementById('sidebar'),bd=document.getElementById('sidebarBackdrop'),
+            tg=document.getElementById('sidebarToggle');
+        if(tg)tg.addEventListener('click',function(){sb.classList.add('open');bd.classList.add('show');});
+        if(bd)bd.addEventListener('click',function(){sb.classList.remove('open');bd.classList.remove('show');});
+        var btt=document.getElementById('backToTop');
+        window.addEventListener('scroll',function(){btt.classList.toggle('show',window.scrollY>400);});
+        btt.addEventListener('click',function(){window.scrollTo({top:0,behavior:'smooth'});});
+    })();
+    </script>
+</body>
+
+</html>

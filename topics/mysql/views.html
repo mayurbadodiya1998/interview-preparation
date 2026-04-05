@@ -1,0 +1,1045 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="MySQL Views interview questions: CREATE VIEW, updatable views, performance, view limitations.">
+    <meta name="keywords" content="MySQL views, CREATE VIEW, updatable views, ALGORITHM, performance, MySQL interview">
+    <meta name="author" content="InterviewPrep">
+    <meta name="robots" content="index, follow">
+    <link rel="icon" type="image/svg+xml" href="../../favicon.svg" sizes="any">
+    <meta property="og:type" content="website">
+    <meta property="og:title" content="MySQL Views — MySQL Interview Questions | InterviewPrep">
+    <meta property="og:description" content="MySQL Views interview questions: CREATE VIEW, updatable views, performance, view limitations.">
+    <meta property="og:url" content="https://coddingquestionhub.com/topics/mysql/views.html">
+    <meta name="twitter:card" content="summary_large_image">
+    <meta name="twitter:title" content="MySQL Views — MySQL Interview Questions | InterviewPrep">
+    <meta name="twitter:description" content="MySQL Views interview questions: CREATE VIEW, updatable views, performance, view limitations.">
+    <meta name="twitter:image" content="https://coddingquestionhub.com/og-mysql.png">
+    <title>MySQL Views — MySQL Interview Questions | InterviewPrep 2026</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&family=Fira+Code:wght@400;500&display=swap" rel="stylesheet">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="../../css/styles.css">
+    <link rel="canonical" href="https://coddingquestionhub.com/topics/mysql/views.html">
+    <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-8957020141286926" crossorigin="anonymous"></script>
+    <script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "BreadcrumbList",
+  "itemListElement": [
+    {
+      "@type": "ListItem",
+      "position": 1,
+      "name": "Home",
+      "item": "https://coddingquestionhub.com"
+    },
+    {
+      "@type": "ListItem",
+      "position": 2,
+      "name": "Topics",
+      "item": "https://coddingquestionhub.com/topics"
+    },
+    {
+      "@type": "ListItem",
+      "position": 3,
+      "name": "Mysql",
+      "item": "https://coddingquestionhub.com/topics/mysql"
+    },
+    {
+      "@type": "ListItem",
+      "position": 4,
+      "name": "Views",
+      "item": "https://coddingquestionhub.com/topics/mysql/views.html"
+    }
+  ]
+}
+    </script>
+</head>
+<body class="theme-mysql">
+    <nav class="navbar navbar-expand-lg sticky-top" id="mainNavbar">
+        <div class="container-fluid px-3 px-lg-4">
+            <a class="navbar-brand fw-bold d-flex align-items-center gap-2" href="../../index.html">
+                <span class="brand-icon"><i class="bi bi-braces-asterisk"></i></span>
+                <span>Interview<span class="brand-accent">Prep</span></span>
+            </a>
+            <button class="navbar-toggler border-0 shadow-none" type="button" data-bs-toggle="collapse" data-bs-target="#navbarContent">
+                <i class="bi bi-list fs-3 text-white"></i>
+            </button>
+            <div class="collapse navbar-collapse" id="navbarContent">
+                <ul class="navbar-nav me-auto mb-2 mb-lg-0 ms-lg-3">
+                    <li class="nav-item dropdown">
+                        <a class="nav-link dropdown-toggle fw-500" href="#" role="button" data-bs-toggle="dropdown">
+                            <i class="bi bi-layers me-1"></i> Choose Category
+                        </a>
+                        <ul class="dropdown-menu">
+                            <li><a class="dropdown-item fw-500" href="../../pages/angular.html"><i class="bi bi-bootstrap me-2 text-danger"></i>Angular</a></li>
+                            <li><a class="dropdown-item fw-500" href="../../pages/react.html"><i class="bi bi-infinity me-2 text-info"></i>React</a></li>
+                            <li><a class="dropdown-item fw-500" href="../../pages/node.html"><i class="bi bi-hdd-network me-2 text-success"></i>Node.js</a></li>
+                            <li><a class="dropdown-item fw-500" href="../../pages/javascript.html"><i class="bi bi-filetype-js me-2 text-warning"></i>JavaScript</a></li>
+                            <li><a class="dropdown-item fw-500" href="../../pages/dsa.html"><i class="bi bi-diagram-3-fill me-2" style="color:#8b5cf6"></i>DSA</a></li>
+                            <li><a class="dropdown-item fw-500" href="../../pages/logical.html"><i class="bi bi-lightbulb me-2" style="color:#f59e0b"></i>Logical Reasoning</a></li>
+                            <li><a class="dropdown-item fw-500" href="../../pages/mongodb.html"><i class="bi bi-database-fill me-2" style="color:#4DB33D"></i>MongoDB</a></li>
+                            <li><a class="dropdown-item fw-500" href="../../pages/mysql.html"><i class="bi bi-table me-2" style="color:#0F766E"></i>MySQL</a></li>
+                        </ul>
+                    </li>
+                </ul>
+                <div class="search-wrap">
+                    <i class="bi bi-search search-icon"></i>
+                    <input class="form-control search-input" type="search" placeholder="Search questions..." id="searchInput">
+                </div>
+            </div>
+        </div>
+    </nav>
+
+        <div class="app-wrapper">
+        <aside class="sidebar" id="sidebar">
+            <div class="sidebar-head">
+                <h6><i class="bi bi-table me-2"></i>MySQL Topics</h6>
+            </div>
+            <nav>
+                <ul class="sidebar-links" id="topicList">
+                    <li><a class="nav-link" href="mysql-fundamentals.html"><i class="bi-diagram-2"></i><span>MySQL Fundamentals</span></a></li>
+                    <li><a class="nav-link" href="crud-operations.html"><i class="bi-pencil-square"></i><span>CRUD Operations</span></a></li>
+                    <li><a class="nav-link" href="sql-joins.html"><i class="bi-link-45deg"></i><span>SQL Joins</span></a></li>
+                    <li><a class="nav-link" href="indexes.html"><i class="bi-lightning-fill"></i><span>Indexes</span></a></li>
+                    <li><a class="nav-link" href="query-optimization.html"><i class="bi-speedometer2"></i><span>Query Optimization</span></a></li>
+                    <li><a class="nav-link" href="transactions-acid.html"><i class="bi-arrow-repeat"></i><span>Transactions &amp; ACID</span></a></li>
+                    <li><a class="nav-link" href="stored-procedures.html"><i class="bi-code-square"></i><span>Stored Procedures</span></a></li>
+                    <li><a class="nav-link" href="triggers.html"><i class="bi-bell-fill"></i><span>Triggers</span></a></li>
+                    <li><a class="nav-link active" href="views.html"><i class="bi-eye"></i><span>Views</span></a></li>
+                    <li><a class="nav-link" href="normalization.html"><i class="bi-diagram-3-fill"></i><span>Normalization</span></a></li>
+                    <li><a class="nav-link" href="data-types.html"><i class="bi-diagram-2"></i><span>Data Types</span></a></li>
+                    <li><a class="nav-link" href="string-functions.html"><i class="bi-chat-square-text"></i><span>String Functions</span></a></li>
+                    <li><a class="nav-link" href="date-time-functions.html"><i class="bi-calendar-event"></i><span>Date &amp; Time</span></a></li>
+                    <li><a class="nav-link" href="aggregate-functions.html"><i class="bi-graph-up"></i><span>Aggregate Functions</span></a></li>
+                    <li><a class="nav-link" href="window-functions.html"><i class="bi-column-gap"></i><span>Window Functions</span></a></li>
+                    <li><a class="nav-link" href="subqueries-ctes.html"><i class="bi-filter"></i><span>Subqueries &amp; CTEs</span></a></li>
+                    <li><a class="nav-link" href="full-text-search.html"><i class="bi-search"></i><span>Full-Text Search</span></a></li>
+                    <li><a class="nav-link" href="replication-ha.html"><i class="bi-diagram-3"></i><span>Replication &amp; HA</span></a></li>
+                    <li><a class="nav-link" href="security-permissions.html"><i class="bi-shield-check"></i><span>Security</span></a></li>
+                    <li><a class="nav-link" href="performance-tuning.html"><i class="bi-sliders"></i><span>Performance Tuning</span></a></li>
+                    <li><a class="nav-link" href="interview-queries-1.html"><i class="bi-gear-fill"></i><span>Interview Queries 1</span></a></li>
+                    <li><a class="nav-link" href="interview-queries-2.html"><i class="bi-gear-fill"></i><span>Interview Queries 2</span></a></li>
+                </ul>
+            </nav>
+        </aside>
+        <div class="sidebar-backdrop" id="sidebarBackdrop"></div>
+        <div class="content-area">
+            <div class="mobile-bar d-lg-none">
+                <button class="btn btn-sm btn-glass" id="sidebarToggle">
+                    <i class="bi bi-layout-sidebar-inset me-1"></i>Topics
+                </button>
+                <span class="badge rounded-pill" style="background:#0F766E;color:#fff;">MySQL</span>
+            </div>
+            <div class="breadcrumb-nav" id="breadcrumb">
+                <a href="../../index.html">Home</a><span class="sep">/</span>
+                <a href="../../pages/mysql.html">MySQL</a><span class="sep">/</span>
+                <span class="current">Views</span>
+            </div>
+            <div class="qs-header">
+                <h1 class="qs-title" id="topicTitle">MySQL Views Interview Questions</h1>
+                <span class="badge qs-badge" id="questionCount">15 Questions</span>
+            </div>
+
+
+            <div class="accordion" id="questionsAccordion">
+                <div class="accordion-item">
+                    <h2 class="accordion-header" id="h_q0">
+                        <button class="accordion-button" type="button" data-bs-toggle="collapse" data-bs-target="#c_q0" aria-expanded="true"><span class="question-number">1</span> What is a view and what are its advantages?</button>
+                    </h2>
+                    <div id="c_q0" class="accordion-collapse collapse show" data-bs-parent="#questionsAccordion">
+                        <div class="accordion-body">
+                        <p>A <strong>view</strong> is a virtual table created from one or more base tables using a SELECT query. <strong>Advantages</strong> include simplified queries (abstraction), security (restrict column/row access), code reuse, and logical organization of data.</p>
+                        <pre><code>-- Create a simple view
+CREATE VIEW employee_summary AS
+SELECT employee_id, name, salary, department_id
+FROM employees
+WHERE status = 'active';
+
+-- Use view like a table
+SELECT * FROM employee_summary;
+SELECT * FROM employee_summary WHERE salary > 50000;
+
+-- View advantages:
+-- 1. Abstraction: Hide complex joins
+CREATE VIEW order_details_view AS
+SELECT o.order_id, o.order_date, c.customer_name, 
+       p.product_name, oi.quantity, oi.price
+FROM orders o
+JOIN customers c ON o.customer_id = c.id
+JOIN order_items oi ON o.id = oi.order_id
+JOIN products p ON oi.product_id = p.id;
+
+-- 2. Security: Restrict access
+CREATE VIEW employee_public_view AS
+SELECT name, department FROM employees;
+-- Hide sensitive columns like salary
+
+-- 3. Reusability: Multiple queries use same view
+SELECT * FROM employee_public_view;
+SELECT * FROM employee_public_view WHERE department = 'Sales';</code></pre>
+
+                        <p><strong>Why it matters:</strong> Views simplify complex database design and provide abstraction.</p>
+
+                        <p><strong>Real applications:</strong> Reporting, user-restricted data access, API response generation.</p>
+
+                        <p><strong>Common mistakes:</strong> Overusing views causing performance issues, views with inappropriate complexity.</p>
+                    </div>
+                </div>
+                </div>
+
+                <div class="accordion-item">
+                    <h2 class="accordion-header" id="h_q1">
+                        <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#c_q1" aria-expanded="false"><span class="question-number">2</span> How do you create, modify, and drop views?</button>
+                    </h2>
+                    <div id="c_q1" class="accordion-collapse collapse" data-bs-parent="#questionsAccordion">
+                        <div class="accordion-body">
+                        <p><strong>CREATE VIEW</strong> defines a new view. <strong>CREATE OR REPLACE VIEW</strong> modifies if exists or creates if not. <strong>ALTER VIEW</strong> changes definition. <strong>DROP VIEW</strong> deletes the view without affecting underlying tables.</p>
+                        <pre><code>-- Create view
+CREATE VIEW sales_summary AS
+SELECT DATE(order_date) as sales_date, SUM(amount) as daily_total
+FROM orders
+WHERE status = 'completed'
+GROUP BY DATE(order_date);
+
+-- Create or replace (if structure compatible)
+CREATE OR REPLACE VIEW sales_summary AS
+SELECT DATE(order_date) as sales_date, 
+       SUM(amount) as daily_total,
+       COUNT(*) as order_count
+FROM orders
+WHERE status = 'completed'
+GROUP BY DATE(order_date);
+
+-- Modify view
+ALTER VIEW sales_summary AS
+SELECT DATE(order_date) as sale_date, SUM(amount) as total_sales
+FROM orders
+WHERE status IN ('completed', 'shipped')
+GROUP BY DATE(order_date);
+
+-- Drop view
+DROP VIEW sales_summary;
+
+-- Drop if exists
+DROP VIEW IF EXISTS sales_summary;
+
+-- Drop multiple views
+DROP VIEW IF EXISTS sales_summary, customer_summary, product_summary;
+
+-- Create view with CHECK OPTION (restrict updates)
+CREATE VIEW active_employees AS
+SELECT * FROM employees WHERE status = 'active'
+WITH CHECK OPTION;
+
+-- View shows creation
+SHOW CREATE VIEW sales_summary;</code></pre>
+
+                        <p><strong>Why it matters:</strong> Managing views efficiently maintains database clarity and prevents errors.</p>
+
+                        <p><strong>Real applications:</strong> Schema updates, reporting infrastructure changes.</p>
+
+                        <p><strong>Common mistakes:</strong> Changing view structure breaking dependent code, not using DROP IF EXISTS.</p>
+                    </div>
+                </div>
+                </div>
+
+                <div class="accordion-item">
+                    <h2 class="accordion-header" id="h_q2">
+                        <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#c_q2" aria-expanded="false"><span class="question-number">3</span> What are updatable views and when can you update them?</button>
+                    </h2>
+                    <div id="c_q2" class="accordion-collapse collapse" data-bs-parent="#questionsAccordion">
+                        <div class="accordion-body">
+                        <p><strong>Updatable views</strong> support INSERT, UPDATE, DELETE operations. Restrictions include: single table sources, no GROUP BY, no DISTINCT, no aggregate functions, no UNION. Non-updatable views are read-only. Use <strong>WITH CHECK OPTION</strong> to ensure updates maintain view conditions.</p>
+                        <pre><code>-- Updatable view: Simple single-table view
+CREATE VIEW active_products AS
+SELECT product_id, name, price FROM products
+WHERE active = 1;
+
+-- These work: Basic operations
+UPDATE active_products SET price = 99 WHERE product_id = 1;
+INSERT INTO active_products VALUES (10, 'New Product', 50);
+DELETE FROM active_products WHERE product_id = 5;
+
+-- Non-updatable view: Complex query
+CREATE VIEW sales_summary AS
+SELECT customer_id, COUNT(*) as order_count, SUM(amount) as total_spent
+FROM orders
+GROUP BY customer_id;
+
+-- These DON'T work: View has GROUP BY
+UPDATE sales_summary SET total_spent = 1000;  -- Error
+INSERT INTO sales_summary VALUES (1, 5, 1000);  -- Error
+
+-- CHECK OPTION: Ensure updates maintain view conditions
+CREATE VIEW premium_customers AS
+SELECT customer_id, name, credit_limit FROM customers
+WHERE credit_limit > 10000
+WITH CHECK OPTION;
+
+-- This works: New values hold condition
+UPDATE premium_customers SET credit_limit = 15000 WHERE customer_id = 1;
+
+-- This fails: Violates CHECK OPTION
+UPDATE premium_customers SET credit_limit = 5000 WHERE customer_id = 1;
+
+-- LOCAL vs CASCADED CHECK OPTION
+CREATE VIEW derived_view AS
+SELECT * FROM base_view
+WITH LOCAL CHECK OPTION;  -- Only check this level
+
+CREATE VIEW derived_view AS
+SELECT * FROM base_view  
+WITH CASCADED CHECK OPTION;  -- Check all levels (default)</code></pre>
+
+                        <p><strong>Why it matters:</strong> Understanding updateability prevents incorrect update attempts.</p>
+
+                        <p><strong>Real applications:</strong> Simple views often updatable, complex reporting views are read-only.</p>
+
+                        <p><strong>Common mistakes:</strong> Trying to update aggregate/grouped views, not using CHECK OPTION.</p>
+                    </div>
+                </div>
+                </div>
+
+                <div class="accordion-item">
+                    <h2 class="accordion-header" id="h_q3">
+                        <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#c_q3" aria-expanded="false"><span class="question-number">4</span> What are materialized views and temporary tables?</button>
+                    </h2>
+                    <div id="c_q3" class="accordion-collapse collapse" data-bs-parent="#questionsAccordion">
+                        <div class="accordion-body">
+                        <p><strong>Materialized views</strong> (often called snapshots) store query results physically. MySQL doesn't support native materialized views but you can simulate with tables. <strong>Temporary tables</strong> exist for session duration. Both are faster than regular views but require refresh.</p>
+                        <pre><code>-- Simulate materialized view with table
+CREATE TABLE sales_summary_materialized AS
+SELECT DATE(order_date) as sales_date, SUM(amount) as total
+FROM orders
+GROUP BY DATE(order_date);
+
+-- Add index for performance
+CREATE INDEX idx_date ON sales_summary_materialized(sales_date);
+
+-- Refresh materialized view
+TRUNCATE sales_summary_materialized;
+INSERT INTO sales_summary_materialized
+SELECT DATE(order_date) as sales_date, SUM(amount) as total
+FROM orders
+GROUP BY DATE(order_date);
+
+-- Or use stored procedure for refresh
+DELIMITER //
+CREATE PROCEDURE RefreshSalesSummary()
+BEGIN
+    DELETE FROM sales_summary_materialized;
+    INSERT INTO sales_summary_materialized
+    SELECT DATE(order_date) as sales_date, SUM(amount) as total
+    FROM orders
+    GROUP BY DATE(order_date);
+END //
+DELIMITER ;
+
+-- Temporary table: Exists only for session
+CREATE TEMPORARY TABLE temp_data AS
+SELECT * FROM large_table WHERE status = 'active';
+
+-- Use temporary table in session
+SELECT * FROM temp_data;
+
+-- Automatically dropped when session ends
+
+-- Performance comparison
+-- Regular view: Recalculates every query = Slow for complex queries
+-- Materialized view: Pre-calculated, fast queries = Needs refresh
+-- Temporary table: Session-specific data = Good for ETL</code></pre>
+
+                        <p><strong>Why it matters:</strong> Materialized views significantly improve complex query performance.</p>
+
+                        <p><strong>Real applications:</strong> Data warehouses, reporting systems, analytics dashboards.</p>
+
+                        <p><strong>Common mistakes:</strong> Stale materialized data, too-frequent or infrequent refreshes.</p>
+                    </div>
+                </div>
+                </div>
+
+                <div class="accordion-item">
+                    <h2 class="accordion-header" id="h_q4">
+                        <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#c_q4" aria-expanded="false"><span class="question-number">5</span> How do views affect query performance?</button>
+                    </h2>
+                    <div id="c_q4" class="accordion-collapse collapse" data-bs-parent="#questionsAccordion">
+                        <div class="accordion-body">
+                        <p><strong>View performance</strong> depends on query complexity and view definition. MySQL expands views inline (query flattening), so performance matches equivalent base query. Complex views with nested queries, aggregations, or large joins can be slow. Use <strong>EXPLAIN</strong> to analyze view queries.</p>
+                        <pre><code>-- Simple view: No performance impact
+CREATE VIEW active_employees AS
+SELECT * FROM employees WHERE status = 'active';
+
+-- Equivalent to directly querying employees table
+SELECT * FROM active_employees;
+SELECT * FROM employees WHERE status = 'active';
+-- Same performance!
+
+-- Complex view: Performance considerations
+CREATE VIEW sales_analytics AS
+SELECT c.customer_name, 
+       COUNT(o.id) as order_count,
+       SUM(o.amount) as total_spent,
+       AVG(o.amount) as avg_order,
+       MAX(o.order_date) as last_order
+FROM customers c
+LEFT JOIN orders o ON c.id = o.customer_id
+LEFT JOIN order_items oi ON o.id = oi.order_id
+LEFT JOIN products p ON oi.product_id = p.id
+GROUP BY c.id
+HAVING COUNT(o.id) > 5;
+
+-- Querying complex view might be slow
+
+-- Analyze view performance
+EXPLAIN SELECT * FROM active_employees WHERE salary > 50000;
+
+-- Optimize view queries
+-- 1. Use views with WHERE conditions: Filters before aggregation
+-- 2. Add indexes on join columns
+-- 3. Consider materialized view for complex aggregations
+
+-- Non-indexed view query: Slow
+SELECT * FROM sales_analytics WHERE order_count > 10;
+
+-- Solution: Materialize and index
+CREATE TABLE sales_analytics_mat AS
+SELECT * FROM sales_analytics;
+CREATE INDEX idx_order_count ON sales_analytics_mat(order_count);</code></pre>
+
+                        <p><strong>Why it matters:</strong> View performance directly impacts application responsiveness.</p>
+
+                        <p><strong>Real applications:</strong> Reporting systems slow with complex views, need optimization.</p>
+
+                        <p><strong>Common mistakes:</strong> Deep view nesting, not indexing underlying tables.</p>
+                    </div>
+                </div>
+                </div>
+
+                <div class="accordion-item">
+                    <h2 class="accordion-header" id="h_q5">
+                        <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#c_q5" aria-expanded="false"><span class="question-number">6</span> How do views help with security and data privacy?</button>
+                    </h2>
+                    <div id="c_q5" class="accordion-collapse collapse" data-bs-parent="#questionsAccordion">
+                        <div class="accordion-body">
+                        <p><strong>Views provide security</strong> by restricting column access (hide sensitive data), row access (show only relevant data), and operational simplicity. Users query views instead of base tables, enforcing data policies. <strong>GRANT permissions</strong> on views to control access.</p>
+                        <pre><code>-- Hide sensitive columns view
+CREATE VIEW employee_public_view AS
+SELECT employee_id, name, department, position
+FROM employees;
+-- Salary column hidden
+
+-- Row-level security view
+CREATE VIEW department_view AS
+SELECT * FROM employees
+WHERE department_id = (SELECT department_id FROM employees WHERE employee_id = USER_ID());
+
+-- Create role with view access only
+CREATE ROLE reporting_role;
+GRANT SELECT ON views.* TO reporting_role;
+
+-- Grant view access but not base table
+GRANT SELECT ON view_name TO 'user'@'host';
+REVOKE SELECT ON table_name FROM 'user'@'host';
+
+-- Example: Salary sensitive information
+CREATE VIEW hiring_view AS
+SELECT name, position, hire_date FROM employees;
+
+CREATE VIEW hr_payroll_view AS
+SELECT name, salary, benefits FROM employees;
+
+-- Grant hiring_view to recruiters
+GRANT SELECT ON hiring_view TO 'recruiter'@'%';
+
+-- Grant hr_payroll_view to HR only  
+GRANT SELECT ON hr_payroll_view TO 'hr_person'@'localhost';</code></pre>
+
+                        <p><strong>Why it matters:</strong> Views enforce security policies and protect sensitive data.</p>
+
+                        <p><strong>Real applications:</strong> Employee systems, financial data access, compliance systems.</p>
+
+                        <p><strong>Common mistakes:</strong> Granting base table access (bypasses view security), inconsistent permissions.</p>
+                    </div>
+                </div>
+                </div>
+
+                <div class="accordion-item">
+                    <h2 class="accordion-header" id="h_q6">
+                        <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#c_q6" aria-expanded="false"><span class="question-number">7</span> What are view dependencies and how do you manage them?</button>
+                    </h2>
+                    <div id="c_q6" class="accordion-collapse collapse" data-bs-parent="#questionsAccordion">
+                        <div class="accordion-body">
+                        <p><strong>View dependencies</strong> occur when views reference other views or tables. Dropping a referenced table breaks dependent views. Use <strong>INFORMATION_SCHEMA</strong> to track dependencies. Test changes before applying to understand impact.</p>
+                        <pre><code>-- View dependencies
+CREATE TABLE base_table (id INT, name VARCHAR(100));
+CREATE VIEW view1 AS SELECT * FROM base_table;
+CREATE VIEW view2 AS SELECT * FROM view1;  -- Depends on view1
+
+-- If base_table changes, view1 and view2 affected
+-- If view1 drops, view2 breaks
+
+-- Query dependencies
+SELECT TABLE_SCHEMA, TABLE_NAME 
+FROM INFORMATION_SCHEMA.VIEWS
+WHERE VIEW_DEFINITION LIKE '%employees%';
+
+-- Find dependencies of specific view
+SELECT TABLE_NAME FROM INFORMATION_SCHEMA.KEY_COLUMN_USAGE
+WHERE TABLE_NAME = 'dependent_view';
+
+-- Check what views reference a table
+SELECT VIEW_NAME FROM INFORMATION_SCHEMA.STATISTICS
+WHERE TABLE_NAME = 'base_table';
+
+-- Safe column changes in base table
+-- This breaks dependent views if column referenced
+ALTER TABLE employees ADD COLUMN middle_name VARCHAR(100);
+
+-- Dropping table warning
+-- Before: DROP TABLE employees;
+-- Check views affected first!
+
+-- Safer: Check dependencies first
+SHOW DEPENDS ON employees;  -- Not standard - use INFORMATION_SCHEMA instead
+
+-- Delete dependent views before changing base table
+DROP VIEW IF EXISTS employee_summary;
+-- Modify base table
+ALTER TABLE employees MODIFY COLUMN name VARCHAR(200);
+-- Recreate view
+CREATE VIEW employee_summary AS ...</code></pre>
+
+                        <p><strong>Why it matters:</strong> Understanding dependencies prevents production issues from schema changes.</p>
+
+                        <p><strong>Real applications:</strong> Schema migration, column renames, database upgrades.</p>
+
+                        <p><strong>Common mistakes:</strong> Changing base table without checking dependent views, not testing changes.</p>
+                    </div>
+                </div>
+                </div>
+
+                <div class="accordion-item">
+                    <h2 class="accordion-header" id="h_q7">
+                        <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#c_q7" aria-expanded="false"><span class="question-number">8</span> How do you handle triggers and views together?</button>
+                    </h2>
+                    <div id="c_q7" class="accordion-collapse collapse" data-bs-parent="#questionsAccordion">
+                        <div class="accordion-body">
+                        <p><strong>Triggers and views together</strong> require careful design. Triggers can't fire on views directly—instead routes to underlying table. Instead INSTEAD OF triggers execute when view is modified, providing custom logic for updatable views.</p>
+                        <pre><code>-- INSTEAD OF trigger: Intercept view modifications
+CREATE VIEW product_pricing_view AS
+SELECT product_id, name, category_id, price
+FROM products
+WHERE category_id = 5;
+
+-- Without INSTEAD OF: Can't update this view (has WHERE)
+-- With INSTEAD OF: Can handle updates
+DELIMITER //
+CREATE TRIGGER instead_of_update_pricing INSTEAD OF UPDATE ON product_pricing_view
+FOR EACH ROW
+BEGIN
+    -- Custom logic when updating through view
+    UPDATE products 
+    SET price = NEW.price
+    WHERE product_id = NEW.product_id AND category_id = 5;
+    
+    -- Log price changes
+    INSERT INTO price_change_log VALUES (NOW(), NEW.product_id, OLD.price, NEW.price);
+END //
+DELIMITER ;
+
+-- Now view is updatable through trigger
+UPDATE product_pricing_view SET price = 99 WHERE product_id = 1;
+
+-- INSTEAD OF for INSERT
+DELIMITER //
+CREATE TRIGGER instead_of_insert_product INSTEAD OF INSERT ON product_pricing_view
+FOR EACH ROW
+BEGIN
+    INSERT INTO products (name, category_id, price)
+    VALUES (NEW.name, 5, NEW.price);
+END //
+DELIMITER ;
+
+-- INSTEAD OF for DELETE
+DELIMITER //
+CREATE TRIGGER instead_of_delete_product INSTEAD OF DELETE ON product_pricing_view
+FOR EACH ROW
+BEGIN
+    UPDATE products SET active = 0 WHERE product_id = OLD.product_id;
+END //
+DELIMITER ;</code></pre>
+
+                        <p><strong>Why it matters:</strong> INSTEAD OF triggers enable complex business logic on updatable views.</p>
+
+                        <p><strong>Real applications:</strong> Controlled data modification, complex update logic.</p>
+
+                        <p><strong>Common mistakes:</strong> Not using INSTEAD OF for complex updatable views, triggering cascading changes unexpectedly.</p>
+                    </div>
+                </div>
+                </div>
+
+                <div class="accordion-item">
+                    <h2 class="accordion-header" id="h_q8">
+                        <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#c_q8" aria-expanded="false"><span class="question-number">9</span> What is the difference between views and subqueries?</button>
+                    </h2>
+                    <div id="c_q8" class="accordion-collapse collapse" data-bs-parent="#questionsAccordion">
+                        <div class="accordion-body">
+                        <p><strong>Views</strong> are stored as database objects and reused across queries. <strong>Subqueries</strong> are inline within a query. Views offer reusability and cleaner code, while subqueries are ad-hoc and flexible. Use views for repeated logic, subqueries for one-off analysis.</p>
+                        <pre><code>-- View: Reusable, stored
+CREATE VIEW high_value_customers AS
+SELECT customer_id, name FROM customers
+WHERE lifetime_value > 100000;
+
+-- Multiple queries use same view
+SELECT * FROM high_value_customers;
+SELECT COUNT(*) FROM high_value_customers;
+SELECT AVG(lifetime_value) FROM high_value_customers;
+
+-- Subquery: Ad-hoc, inline
+SELECT * FROM customers
+WHERE customer_id IN (
+    SELECT customer_id FROM orders
+    WHERE order_date > '2024-01-01'
+);
+
+-- View advantages
+// - Reusable across multiple queries
+// - Cleaner, more readable code
+// - Can grant permissions on view only
+// - Performance optimized by database
+// - Maintainability: Change view logic once
+
+-- Subquery advantages
+// - No schema management overhead
+// - Flexible for one-off queries
+// - Easier to test (no stored objects)
+// - Can include different data each time
+
+-- Convert subquery to view
+-- Before
+SELECT o.order_id, o.amount, c.name
+FROM orders o
+JOIN customers c ON o.customer_id = c.id
+WHERE o.amount > (
+    SELECT AVG(amount) FROM orders
+);
+
+-- After (view)
+CREATE VIEW large_orders AS
+SELECT o.order_id, o.amount, c.name
+FROM orders o
+JOIN customers c ON o.customer_id = c.id
+WHERE o.amount > (SELECT AVG(amount) FROM orders);
+
+SELECT * FROM large_orders;</code></pre>
+
+                        <p><strong>Why it matters:</strong> Choosing between views and subqueries affects code organization and maintainability.</p>
+
+                        <p><strong>Real applications:</strong> Views for stable logic, subqueries for exploration and analysis.</p>
+
+                        <p><strong>Common mistakes:</strong> Complex one-off subqueries better as views, not recognizing reusable patterns.</p>
+                    </div>
+                </div>
+                </div>
+
+                <div class="accordion-item">
+                    <h2 class="accordion-header" id="h_q9">
+                        <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#c_q9" aria-expanded="false"><span class="question-number">10</span> What are common patterns and best practices for views?</button>
+                    </h2>
+                    <div id="c_q9" class="accordion-collapse collapse" data-bs-parent="#questionsAccordion">
+                        <div class="accordion-body">
+                        <p><strong>View patterns</strong> include filtering views (restrict rows), projection views (restrict columns), joining views (simplify multi-table queries), and aggregation views (pre-calculated summaries). <strong>Best practices</strong> include clear naming, comprehensive documentation, and keeping views simple.</p>
+                        <pre><code>-- Pattern 1: Filtering view (security by rows)
+CREATE VIEW active_employees_view AS
+SELECT * FROM employees WHERE status = 'active' AND deleted_at IS NULL;
+
+-- Pattern 2: Projection view (security by columns)
+CREATE VIEW public_employee_view AS
+SELECT name, department, position FROM employees;
+
+-- Pattern 3: Joining view (simplify relationships)
+CREATE VIEW order_details_view AS
+SELECT o.order_id, o.order_date, c.customer_name, p.product_name, oi.quantity
+FROM orders o
+JOIN customers c ON o.customer_id = c.id
+JOIN order_items oi ON o.id = oi.order_id
+JOIN products p ON oi.product_id = p.id;
+
+-- Pattern 4: Aggregation view (summary data)
+CREATE VIEW monthly_sales_view AS
+SELECT YEAR(order_date) as year, MONTH(order_date) as month,
+       COUNT(*) as orders, SUM(amount) as total_sales
+FROM orders WHERE status = 'completed'
+GROUP BY YEAR(order_date), MONTH(order_date);
+
+-- Best practices
+// 1. Naming: Use suffix '_view' or '_vw' for clarity
+// 2. Documentation: Comment describing purpose and usage
+// 3. Simplicity: Avoid deep nesting
+// 4. Performance: Use indexes on base tables
+// 5. Security: Follow principle of least privilege
+
+-- Example with documentation
+CREATE VIEW employee_summary_view AS
+/* Purpose: Public employee directory for admin access
+   Columns: Safe subset excluding salary/personal data
+   Maintenance: Update when employee schema changes
+   Performance: Backed by employee table indexes */
+SELECT employee_id, name, department, position, email
+FROM employees
+WHERE status = 'active';</code></pre>
+
+                        <p><strong>Why it matters:</strong> Consistent view patterns and naming improve database usability.</p>
+
+                        <p><strong>Real applications:</strong> Well-designed views significantly reduce query complexity.</p>
+
+                        <p><strong>Common mistakes:</strong> Inconsistent naming, undocumented views, overly complex view logic.</p>
+                    </div>
+                </div>
+                </div>
+
+                <div class="accordion-item">
+                    <h2 class="accordion-header" id="h_q10">
+                        <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#c_q10" aria-expanded="false"><span class="question-number">11</span> How do views affect replication and backups?</button>
+                    </h2>
+                    <div id="c_q10" class="accordion-collapse collapse" data-bs-parent="#questionsAccordion">
+                        <div class="accordion-body">
+                        <p><strong>Views in replication</strong> are replicated as view definition (not data), so they must be re-created on slave. <strong>Backups</strong> include view definitions only, not materialized data. Views don't require backup space, only definition storage.</p>
+                        <pre><code>-- Views are replicated from master to slave
+// 1. Master: CREATE VIEW statement is logged to binlog
+// 2. Slave: Receives statement, recreates view
+// 3. Result: Same view structure on both servers
+
+// For view data to appear on slave:
+// Underlying tables must replicate
+
+-- View backup (definition only)
+SHOW CREATE VIEW employee_summary_view;
+-- Output:
+-- CREATE VIEW employee_summary_view AS
+-- SELECT ...
+
+-- Backup views to file
+mysqldump --user=root --password mysql --views > views_backup.sql
+
+-- Restore views
+mysql --user=root --password < views_backup.sql
+
+-- When backing up database:
+// Views are included in logical backups (mysqldump)
+// Views are NOT included in file-based backups (copy files directly)
+// Physical backups must capture .frm files (view definitions)</code></pre>
+
+                        <p><strong>Why it matters:</strong> Views don't require data backup, only definitions need to be restored.</p>
+
+                        <p><strong>Real applications:</strong> Disaster recovery, cross-server synchronization.</p>
+
+                        <p><strong>Common mistakes:</strong> Assuming views replicate data (they replicate definition), not including views in backups.</p>
+                    </div>
+                </div>
+                </div>
+
+                <div class="accordion-item">
+                    <h2 class="accordion-header" id="h_q11">
+                        <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#c_q11" aria-expanded="false"><span class="question-number">12</span> What are limitations and when to avoid using views?</button>
+                    </h2>
+                    <div id="c_q11" class="accordion-collapse collapse" data-bs-parent="#questionsAccordion">
+                        <div class="accordion-body">
+                        <p><strong>View limitations</strong> include: can't pass parameters, can't reference views from procedural languages easily, SQL-only (no application logic), and potential performance issues with complex queries. Consider alternatives for dynamic requirements or complex logic.</p>
+                        <pre><code>-- Limitation 1: Views can't accept parameters
+-- This doesn't work:
+CREATE VIEW employee_by_dept(dept_id INT) AS
+SELECT * FROM employees WHERE department_id = dept_id;
+
+-- Solution: Use stored procedure instead
+DELIMITER //
+CREATE PROCEDURE get_employees_by_dept(IN dept_id INT)
+BEGIN
+    SELECT * FROM employees WHERE department_id = dept_id;
+END //
+DELIMITER //
+
+-- Limitation 2: Views are SQL-only
+-- Can't include application logic
+-- Can't call external APIs
+-- Can't do conditional branching beyond CASE
+
+-- Solution: Move logic to application layer
+
+-- Limitation 3: Performance with complex queries
+CREATE VIEW complex_analytics AS
+SELECT category, 
+       SUM(sales) as total_sales,
+       AVG(price) as avg_price,
+       COUNT(DISTINCT customer_id) as unique_customers
+FROM (
+    SELECT p.category, o.amount as sales, p.price, o.customer_id
+    FROM orders o
+    JOIN order_items oi ON o.id = oi.order_id
+    JOIN products p ON oi.product_id = p.id
+) as base
+GROUP BY category;
+
+-- Querying complex nested view is slow
+SELECT * FROM complex_analytics WHERE category = 'Electronics';
+
+-- Solution: Materialized view
+CREATE TABLE complex_analytics_mat AS
+SELECT category, SUM(sales) as total_sales, ...
+FROM base_query;
+
+-- Limitation 4: Can't use UPDATE/DELETE easily on complex views
+-- Solution: Use stored procedures with INSTEAD OF triggers
+
+-- When to avoid views
+// 1. Need parameterization → Use procedures
+// 2. Complex business logic → Use application code
+// 3. Performance critical → Use materialized views or caching
+// 4. Frequent ddefinition changes → Use subqueries initially
+// 5. One-time analysis → Use subqueries</code></pre>
+
+                        <p><strong>Why it matters:</strong> Understanding limitations helps choose appropriate solutions.</p>
+
+                        <p><strong>Real applications:</strong> Complex systems use mix of views, procedures, application logic.</p>
+
+                        <p><strong>Common mistakes:</strong> Forcing views for every query need, not recognizing when to use alternatives.</p>
+                    </div>
+                </div>
+                </div>
+
+                <div class="accordion-item">
+                    <h2 class="accordion-header" id="h_q12">
+                        <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#c_q12" aria-expanded="false"><span class="question-number">13</span> How do you optimize views for better performance?</button>
+                    </h2>
+                    <div id="c_q12" class="accordion-collapse collapse" data-bs-parent="#questionsAccordion">
+                        <div class="accordion-body">
+                        <p><strong>View optimization</strong> involves indexing base tables, filtering early (WHERE conditions), avoiding aggregations when possible, and using materialized views for complex queries. EXPLAIN helps identify slow view queries.</p>
+                        <pre><code>-- Optimization 1: Index base tables
+CREATE INDEX idx_status ON employees(status);
+CREATE INDEX idx_dept ON employees(department_id);
+
+-- View queries now benefit from indexes
+CREATE VIEW active_sales_employees AS
+SELECT * FROM employees 
+WHERE status = 'active' AND department_id = 5;
+
+-- Optimization 2: Filter early in view definition
+-- Bad: View returns all data, filtering in query
+CREATE VIEW all_orders AS SELECT * FROM orders;
+SELECT * FROM all_orders WHERE order_date > '2024-01-01';  -- Filters after view
+
+-- Good: Filter in view definition
+CREATE VIEW recent_orders AS
+SELECT * FROM orders 
+WHERE order_date > '2024-01-01';
+
+-- Optimization 3: Use EXPLAIN to analyze view queries
+EXPLAIN SELECT * FROM recent_orders WHERE amount > 1000;
+
+-- Optimization 4: Materialize complex views
+-- Before: View with complex join and grouping
+CREATE VIEW sales_summary AS
+SELECT category, COUNT(*) as order_count, SUM(amount) as total_sales
+FROM orders o
+JOIN order_items oi ON o.id = oi.order_id
+JOIN products p ON oi.product_id = p.id
+GROUP BY category;
+
+-- After: Materialized view
+CREATE TABLE sales_summary_mat AS
+SELECT category, COUNT(*) as order_count, SUM(amount) as total_sales
+FROM orders o
+JOIN order_items oi ON o.id = oi.order_id
+JOIN products p ON oi.product_id = p.id
+GROUP BY category;
+
+-- Add indexes to materialized view
+CREATE INDEX idx_category ON sales_summary_mat(category);
+
+-- Refresh procedure
+DELIMITER //
+CREATE PROCEDURE refresh_sales_summary()
+BEGIN
+    TRUNCATE TABLE sales_summary_mat;
+    INSERT INTO sales_summary_mat SELECT ...;
+END //
+DELIMITER //</code></pre>
+
+                        <p><strong>Why it matters:</strong> Optimized views provide fast query performance without application code changes.</p>
+
+                        <p><strong>Real applications:</strong> Reporting dashboards need view optimization for responsiveness.</p>
+
+                        <p><strong>Common mistakes:</strong> Complex views without indexes, not materializing heavy aggregations.</p>
+                    </div>
+                </div>
+                </div>
+
+                <div class="accordion-item">
+                    <h2 class="accordion-header" id="h_q13">
+                        <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#c_q13" aria-expanded="false"><span class="question-number">14</span> What are views vs stored procedures for data abstraction?</button>
+                    </h2>
+                    <div id="c_q13" class="accordion-collapse collapse" data-bs-parent="#questionsAccordion">
+                        <div class="accordion-body">
+                        <p><strong>Views</strong> abstract SELECT queries in read-only or simple update scenarios. <strong>Stored procedures</strong> provide more control, handle complex logic, transactions, and parameters. Use views for simple queries, procedures for business logic.</p>
+                        <pre><code>-- View: Simple SELECT abstraction
+CREATE VIEW monthly_revenue_view AS
+SELECT YEAR(order_date) as year, MONTH(order_date) as month,
+       SUM(amount) as revenue
+FROM orders WHERE status = 'completed'
+GROUP BY YEAR(order_date), MONTH(order_date);
+
+-- Query view simply
+SELECT * FROM monthly_revenue_view WHERE year = 2024;
+
+-- Procedure: Complex logic with parameters
+DELIMITER //
+CREATE PROCEDURE GetMonthlyRevenue(IN year_input INT, IN month_input INT)
+BEGIN
+    SELECT SUM(amount) as revenue
+    FROM orders
+    WHERE status = 'completed'
+    AND YEAR(order_date) = year_input
+    AND MONTH(order_date) = month_input;
+    
+    -- Could add complex logic
+    -- IF revenue < threshold THEN notify_manager END IF;
+END //
+DELIMITER //
+
+CALL GetMonthlyRevenue(2024, 1);
+
+-- Comparison
+// Views: Read data, simple filtering
+// Procedures: Complex logic, transactions, state management
+
+// Views: Query optimization automatic
+// Procedures: Execution plan cached
+
+// Views: Part of SELECT statement
+// Procedures: Called with CALL statement
+
+-- Use view when:
+// - Simple SELECT query
+// - Reusable filtering/joining
+// - Security (restrict columns/rows)
+
+-- Use procedure when:
+// - Complex logic beyond SQL
+// - Need parameters
+// - Transaction handling required
+// - Modify multiple tables
+// - Need control flow (IF/ELSE, LOOP)</code></pre>
+
+                        <p><strong>Why it matters:</strong> Choosing appropriate abstraction method improves code organization.</p>
+
+                        <p><strong>Real applications:</strong> Simple reads use views, complex operations use procedures.</p>
+
+                        <p><strong>Common mistakes:</strong> Force-fitting complex logic into views, overusing procedures for simple queries.</p>
+                    </div>
+                </div>
+                </div>
+
+                <div class="accordion-item">
+                    <h2 class="accordion-header" id="h_q14">
+                        <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#c_q14" aria-expanded="false"><span class="question-number">15</span> What are practical examples of useful views in business applications?</button>
+                    </h2>
+                    <div id="c_q14" class="accordion-collapse collapse" data-bs-parent="#questionsAccordion">
+                        <div class="accordion-body">
+                        <p><strong>Common business views</strong> include customer summaries (lifetime value, order count), product performance (sales, rankings), employee hierarchies (reporting structure), and financial reports (revenue, expenses). These abstract complexity from application code.</p>
+                        <pre><code>-- E-Commerce Views
+-- Customer lifetime value view
+CREATE VIEW customer_ltv_view AS
+SELECT c.customer_id, c.name, COUNT(o.id) as total_orders,
+       SUM(o.amount) as lifetime_value,
+       MAX(o.order_date) as last_order_date
+FROM customers c
+LEFT JOIN orders o ON c.id = o.customer_id
+GROUP BY c.id;
+
+-- Top selling products view
+CREATE VIEW top_products_view AS
+SELECT p.product_id, p.name, p.category,
+       SUM(oi.quantity) as units_sold,
+       SUM(oi.quantity * oi.price) as revenue
+FROM products p
+JOIN order_items oi ON p.id = oi.product_id
+GROUP BY p.id
+ORDER BY revenue DESC
+LIMIT 100;
+
+-- HR Management Views
+-- Employee organizational chart view
+CREATE VIEW org_hierarchy_view AS
+SELECT e.employee_id, e.name, e.position,
+       m.employee_id as manager_id, m.name as manager_name
+FROM employees e
+LEFT JOIN employees m ON e.manager_id = m.employee_id;
+
+-- Payroll summary view
+CREATE VIEW payroll_summary_view AS
+SELECT e.employee_id, e.name, e.base_salary,
+       COALESCE(SUM(b.bonus), 0) as total_bonuses,
+       e.base_salary + COALESCE(SUM(b.bonus), 0) as total_compensation
+FROM employees e
+LEFT JOIN bonuses b ON e.id = b.employee_id
+GROUP BY e.id;
+
+-- Financial Views
+-- Monthly profit and loss view
+CREATE VIEW monthly_pl_view AS
+SELECT YEAR(date) as year, MONTH(date) as month,
+       SUM(CASE WHEN type = 'revenue' THEN amount ELSE 0 END) as revenue,
+       SUM(CASE WHEN type = 'expense' THEN amount ELSE 0 END) as expenses,
+       SUM(CASE WHEN type = 'revenue' THEN amount ELSE -amount END) as profit
+FROM transactions
+GROUP BY YEAR(date), MONTH(date);</code></pre>
+
+                        <p><strong>Why it matters:</strong> Well-designed business views significantly simplify application development.</p>
+
+                        <p><strong>Real applications:</strong> Every business system uses similar view patterns for abstraction.</p>
+
+                        <p><strong>Common mistakes:</strong> Not creating views for common queries, forcing application-level logic.</p>
+                    </div>
+                </div>
+                </div>
+            </div>
+
+          
+
+
+
+              <div class="topic-nav" id="topicNav">
+            <a class="topic-nav-btn prev" href="triggers.html">
+                <span class="label"><i class="bi bi-arrow-left me-1"></i> Previous</span>
+                <span class="title">Triggers</span>
+            </a>
+            <a class="topic-nav-btn next" href="normalization.html">
+                <span class="label">Next <i class="bi bi-arrow-right ms-1"></i></span>
+                <span class="title">Normalization</span>
+            </a>
+            </div>
+             <footer class="app-footer">
+                <p>&copy; 2026 InterviewPrep &mdash; MySQL Interview Questions</p>
+            </footer>
+        </div>
+    </div>
+    <button class="btn-totop" id="backToTop"><i class="bi bi-chevron-up"></i></button>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>
+    <script>
+    (function(){
+        var sb=document.getElementById('sidebar'),bd=document.getElementById('sidebarBackdrop'),
+            tg=document.getElementById('sidebarToggle');
+        if(tg)tg.addEventListener('click',function(){sb.classList.add('open');bd.classList.add('show');});
+        if(bd)bd.addEventListener('click',function(){sb.classList.remove('open');bd.classList.remove('show');});
+        var btt=document.getElementById('backToTop');
+        window.addEventListener('scroll',function(){btt.classList.toggle('show',window.scrollY>400);});
+        btt.addEventListener('click',function(){window.scrollTo({top:0,behavior:'smooth'});});
+    })();
+    </script>
+</body>
+
+</html>

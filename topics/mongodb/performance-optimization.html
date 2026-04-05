@@ -1,0 +1,658 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="MongoDB Performance Optimization interview questions covering query analysis, indexing strategies, connection pooling, and caching techniques.">
+    <meta name="keywords" content="MongoDB performance, MongoDB optimization, explain plan, query profiler, connection pooling, MongoDB interview questions 2026">
+    <meta name="author" content="InterviewPrep">
+    <meta name="robots" content="index, follow">
+    <link rel="icon" type="image/svg+xml" href="../../favicon.svg" sizes="any">
+    <meta property="og:type" content="website">
+    <meta property="og:title" content="MongoDB Performance Optimization — MongoDB Interview Questions | InterviewPrep">
+    <meta property="og:description" content="MongoDB Performance Optimization interview questions covering query analysis, indexing strategies, connection pooling, and caching techniques.">
+    <meta property="og:url" content="https://coddingquestionhub.com/topics/mongodb/performance-optimization.html">
+    <title>Performance Optimization — MongoDB Interview Questions | InterviewPrep 2026</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&family=Fira+Code:wght@400;500&display=swap" rel="stylesheet">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="../../css/styles.css">
+    <link rel="canonical" href="https://coddingquestionhub.com/topics/mongodb/performance-optimization.html">
+    <script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "FAQPage",
+  "mainEntity": [
+    {
+      "@type": "Question",
+      "name": "MongoDB Performance Optimization — MongoDB Interview Questions | InterviewPrep",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "MongoDB Performance Optimization interview questions covering query analysis, indexing strategies, connection pooling, and caching techniques."
+      }
+    }
+  ]
+}
+    </script>
+    <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-8957020141286926" crossorigin="anonymous"></script>
+    <script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "BreadcrumbList",
+  "itemListElement": [
+    {
+      "@type": "ListItem",
+      "position": 1,
+      "name": "Home",
+      "item": "https://coddingquestionhub.com"
+    },
+    {
+      "@type": "ListItem",
+      "position": 2,
+      "name": "Topics",
+      "item": "https://coddingquestionhub.com/topics"
+    },
+    {
+      "@type": "ListItem",
+      "position": 3,
+      "name": "Mongodb",
+      "item": "https://coddingquestionhub.com/topics/mongodb"
+    },
+    {
+      "@type": "ListItem",
+      "position": 4,
+      "name": "Performance Optimization",
+      "item": "https://coddingquestionhub.com/topics/mongodb/performance-optimization.html"
+    }
+  ]
+}
+    </script>
+</head>
+<body class="theme-mongodb">
+    <nav class="navbar navbar-expand-lg sticky-top" id="mainNavbar">
+        <div class="container-fluid px-3 px-lg-4">
+            <a class="navbar-brand fw-bold d-flex align-items-center gap-2" href="../../index.html">
+                <span class="brand-icon"><i class="bi bi-braces-asterisk"></i></span>
+                <span>Interview<span class="brand-accent">Prep</span></span>
+            </a>
+            <button class="navbar-toggler border-0 shadow-none" type="button"
+                    data-bs-toggle="collapse" data-bs-target="#navbarContent">
+                <i class="bi bi-list fs-3 text-white"></i>
+            </button>
+            <div class="collapse navbar-collapse" id="navbarContent">
+                <ul class="navbar-nav me-auto mb-2 mb-lg-0 ms-lg-3">
+                    <li class="nav-item dropdown">
+                        <a class="nav-link dropdown-toggle fw-500" href="#" role="button"
+                           data-bs-toggle="dropdown">
+                            <i class="bi bi-layers me-1"></i> Choose Category
+                        </a>
+                        <ul class="dropdown-menu">
+                            <li><a class="dropdown-item fw-500" href="../../pages/angular.html"><i class="bi bi-bootstrap me-2 text-danger"></i>Angular</a></li>
+                            <li><a class="dropdown-item fw-500" href="../../pages/react.html"><i class="bi bi-infinity me-2 text-info"></i>React</a></li>
+                            <li><a class="dropdown-item fw-500" href="../../pages/node.html"><i class="bi bi-hdd-network me-2 text-success"></i>Node.js</a></li>
+                            <li><a class="dropdown-item fw-500" href="../../pages/javascript.html"><i class="bi bi-filetype-js me-2 text-warning"></i>JavaScript</a></li>
+                            <li><a class="dropdown-item fw-500" href="../../pages/dsa.html"><i class="bi bi-diagram-3-fill me-2" style="color:#8b5cf6"></i>DSA</a></li>
+                            <li><a class="dropdown-item fw-500" href="../../pages/logical.html"><i class="bi bi-lightbulb me-2" style="color:#f59e0b"></i>Logical Reasoning</a></li>
+                            <li><a class="dropdown-item fw-500" href="../../pages/mongodb.html"><i class="bi bi-database-fill me-2" style="color:#4DB33D"></i>MongoDB</a></li>
+                            <li><a class="dropdown-item fw-500" href="../../pages/mysql.html"><i class="bi bi-table me-2" style="color:#0F766E"></i>MySQL</a></li>
+                        </ul>
+                    </li>
+                </ul>
+                <div class="search-wrap">
+                    <i class="bi bi-search search-icon"></i>
+                    <input class="form-control search-input" type="search"
+                           placeholder="Search questions..." id="searchInput">
+                </div>
+            </div>
+        </div>
+    </nav>
+    <div class="app-wrapper">
+        <aside class="sidebar" id="sidebar">
+            <div class="sidebar-head">
+                <h6><i class="bi bi-database-fill me-2"></i>MongoDB Topics</h6>
+            </div>
+            <nav>
+                <ul class="sidebar-links" id="topicList">
+                    <li><a class="nav-link" href="mongodb-fundamentals.html"><i class="bi-diagram-2"></i><span>MongoDB Fundamentals</span></a></li>
+                    <li><a class="nav-link" href="crud-operations.html"><i class="bi-pencil-square"></i><span>CRUD Operations</span></a></li>
+                    <li><a class="nav-link" href="aggregation-pipeline.html"><i class="bi-shuffle"></i><span>Aggregation Pipeline</span></a></li>
+                    <li><a class="nav-link" href="indexes.html"><i class="bi-lightning-fill"></i><span>Indexes</span></a></li>
+                    <li><a class="nav-link" href="schema-design.html"><i class="bi-layout-wtf"></i><span>Schema Design</span></a></li>
+                    <li><a class="nav-link" href="relationships.html"><i class="bi-link-45deg"></i><span>Relationships</span></a></li>
+                    <li><a class="nav-link" href="transactions.html"><i class="bi-arrow-repeat"></i><span>Transactions</span></a></li>
+                    <li><a class="nav-link" href="mongoose-odm.html"><i class="bi-code-square"></i><span>Mongoose ODM</span></a></li>
+                    <li><a class="nav-link active" href="performance-optimization.html"><i class="bi-speedometer2"></i><span>Performance Optimization</span></a></li>
+                    <li><a class="nav-link" href="replication-sharding.html"><i class="bi-diagram-3-fill"></i><span>Replication &amp; Sharding</span></a></li>
+                    <li><a class="nav-link" href="security.html"><i class="bi-shield-check"></i><span>Security</span></a></li>
+                    <li><a class="nav-link" href="text-search-geospatial.html"><i class="bi-search"></i><span>Text Search &amp; Geo</span></a></li>
+                    <li><a class="nav-link" href="change-streams-watchers.html"><i class="bi-eye"></i><span>Change Streams</span></a></li>
+                    <li><a class="nav-link" href="interview-queries-1.html"><i class="bi-gear-fill"></i><span>Interview Queries 1</span></a></li>
+                    <li><a class="nav-link" href="interview-queries-2.html"><i class="bi-gear-fill"></i><span>Interview Queries 2</span></a></li>
+                </ul>
+            </nav>
+        </aside>
+        <div class="sidebar-backdrop" id="sidebarBackdrop"></div>
+        <div class="content-area">
+            <div class="mobile-bar d-lg-none">
+                <button class="btn btn-sm btn-glass" id="sidebarToggle">
+                    <i class="bi bi-layout-sidebar-inset me-1"></i>Topics
+                </button>
+                <span class="badge rounded-pill bg-success">MongoDB</span>
+            </div>
+            <div class="breadcrumb-nav" id="breadcrumb">
+                <a href="../../index.html">Home</a><span class="sep">/</span>
+                <a href="../../pages/mongodb.html">MongoDB</a><span class="sep">/</span>
+                <span class="current">Performance Optimization</span>
+            </div>
+            <div class="qs-header">
+                <h1 class="qs-title" id="topicTitle">Performance Optimization</h1>
+                <span class="badge qs-badge" id="questionCount">15 Questions</span>
+            </div>
+            <div class="accordion" id="questionsAccordion">
+        <div class="accordion-item">
+            <h2 class="accordion-header" id="h_q0">
+                <button class="accordion-button" type="button"
+                    data-bs-toggle="collapse" data-bs-target="#c_q0"
+                    aria-expanded="true">
+                    <span class="question-number">1</span>How do you analyze a slow query in MongoDB using explain()?
+                </button>
+            </h2>
+            <div id="c_q0" class="accordion-collapse collapse show"
+                data-bs-parent="#questionsAccordion">
+                <div class="accordion-body">The <strong>explain()</strong> method returns execution statistics for a query, revealing whether indexes are used and how many documents are scanned. It accepts three verbosity modes: <strong>queryPlanner</strong> (default), <strong>executionStats</strong>, and <strong>allPlansExecution</strong>. The key metric to watch is <code>totalDocsExamined</code> — if it far exceeds <code>nReturned</code>, the query is inefficient and likely performing a <strong>COLLSCAN</strong> (full collection scan) instead of an <strong>IXSCAN</strong> (index scan). Creating the right index typically drops execution time from seconds to milliseconds.
+<pre><code>// Basic explain
+db.orders.find({ status: "pending" }).explain("executionStats")
+
+// Key fields to check:
+// executionStats.totalDocsExamined — docs scanned
+// executionStats.nReturned — docs returned
+// winningPlan.stage — "COLLSCAN" is bad, "IXSCAN" is good
+// executionStats.executionTimeMillis — query time</code></pre>
+                <p><strong>Why it matters:</strong> Understanding query execution plans is fundamental to database optimization and a skill tested heavily in interviews. Interviewers want to see if you can diagnose performance issues systematically.</p>
+                <p><strong>Real applications:</strong> In production, you diagnose slow queries by comparing totalDocsExamined to nReturned; a large ratio indicates a missing index and signals the need to add one to meet SLA targets.</p>
+                <p><strong>Common mistakes:</strong> Confusing COLLSCAN (full collection scan) with IXSCAN (index scan), or ignoring queryPlanner output and jumping to executionStats without understanding the what-if scenarios for other index choices.</p>
+                </div>
+            </div>
+        </div>
+        <div class="accordion-item">
+            <h2 class="accordion-header" id="h_q1">
+                <button class="accordion-button collapsed" type="button"
+                    data-bs-toggle="collapse" data-bs-target="#c_q1"
+                    aria-expanded="false">
+                    <span class="question-number">2</span>What is the MongoDB query profiler and how do you enable it?
+                </button>
+            </h2>
+            <div id="c_q1" class="accordion-collapse collapse"
+                data-bs-parent="#questionsAccordion">
+                <div class="accordion-body">The <strong>database profiler</strong> captures slow operations into the <code>system.profile</code> capped collection. It has three levels: <strong>0</strong> (off), <strong>1</strong> (log operations slower than <code>slowms</code>), and <strong>2</strong> (log all operations). Setting level 1 with a threshold of 100ms is a common production strategy. The profiler adds overhead, so level 2 should only be used temporarily during debugging. Querying <code>system.profile</code> reveals the worst offenders by namespace, millis, and operation type.
+<pre><code>// Enable profiling level 1 for queries > 100ms
+db.setProfilingLevel(1, { slowms: 100 })
+
+// Check current profiling level
+db.getProfilingStatus()
+
+// Query the profile collection
+db.system.profile.find({ millis: { $gt: 100 } }).sort({ ts: -1 }).limit(10)
+
+// Check most expensive queries
+db.system.profile.find().sort({ millis: -1 }).limit(5)</code></pre>
+                <p><strong>Why it matters:</strong> Production profiling is one of the most powerful tools for identifying bottlenecks; knowing how to enable and query profile data shows you understand real-world performance troubleshooting.</p>
+                <p><strong>Real applications:</strong> In production systems you enable profiling level 1 with an appropriate slowms threshold, then regularly query system.profile to find and fix slow operations before they impact users.</p>
+                <p><strong>Common mistakes:</strong> Forgetting to set a slowms threshold (leaving it at the default 100ms), enabling level 2 profiling in live production without capacity planning, or not disabling profiling after debugging.</p>
+                </div>
+            </div>
+        </div>
+        <div class="accordion-item">
+            <h2 class="accordion-header" id="h_q2">
+                <button class="accordion-button collapsed" type="button"
+                    data-bs-toggle="collapse" data-bs-target="#c_q2"
+                    aria-expanded="false">
+                    <span class="question-number">3</span>What is projection and how does it improve query performance?
+                </button>
+            </h2>
+            <div id="c_q2" class="accordion-collapse collapse"
+                data-bs-parent="#questionsAccordion">
+                <div class="accordion-body"><strong>Projection</strong> limits which fields MongoDB returns in query results, reducing both network transfer and memory usage. Instead of fetching entire documents, you specify <code>1</code> for fields to include or <code>0</code> to exclude. A <strong>covered query</strong> — where all fields in the query and projection exist in an index — never touches the actual documents, making it extremely fast. Always project only the fields your application needs, especially in high-throughput APIs. The <code>_id</code> field is included by default and must be explicitly excluded with <code>_id: 0</code>.
+<pre><code>// Include only name and email (exclude everything else)
+db.users.find({ active: true }, { name: 1, email: 1, _id: 0 })
+
+// Covered query: index on { active: 1, name: 1, email: 1 }
+// MongoDB never reads actual documents — fastest possible query
+
+// Exclude sensitive fields
+db.users.find({}, { password: 0, creditCard: 0 })</code></pre>
+                <p><strong>Why it matters:</strong> Projection directly reduces query latency, memory usage, and network bandwidth—critical for API performance at scale. It's a must-know optimization that interviewers expect candidates to consider.</p>
+                <p><strong>Real applications:</strong> Mobile apps and slow-network clients benefit significantly from projection; returning only needed fields can reduce payload by 50-80%, dramatically improving load times and reducing data plan overage charges.</p>
+                <p><strong>Common mistakes:</strong> Not excluding sensitive fields, projecting entire nested objects when only one property is needed, or forgetting that _id is included by default and must be explicitly excluded with _id: 0.</p>
+                </div>
+            </div>
+        </div>
+        <div class="accordion-item">
+            <h2 class="accordion-header" id="h_q3">
+                <button class="accordion-button collapsed" type="button"
+                    data-bs-toggle="collapse" data-bs-target="#c_q3"
+                    aria-expanded="false">
+                    <span class="question-number">4</span>What is connection pooling in MongoDB and why is it important?
+                </button>
+            </h2>
+            <div id="c_q3" class="accordion-collapse collapse"
+                data-bs-parent="#questionsAccordion">
+                <div class="accordion-body"><strong>Connection pooling</strong> maintains a pool of reusable TCP connections to MongoDB, avoiding the overhead of establishing a new connection for every database operation. The MongoDB driver manages the pool automatically with a default size of 100 connections per <code>MongoClient</code> instance. The critical rule is to create <strong>one MongoClient per application</strong> and reuse it — creating a new client per request is a major anti-pattern that exhausts file descriptors and causes timeouts. Pool size should be tuned based on concurrent request load and MongoDB's <code>maxIncomingConnections</code>.
+<pre><code>// WRONG — creates new connection per request
+app.get('/users', async (req, res) => {
+  const client = new MongoClient(uri); // anti-pattern!
+  await client.connect();
+  // ...
+});
+
+// CORRECT — reuse single client
+const client = new MongoClient(uri, { maxPoolSize: 50 });
+await client.connect();
+const db = client.db('myapp');
+app.get('/users', async (req, res) => {
+  const users = await db.collection('users').find().toArray();
+  res.json(users);
+});</code></pre>
+                <p><strong>Why it matters:</strong> Connection pooling is fundamental to building scalable applications; mismanaging connections is one of the most common performance anti-patterns that interviewers watch for.</p>
+                <p><strong>Real applications:</strong> High-traffic systems with thousands of concurrent users depend on connection pooling to serve requests efficiently. Without it, connection exhaustion becomes the limiting factor and requests timeout.</p>
+                <p><strong>Common mistakes:</strong> Creating a new MongoClient per request (causing connection pool exhaustion), not waiting for client.connect() before using the database, or closing the client after each request instead of at application shutdown.</p>
+                </div>
+            </div>
+        </div>
+        <div class="accordion-item">
+            <h2 class="accordion-header" id="h_q4">
+                <button class="accordion-button collapsed" type="button"
+                    data-bs-toggle="collapse" data-bs-target="#c_q4"
+                    aria-expanded="false">
+                    <span class="question-number">5</span>How do you use hint() to force an index in MongoDB?
+                </button>
+            </h2>
+            <div id="c_q4" class="accordion-collapse collapse"
+                data-bs-parent="#questionsAccordion">
+                <div class="accordion-body">The <strong>hint()</strong> method forces MongoDB to use a specific index, overriding the query planner. This is useful when the query planner chooses a suboptimal plan due to outdated statistics or data distribution. You can specify the index by name string or by key pattern object. Use <code>hint({ $natural: 1 })</code> to force a collection scan. Always verify with <code>explain()</code> that the forced index actually improves performance. Running <strong>db.collection.reIndex()</strong> or refreshing statistics with <code>analyze</code> commands may resolve planner issues without hardcoding hints.
+<pre><code>// Force specific index by key pattern
+db.orders.find({ userId: "u123", status: "pending" })
+  .hint({ userId: 1, status: 1 })
+  .explain("executionStats")
+
+// Force index by index name
+db.orders.find({ createdAt: { $gt: new Date("2024-01-01") } })
+  .hint("createdAt_1")
+
+// Force natural (collection) scan
+db.orders.find({ status: "pending" }).hint({ $natural: 1 })</code></pre>
+                <p><strong>Why it matters:</strong> Query optimization sometimes requires understanding when to override the planner; hint() shows you comprehend how to debug planner decisions and verify fixes.</p>
+                <p><strong>Real applications:</strong> During emergencies, you may use hint() as a temporary workaround when the query planner chooses a suboptimal plan due to stale collection statistics or unusual data distribution.</p>
+                <p><strong>Common mistakes:</strong> Hardcoding hints without verify they improve performance using explain(), adding hints to permanent code without plans to remove them once statistics are refreshed, or using hint() when reIndex() or analyze() would solve the root cause.</p>
+                </div>
+            </div>
+        </div>
+        <div class="accordion-item">
+            <h2 class="accordion-header" id="h_q5">
+                <button class="accordion-button collapsed" type="button"
+                    data-bs-toggle="collapse" data-bs-target="#c_q5"
+                    aria-expanded="false">
+                    <span class="question-number">6</span>What is the WiredTiger cache and how does it affect performance?
+                </button>
+            </h2>
+            <div id="c_q5" class="accordion-collapse collapse"
+                data-bs-parent="#questionsAccordion">
+                <div class="accordion-body">The <strong>WiredTiger storage engine</strong> (default since MongoDB 3.2) uses an in-memory cache to store recently accessed documents and index pages. By default it uses the larger of 50% of (RAM minus 1GB) or 256MB. When frequently accessed data fits in cache, reads are served from memory without disk I/O, dramatically improving throughput. The cache hit ratio can be monitored via <code>db.serverStatus().wiredTiger.cache</code>. A low hit ratio means MongoDB is constantly reading from disk. Optimizing your working set size and indexes reduces pressure on the cache.
+<pre><code>// Check WiredTiger cache stats
+const status = db.serverStatus();
+const cache = status.wiredTiger.cache;
+console.log({
+  bytesInCache: cache["bytes currently in the cache"],
+  maxCache: cache["maximum bytes configured"],
+  pagesReadFromDisk: cache["pages read into cache"],
+  pagesEvicted: cache["pages evicted by application threads"]
+});
+
+// Configure cache size in mongod.conf
+// storage:
+//   wiredTiger:
+//     engineConfig:
+//       cacheSizeGB: 4</code></pre>
+                <p><strong>Why it matters:</strong> The WiredTiger cache is the heart of MongoDB's performance; understanding how it works shows deep knowledge of MongoDB internals and memory management.</p>
+                <p><strong>Real applications:</strong> In production, you monitor cache hit rates and tune cache size to ensure your working set (frequently accessed data) stays in memory, achieving millisecond response times without disk I/O.</p>
+                <p><strong>Common mistakes:</strong> Setting cache size too small (causing evictions of hot data), not monitoring cache hit ratios to detect when working set doesn't fit, or assuming more RAM always helps without understanding working set size.</p>
+                </div>
+            </div>
+        </div>
+        <div class="accordion-item">
+            <h2 class="accordion-header" id="h_q6">
+                <button class="accordion-button collapsed" type="button"
+                    data-bs-toggle="collapse" data-bs-target="#c_q6"
+                    aria-expanded="false">
+                    <span class="question-number">7</span>How does pagination with skip() and limit() affect performance at scale?
+                </button>
+            </h2>
+            <div id="c_q6" class="accordion-collapse collapse"
+                data-bs-parent="#questionsAccordion">
+                <div class="accordion-body">Using <strong>skip()</strong> for pagination is problematic at large offsets because MongoDB must scan and discard all preceding documents to reach the desired page. A skip of 10,000 means MongoDB reads 10,000 documents just to throw them away. The <strong>cursor-based pagination</strong> pattern (keyset pagination) solves this by using the last seen document's indexed field as a boundary in the next query — this is O(1) regardless of depth. Always combine <code>limit()</code> with a proper index and use cursor pagination for performance-critical lists.
+<pre><code>// BAD — skip degrades as offset increases
+db.products.find({ category: "electronics" })
+  .sort({ _id: 1 }).skip(10000).limit(20) // reads 10020 docs!
+
+// GOOD — cursor-based pagination
+// First page
+const page1 = await db.products
+  .find({ category: "electronics" })
+  .sort({ _id: 1 }).limit(20).toArray();
+
+// Next page — use last _id from previous page
+const lastId = page1[page1.length - 1]._id;
+const page2 = await db.products
+  .find({ category: "electronics", _id: { $gt: lastId } })
+  .sort({ _id: 1 }).limit(20).toArray();</code></pre>
+                <p><strong>Why it matters:</strong> Pagination patterns directly affect query performance at large offsets; knowing cursor-based pagination shows you understand scalability and real-world pagination problems.</p>
+                <p><strong>Real applications:</strong> Large result sets (like search results, leaderboards, or feed items) require efficient pagination; skip-based pagination becomes unusably slow at page 1000, while cursor-based pagination stays O(1).</p>
+                <p><strong>Common mistakes:</strong> Using skip() without limits, not providing an indexed sort field, implementing offset-based pagination without considering query performance degradation, or not storing the cursor position between requests.</p>
+                </div>
+            </div>
+        </div>
+        <div class="accordion-item">
+            <h2 class="accordion-header" id="h_q7">
+                <button class="accordion-button collapsed" type="button"
+                    data-bs-toggle="collapse" data-bs-target="#c_q7"
+                    aria-expanded="false">
+                    <span class="question-number">8</span>What is the impact of document size and embedding on performance?
+                </button>
+            </h2>
+            <div id="c_q7" class="accordion-collapse collapse"
+                data-bs-parent="#questionsAccordion">
+                <div class="accordion-body">MongoDB has a <strong>16MB document size limit</strong>. Overly large documents degrade performance because reads return more data than needed and updates rewrite more data than necessary. <strong>Unbounded arrays</strong> (growing arrays like comments, logs, events) are a major anti-pattern — they cause document bloat, hit the 16MB limit, and make array queries slower as they grow. Use the <strong>bucket pattern</strong> or separate collections for time-series or log data. Frequently accessed subdocuments that are always read together should be embedded; rarely-accessed or independently-queried data should be referenced.
+<pre><code>// Anti-pattern: unbounded array
+{
+  _id: "post123",
+  title: "...",
+  comments: [ /* grows forever — problematic */ ]
+}
+
+// Better: bucket pattern for high-volume data
+{
+  _id: ObjectId(),
+  postId: "post123",
+  bucket: 1,
+  comments: [ /* max 100 per document */ ],
+  count: 100
+}
+
+// Or separate collection with reference
+{ _id: "c1", postId: "post123", text: "...", createdAt: ISODate() }</code></pre>
+                <p><strong>Why it matters:</strong> Schema design decisions directly impact query efficiency and replication throughput; understanding document size and embedding strategies is crucial for scalable systems.</p>
+                <p><strong>Real applications:</strong> Social media posts, blog comments, and time-series data grow unbounded—using separate collections or the bucket pattern prevents hitting the 16MB limit and maintains predictable performance.</p>
+                <p><strong>Common mistakes:</strong> Embedding unbounded arrays that grow over time (comments, logs), storing entire related objects when only IDs are needed, or not considering update frequency when choosing between embedding and referencing.</p>
+                </div>
+            </div>
+        </div>
+        <div class="accordion-item">
+            <h2 class="accordion-header" id="h_q8">
+                <button class="accordion-button collapsed" type="button"
+                    data-bs-toggle="collapse" data-bs-target="#c_q8"
+                    aria-expanded="false">
+                    <span class="question-number">9</span>What are read preferences and how do they improve read performance?
+                </button>
+            </h2>
+            <div id="c_q8" class="accordion-collapse collapse"
+                data-bs-parent="#questionsAccordion">
+                <div class="accordion-body"><strong>Read preferences</strong> control which replica set member MongoDB routes read operations to. The default is <strong>primary</strong> (always read from primary). Setting <strong>secondaryPreferred</strong> routes reads to secondaries when available, offloading the primary and allowing it to focus on writes. <strong>nearest</strong> routes to the member with the lowest network latency. Analytics and reporting queries are ideal candidates for secondary reads since they're heavy but don't need the absolute latest data. Be aware of <strong>replication lag</strong>: secondaries may serve slightly stale data.
+<pre><code>// Node.js driver read preference
+const client = new MongoClient(uri, {
+  readPreference: 'secondaryPreferred'
+});
+
+// Per-query read preference
+const db = client.db('myapp');
+const results = await db.collection('analytics')
+  .find({ date: { $gte: startDate } })
+  .withReadPreference(ReadPreference.SECONDARY)
+  .toArray();
+
+// Mongoose
+const Model = mongoose.model('Log', schema);
+await Model.find().read('secondary').exec();</code></pre>
+                <p><strong>Why it matters:</strong> Read preferences enable scaling read-heavy applications on replica sets; understanding when and how to use them shows knowledge of distributed systems and load balancing.</p>
+                <p><strong>Real applications:</strong> Analytics queries, reporting dashboards, and batch exports can route to secondaries, offloading the primary to focus on writes and user-facing reads that need the latest data.</p>
+                <p><strong>Common mistakes:</strong> Using secondary reads for consistency-sensitive operations without accounting for replication lag, not ensuring secondaries have indexes matching the queries, or routing all reads to secondaries when the application needs strong consistency.</p>
+                </div>
+            </div>
+        </div>
+        <div class="accordion-item">
+            <h2 class="accordion-header" id="h_q9">
+                <button class="accordion-button collapsed" type="button"
+                    data-bs-toggle="collapse" data-bs-target="#c_q9"
+                    aria-expanded="false">
+                    <span class="question-number">10</span>How do write concern settings affect MongoDB write performance?
+                </button>
+            </h2>
+            <div id="c_q9" class="accordion-collapse collapse"
+                data-bs-parent="#questionsAccordion">
+                <div class="accordion-body"><strong>Write concern</strong> specifies the level of acknowledgment MongoDB requires before confirming a write. <code>w: 0</code> (fire-and-forget) is fastest but risks data loss. <code>w: 1</code> (default) waits for the primary to acknowledge. <code>w: "majority"</code> waits for a majority of replica set members, providing the strongest durability guarantee but the highest latency. The <code>j: true</code> option additionally waits for the write to be journaled to disk. Bulk logging or analytics writes can safely use lower write concerns while financial transactions should use <code>w: "majority", j: true</code>.
+<pre><code>// Fire-and-forget (highest throughput, risks loss)
+await db.collection('pageviews').insertOne(
+  { page: '/home', ts: new Date() },
+  { writeConcern: { w: 0 } }
+);
+
+// Majority write (strongest durability, higher latency)
+await db.collection('payments').insertOne(
+  { amount: 1000, userId: 'u1' },
+  { writeConcern: { w: 'majority', j: true } }
+);
+
+// Balanced: primary ack + journaled
+await db.collection('orders').insertOne(order,
+  { writeConcern: { w: 1, j: true } }
+);</code></pre>
+                <p><strong>Why it matters:</strong> Write concern settings determine the durability-vs-latency trade-off; choosing the right level for each operation type shows understanding of reliability and performance trade-offs.</p>
+                <p><strong>Real applications:</strong> Financial systems require w:"majority",j:true for payments, while analytics can use w:0 for page views to maximize throughput without risking critical data loss.</p>
+                <p><strong>Common mistakes:</strong> Using identical write concerns for all operations, not considering that lower write concerns risk data loss if the primary crashes immediately after acknowledgment, or misunderstanding that j:true adds significant latency.</p>
+                </div>
+            </div>
+        </div>
+        <div class="accordion-item">
+            <h2 class="accordion-header" id="h_q10">
+                <button class="accordion-button collapsed" type="button"
+                    data-bs-toggle="collapse" data-bs-target="#c_q10"
+                    aria-expanded="false">
+                    <span class="question-number">11</span>What is bulkWrite() and when should you use it?
+                </button>
+            </h2>
+            <div id="c_q10" class="accordion-collapse collapse"
+                data-bs-parent="#questionsAccordion">
+                <div class="accordion-body"><strong>bulkWrite()</strong> sends multiple write operations to MongoDB in a single network round-trip, dramatically reducing overhead compared to individual operations in a loop. It supports <strong>ordered</strong> (sequential, stops on error) and <strong>unordered</strong> (parallel, continues on error) modes. Unordered bulk writes are faster because MongoDB can optimize their execution order. Use bulkWrite for data imports, batch updates, upsert operations, and any scenario where you process arrays of documents. The method returns a BulkWriteResult with counts of matched, modified, inserted, and deleted documents.
+<pre><code>const operations = users.map(user => ({
+  updateOne: {
+    filter: { _id: user.id },
+    update: { $set: { lastSeen: new Date() } },
+    upsert: true
+  }
+}));
+
+const result = await db.collection('users').bulkWrite(
+  operations,
+  { ordered: false } // unordered = faster
+);
+
+console.log({
+  matched: result.matchedCount,
+  modified: result.modifiedCount,
+  upserted: result.upsertedCount
+});</code></pre>
+                <p><strong>Why it matters:</strong> Batch operations are essential for high-throughput migrations and updates; knowing bulkWrite() vs. loops shows you understand performance optimization fundamentals.</p>
+                <p><strong>Real applications:</strong> Importing 1M records, syncing data from external systems, or updating millions of documents per hour—bulkWrite() makes the difference between seconds and hours.</p>
+                <p><strong>Common mistakes:</strong> Writing slow loops instead of using bulkWrite(), using ordered:true when unordered would be faster, or not measuring performance before/after to verify the batch operation is actually faster.</p>
+                </div>
+            </div>
+        </div>
+        <div class="accordion-item">
+            <h2 class="accordion-header" id="h_q11">
+                <button class="accordion-button collapsed" type="button"
+                    data-bs-toggle="collapse" data-bs-target="#c_q11"
+                    aria-expanded="false">
+                    <span class="question-number">12</span>How do you prevent the N+1 query problem in MongoDB?
+                </button>
+            </h2>
+            <div id="c_q11" class="accordion-collapse collapse"
+                data-bs-parent="#questionsAccordion">
+                <div class="accordion-body">The <strong>N+1 problem</strong> occurs when you fetch N documents and then execute one additional query per document. In MongoDB this commonly happens when using references instead of embedding. The solution is to batch lookups using <strong>$in</strong> queries or to use the aggregation pipeline's <strong>$lookup</strong> stage for joins. In Mongoose, <strong>populate()</strong> performs batched lookups under the hood. Never loop and query individual documents — collect all IDs first, then fetch them in one query. This reduces N+1 queries to exactly 2 queries.
+<pre><code>// BAD — N+1 problem
+const orders = await db.collection('orders').find().toArray();
+for (const order of orders) {
+  order.user = await db.collection('users').findOne({ _id: order.userId }); // N queries!
+}
+
+// GOOD — batch lookup with $in
+const orders = await db.collection('orders').find().toArray();
+const userIds = orders.map(o => o.userId);
+const users = await db.collection('users').find({ _id: { $in: userIds } }).toArray();
+const userMap = new Map(users.map(u => [u._id.toString(), u]));
+orders.forEach(o => { o.user = userMap.get(o.userId.toString()); });</code></pre>
+                <p><strong>Why it matters:</strong> The N+1 problem is a classic performance footgun that appears in real-world systems; recognizing and fixing it demonstrates mature database optimization skills.</p>
+                <p><strong>Real applications:</strong> When fetching 1000 orders with user details, N+1 means 1001 queries (one per order plus one for the collection); batching reduces this to exactly 2 queries regardless of order count.</p>
+                <p><strong>Common mistakes:</strong> Querying inside loops without realizing the performance impact, not using $in or $lookup, or using populate() without understanding that it still makes individual queries if not used correctly in aggregation pipelines.</p>
+                </div>
+            </div>
+        </div>
+        <div class="accordion-item">
+            <h2 class="accordion-header" id="h_q12">
+                <button class="accordion-button collapsed" type="button"
+                    data-bs-toggle="collapse" data-bs-target="#c_q12"
+                    aria-expanded="false">
+                    <span class="question-number">13</span>What is capped collection and when is it useful for performance?
+                </button>
+            </h2>
+            <div id="c_q12" class="accordion-collapse collapse"
+                data-bs-parent="#questionsAccordion">
+                <div class="accordion-body">A <strong>capped collection</strong> is a fixed-size circular buffer that automatically overwrites the oldest documents when full. Inserts are extremely fast because they always append to the end and never trigger space allocation. They maintain <strong>natural insertion order</strong>, making them ideal for logs, caches, audit trails, and real-time event streams. Capped collections support <strong>tailable cursors</strong> that block and wait for new documents, similar to <code>tail -f</code> on a log file. Limitations include no deletions, no document growth (updates cannot increase document size), and no sharding.
+<pre><code>// Create capped collection (100MB, max 1 million docs)
+db.createCollection("appLogs", {
+  capped: true,
+  size: 100 * 1024 * 1024, // 100MB in bytes
+  max: 1000000
+})
+
+// Tailable cursor for real-time streaming
+const cursor = db.collection('appLogs').find({}, {
+  tailable: true,
+  awaitData: true
+});
+for await (const doc of cursor) {
+  console.log('New log:', doc);
+}</code></pre>
+                <p><strong>Why it matters:</strong> Capped collections offer unique performance characteristics for streaming and logging; knowing when to use them shows understanding of specialized MongoDB features.</p>
+                <p><strong>Real applications:</strong> Application logs, sensor data streams, audit trails, and real-time event processing benefit from capped collections' circular buffer and tailable cursor support for live streaming.</p>
+                <p><strong>Common mistakes:</strong> Using capped collections for general data that needs deletion, trying to update documents in capped collections (updates cannot increase size), or not considering that capped collections cannot be sharded.</p>
+                </div>
+            </div>
+        </div>
+        <div class="accordion-item">
+            <h2 class="accordion-header" id="h_q13">
+                <button class="accordion-button collapsed" type="button"
+                    data-bs-toggle="collapse" data-bs-target="#c_q13"
+                    aria-expanded="false">
+                    <span class="question-number">14</span>What is the $lookup aggregation stage and what are its performance considerations?
+                </button>
+            </h2>
+            <div id="c_q13" class="accordion-collapse collapse"
+                data-bs-parent="#questionsAccordion">
+                <div class="accordion-body"><strong>$lookup</strong> performs a left outer join between two collections, similar to SQL joins. It is powerful but expensive — it executes a separate query per input document by default. For better performance, filter documents with <strong>$match</strong> before $lookup to minimize the number of joins, and ensure the foreign collection has an index on the join field. MongoDB 5.0+ supports <strong>$lookup with pipeline and $match/$expr</strong> for correlated subqueries. In very hot paths, denormalizing (embedding) the looked-up data during write is often faster than $lookup at read time.
+<pre><code>// ALWAYS $match before $lookup to reduce input documents
+db.orders.aggregate([
+  { $match: { status: "shipped", createdAt: { $gte: ISODate("2024-01-01") } } },
+  {
+    $lookup: {
+      from: "users",
+      localField: "userId",
+      foreignField: "_id",
+      as: "user"
+    }
+  },
+  { $unwind: "$user" },
+  { $project: { "user.password": 0 } }
+])
+
+// Index on users._id (already exists as primary key)
+// Create index on orders.userId for the match stage
+db.orders.createIndex({ userId: 1, status: 1, createdAt: -1 })</code></pre>
+                <p><strong>Why it matters:</strong> $lookup is powerful but expensive; understanding its performance profile and optimization strategies is critical for complex aggregations handling large datasets.</p>
+                <p><strong>Real applications:</strong> Correlating orders with user details, products, and shipping information in a single query requires careful use of $lookup with upstream $match stages to minimize sub-queries.</p>
+                <p><strong>Common mistakes:</strong> Using $lookup on unfiltered collections (every input document triggers a lookup), forgetting to ensure indexes on foreign join fields, or using $lookup at the start of a pipeline without upstream filtering stages.</p>
+                </div>
+            </div>
+        </div>
+        <div class="accordion-item">
+            <h2 class="accordion-header" id="h_q14">
+                <button class="accordion-button collapsed" type="button"
+                    data-bs-toggle="collapse" data-bs-target="#c_q14"
+                    aria-expanded="false">
+                    <span class="question-number">15</span>How do you monitor MongoDB performance in production?
+                </button>
+            </h2>
+            <div id="c_q14" class="accordion-collapse collapse"
+                data-bs-parent="#questionsAccordion">
+                <div class="accordion-body">Production MongoDB monitoring combines <strong>db.serverStatus()</strong> for real-time metrics, <strong>db.stats()</strong> for collection-level sizes, and the profiler for slow queries. Key metrics include: opcounters (reads/writes per second), connections (current vs. available), memory (resident vs. virtual), and replication lag. Tools like <strong>MongoDB Atlas</strong> provide built-in dashboards, alerting, and Performance Advisor. For self-hosted clusters, <strong>Ops Manager</strong>, <strong>Prometheus with mongodb-exporter</strong>, and <strong>Grafana</strong> dashboards are standard. Set up alerts for slow queries (>100ms), connection exhaustion, and replication lag exceeding 10 seconds.
+<pre><code>// Real-time stats
+db.serverStatus().opcounters    // reads, writes, commands per second
+db.serverStatus().connections   // current, available, totalCreated
+db.serverStatus().mem           // resident, virtual MB
+db.serverStatus().repl          // replication info
+
+// Collection stats
+db.orders.stats()               // size, storageSize, nindexes
+
+// Current operations (find long-running ops)
+db.currentOp({ active: true, secs_running: { $gt: 5 } })
+
+// Kill a specific operation
+db.killOp(opId)</code></pre>
+                <p><strong>Why it matters:</strong> Production visibility and alerting prevent performance degradation from going unnoticed; knowing how to monitor key metrics shows you understand 24/7 operational reliability.</p>
+                <p><strong>Real applications:</strong> Production systems use dashboards tracking opcounters (throughput), connections (saturation), memory (resource usage), and replication lag (consistency) with alerts for anomalies.</p>
+                <p><strong>Common mistakes:</strong> Not setting up monitoring until after a production outage, only looking at aggregate metrics without investigating slow operations, or ignoring early warning signs like rising cursor timeouts or connection pool saturation.</p>
+                </div>
+            </div>
+        </div>
+            </div>
+            <div class="topic-nav" id="topicNav">
+  <a class="topic-nav-btn prev" href="mongoose-odm.html">
+    <span class="label"><i class="bi bi-arrow-left me-1"></i>Previous</span>
+    <span class="title">Mongoose ODM</span>
+  </a>
+  <a class="topic-nav-btn next" href="replication-sharding.html">
+    <span class="label">Next <i class="bi bi-arrow-right ms-1"></i></span>
+    <span class="title">Replication &amp; Sharding</span>
+  </a>
+</div>
+           
+            <footer class="app-footer">
+                <p>&copy; 2026 InterviewPrep &mdash; MongoDB Interview Questions</p>
+            </footer>
+        </div>
+    </div>
+    <button class="btn-totop" id="backToTop"><i class="bi bi-chevron-up"></i></button>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>
+    <script>
+    (function(){
+        var sb=document.getElementById('sidebar'),bd=document.getElementById('sidebarBackdrop'),
+            tg=document.getElementById('sidebarToggle');
+        if(tg)tg.addEventListener('click',function(){sb.classList.add('open');bd.classList.add('show');});
+        if(bd)bd.addEventListener('click',function(){sb.classList.remove('open');bd.classList.remove('show');});
+        var btt=document.getElementById('backToTop');
+        window.addEventListener('scroll',function(){btt.classList.toggle('show',window.scrollY>400);});
+        btt.addEventListener('click',function(){window.scrollTo({top:0,behavior:'smooth'});});
+        var acc=document.getElementById('questionsAccordion');
+        var totalCount=15;
+        var si=document.getElementById('searchInput');
+        if(si){var t=null;si.addEventListener('input',function(){clearTimeout(t);var v=this.value.trim().toLowerCase();
+        if(v.length<2){acc.querySelectorAll('.accordion-item').forEach(function(el){el.style.display='';});
+        document.getElementById('questionCount').textContent=totalCount+' Questions';return;}
+        t=setTimeout(function(){var c=0;acc.querySelectorAll('.accordion-item').forEach(function(el){
+        var m=el.textContent.toLowerCase().indexOf(v)!==-1;el.style.display=m?'':'none';if(m)c++;});
+        document.getElementById('questionCount').textContent=c+' Questions';},200);});}
+    })();
+    </script>
+</body>
+</html>

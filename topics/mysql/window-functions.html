@@ -1,0 +1,432 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="MySQL Window Functions interview questions: ROW_NUMBER, RANK, DENSE_RANK, LEAD, LAG.">
+    <meta name="keywords" content="MySQL window functions, ROW_NUMBER RANK DENSE_RANK, LEAD LAG, PARTITION BY ORDER BY, MySQL interview">
+    <meta name="author" content="InterviewPrep">
+    <meta name="robots" content="index, follow">
+    <link rel="icon" type="image/svg+xml" href="../../favicon.svg" sizes="any">
+    <meta property="og:type" content="website">
+    <meta property="og:title" content="MySQL Window Functions — MySQL Interview Questions | InterviewPrep">
+    <meta property="og:description" content="MySQL Window Functions interview questions: ROW_NUMBER, RANK, DENSE_RANK, LEAD, LAG.">
+    <meta property="og:url" content="https://coddingquestionhub.com/topics/mysql/window-functions.html">
+    <meta name="twitter:card" content="summary_large_image">
+    <meta name="twitter:title" content="MySQL Window Functions — MySQL Interview Questions | InterviewPrep">
+    <meta name="twitter:description" content="MySQL Window Functions interview questions: ROW_NUMBER, RANK, DENSE_RANK, LEAD, LAG.">
+    <meta name="twitter:image" content="https://coddingquestionhub.com/og-mysql.png">
+    <title>MySQL Window Functions — MySQL Interview Questions | InterviewPrep 2026</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&family=Fira+Code:wght@400;500&display=swap" rel="stylesheet">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="../../css/styles.css">
+    <link rel="canonical" href="https://coddingquestionhub.com/topics/mysql/window-functions.html">
+    <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-8957020141286926" crossorigin="anonymous"></script>
+    <script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "BreadcrumbList",
+  "itemListElement": [
+    {
+      "@type": "ListItem",
+      "position": 1,
+      "name": "Home",
+      "item": "https://coddingquestionhub.com"
+    },
+    {
+      "@type": "ListItem",
+      "position": 2,
+      "name": "Topics",
+      "item": "https://coddingquestionhub.com/topics"
+    },
+    {
+      "@type": "ListItem",
+      "position": 3,
+      "name": "Mysql",
+      "item": "https://coddingquestionhub.com/topics/mysql"
+    },
+    {
+      "@type": "ListItem",
+      "position": 4,
+      "name": "Window Functions",
+      "item": "https://coddingquestionhub.com/topics/mysql/window-functions.html"
+    }
+  ]
+}
+    </script>
+</head>
+<body class="theme-mysql">
+    <nav class="navbar navbar-expand-lg sticky-top" id="mainNavbar">
+        <div class="container-fluid px-3 px-lg-4">
+            <a class="navbar-brand fw-bold d-flex align-items-center gap-2" href="../../index.html">
+                <span class="brand-icon"><i class="bi bi-braces-asterisk"></i></span>
+                <span>Interview<span class="brand-accent">Prep</span></span>
+            </a>
+            <button class="navbar-toggler border-0 shadow-none" type="button" data-bs-toggle="collapse" data-bs-target="#navbarContent">
+                <i class="bi bi-list fs-3 text-white"></i>
+            </button>
+            <div class="collapse navbar-collapse" id="navbarContent">
+                <ul class="navbar-nav me-auto mb-2 mb-lg-0 ms-lg-3">
+                    <li class="nav-item dropdown">
+                        <a class="nav-link dropdown-toggle fw-500" href="#" role="button" data-bs-toggle="dropdown">
+                            <i class="bi bi-layers me-1"></i> Choose Category
+                        </a>
+                        <ul class="dropdown-menu">
+                            <li><a class="dropdown-item fw-500" href="../../pages/angular.html"><i class="bi bi-bootstrap me-2 text-danger"></i>Angular</a></li>
+                            <li><a class="dropdown-item fw-500" href="../../pages/react.html"><i class="bi bi-infinity me-2 text-info"></i>React</a></li>
+                            <li><a class="dropdown-item fw-500" href="../../pages/node.html"><i class="bi bi-hdd-network me-2 text-success"></i>Node.js</a></li>
+                            <li><a class="dropdown-item fw-500" href="../../pages/javascript.html"><i class="bi bi-filetype-js me-2 text-warning"></i>JavaScript</a></li>
+                            <li><a class="dropdown-item fw-500" href="../../pages/dsa.html"><i class="bi bi-diagram-3-fill me-2" style="color:#8b5cf6"></i>DSA</a></li>
+                            <li><a class="dropdown-item fw-500" href="../../pages/logical.html"><i class="bi bi-lightbulb me-2" style="color:#f59e0b"></i>Logical Reasoning</a></li>
+                            <li><a class="dropdown-item fw-500" href="../../pages/mongodb.html"><i class="bi bi-database-fill me-2" style="color:#4DB33D"></i>MongoDB</a></li>
+                            <li><a class="dropdown-item fw-500" href="../../pages/mysql.html"><i class="bi bi-table me-2" style="color:#0F766E"></i>MySQL</a></li>
+                        </ul>
+                    </li>
+                </ul>
+                <div class="search-wrap">
+                    <i class="bi bi-search search-icon"></i>
+                    <input class="form-control search-input" type="search" placeholder="Search questions..." id="searchInput">
+                </div>
+            </div>
+        </div>
+    </nav>
+        <div class="app-wrapper">
+        <aside class="sidebar" id="sidebar">
+            <div class="sidebar-head">
+                <h6><i class="bi bi-table me-2"></i>MySQL Topics</h6>
+            </div>
+            <nav>
+                <ul class="sidebar-links" id="topicList">
+                    <li><a class="nav-link" href="mysql-fundamentals.html"><i class="bi-diagram-2"></i><span>MySQL Fundamentals</span></a></li>
+                    <li><a class="nav-link" href="crud-operations.html"><i class="bi-pencil-square"></i><span>CRUD Operations</span></a></li>
+                    <li><a class="nav-link" href="sql-joins.html"><i class="bi-link-45deg"></i><span>SQL Joins</span></a></li>
+                    <li><a class="nav-link" href="indexes.html"><i class="bi-lightning-fill"></i><span>Indexes</span></a></li>
+                    <li><a class="nav-link" href="query-optimization.html"><i class="bi-speedometer2"></i><span>Query Optimization</span></a></li>
+                    <li><a class="nav-link" href="transactions-acid.html"><i class="bi-arrow-repeat"></i><span>Transactions &amp; ACID</span></a></li>
+                    <li><a class="nav-link" href="stored-procedures.html"><i class="bi-code-square"></i><span>Stored Procedures</span></a></li>
+                    <li><a class="nav-link" href="triggers.html"><i class="bi-bell-fill"></i><span>Triggers</span></a></li>
+                    <li><a class="nav-link" href="views.html"><i class="bi-eye"></i><span>Views</span></a></li>
+                    <li><a class="nav-link" href="normalization.html"><i class="bi-diagram-3-fill"></i><span>Normalization</span></a></li>
+                    <li><a class="nav-link" href="data-types.html"><i class="bi-diagram-2"></i><span>Data Types</span></a></li>
+                    <li><a class="nav-link" href="string-functions.html"><i class="bi-chat-square-text"></i><span>String Functions</span></a></li>
+                    <li><a class="nav-link" href="date-time-functions.html"><i class="bi-calendar-event"></i><span>Date &amp; Time</span></a></li>
+                    <li><a class="nav-link" href="aggregate-functions.html"><i class="bi-graph-up"></i><span>Aggregate Functions</span></a></li>
+                    <li><a class="nav-link active" href="window-functions.html"><i class="bi-column-gap"></i><span>Window Functions</span></a></li>
+                    <li><a class="nav-link" href="subqueries-ctes.html"><i class="bi-filter"></i><span>Subqueries &amp; CTEs</span></a></li>
+                    <li><a class="nav-link" href="full-text-search.html"><i class="bi-search"></i><span>Full-Text Search</span></a></li>
+                    <li><a class="nav-link" href="replication-ha.html"><i class="bi-diagram-3"></i><span>Replication &amp; HA</span></a></li>
+                    <li><a class="nav-link" href="security-permissions.html"><i class="bi-shield-check"></i><span>Security</span></a></li>
+                    <li><a class="nav-link" href="performance-tuning.html"><i class="bi-sliders"></i><span>Performance Tuning</span></a></li>
+                    <li><a class="nav-link" href="interview-queries-1.html"><i class="bi-gear-fill"></i><span>Interview Queries 1</span></a></li>
+                    <li><a class="nav-link" href="interview-queries-2.html"><i class="bi-gear-fill"></i><span>Interview Queries 2</span></a></li>
+                </ul>
+            </nav>
+        </aside>
+        <div class="sidebar-backdrop" id="sidebarBackdrop"></div>
+        <div class="content-area">
+            <div class="mobile-bar d-lg-none">
+                <button class="btn btn-sm btn-glass" id="sidebarToggle">
+                    <i class="bi bi-layout-sidebar-inset me-1"></i>Topics
+                </button>
+                <span class="badge rounded-pill" style="background:#0F766E;color:#fff;">MySQL</span>
+            </div>
+            <div class="breadcrumb-nav" id="breadcrumb">
+                <a href="../../index.html">Home</a><span class="sep">/</span>
+                <a href="../../pages/mysql.html">MySQL</a><span class="sep">/</span>
+                <span class="current">Window Functions</span>
+            </div>
+            <div class="qs-header">
+                <h1 class="qs-title" id="topicTitle">MySQL Window Functions Interview Questions</h1>
+                <span class="badge qs-badge" id="questionCount">8 Questions</span>
+            </div>
+
+            <div class="accordion" id="questionsAccordion">
+                <div class="accordion-item">
+                    <h2 class="accordion-header" id="h_q0">
+                        <button class="accordion-button" type="button" data-bs-toggle="collapse" data-bs-target="#c_q0" aria-expanded="true"><span class="question-number">1</span> What are window functions and OVER clause?</button>
+                    </h2>
+                    <div id="c_q0" class="accordion-collapse collapse show" data-bs-parent="#questionsAccordion">
+                        <div class="accordion-body"><p><strong>Window functions</strong> operate on row sets without collapsing results. <strong>OVER</strong> clause defines the window. Available since MySQL 8.0. Enables row-by-row calculations maintaining original rowcount.</p><pre><code>-- Basic syntax
+SELECT column, SUM(value) OVER (PARTITION BY category) as category_total
+FROM products;
+
+-- OVER clause components
+SELECT id, name, salary,
+       SUM(salary) OVER (PARTITION BY department ORDER BY salary) as running_total
+FROM employees;
+
+-- Without PARTITION BY (applies to all rows)
+SELECT id, salary,
+       AVG(salary) OVER () as company_avg
+FROM employees;
+
+-- Window function types
+ROW_NUMBER() OVER (ORDER BY salary) as row_num
+RANK() OVER (ORDER BY salary) as rank
+DENSE_RANK() OVER (ORDER BY salary) as dense_rank
+LAG(salary) OVER (ORDER BY hire_date) as prev_salary
+LEAD(salary) OVER (ORDER BY hire_date) as next_salary</code></pre><p><strong>Why it matters:</strong> Advanced analytics without losing detail.</p><p><strong>Real applications:</strong> Running totals, rankings, comparisons with previous/next rows.</p><p><strong>Common mistakes:</strong> Confusion with GROUP BY, MySQL version < 8.0 not supported.</p></div>
+                    </div>
+                </div>
+
+                <div class="accordion-item">
+                    <h2 class="accordion-header" id="h_q1">
+                        <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#c_q1" aria-expanded="false"><span class="question-number">2</span> What are ROW_NUMBER, RANK, and DENSE_RANK?</button>
+                    </h2>
+                    <div id="c_q1" class="accordion-collapse collapse" data-bs-parent="#questionsAccordion">
+                        <div class="accordion-body"><p><strong>ROW_NUMBER</strong> assigns unique sequentia numbers. <strong>RANK</strong> assigns rank with gaps for ties. <strong>DENSE_RANK</strong> assigns rank without gaps. Used for leaderboards and competitions.</p><pre><code>-- Example data
+salary | employee
+3000   | Alice
+3000   | Bob
+2500   | Charlie
+2000   | Dave
+
+-- ROW_NUMBER (unique sequential)
+ROW_NUMBER() OVER (ORDER BY salary DESC) as row_num
+-- Result: 1, 2, 3, 4
+
+-- RANK (gaps for ties)
+RANK() OVER (ORDER BY salary DESC) as rank
+-- Result: 1, 1, 3, 4
+
+-- DENSE_RANK (no gaps for ties)
+DENSE_RANK() OVER (ORDER BY salary DESC) as dense_rank
+-- Result: 1, 1, 2, 3
+
+-- Practical: Top salary earner per department
+SELECT id, name, salary, department,
+       DENSE_RANK() OVER (PARTITION BY department ORDER BY salary DESC) as dept_rank
+FROM employees WHERE DENSE_RANK() OVER (PARTITION BY department ORDER BY salary DESC) = 1;</code></pre><p><strong>Why it matters:</strong> Ranking requirements (ties, gaps, uniqueness).</p><p><strong>Real applications:</strong> Leaderboards, competitions, performance rankings.</p><p><strong>Common mistakes:</strong> Mixing up the three functions, not using PARTITION BY correctly.</p></div>
+                    </div>
+                </div>
+
+                <div class="accordion-item">
+                    <h2 class="accordion-header" id="h_q2">
+                        <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#c_q2" aria-expanded="false"><span class="question-number">3</span> What are LAG and LEAD functions?</button>
+                    </h2>
+                    <div id="c_q2" class="accordion-collapse collapse" data-bs-parent="#questionsAccordion">
+                        <div class="accordion-body"><p><strong>LAG</strong> accesses previous row value. <strong>LEAD</strong> accesses next row value. Essential for row-to-row comparisons and changes.</p><pre><code>-- LAG: Previous row value
+SELECT id, hire_date, salary,
+       LAG(salary) OVER (ORDER BY hire_date) as prev_salary,
+       salary - LAG(salary) OVER (ORDER BY hire_date) as salary_change
+FROM employees;
+
+-- LEAD: Next row value
+SELECT id, order_date, amount,
+       LEAD(amount) OVER (ORDER BY order_date) as next_amount,
+       LEAD(order_date) OVER (ORDER BY order_date) as next_date
+FROM orders;
+
+-- With default value
+SELECT id, salary,
+       LAG(salary, 1, 0) OVER (ORDER BY hire_date) as prev_salary
+FROM employees;  -- Default to 0 if no previous row
+
+-- Day-over-day sales comparison
+SELECT DATE(order_date) as date, SUM(amount) as daily_sales,
+       LAG(SUM(amount)) OVER (ORDER BY DATE(order_date)) as prev_day_sales,
+       SUM(amount) - LAG(SUM(amount)) OVER (ORDER BY DATE(order_date)) as change
+FROM orders GROUP BY DATE(order_date);</code></pre><p><strong>Why it matters:</strong> Compare values across consecutive rows.</p><p><strong>Real applications:</strong> Change detection, trend analysis, day-over-day metrics.</p><p><strong>Common mistakes:</strong> Not ordering correctly, misunderstanding offset parameter.</p></div>
+                    </div>
+                </div>
+
+                <div class="accordion-item">
+                    <h2 class="accordion-header" id="h_q3">
+                        <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#c_q3" aria-expanded="false"><span class="question-number">4</span> What are FIRST_VALUE, LAST_VALUE, NTH_VALUE?</button>
+                    </h2>
+                    <div id="c_q3" class="accordion-collapse collapse" data-bs-parent="#questionsAccordion">
+                        <div class="accordion-body"><p><strong>FIRST_VALUE</strong> returns first value in window. <strong>LAST_VALUE</strong> returns last value. <strong>NTH_VALUE</strong> returns nth value. Used for accessing specific positions in windows.</p><pre><code>-- FIRST_VALUE: First value in window
+SELECT id, salary, hire_date,
+       FIRST_VALUE(salary) OVER (ORDER BY hire_date) as first_salary
+FROM employees;
+
+-- LAST_VALUE: Last in window (requires frame specification)
+SELECT id, salary,
+       LAST_VALUE(salary) OVER (ORDER BY salary ROWS BETWEEN UNBOUNDED PRECEDING AND UNBOUNDED FOLLOWING)
+FROM employees;
+
+-- NTH_VALUE: Nth value in window
+SELECT id, salary,
+       NTH_VALUE(salary, 2) OVER (ORDER BY salary DESC) as second_highest
+FROM employees;
+
+-- Practical: Compare to highest and lowest in department
+SELECT id, name, salary, department,
+       FIRST_VALUE(salary) OVER (PARTITION BY department ORDER BY salary DESC) as highest_in_dept,
+       LAST_VALUE(salary) OVER (PARTITION BY department ORDER BY salary DESC ROWS BETWEEN UNBOUNDED PRECEDING AND UNBOUNDED FOLLOWING) as lowest_in_dept
+FROM employees;</code></pre><p><strong>Why it matters:</strong> Access boundary values in windows.</p><p><strong>Real applications:</strong> Benchmarking, comparisons within groups.</p><p><strong>Common mistakes:</strong> Not specifying frame for LAST_VALUE, wrong frame boundaries.</p></div>
+                    </div>
+                </div>
+
+                <div class="accordion-item">
+                    <h2 class="accordion-header" id="h_q4">
+                        <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#c_q4" aria-expanded="false"><span class="question-number">5</span> What do PARTITION BY and ORDER BY do in window functions?</button>
+                    </h2>
+                    <div id="c_q4" class="accordion-collapse collapse" data-bs-parent="#questionsAccordion">
+                        <div class="accordion-body"><p><strong>PARTITION BY</strong> divides data into independent windows. <strong>ORDER BY</strong> orders rows within window. Most windows require ORDER BY; PARTITION BY is optional.</p><pre><code>-- PARTITION BY: Separate windows by category
+SELECT id, name, salary, department,
+       AVG(salary) OVER (PARTITION BY department) as dept_avg
+FROM employees;
+
+-- ORDER BY: Order rows within window
+SELECT id, amount, order_date,
+       SUM(amount) OVER (ORDER BY order_date) as running_total
+FROM orders;
+
+-- Both: Partition and order within partition
+SELECT id, salary, department, hire_date,
+       RANK() OVER (PARTITION BY department ORDER BY salary DESC) as dept_rank
+FROM employees;
+
+-- Multiple partitions
+SELECT id, sales, region, product,
+       SUM(sales) OVER (PARTITION BY region, product ORDER BY DATE) as product_region_sales
+FROM sales;
+
+-- NULL handling in PARTITION BY
+-- NULLs are grouped together
+SELECT category, COUNT(*) OVER (PARTITION BY category)
+FROM products;  -- NULL categories are separate group</code></pre><p><strong>Why it matters:</strong> Control scope and order of window calculations.</p><p><strong>Real applications:</strong> Department-level analytics, running calculations.</p><p><strong>Common mistakes:</strong> Missing ORDER BY when needed, wrong partition granularity.</p></div>
+                    </div>
+                </div>
+
+                <div class="accordion-item">
+                    <h2 class="accordion-header" id="h_q5">
+                        <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#c_q5" aria-expanded="false"><span class="question-number">6</span> What are frame specifications in window functions?</button>
+                    </h2>
+                    <div id="c_q5" class="accordion-collapse collapse" data-bs-parent="#questionsAccordion">
+                        <div class="accordion-body"><p><strong>Frame specifications</strong> define which rows are included in calculation. Options: UNGOUNDED/CURRENT ROW, PRECEDING/FOLLOWING. Default is UNBOUNDED PRECEDING to CURRENT ROW for ORDER BY.</p><pre><code>-- Default frame (UNBOUNDED PRECEDING to CURRENT ROW)
+SELECT amount,
+       SUM(amount) OVER (ORDER BY order_date) as running_total
+FROM orders;  -- Running sum
+
+-- ROWS: Physical row positions
+SELECT amount,
+       AVG(amount) OVER (ORDER BY order_date ROWS BETWEEN 2 PRECEDING AND 2 FOLLOWING) as moving_avg_5
+FROM orders;
+
+-- RANGE: Value-based ranges
+SELECT amount,
+       SUM(amount) OVER (ORDER BY price RANGE BETWEEN 10 PRECEDING AND 10 FOLLOWING)
+FROM products;
+
+-- Frame types
+ROWS BETWEEN UNBOUNDED PRECEDING AND CURRENT ROW  -- All rows from start to current
+ROWS BETWEEN UNBOUNDED PRECEDING AND UNBOUNDED FOLLOWING  -- All rows in window
+ROWS BETWEEN 2 PRECEDING AND 2 FOLLOWING  -- Current ± 2 rows
+ROWS BETWEEN UNBOUNDED PRECEDING AND CURRENT ROW  -- Default
+
+-- Practical: Moving average
+SELECT DATE(order_date) as date, SUM(amount) as daily_sales,
+       AVG(SUM(amount)) OVER (ORDER BY DATE(order_date) ROWS BETWEEN 6 PRECEDING AND CURRENT ROW) as moving_avg_7day
+FROM orders GROUP BY DATE(order_date);</code></pre><p><strong>Why it matters:</strong> Control which rows are included in calculations.</p><p><strong>Real applications:</strong> Moving averages, running totals, windowed aggregates.</p><p><strong>Common mistakes:</strong> Wrong frame specification affects results, RANGE vs ROWS confusion.</p></div>
+                    </div>
+                </div>
+
+                <div class="accordion-item">
+                    <h2 class="accordion-header" id="h_q6">
+                        <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#c_q6" aria-expanded="false"><span class="question-number">7</span> How do you use window functions in production?</button>
+                    </h2>
+                    <div id="c_q6" class="accordion-collapse collapse" data-bs-parent="#questionsAccordion">
+                        <div class="accordion-body"><p><strong>Best practices</strong>: Window functions available MySQL 8.0+, use indexes on PARTITION BY/ORDER BY columns, complex frames can impact performance, window results appear in all rows (doesn't collapse).</p><pre><code>-- Performance: Index OVER columns
+CREATE INDEX idx_dept_salary ON employees(department, salary);
+SELECT id, salary,
+       RANK() OVER (PARTITION BY department ORDER BY salary DESC) as rank
+FROM employees;
+
+-- Don't repeat window functions
+SELECT id,
+       SUM(salary) OVER (PARTITION BY department) as dept_total,
+       SUM(salary) OVER (PARTITION BY department) as dept_total2  -- Repeated!
+FROM employees;
+
+-- Store in temporary table if using multiple times
+CREATE TEMPORARY TABLE temp_rankings AS
+SELECT id, salary, department,
+       RANK() OVER (PARTITION BY department ORDER BY salary DESC) as rank
+FROM employees;
+
+-- Window function + WHERE
+SELECT * FROM (
+    SELECT id, salary, RANK() OVER (ORDER BY salary DESC) as rank
+    FROM employees
+) AS ranked WHERE rank <= 10;
+
+-- Memory usage
+-- Window functions load entire result set into memory
+-- Large datasets can cause memory issues</code></pre><p><strong>Why it matters:</strong> Production performance and resource usage.</p><p><strong>Real applications:</strong> Analytics queries, reporting, ranking.</p><p><strong>Common mistakes:</strong> Not indexing, repeating functions, memory issues on large datasets.</p></div>
+                    </div>
+                </div>
+
+                <div class="accordion-item">
+                    <h2 class="accordion-header" id="h_q7">
+                        <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#c_q7" aria-expanded="false"><span class="question-number">8</span> What are common window function patterns?</button>
+                    </h2>
+                    <div id="c_q7" class="accordion-collapse collapse" data-bs-parent="#questionsAccordion">
+                        <div class="accordion-body"><p><strong>Common patterns</strong>: Running totals, year-to-date calculations, rankings per category, comparisons with averages, change detection.</p><pre><code>-- Running total pattern
+SELECT month, sales,
+       SUM(sales) OVER (ORDER BY month) as ytd_sales
+FROM monthly_sales;
+
+-- Year-over-year comparison
+SELECT month, sales, year,
+       LAG(sales) OVER (PARTITION BY month ORDER BY year) as prior_year_sales
+FROM annual_sales;
+
+-- Percentile ranking
+SELECT id, salary,
+       PERCENT_RANK() OVER (ORDER BY salary) * 100 as percentile
+FROM employees;
+
+-- Top N per group
+SELECT * FROM (
+    SELECT id, name, salary, department,
+           ROW_NUMBER() OVER (PARTITION BY department ORDER BY salary DESC) as rank
+    FROM employees
+) t WHERE rank <= 3;  -- Top 3 per department
+
+-- Cumulative percentage
+SELECT category, sales,
+       SUM(sales) OVER (ORDER BY sales DESC) as cumulative_sales,
+       ROUND(SUM(sales) OVER (ORDER BY sales DESC) / 
+             SUM(sales) OVER () * 100, 2) as percent_of_total
+FROM sales;</code></pre><p><strong>Why it matters:</strong> Reusable analytical patterns.</p><p><strong>Real applications:</strong> Revenue reports, rankings, YTD calculations.</p><p><strong>Common mistakes:</strong> Complex queries can be hard to debug, ordering impacts results.</p></div>
+                    </div>
+                </div>
+            </div>
+          
+
+              <div class="topic-nav" id="topicNav">
+            <a class="topic-nav-btn prev" href="aggregate-functions.html">
+                <span class="label"><i class="bi bi-arrow-left me-1"></i> Previous</span>
+                <span class="title">Aggregate Functions</span>
+            </a>
+            <a class="topic-nav-btn next" href="subqueries-ctes.html">
+                <span class="label">Next <i class="bi bi-arrow-right ms-1"></i></span>
+                <span class="title">Subqueries & CTEs</span>
+            </a>
+            </div>
+             <footer class="app-footer">
+                <p>&copy; 2026 InterviewPrep &mdash; MySQL Interview Questions</p>
+            </footer>
+        </div>
+    </div>
+    <button class="btn-totop" id="backToTop"><i class="bi bi-chevron-up"></i></button>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>
+    <script>
+    (function(){
+        var sb=document.getElementById('sidebar'),bd=document.getElementById('sidebarBackdrop'),
+            tg=document.getElementById('sidebarToggle');
+        if(tg)tg.addEventListener('click',function(){sb.classList.add('open');bd.classList.add('show');});
+        if(bd)bd.addEventListener('click',function(){sb.classList.remove('open');bd.classList.remove('show');});
+        var btt=document.getElementById('backToTop');
+        window.addEventListener('scroll',function(){btt.classList.toggle('show',window.scrollY>400);});
+        btt.addEventListener('click',function(){window.scrollTo({top:0,behavior:'smooth'});});
+    })();
+    </script>
+</body>
+
+</html>

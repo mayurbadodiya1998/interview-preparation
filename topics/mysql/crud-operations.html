@@ -1,0 +1,681 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="MySQL CRUD operations: CREATE, READ, UPDATE, DELETE queries explained with examples.">
+    <meta name="keywords" content="CRUD operations, INSERT, SELECT, UPDATE, DELETE, MySQL queries">
+    <meta name="author" content="InterviewPrep">
+    <meta name="robots" content="index, follow">
+    <link rel="icon" type="image/svg+xml" href="../../favicon.svg" sizes="any">
+    <meta property="og:type" content="website">
+    <meta property="og:title" content="CRUD Operations — MySQL Interview Questions | InterviewPrep">
+    <meta property="og:description" content="MySQL CRUD operations: CREATE, READ, UPDATE, DELETE queries explained with examples.">
+    <meta property="og:url" content="https://coddingquestionhub.com/topics/mysql/crud-operations.html">
+    <meta name="twitter:card" content="summary_large_image">
+    <meta name="twitter:title" content="CRUD Operations — MySQL Interview Questions | InterviewPrep">
+    <meta name="twitter:description" content="MySQL CRUD operations: CREATE, READ, UPDATE, DELETE queries explained with examples.">
+    <meta name="twitter:image" content="https://coddingquestionhub.com/og-mysql.png">
+    <title>CRUD Operations — MySQL Interview Questions | InterviewPrep 2026</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&family=Fira+Code:wght@400;500&display=swap" rel="stylesheet">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="../../css/styles.css">
+    <link rel="canonical" href="https://coddingquestionhub.com/topics/mysql/crud-operations.html">
+    <script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "FAQPage",
+  "mainEntity": [
+    {
+      "@type": "Question",
+      "name": "CRUD Operations — MySQL Interview Questions | InterviewPrep",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "Interview questions and answers"
+      }
+    }
+  ]
+}
+    </script>
+    <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-8957020141286926" crossorigin="anonymous"></script>
+    <script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "BreadcrumbList",
+  "itemListElement": [
+    {
+      "@type": "ListItem",
+      "position": 1,
+      "name": "Home",
+      "item": "https://coddingquestionhub.com"
+    },
+    {
+      "@type": "ListItem",
+      "position": 2,
+      "name": "Topics",
+      "item": "https://coddingquestionhub.com/topics"
+    },
+    {
+      "@type": "ListItem",
+      "position": 3,
+      "name": "Mysql",
+      "item": "https://coddingquestionhub.com/topics/mysql"
+    },
+    {
+      "@type": "ListItem",
+      "position": 4,
+      "name": "Crud Operations",
+      "item": "https://coddingquestionhub.com/topics/mysql/crud-operations.html"
+    }
+  ]
+}
+    </script>
+</head>
+<body class="theme-mysql">
+    <nav class="navbar navbar-expand-lg sticky-top" id="mainNavbar">
+        <div class="container-fluid px-3 px-lg-4">
+            <a class="navbar-brand fw-bold d-flex align-items-center gap-2" href="../../index.html">
+                <span class="brand-icon"><i class="bi bi-braces-asterisk"></i></span>
+                <span>Interview<span class="brand-accent">Prep</span></span>
+            </a>
+            <button class="navbar-toggler border-0 shadow-none" type="button" data-bs-toggle="collapse" data-bs-target="#navbarContent">
+                <i class="bi bi-list fs-3 text-white"></i>
+            </button>
+            <div class="collapse navbar-collapse" id="navbarContent">
+                <ul class="navbar-nav me-auto mb-2 mb-lg-0 ms-lg-3">
+                    <li class="nav-item dropdown">
+                        <a class="nav-link dropdown-toggle fw-500" href="#" role="button" data-bs-toggle="dropdown">
+                            <i class="bi bi-layers me-1"></i> Choose Category
+                        </a>
+                        <ul class="dropdown-menu">
+                            <li><a class="dropdown-item fw-500" href="../../pages/angular.html"><i class="bi bi-bootstrap me-2 text-danger"></i>Angular</a></li>
+                            <li><a class="dropdown-item fw-500" href="../../pages/react.html"><i class="bi bi-infinity me-2 text-info"></i>React</a></li>
+                            <li><a class="dropdown-item fw-500" href="../../pages/node.html"><i class="bi bi-hdd-network me-2 text-success"></i>Node.js</a></li>
+                            <li><a class="dropdown-item fw-500" href="../../pages/javascript.html"><i class="bi bi-filetype-js me-2 text-warning"></i>JavaScript</a></li>
+                            <li><a class="dropdown-item fw-500" href="../../pages/dsa.html"><i class="bi bi-diagram-3-fill me-2" style="color:#8b5cf6"></i>DSA</a></li>
+                            <li><a class="dropdown-item fw-500" href="../../pages/logical.html"><i class="bi bi-lightbulb me-2" style="color:#f59e0b"></i>Logical Reasoning</a></li>
+                            <li><a class="dropdown-item fw-500" href="../../pages/mongodb.html"><i class="bi bi-database-fill me-2" style="color:#4DB33D"></i>MongoDB</a></li>
+                            <li><a class="dropdown-item fw-500" href="../../pages/mysql.html"><i class="bi bi-table me-2" style="color:#0F766E"></i>MySQL</a></li>
+                        </ul>
+                    </li>
+                </ul>
+                <div class="search-wrap">
+                    <i class="bi bi-search search-icon"></i>
+                    <input class="form-control search-input" type="search" placeholder="Search questions..." id="searchInput">
+                </div>
+            </div>
+        </div>
+    </nav>
+    <div class="app-wrapper">
+        <aside class="sidebar" id="sidebar">
+            <div class="sidebar-head">
+                <h6><i class="bi bi-table me-2"></i>MySQL Topics</h6>
+            </div>
+            <nav>
+                <ul class="sidebar-links" id="topicList">
+                    <li><a class="nav-link" href="mysql-fundamentals.html"><i class="bi-diagram-2"></i><span>MySQL Fundamentals</span></a></li>
+                    <li><a class="nav-link active" href="crud-operations.html"><i class="bi-pencil-square"></i><span>CRUD Operations</span></a></li>
+                    <li><a class="nav-link" href="sql-joins.html"><i class="bi-link-45deg"></i><span>SQL Joins</span></a></li>
+                    <li><a class="nav-link" href="indexes.html"><i class="bi-lightning-fill"></i><span>Indexes</span></a></li>
+                    <li><a class="nav-link" href="query-optimization.html"><i class="bi-speedometer2"></i><span>Query Optimization</span></a></li>
+                    <li><a class="nav-link" href="transactions-acid.html"><i class="bi-arrow-repeat"></i><span>Transactions & ACID</span></a></li>
+                    <li><a class="nav-link" href="stored-procedures.html"><i class="bi-code-square"></i><span>Stored Procedures</span></a></li>
+                    <li><a class="nav-link" href="triggers.html"><i class="bi-bell-fill"></i><span>Triggers</span></a></li>
+                    <li><a class="nav-link" href="views.html"><i class="bi-eye"></i><span>Views</span></a></li>
+                    <li><a class="nav-link" href="normalization.html"><i class="bi-diagram-3-fill"></i><span>Normalization</span></a></li>
+                    <li><a class="nav-link" href="data-types.html"><i class="bi-diagram-2"></i><span>Data Types</span></a></li>
+                    <li><a class="nav-link" href="string-functions.html"><i class="bi-chat-square-text"></i><span>String Functions</span></a></li>
+                    <li><a class="nav-link" href="date-time-functions.html"><i class="bi-calendar-event"></i><span>Date & Time</span></a></li>
+                    <li><a class="nav-link" href="aggregate-functions.html"><i class="bi-graph-up"></i><span>Aggregate Functions</span></a></li>
+                    <li><a class="nav-link" href="window-functions.html"><i class="bi-column-gap"></i><span>Window Functions</span></a></li>
+                    <li><a class="nav-link" href="subqueries-ctes.html"><i class="bi-filter"></i><span>Subqueries & CTEs</span></a></li>
+                    <li><a class="nav-link" href="full-text-search.html"><i class="bi-search"></i><span>Full-Text Search</span></a></li>
+                    <li><a class="nav-link" href="replication-ha.html"><i class="bi-diagram-3"></i><span>Replication & HA</span></a></li>
+                    <li><a class="nav-link" href="security-permissions.html"><i class="bi-shield-check"></i><span>Security</span></a></li>
+                    <li><a class="nav-link" href="performance-tuning.html"><i class="bi-sliders"></i><span>Performance Tuning</span></a></li>
+                    <li><a class="nav-link" href="interview-queries-1.html"><i class="bi-gear-fill"></i><span>Interview Queries 1</span></a></li>
+                    <li><a class="nav-link" href="interview-queries-2.html"><i class="bi-gear-fill"></i><span>Interview Queries 2</span></a></li>
+                </ul>
+            </nav>
+        </aside>
+        <div class="sidebar-backdrop" id="sidebarBackdrop"></div>
+        <div class="content-area">
+            <div class="mobile-bar d-lg-none">
+                <button class="btn btn-sm btn-glass" id="sidebarToggle">
+                    <i class="bi bi-layout-sidebar-inset me-1"></i>Topics
+                </button>
+                <span class="badge rounded-pill" style="background:#0F766E;color:#fff;">MySQL</span>
+            </div>
+            <div class="breadcrumb-nav" id="breadcrumb">
+                <a href="../../index.html">Home</a><span class="sep">/</span>
+                <a href="../../pages/mysql.html">MySQL</a><span class="sep">/</span>
+                <span class="current">CRUD Operations</span>
+            </div>
+            <div class="qs-header">
+                <h1 class="qs-title" id="topicTitle">CRUD Operations</h1>
+                <span class="badge qs-badge" id="questionCount">15 Questions</span>
+            </div>
+            <div class="accordion" id="questionsAccordion">
+                <div class="accordion-item">
+                    <h2 class="accordion-header" id="h_q0">
+                        <button class="accordion-button" type="button" data-bs-toggle="collapse" data-bs-target="#c_q0" aria-expanded="true">
+                            <span class="question-number">1</span>What does CRUD stand for in SQL?
+                        </button>
+                    </h2>
+                    <div id="c_q0" class="accordion-collapse collapse show" data-bs-parent="#questionsAccordion">
+                        <div class="accordion-body">CRUD represents the four fundamental database operations: <strong>Create</strong> (INSERT new data), <strong>Read</strong> (SELECT to retrieve data), <strong>Update</strong> (UPDATE to modify existing data), and <strong>Delete</strong> (DELETE to remove data). Every database application performs these operations repeatedly. Understanding CRUD is essential because most database work revolves around these four operations, and optimizing them improves application performance.
+<pre><code>-- CREATE: Insert new data
+INSERT INTO employees (name, salary) VALUES ('John', 50000);
+
+-- READ: Retrieve data
+SELECT * FROM employees WHERE id = 1;
+
+-- UPDATE: Modify existing data
+UPDATE employees SET salary = 55000 WHERE id = 1;
+
+-- DELETE: Remove data
+DELETE FROM employees WHERE id = 1;</code></pre>
+
+<p><strong>Why it matters:</strong> CRUD is the foundation of database work. Demonstrating solid CRUD knowledge shows proficiency in fundamental database operations and SQL understanding.</p>
+
+<p><strong>Real applications:</strong> Every web application performs CRUD operations—user registration (CREATE), viewing profiles (READ), changing settings (UPDATE), and account deletion (DELETE).</p>
+
+<p><strong>Common mistakes:</strong> Forgetting WHERE clauses causing UPDATE or DELETE to affect all rows, using SELECT without proper filtering returning unnecessary data, or not understanding transaction context of CRUD operations.</p>
+                        </div>
+                    </div>
+                </div>
+                <div class="accordion-item">
+                    <h2 class="accordion-header" id="h_q1">
+                        <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#c_q1" aria-expanded="false">
+                            <span class="question-number">2</span>Explain the INSERT statement and its variations.
+                        </button>
+                    </h2>
+                    <div id="c_q1" class="accordion-collapse collapse" data-bs-parent="#questionsAccordion">
+                        <div class="accordion-body">INSERT adds new rows to a table. Basic syntax inserts single rows with specified values, while INSERT...SELECT inserts data from another table. INSERT IGNORE silently skips errors like duplicate keys, REPLACE replaces existing rows with same key, and INSERT...ON DUPLICATE KEY UPDATE updates if key exists, otherwise inserts. Multiple rows can be inserted in one statement for efficiency.
+<pre><code>-- Single row INSERT
+INSERT INTO users (name, email) VALUES ('Alice', 'alice@example.com');
+
+-- Multiple rows in one INSERT
+INSERT INTO users (name, email) VALUES 
+  ('Bob', 'bob@example.com'),
+  ('Charlie', 'charlie@example.com');
+
+-- INSERT...SELECT copies from another table
+INSERT INTO users_backup SELECT * FROM users WHERE status = 'inactive';
+
+-- INSERT IGNORE: skip on constraint violation
+INSERT IGNORE INTO users (id, name) VALUES (1, 'Duplicate');
+
+-- REPLACE: delete & insert if key exists
+REPLACE INTO users (id, name) VALUES (1, 'NewName');</code></pre>
+
+<p><strong>Why it matters:</strong> Mastering INSERT variations allows efficient bulk operations and data migration. Understanding different INSERT modes prevents transaction issues in production.</p>
+
+<p><strong>Real applications:</strong> User registration uses single INSERT, data imports use bulk INSERT, archiving uses INSERT...SELECT, and deduplication uses REPLACE.</p>
+
+<p><strong>Common mistakes:</strong> Forgetting column list causing positional mismatch, not using multi-row INSERT for bulk data (much slower), or using REPLACE when UPDATE intended causing unnecessary deletions.</p>
+                        </div>
+                    </div>
+                </div>
+                <div class="accordion-item">
+                    <h2 class="accordion-header" id="h_q2">
+                        <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#c_q2" aria-expanded="false">
+                            <span class="question-number">3</span>What is the difference between INSERT IGNORE and REPLACE?
+                        </button>
+                    </h2>
+                    <div id="c_q2" class="accordion-collapse collapse" data-bs-parent="#questionsAccordion">
+                        <div class="accordion-body">INSERT IGNORE skips rows that violate constraints like unique keys or NOT NULL, continuing with remaining rows silently. REPLACE deletes the existing row with conflicting key and inserts the new row, effectively replacing it. INSERT IGNORE preserves existing data; REPLACE overwrites it. Choose INSERT IGNORE to avoid duplicates; choose REPLACE when new data should override old data. Replacing can trigger cascading deletes on foreign keys.
+<pre><code>-- INSERT IGNORE: Skip row on constraint violation
+INSERT IGNORE INTO users (id, name) VALUES (1, 'NewName');
+-- If id=1 exists, this row is skipped, existing data untouched
+
+-- REPLACE: Delete old & insert new
+REPLACE INTO users (id, name) VALUES (1, 'NewName');
+-- If id=1 exists, delete it then insert new row
+
+-- Practical example:
+-- INSERT IGNORE for API uploads with potential duplicates
+INSERT IGNORE INTO import_logs (id, status) VALUES (100, 'processed');
+
+-- REPLACE for configuration updates where last-write-wins
+REPLACE INTO config (setting, value) VALUES ('theme', 'dark');</code></pre>
+
+<p><strong>Why it matters:</strong> Choosing the right insertion method prevents data loss or unwanted duplicates. This shows understanding of constraint handling in production scenarios.</p>
+
+<p><strong>Real applications:</strong> User imports use INSERT IGNORE to skip duplicates. Configuration tables use REPLACE for last-write-wins updates. Cache invalidation uses REPLACE.</p>
+
+<p><strong>Common mistakes:</strong> Using REPLACE unintentionally losing data, using INSERT IGNORE thinking it's like upsert, or not understanding REPLACE triggers cascade deletes on dependent tables.</p>
+                        </div>
+                    </div>
+                </div>
+                <div class="accordion-item">
+                    <h2 class="accordion-header" id="h_q3">
+                        <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#c_q3" aria-expanded="false">
+                            <span class="question-number">4</span>How does the SELECT statement work?
+                        </button>
+                    </h2>
+                    <div id="c_q3" class="accordion-collapse collapse" data-bs-parent="#questionsAccordion">
+                        <div class="accordion-body">SELECT retrieves data from tables using a specific execution order: FROM (tables), WHERE (filter rows), GROUP BY (aggregate), HAVING (filter groups), ORDER BY (sort), LIMIT (restrict results). Specific columns or * for all are selected, with optional aliases for readability. SELECT can aggregate data, join multiple tables, and perform calculations. The LIMIT clause is critical for preventing huge result sets in production.
+<pre><code>-- Basic SELECT with filtering
+SELECT name, email FROM users WHERE status = 'active';
+
+-- SELECT with calculations
+SELECT name, salary * 1.1 as salary_with_bonus FROM employees;
+
+-- SELECT with sorting and limit
+SELECT name FROM customers ORDER BY registration_date DESC LIMIT 10;
+
+-- SELECT with aliases
+SELECT u.name as customer_name, COUNT(o.id) as total_orders
+FROM users u
+LEFT JOIN orders o ON u.id = o.user_id
+GROUP BY u.id
+HAVING COUNT(o.id) > 5
+ORDER BY total_orders DESC;</code></pre>
+
+<p><strong>Why it matters:</strong> SELECT is the most frequently used SQL statement. Query performance depends on proper WHERE clauses, appropriate joins, and appropriate LIMIT usage.</p>
+
+<p><strong>Real applications:</strong> Every dashboard query, report, and search feature uses SELECT. Pagination uses OFFSET LIMIT. Analytics use GROUP BY aggregations.</p>
+
+<p><strong>Common mistakes:</strong> SELECT * without LIMIT returning millions of rows, missing WHERE clauses filtering unnecessary data, or using SELECT without indexes on filter columns causing scan delays.</p>
+                        </div>
+                    </div>
+                </div>
+                <div class="accordion-item">
+                    <h2 class="accordion-header" id="h_q4">
+                        <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#c_q4" aria-expanded="false">
+                            <span class="question-number">5</span>Explain the UPDATE statement with WHERE clause.
+                        </button>
+                    </h2>
+                    <div id="c_q4" class="accordion-collapse collapse" data-bs-parent="#questionsAccordion">
+                        <div class="accordion-body">UPDATE modifies existing rows, with WHERE clause specifying which rows to change. Omitting WHERE clause updates all rows—a critical mistake. SET clause contains column=value pairs separated by commas. Multiple columns can be updated in one statement. UPDATE often has performance implications if no index on WHERE columns, potentially locking the entire table.
+<pre><code>-- Update single column
+UPDATE users SET status = 'inactive' WHERE id = 5;
+
+-- Update multiple columns atomically
+UPDATE orders 
+SET status = 'shipped', shipped_date = NOW() 
+WHERE id = 100;
+
+-- Update based on calculation
+UPDATE employees SET salary = salary * 1.05 WHERE department = 'Sales';
+
+-- Update from another table
+UPDATE users u
+SET u.status = 'verified'
+WHERE u.id IN (SELECT user_id FROM email_confirmations);</code></pre>
+
+<p><strong>Why it matters:</strong> Proper WHERE usage prevents accidentally updating all records. Understanding UPDATE performance impact shows database design maturity.</p>
+
+<p><strong>Real applications:</strong> Status changes (order shipped), bulk updates (annual raises), verification marking (email confirmed), and field calculations (age increments) all use UPDATE.</p>
+
+<p><strong>Common mistakes:</strong> Forgetting WHERE clause updating entire table, using string comparison for numeric IDs, or updating without transaction context losing changes on rollback.</p>
+                        </div>
+                    </div>
+                </div>
+                <div class="accordion-item">
+                    <h2 class="accordion-header" id="h_q5">
+                        <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#c_q5" aria-expanded="false">
+                            <span class="question-number">6</span>What is the DELETE statement?
+                        </button>
+                    </h2>
+                    <div id="c_q5" class="accordion-collapse collapse" data-bs-parent="#questionsAccordion">
+                        <div class="accordion-body">DELETE removes rows from a table. Like UPDATE, WHERE clause specifies which rows to delete. Omitting WHERE deletes all rows permanently. DELETE triggers foreign key constraints potentially cascading deletes to related tables. DELETE can be slow for large tables without proper indexes. Many production systems use soft deletes (status='deleted') instead of actual deletion for audit trails.
+<pre><code>-- Delete specific row
+DELETE FROM users WHERE id = 5;
+
+-- Delete multiple rows with condition
+DELETE FROM orders WHERE status = 'cancelled' AND amount < 10;
+
+-- Delete all rows (use carefully!)
+DELETE FROM temporary_data;
+
+-- Delete with JOIN (cascade simulation)
+DELETE u FROM users u
+WHERE u.status = 'inactive' 
+AND u.last_login < DATE_SUB(NOW(), INTERVAL 1 YEAR);</code></pre>
+
+<p><strong>Why it matters:</strong> Understanding DELETE consequences prevents accidental data loss. Production environments often avoid hard deletes due to audit and recovery needs.</p>
+
+<p><strong>Real applications:</strong> Cleanup tasks delete expired sessions. Soft deletes mark records as deleted without actual removal. Archive operations move old data before deletion.</p>
+
+<p><strong>Common mistakes:</strong> Forgetting WHERE clause deleting entire tables, not understanding DELETE triggers cascade deletes, or deleting production data without backups causing permanent loss.</p>
+                        </div>
+                    </div>
+                </div>
+                <div class="accordion-item">
+                    <h2 class="accordion-header" id="h_q6">
+                        <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#c_q6" aria-expanded="false">
+                            <span class="question-number">7</span>Explain TRUNCATE vs DELETE.
+                        </button>
+                    </h2>
+                    <div id="c_q6" class="accordion-collapse collapse" data-bs-parent="#questionsAccordion">
+                        <div class="accordion-body">TRUNCATE removes all rows from a table but doesn't execute row triggers, operates faster as it deallocates pages rather than deleting rows, and cannot be filtered with WHERE. TRUNCATE resets AUTO_INCREMENT counters, while DELETE preserves them. DELETE is slower, row-by-row, triggering row triggers. Both should be used carefully in production, but TRUNCATE is faster for clearing entire tables (use in development only).
+<pre><code>-- TRUNCATE: Fast removal of all rows, resets AUTO_INCREMENT
+TRUNCATE TABLE sessions;
+-- Next insert will have id = 1 again
+
+-- DELETE: Slower row-by-row, preserves AUTO_INCREMENT
+DELETE FROM sessions;
+-- Next insert will continue from last id
+
+-- Comparison in transaction context:
+-- TRUNCATE cannot be rolled back in all MySQL versions reliably
+-- DELETE can be rolled back within transactions
+
+-- Practical: TRUNCATE for development, DELETE for production</code></pre>
+
+<p><strong>Why it matters:</strong> Understanding TRUNCATE vs DELETE impacts production cleanup scripts and transaction safety. Misuse causes unexpected behavior in sequential operations.</p>
+
+<p><strong>Real applications:</strong> Test cleanup uses TRUNCATE. Production uses DELETE with WHERE for targeted removal. Cache tables use TRUNCATE on invalidation.</p>
+
+<p><strong>Common mistakes:</strong> Using TRUNCATE in transactions relying on rollback, using TRUNCATE without confirming intent, or using DELETE for entire table clearing when TRUNCATE is faster.</p>
+                        </div>
+                    </div>
+                </div>
+                <div class="accordion-item">
+                    <h2 class="accordion-header" id="h_q7">
+                        <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#c_q7" aria-expanded="false">
+                            <span class="question-number">8</span>What is the LIMIT clause and how is it used?
+                        </button>
+                    </h2>
+                    <div id="c_q7" class="accordion-collapse collapse" data-bs-parent="#questionsAccordion">
+                        <div class="accordion-body">LIMIT restricts the number of rows returned by SELECT, essential for pagination and preventing huge result sets. LIMIT 10 returns first 10 rows, LIMIT 10 OFFSET 20 returns 10 rows starting from position 20 (skipping first 20). MySQL also supports LIMIT 10, 20 syntax (offset, count). Large OFFSET values are slow as MySQL must skip all previous rows; keyset pagination is more efficient for large datasets.
+<pre><code>-- Get top 10 recent posts
+SELECT * FROM posts ORDER BY created_at DESC LIMIT 10;
+
+-- Pagination: Page 2 with 10 per page (OFFSET 10)
+SELECT * FROM users ORDER BY id LIMIT 10 OFFSET 10;
+
+-- Alternative syntax: LIMIT offset, count
+SELECT * FROM users ORDER BY id LIMIT 10, 10;
+
+-- Common pagination pattern
+SET @page = 2;
+SET @per_page = 20;
+SELECT * FROM users 
+ORDER BY id 
+LIMIT (@page - 1) * @per_page, @per_page;</code></pre>
+
+<p><strong>Why it matters:</strong> LIMIT prevents memory exhaustion and improves response times. Pagination is essential for user-facing interfaces handling large datasets.</p>
+
+<p><strong>Real applications:</strong> Search results show 10-50 items per page using LIMIT. APIs return paginated data. Reports limit output for readability.</p>
+
+<p><strong>Common mistakes:</strong> SELECT without LIMIT on large tables returning millions of rows, using large OFFSET causing performance degradation, or not using ORDER BY making LIMIT results unpredictable.</p>
+                        </div>
+                    </div>
+                </div>
+                <div class="accordion-item">
+                    <h2 class="accordion-header" id="h_q8">
+                        <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#c_q8" aria-expanded="false">
+                            <span class="question-number">9</span>Explain DISTINCT in SELECT queries.
+                        </button>
+                    </h2>
+                    <div id="c_q8" class="accordion-collapse collapse" data-bs-parent="#questionsAccordion">
+                        <div class="accordion-body">DISTINCT removes duplicate rows from result set, returning only unique combinations of selected columns. DISTINCT slows queries as it requires deduplication, so apply filters with WHERE first to minimize data processed. Counting distinct values uses COUNT(DISTINCT column). Multiple columns after DISTINCT consider combinations; for example, DISTINCT (name, city) returns unique name-city pairs.
+<pre><code>-- Get unique customer states
+SELECT DISTINCT state FROM customers;
+
+-- Get unique product categories
+SELECT DISTINCT category FROM products;
+
+-- Count distinct emails
+SELECT COUNT(DISTINCT email) as unique_customers FROM users;
+
+-- Multiple columns: unique combinations
+SELECT DISTINCT city, state FROM customers;
+-- Returns one row per unique city-state combination
+
+-- DISTINCT impacts performance
+SELECT DISTINCT name FROM customers;  -- Slow on large tables
+-- Better: Use GROUP BY or index for query optimization</code></pre>
+
+<p><strong>Why it matters:</strong> DISTINCT is useful for data exploration but can cause performance issues. Understanding when DISTINCT is necessary vs using GROUP BY shows query optimization knowledge.</p>
+
+<p><strong>Real applications:</strong> Reporting unique visitors, finding all states where customers exist, counting unique email subscribers, generating distinct category lists.</p>
+
+<p><strong>Common mistakes:</strong> Using DISTINCT without proper indexing causing full scans, not filtering with WHERE before DISTINCT, or using DISTINCT on entire rows instead of specific columns unnecessarily.</p>
+                        </div>
+                    </div>
+                </div>
+                <div class="accordion-item">
+                    <h2 class="accordion-header" id="h_q9">
+                        <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#c_q9" aria-expanded="false">
+                            <span class="question-number">10</span>What are aggregate functions in SELECT?
+                        </button>
+                    </h2>
+                    <div id="c_q9" class="accordion-collapse collapse" data-bs-parent="#questionsAccordion">
+                        <div class="accordion-body">Aggregate functions compute summary statistics across multiple rows: COUNT counts rows, SUM totals numeric values, AVG calculates average, MIN/MAX find minimum/maximum values. These functions return single values per group. NULL values are ignored in aggregates except COUNT(*) which counts all rows. GROUP BY combines rows into groups for per-group aggregation. Aggregate functions are essential for reporting and analytics.
+<pre><code>-- Aggregate functions
+SELECT COUNT(*) as total_users FROM users;
+SELECT SUM(salary) as total_payroll FROM employees;
+SELECT AVG(price) as average_product_price FROM products;
+SELECT MIN(salary) as lowest_salary, MAX(salary) as highest_salary FROM employees;
+
+-- COUNT(DISTINCT...) counts unique values
+SELECT COUNT(DISTINCT city) as unique_cities FROM customers;
+
+-- GROUP BY with aggregates
+SELECT department, COUNT(*) as emp_count, AVG(salary) as avg_salary
+FROM employees
+GROUP BY department;</code></pre>
+
+<p><strong>Why it matters:</strong> Aggregate functions are foundational for reporting and analytics. Many interview problems involve correctly using aggregates with GROUP BY and HAVING.</p>
+
+<p><strong>Real applications:</strong> Dashboards show user counts, revenue totals, and average order values using aggregates. Analytics compute metrics per segment using GROUP BY aggregates.</p>
+
+<p><strong>Common mistakes:</strong> Using aggregate functions without GROUP BY or GROUP BY missing columns, forgetting NULLs are excluded from aggregates, or using wrong aggregate function (  AVG instead of SUM).</p>
+                        </div>
+                    </div>
+                </div>
+                <div class="accordion-item">
+                    <h2 class="accordion-header" id="h_q10">
+                        <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#c_q10" aria-expanded="false">
+                            <span class="question-number">11</span>What is GROUP BY and HAVING?
+                        </button>
+                    </h2>
+                    <div id="c_q10" class="accordion-collapse collapse" data-bs-parent="#questionsAccordion">
+                        <div class="accordion-body">GROUP BY organizes rows into groups based on specified columns, enabling aggregate calculations per group. HAVING filters groups (like WHERE filters rows), operating after GROUP BY. All non-aggregated columns in SELECT must be in GROUP BY. HAVING conditions use aggregate functions, while WHERE conditions use column values. Execution order: WHERE (filter rows) → GROUP BY (create groups) → HAVING (filter groups) → SELECT.
+<pre><code>-- GROUP BY with aggregates
+SELECT department, COUNT(*) as emp_count, AVG(salary) as avg_salary
+FROM employees
+GROUP BY department;
+
+-- HAVING to filter groups
+SELECT city, COUNT(*) as cust_count
+FROM customers
+GROUP BY city
+HAVING COUNT(*) > 5;  -- Only cities with more than 5 customers
+
+-- Wrong: Non-aggregated column not in GROUP BY
+-- SELECT department, salary, COUNT(*) FROM employees GROUP BY department;
+
+-- Correct: All non-aggregated columns in GROUP BY
+SELECT department, COUNT(*) FROM employees GROUP BY department;</code></pre>
+
+<p><strong>Why it matters:</strong> GROUP BY with HAVING is essential for complex reporting. Interviewers frequently test understanding of GROUP BY constraints and HAVING vs WHERE.</p>
+
+<p><strong>Real applications:</strong> Sales reports breakdown by region, customer segmentation by purchase count, user demographics by age group all use GROUP BY with HAVING.</p>
+
+<p><strong>Common mistakes:</strong> Forgetting to include all non-aggregated columns in GROUP BY, using aggregate functions in WHERE instead of HAVING, or confusing HAVING filter order with WHERE.</p>
+                        </div>
+                    </div>
+                </div>
+                <div class="accordion-item">
+                    <h2 class="accordion-header" id="h_q11">
+                        <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#c_q11" aria-expanded="false">
+                            <span class="question-number">12</span>Explain ORDER BY and sorting.
+                        </button>
+                    </h2>
+                    <div id="c_q11" class="accordion-collapse collapse" data-bs-parent="#questionsAccordion">
+                        <div class="accordion-body">ORDER BY sorts result set by specified columns in ascending (ASC, default) or descending (DESC) order. Multiple columns can be sorted with PRIMARY then SECONDARY sort keys. ORDER BY without LIMIT returns unsorted results with indexes. Sorting is expensive for large result sets, especially without indexes, so apply filters with WHERE first. Using a column alias in ORDER BY improves readability.
+<pre><code>-- Sort by single column, ascending (default)
+SELECT * FROM users ORDER BY registration_date;
+
+-- Sort descending
+SELECT * FROM products ORDER BY price DESC;
+
+-- Multiple columns: sort by department, then by salary
+SELECT * FROM employees ORDER BY department, salary DESC;
+
+-- Sort by calculated column
+SELECT name, salary * 1.1 as updated_salary 
+FROM employees 
+ORDER BY updated_salary DESC;
+
+-- Sort by column position (not recommended)
+SELECT name, salary FROM employees ORDER BY 2 DESC;</code></pre>
+
+<p><strong>Why it matters:</strong> Correct sorting is crucial for user-facing queries showing results in expected order. ORDER BY performance varies significantly with and without indexes.</p>
+
+<p><strong>Real applications:</strong> Recent posts sorted by date, products sorted by price, leaderboards sorted by score, search results sorted by relevance.</p>
+
+<p><strong>Common mistakes:</strong> ORDER BY on non-indexed columns causing full table scans, sorting text as numbers causing "10" before "2", or forgetting LIMIT with ORDER BY causing massive result processing.</p>
+                        </div>
+                    </div>
+                </div>
+                <div class="accordion-item">
+                    <h2 class="accordion-header" id="h_q12">
+                        <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#c_q12" aria-expanded="false">
+                            <span class="question-number">13</span>What are aliases and when should they be used?
+                        </button>
+                    </h2>
+                    <div id="c_q12" class="accordion-collapse collapse" data-bs-parent="#questionsAccordion">
+                        <div class="accordion-body">Aliases provide alternative names for columns (column aliases with AS) and tables (table aliases for joins) for readability. Column aliases rename calculated fields or long expressions. Table aliases shorten table references in joins and enable self-joins. Aliases don't persist; they only exist for the query result. Aliases are optional but highly recommended for code clarity and maintenance.
+<pre><code>-- Column alias
+SELECT salary * 1.1 AS salary_with_bonus FROM employees;
+
+-- Table alias for clarity
+SELECT u.name, u.email FROM users AS u WHERE u.status = 'active';
+
+-- Multiple table aliases
+SELECT u.name, o.order_date, o.total
+FROM users AS u
+JOIN orders AS o ON u.id = o.user_id;
+
+-- Alias for calculated fields
+SELECT 
+  name,
+  YEAR(registration_date) as registration_year,
+  MONTH(registration_date) as registration_month
+FROM users;</code></pre>
+
+<p><strong>Why it matters:</strong> Aliases greatly improve code readability and maintainability. Well-aliased queries are easier to understand and debug in complex scenarios.</p>
+
+<p><strong>Real applications:</strong> Complex joins use table aliases to disambiguate columns. Calculated fields use column aliases for clarity. Reports use meaningful alias names for export headers.</p>
+
+<p><strong>Common mistakes:</strong> Overusing unclear single-letter aliases like 'a', 'b', not aliasing calculated fields making output confusing, or forgetting alias context in complex joins causing ambiguity.</p>
+                        </div>
+                    </div>
+                </div>
+                <div class="accordion-item">
+                    <h2 class="accordion-header" id="h_q13">
+                        <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#c_q13" aria-expanded="false">
+                            <span class="question-number">14</span>Explain WHERE clause conditions and operators.
+                        </button>
+                    </h2>
+                    <div id="c_q13" class="accordion-collapse collapse" data-bs-parent="#questionsAccordion">
+                        <div class="accordion-body">WHERE filters rows based on boolean conditions using operators: = (equals), <>, <, >, <=, >= for comparisons, AND/OR for logical combinations, IN for value lists, BETWEEN for ranges, and LIKE for pattern matching. Complex conditions use parentheses for precedence. WHERE is applied before GROUP BY, ensuring efficient filtering. Conditions on indexed columns are faster than non-indexed columns.
+<pre><code>-- Comparison operators
+WHERE age > 18
+WHERE status = 'active'
+WHERE salary <> 40000
+
+-- Logical operators
+WHERE status = 'active' AND age > 18
+WHERE country = 'USA' OR country = 'Canada'
+WHERE NOT status = 'deleted'
+
+-- IN for value lists
+WHERE status IN ('active', 'pending', 'verified')
+
+-- BETWEEN for ranges
+WHERE salary BETWEEN 40000 AND 60000
+
+-- LIKE for patterns
+WHERE name LIKE 'J%'  -- Starts with J
+WHERE email LIKE '%@gmail.com'  -- Ends with @gmail.com</code></pre>
+
+<p><strong>Why it matters:</strong> WHERE clause efficiency directly impacts query performance. Using indexed columns and efficient operators prevents full table scans in production.</p>
+
+<p><strong>Real applications:</strong> Filter active users, find orders in date range, search users by name pattern, locate customers by country all rely on proper WHERE clauses.</p>
+
+<p><strong>Common mistakes:</strong> Filter on calculated columns preventing index use, using LIKE '%value%' instead of starting position, or mixing ANDs and ORs without parentheses causing logic errors.</p>
+                        </div>
+                    </div>
+                </div>
+                <div class="accordion-item">
+                    <h2 class="accordion-header" id="h_q14">
+                        <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#c_q14" aria-expanded="false">
+                            <span class="question-number">15</span>What is UPDATE...SELECT and how is it used?
+                        </button>
+                    </h2>
+                    <div id="c_q14" class="accordion-collapse collapse" data-bs-parent="#questionsAccordion">
+                        <div class="accordion-body">UPDATE...SELECT combines data retrieval with modification, updating rows based on results from SELECT query. This enables mass updates from related tables or calculated values. The SELECT can reference multiple tables via joins, apply filters, and use aggregate functions. UPDATE...SELECT is powerful for data synchronization and bulk corrections but can lock significant table ranges affecting concurrent operations.
+<pre><code>-- Update from another table
+UPDATE employees e
+SET e.salary = e.salary * 1.05
+WHERE e.department_id IN (SELECT id FROM departments WHERE name = 'Sales');
+
+-- Update with JOIN
+UPDATE orders o
+JOIN customers c ON o.customer_id = c.id
+SET o.customer_level = c.membership_level;
+
+-- Bulk reset based on condition
+UPDATE orders
+SET status = 'expired'
+WHERE order_date < DATE_SUB(NOW(), INTERVAL 30 DAY)
+  AND status = 'pending';</code></pre>
+
+<p><strong>Why it matters:</strong> UPDATE...SELECT enables sophisticated data management patterns. Understanding its implications for locking and performance shows production database experience.</p>
+
+<p><strong>Real applications:</strong> Employee salary updates from department budgets, inventory synchronization from orders, data corrections based on multiple criteria all use UPDATE...SELECT.</p>
+
+<p><strong>Common mistakes:</strong> Forgetting to add WHERE clause updating all rows unintentionally, not understanding update impacts row count returns, or using without transactions risking partial updates on error.</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="topic-nav" id="topicNav">
+            <a class="topic-nav-btn prev" href="mysql-fundamentals.html">
+                <span class="label"><i class="bi bi-arrow-left me-1"></i>Previous</span>
+                <span class="title">MySQL Fundamentals</span>
+            </a>
+            <a class="topic-nav-btn next" href="sql-joins.html">
+                <span class="label">Next <i class="bi bi-arrow-right ms-1"></i></span>
+                <span class="title">SQL Joins</span>
+            </a>
+            </div>
+            <footer class="app-footer">
+                <p>&copy; 2026 InterviewPrep &mdash; MySQL Interview Questions</p>
+            </footer>
+        </div>
+    </div>
+    <button class="btn-totop" id="backToTop"><i class="bi bi-chevron-up"></i></button>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>
+    <script>
+    (function(){
+        var sb=document.getElementById('sidebar'),bd=document.getElementById('sidebarBackdrop'),
+            tg=document.getElementById('sidebarToggle');
+        if(tg)tg.addEventListener('click',function(){sb.classList.add('open');bd.classList.add('show');});
+        if(bd)bd.addEventListener('click',function(){sb.classList.remove('open');bd.classList.remove('show');});
+        var btt=document.getElementById('backToTop');
+        window.addEventListener('scroll',function(){btt.classList.toggle('show',window.scrollY>400);});
+        btt.addEventListener('click',function(){window.scrollTo({top:0,behavior:'smooth'});});
+        var acc=document.getElementById('questionsAccordion');
+        var totalCount=15;
+        var si=document.getElementById('searchInput');
+        if(si){var t=null;si.addEventListener('input',function(){clearTimeout(t);var v=this.value.trim().toLowerCase();
+        if(v.length<2){acc.querySelectorAll('.accordion-item').forEach(function(el){el.style.display='';});
+        document.getElementById('questionCount').textContent=totalCount+' Questions';return;}
+        t=setTimeout(function(){var c=0;acc.querySelectorAll('.accordion-item').forEach(function(el){
+        var m=el.textContent.toLowerCase().indexOf(v)!==-1;el.style.display=m?'':'none';if(m)c++;});
+        document.getElementById('questionCount').textContent=c+' Questions';},200);});}
+    })();
+    </script>
+</body>
+</html>

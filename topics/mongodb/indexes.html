@@ -1,0 +1,758 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="Top 15 MongoDB indexes interview questions. Master compound indexes, ESR rule, TTL indexes, text indexes, covered queries, explain() and index optimization.">
+    <meta name="keywords" content="MongoDB indexes, compound index, ESR rule, TTL index, text index, covered query, explain, partial index, wildcard index, MongoDB interview questions">
+    <meta name="author" content="InterviewPrep">
+    <meta name="robots" content="index, follow">
+    <link rel="icon" type="image/svg+xml" href="../../favicon.svg" sizes="any">
+    <meta property="og:type" content="website">
+    <meta property="og:title" content="Indexes & Performance — MongoDB Interview Questions | InterviewPrep">
+    <meta property="og:description" content="Top 15 MongoDB indexes interview questions. Master compound indexes, ESR rule, TTL indexes, text indexes, covered queries, explain() and index optimization.">
+    <meta property="og:url" content="https://coddingquestionhub.com/topics/mongodb/indexes.html">
+    <title>Indexes & Performance — MongoDB Interview Questions | InterviewPrep 2026</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&family=Fira+Code:wght@400;500&display=swap" rel="stylesheet">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="../../css/styles.css">
+    <link rel="canonical" href="https://coddingquestionhub.com/topics/mongodb/indexes.html">
+    <script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "FAQPage",
+  "mainEntity": [
+    {
+      "@type": "Question",
+      "name": "Indexes & Performance — MongoDB Interview Questions | InterviewPrep",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "Top 15 MongoDB indexes interview questions. Master compound indexes, ESR rule, TTL indexes, text indexes, covered queries, explain() and index optimization."
+      }
+    }
+  ]
+}
+    </script>
+    <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-8957020141286926" crossorigin="anonymous"></script>
+    <script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "BreadcrumbList",
+  "itemListElement": [
+    {
+      "@type": "ListItem",
+      "position": 1,
+      "name": "Home",
+      "item": "https://coddingquestionhub.com"
+    },
+    {
+      "@type": "ListItem",
+      "position": 2,
+      "name": "Topics",
+      "item": "https://coddingquestionhub.com/topics"
+    },
+    {
+      "@type": "ListItem",
+      "position": 3,
+      "name": "Mongodb",
+      "item": "https://coddingquestionhub.com/topics/mongodb"
+    },
+    {
+      "@type": "ListItem",
+      "position": 4,
+      "name": "Indexes",
+      "item": "https://coddingquestionhub.com/topics/mongodb/indexes.html"
+    }
+  ]
+}
+    </script>
+</head>
+<body class="theme-mongodb">
+    <nav class="navbar navbar-expand-lg sticky-top" id="mainNavbar">
+        <div class="container-fluid px-3 px-lg-4">
+            <a class="navbar-brand fw-bold d-flex align-items-center gap-2" href="../../index.html">
+                <span class="brand-icon"><i class="bi bi-braces-asterisk"></i></span>
+                <span>Interview<span class="brand-accent">Prep</span></span>
+            </a>
+            <button class="navbar-toggler border-0 shadow-none" type="button"
+                    data-bs-toggle="collapse" data-bs-target="#navbarContent">
+                <i class="bi bi-list fs-3 text-white"></i>
+            </button>
+            <div class="collapse navbar-collapse" id="navbarContent">
+                <ul class="navbar-nav me-auto mb-2 mb-lg-0 ms-lg-3">
+                    <li class="nav-item dropdown">
+                        <a class="nav-link dropdown-toggle fw-500" href="#" role="button" data-bs-toggle="dropdown">
+                            <i class="bi bi-layers me-1"></i> Choose Category
+                        </a>
+                        <ul class="dropdown-menu">
+                            <li><a class="dropdown-item fw-500" href="../../pages/angular.html"><i class="bi bi-bootstrap me-2 text-danger"></i>Angular</a></li>
+                            <li><a class="dropdown-item fw-500" href="../../pages/react.html"><i class="bi bi-infinity me-2 text-info"></i>React</a></li>
+                            <li><a class="dropdown-item fw-500" href="../../pages/node.html"><i class="bi bi-hdd-network me-2 text-success"></i>Node.js</a></li>
+                            <li><a class="dropdown-item fw-500" href="../../pages/javascript.html"><i class="bi bi-filetype-js me-2 text-warning"></i>JavaScript</a></li>
+                            <li><a class="dropdown-item fw-500" href="../../pages/dsa.html"><i class="bi bi-diagram-3-fill me-2" style="color:#8b5cf6"></i>DSA</a></li>
+                            <li><a class="dropdown-item fw-500" href="../../pages/logical.html"><i class="bi bi-lightbulb me-2" style="color:#f59e0b"></i>Logical Reasoning</a></li>
+                            <li><a class="dropdown-item fw-500" href="../../pages/mongodb.html"><i class="bi bi-database-fill me-2" style="color:#4DB33D"></i>MongoDB</a></li>
+                            <li><a class="dropdown-item fw-500" href="../../pages/mysql.html"><i class="bi bi-table me-2" style="color:#0F766E"></i>MySQL</a></li>
+                        </ul>
+                    </li>
+                </ul>
+                <div class="search-wrap">
+                    <i class="bi bi-search search-icon"></i>
+                    <input class="form-control search-input" type="search" placeholder="Search questions..." id="searchInput">
+                </div>
+            </div>
+        </div>
+    </nav>    <div class="app-wrapper">
+        <aside class="sidebar" id="sidebar">
+            <div class="sidebar-head">
+                <h6><i class="bi bi-database-fill me-2"></i>MongoDB Topics</h6>
+            </div>
+            <nav>
+                <ul class="sidebar-links" id="topicList">
+                    <li><a class="nav-link" href="mongodb-fundamentals.html"><i class="bi bi-database-fill"></i><span>MongoDB Fundamentals</span></a></li>
+                    <li><a class="nav-link" href="crud-operations.html"><i class="bi bi-pencil-square"></i><span>CRUD Operations</span></a></li>
+                    <li><a class="nav-link" href="aggregation-pipeline.html"><i class="bi bi-funnel-fill"></i><span>Aggregation Pipeline</span></a></li>
+                    <li><a class="nav-link active" href="indexes.html"><i class="bi bi-lightning-fill"></i><span>Indexes & Performance</span></a></li>
+                    <li><a class="nav-link" href="schema-design.html"><i class="bi bi-layout-wtf"></i><span>Schema Design</span></a></li>
+                    <li><a class="nav-link" href="relationships.html"><i class="bi bi-diagram-3-fill"></i><span>Relationships</span></a></li>
+                    <li><a class="nav-link" href="transactions.html"><i class="bi bi-arrow-repeat"></i><span>Transactions</span></a></li>
+                    <li><a class="nav-link" href="mongoose-odm.html"><i class="bi bi-box-seam"></i><span>Mongoose ODM</span></a></li>
+                    <li><a class="nav-link" href="performance-optimization.html"><i class="bi bi-speedometer2"></i><span>Performance Optimization</span></a></li>
+                    <li><a class="nav-link" href="replication-sharding.html"><i class="bi bi-hdd-stack-fill"></i><span>Replication & Sharding</span></a></li>
+                    <li><a class="nav-link" href="security.html"><i class="bi bi-shield-lock-fill"></i><span>Security & Auth</span></a></li>
+                    <li><a class="nav-link" href="text-search-geospatial.html"><i class="bi bi-search"></i><span>Text Search & Geospatial</span></a></li>
+                    <li><a class="nav-link" href="change-streams-watchers.html"><i class="bi bi-bell-fill"></i><span>Change Streams & Watch</span></a></li>
+                    <li><a class="nav-link" href="interview-queries-1.html"><i class="bi bi-code-slash"></i><span>Interview Queries — I</span></a></li>
+                    <li><a class="nav-link" href="interview-queries-2.html"><i class="bi bi-code-square"></i><span>Interview Queries — II</span></a></li>
+                </ul>
+            </nav>
+        </aside>
+        <div class="sidebar-backdrop" id="sidebarBackdrop"></div>
+        <div class="content-area">
+            <div class="mobile-bar d-lg-none">
+                <button class="btn btn-sm btn-glass" id="sidebarToggle">
+                    <i class="bi bi-layout-sidebar-inset me-1"></i>Topics
+                </button>
+                <span class="badge rounded-pill bg-success">MongoDB</span>
+            </div>
+            <div class="breadcrumb-nav" id="breadcrumb">
+                <a href="../../index.html">Home</a><span class="sep">/</span>
+                <a href="../../pages/mongodb.html">MongoDB</a><span class="sep">/</span>
+                <span class="current">Indexes & Performance</span>
+            </div>
+            <div class="qs-header">
+                <h1 class="qs-title" id="topicTitle">Indexes & Performance</h1>
+                <span class="badge qs-badge" id="questionCount">13 Questions</span>
+            </div>
+            <div class="accordion" id="questionsAccordion">
+        <div class="accordion-item">
+            <h2 class="accordion-header" id="h_q0">
+                <button class="accordion-button" type="button"
+                    data-bs-toggle="collapse" data-bs-target="#c_q0"
+                    aria-expanded="true">
+                    <span class="question-number">1</span>What are indexes in MongoDB and why are they important?
+                </button>
+            </h2>
+            <div id="c_q0" class="accordion-collapse collapse show"
+                data-bs-parent="#questionsAccordion">
+                <div class="accordion-body">An <strong>index</strong> in MongoDB is a data structure (B-tree based) that stores a subset of a collection's data in an ordered form, enabling the database engine to quickly locate documents without scanning every document in the collection. Without an index, MongoDB performs a <strong>Collection Scan (COLLSCAN)</strong> — examining every document. With an index it performs an <strong>Index Scan (IXSCAN)</strong> — traversing the B-tree. For a collection with 1 million documents, a good index reduces query time from <strong>seconds to milliseconds</strong>. However, indexes consume disk space and slow down write operations (insert/update/delete must update the index too).
+<pre><code>// Collection scan (no index) — reads ALL documents
+db.users.find({ email: "mayur@example.com" });
+// Execution plan: COLLSCAN
+
+// Create index on email field
+db.users.createIndex({ email: 1 }); // 1 = ascending
+
+// Now uses index — reads only matching entry
+db.users.find({ email: "mayur@example.com" });
+// Execution plan: IXSCAN → FETCH
+
+// View all indexes on a collection
+db.users.getIndexes();
+
+// Check if query uses index with explain()
+db.users.find({ email: "mayur@example.com" }).explain("executionStats");
+// Look for: "winningPlan.stage": "IXSCAN" (good)
+//           "winningPlan.stage": "COLLSCAN" (bad)
+// totalDocsExamined should equal nReturned for perfect index use</code></pre>
+<p><strong>Why it matters:</strong> Indexes are the <strong>single most impactful performance optimization</strong> in MongoDB. Every backend interview includes at least one question about indexing strategy.</p>
+<p><strong>Real applications:</strong> Without an email index, login queries on a 10 million user database take seconds. With the index, the same query takes under 1ms.</p>
+<p><strong>Common mistakes:</strong> Adding indexes on every field "just in case" — each index increases <strong>write latency and memory usage</strong>. Only index fields used in frequent queries.</p>
+                </div>
+            </div>
+        </div>
+        <div class="accordion-item">
+            <h2 class="accordion-header" id="h_q1">
+                <button class="accordion-button collapsed" type="button"
+                    data-bs-toggle="collapse" data-bs-target="#c_q1"
+                    aria-expanded="false">
+                    <span class="question-number">2</span>What is a compound index and how does the ESR rule apply?
+                </button>
+            </h2>
+            <div id="c_q1" class="accordion-collapse collapse"
+                data-bs-parent="#questionsAccordion">
+                <div class="accordion-body">A <strong>compound index</strong> covers multiple fields in a single index, enabling efficient queries that filter or sort by those fields together. The <strong>order of fields matters</strong> — compound indexes follow the <strong>leftmost prefix rule</strong>: an index on <code>{a, b, c}</code> supports queries on <code>a</code>, <code>a+b</code>, or <code>a+b+c</code>, but not <code>b</code> alone or <code>b+c</code>. The <strong>ESR Rule</strong> is MongoDB's best practice for field ordering: <strong>E</strong>quality fields first, then <strong>S</strong>ort fields, then <strong>R</strong>ange fields. This ordering maximizes index selectivity and avoids in-memory sorting.
+<pre><code>// ESR Rule: Equality → Sort → Range
+
+// Query: by status (equality), sort by date, filter date range
+db.orders.find({
+  status: "completed",          // E: equality
+  createdAt: { $gte: startDate } // R: range
+}).sort({ createdAt: -1 });      // S: sort
+
+// CORRECT compound index order (ESR)
+db.orders.createIndex({ status: 1, createdAt: -1 });
+//                         E          S+R (same field)
+
+// Another example
+// Query: userId=X, sort by date, amount range
+db.orders.find({ userId: uid, amount: { $gte: 100 } }).sort({ createdAt: -1 });
+
+// ESR compound index
+db.orders.createIndex({ userId: 1, createdAt: -1, amount: 1 });
+//                         E           S              R
+
+// Leftmost prefix support:
+// { a: 1, b: 1, c: 1 } supports:
+// - { a: x }               ✅
+// - { a: x, b: y }         ✅
+// - { a: x, b: y, c: z }   ✅
+// - { b: y }               ❌ (no leftmost prefix coverage)
+// - { a: x, c: z }         ✅ (but not ideal for c)</code></pre>
+<p><strong>Why it matters:</strong> The ESR rule is a critical MongoDB interview topic. Understanding <strong>compound index field ordering</strong> separates developers who create useful indexes from those who accidentally create unused ones.</p>
+<p><strong>Real applications:</strong> E-commerce <strong>order filtering</strong> (by customer + status + date range) benefits massively from a correctly ordered compound index vs three separate single-field indexes.</p>
+<p><strong>Common mistakes:</strong> Putting range fields before sort fields in compound indexes — this causes MongoDB to use the range portion of the index but then do an <strong>in-memory sort</strong>, negating the sort optimization.</p>
+                </div>
+            </div>
+        </div>
+        <div class="accordion-item">
+            <h2 class="accordion-header" id="h_q2">
+                <button class="accordion-button collapsed" type="button"
+                    data-bs-toggle="collapse" data-bs-target="#c_q2"
+                    aria-expanded="false">
+                    <span class="question-number">3</span>What is a multikey index and how does it work with arrays?
+                </button>
+            </h2>
+            <div id="c_q2" class="accordion-collapse collapse"
+                data-bs-parent="#questionsAccordion">
+                <div class="accordion-body">A <strong>multikey index</strong> is automatically created when you index a field that contains an <strong>array value</strong>. MongoDB creates index entries for each element of the array, allowing efficient queries for documents where the array contains a specific value. MongoDB automatically detects array fields and creates multikey indexes transparently. You cannot create a <strong>compound multikey index</strong> where more than one indexed field is an array. Querying array fields with conditions like <code>$in</code>, <code>$all</code>, <code>$elemMatch</code> all benefit from multikey indexes.
+<pre><code>// Document with array field
+{ _id: 1, tags: ["mongodb", "database", "nosql"], name: "Post 1" }
+{ _id: 2, tags: ["mongodb", "aggregation"],       name: "Post 2" }
+{ _id: 3, tags: ["sql", "database"],              name: "Post 3" }
+
+// Create index on array field → automatically becomes multikey
+db.posts.createIndex({ tags: 1 });
+// MongoDB creates entries: "aggregation"→[2], "database"→[1,3], ...
+
+// Queries that use multikey index
+db.posts.find({ tags: "mongodb" });           // array contains "mongodb"
+db.posts.find({ tags: { $in: ["mongodb", "sql"] } }); // $in with array
+db.posts.find({ tags: { $all: ["mongodb", "nosql"] } }); // must contain both
+
+// $elemMatch on array of objects
+db.orders.createIndex({ "items.productId": 1, "items.qty": 1 });
+db.orders.find({ items: { $elemMatch: { productId: "abc", qty: { $gte: 5 } } } });
+
+// ❌ Cannot compound two array fields
+db.posts.createIndex({ tags: 1, categories: 1 });
+// Error: cannot index parallel arrays</code></pre>
+<p><strong>Why it matters:</strong> Multikey indexes are the foundation of efficient array field queries. Tests understanding that array indexing is <strong>automatic but has compound limitations</strong>.</p>
+<p><strong>Real applications:</strong> <strong>Tag-based post search</strong>, <strong>product attribute filtering</strong> (find products where colors array contains "red"), <strong>role-based access</strong> queries on user roles array.</p>
+<p><strong>Common mistakes:</strong> Trying to create a compound index on two array fields — MongoDB throws an error. The workaround is to <strong>denormalize one array field</strong> or use separate queries.</p>
+                </div>
+            </div>
+        </div>
+        <div class="accordion-item">
+            <h2 class="accordion-header" id="h_q3">
+                <button class="accordion-button collapsed" type="button"
+                    data-bs-toggle="collapse" data-bs-target="#c_q3"
+                    aria-expanded="false">
+                    <span class="question-number">4</span>What is a text index and how does full-text search work in MongoDB?
+                </button>
+            </h2>
+            <div id="c_q3" class="accordion-collapse collapse"
+                data-bs-parent="#questionsAccordion">
+                <div class="accordion-body">A <strong>text index</strong> enables full-text search on string fields, supporting language-specific <strong>stemming</strong> (plural → base form), <strong>stop word removal</strong> (ignoring "the", "is"), and <strong>word tokenization</strong>. Only one text index is allowed per collection, but it can cover multiple fields. Use the <strong>$text operator</strong> with <code>$search</code> to query text indexes. Results come with a <strong>textScore</strong> (relevance score) that can be used for sorting. Text indexes support <strong>phrase search</strong> (quoted strings), <strong>phrase exclusion</strong> (minus prefix), and <strong>language specification</strong> (26 languages supported).
+<pre><code>// Create text index on multiple fields
+db.articles.createIndex({
+  title: "text",
+  body: "text",
+  tags: "text"
+}, {
+  weights: { title: 10, tags: 5, body: 1 },  // title words rank higher
+  name: "articles_text_idx"
+});
+
+// Full-text search query
+db.articles.find(
+  { $text: { $search: "mongodb aggregation performance" } },
+  { score: { $meta: "textScore" } }  // add relevance score
+).sort({ score: { $meta: "textScore" } }); // sort by relevance
+
+// Phrase search (quotes)
+db.articles.find({ $text: { $search: '"aggregation pipeline"' } });
+
+// Exclude term (minus prefix)
+db.articles.find({ $text: { $search: "mongodb -sql" } }); // mongodb but not sql
+
+// Language-specific search
+db.articles.find({ $text: { $search: "datos", $language: "es" } }); // Spanish
+
+// Check text index via $text explain
+db.articles.find({ $text: { $search: "mongodb" } }).explain("executionStats");</code></pre>
+<p><strong>Why it matters:</strong> Text search is essential for search features. Tests understanding of MongoDB's native search capabilities and when to use them vs dedicated search engines like Elasticsearch.</p>
+<p><strong>Real applications:</strong> <strong>Blog post search</strong>, <strong>product catalog search</strong> by name/description, <strong>documentation search</strong> for internal tools.</p>
+<p><strong>Common mistakes:</strong> Using <code>$regex</code> for full-text search — regex does not use text indexes, doesn't support stemming, and causes full collection scans on large datasets.</p>
+                </div>
+            </div>
+        </div>
+        <div class="accordion-item">
+            <h2 class="accordion-header" id="h_q4">
+                <button class="accordion-button collapsed" type="button"
+                    data-bs-toggle="collapse" data-bs-target="#c_q4"
+                    aria-expanded="false">
+                    <span class="question-number">5</span>What are sparse, unique, and partial indexes?
+                </button>
+            </h2>
+            <div id="c_q4" class="accordion-collapse collapse"
+                data-bs-parent="#questionsAccordion">
+                <div class="accordion-body"><strong>Unique indexes</strong> enforce that no two documents have the same value for the indexed field(s). Attempting to insert a duplicate value throws a <code>DuplicateKey</code> error. <strong>Sparse indexes</strong> only include documents where the indexed field exists (skips null/missing), saving space for optional fields. <strong>Partial indexes</strong> (MongoDB 3.2+) index only documents matching a specified filter expression — more powerful and flexible than sparse indexes. Partial indexes can dramatically reduce index size for selective queries (e.g., only index documents where status = "active").
+<pre><code>// Unique index — no duplicate emails
+db.users.createIndex({ email: 1 }, { unique: true });
+
+// Unique compound index (combo must be unique)
+db.sessions.createIndex({ userId: 1, deviceId: 1 }, { unique: true });
+
+// Sparse index — only index docs where phone field exists
+db.users.createIndex({ phone: 1 }, { sparse: true });
+
+// Partial index — only index active users
+db.users.createIndex(
+  { email: 1 },
+  {
+    partialFilterExpression: { isActive: true },
+    unique: true
+  }
+);
+// Only active users are checked for uniqueness — deleted users don't conflict
+
+// Partial index on high-volume collection (index only recent orders)
+db.orders.createIndex(
+  { createdAt: -1, status: 1 },
+  {
+    partialFilterExpression: {
+      status: { $in: ["pending", "processing"] }
+    }
+  }
+);
+// Much smaller index — only indexes 5% of orders that are still active
+
+// Unique partial index — unique email among verified users only
+db.users.createIndex(
+  { email: 1 },
+  { unique: true, partialFilterExpression: { isVerified: true } }
+);</code></pre>
+<p><strong>Why it matters:</strong> Partial indexes are a major optimization for large collections with skewed data distributions. They show <strong>advanced index design knowledge</strong> that separates senior from mid-level engineers.</p>
+<p><strong>Real applications:</strong> <strong>Order processing</strong> — index only pending/active orders (5% of collection) for dispatch system queries. <strong>User lookup</strong> — index only non-deleted users for login.</p>
+<p><strong>Common mistakes:</strong> Creating full collection indexes on fields queried only for a small subset of documents. A <strong>partial index</strong> on just those documents is orders of magnitude smaller and faster.</p>
+                </div>
+            </div>
+        </div>
+        <div class="accordion-item">
+            <h2 class="accordion-header" id="h_q5">
+                <button class="accordion-button collapsed" type="button"
+                    data-bs-toggle="collapse" data-bs-target="#c_q5"
+                    aria-expanded="false">
+                    <span class="question-number">6</span>What is a TTL index and how does automatic document expiry work?
+                </button>
+            </h2>
+            <div id="c_q5" class="accordion-collapse collapse"
+                data-bs-parent="#questionsAccordion">
+                <div class="accordion-body">A <strong>TTL (Time-To-Live) index</strong> is a special single-field index on a <strong>Date type field</strong> that automatically deletes documents after a specified number of seconds have passed since the date stored in the field. MongoDB runs a background process every <strong>60 seconds</strong> to find and delete expired documents. TTL indexes are perfect for <strong>session management, cache records, temporary tokens, and log data</strong> with automatic cleanup. You cannot create compound TTL indexes. The expiry logic is: document is deleted when <code>current_time > document_date + expireAfterSeconds</code>.
+<pre><code>// Create TTL index — expire after 1 hour (3600 seconds)
+db.sessions.createIndex(
+  { createdAt: 1 },
+  { expireAfterSeconds: 3600 }
+);
+
+// Documents are auto-deleted when current time > createdAt + 1 hour
+db.sessions.insertOne({ userId: "123", token: "abc", createdAt: new Date() });
+// ↑ Will be automatically deleted after 1 hour
+
+// Expire at specific time (set expireAfterSeconds: 0)
+db.scheduledJobs.createIndex(
+  { executeAt: 1 },
+  { expireAfterSeconds: 0 }
+);
+// ↑ Document is deleted at the exact time stored in executeAt
+
+// TTL for logs — keep only last 30 days
+db.app_logs.createIndex(
+  { timestamp: 1 },
+  { expireAfterSeconds: 30 * 24 * 3600 } // 30 days
+);
+
+// Update TTL index expiry period (MongoDB 4.4+)
+db.runCommand({
+  collMod: "sessions",
+  index: { keyPattern: { createdAt: 1 }, expireAfterSeconds: 7200 }  // change to 2 hours
+});
+
+// TTL background process runs every 60 seconds (not real-time)</code></pre>
+<p><strong>Why it matters:</strong> TTL indexes are the <strong>correct way to handle data expiry</strong> in MongoDB. They replace custom cleanup jobs with a built-in, zero-maintenance mechanism tested in most MongoDB interviews.</p>
+<p><strong>Real applications:</strong> <strong>Session tokens expiry</strong> (1 hour), <strong>OTP codes expiry</strong> (5 minutes), <strong>password reset links</strong> (24 hours), <strong>cache records</strong> (variable TTL), <strong>rate limiting records</strong> (1 minute).</p>
+<p><strong>Common mistakes:</strong> Expecting real-time deletion — TTL clean-up runs every 60 seconds, so documents may persist up to 60 seconds past expiry. Also using non-Date fields — TTL only works with <strong>Date type</strong> fields.</p>
+                </div>
+            </div>
+        </div>
+        <div class="accordion-item">
+            <h2 class="accordion-header" id="h_q6">
+                <button class="accordion-button collapsed" type="button"
+                    data-bs-toggle="collapse" data-bs-target="#c_q6"
+                    aria-expanded="false">
+                    <span class="question-number">7</span>What is explain() and how do you use it to diagnose slow queries?
+                </button>
+            </h2>
+            <div id="c_q6" class="accordion-collapse collapse"
+                data-bs-parent="#questionsAccordion">
+                <div class="accordion-body">The <strong>explain()</strong> method returns detailed information about how MongoDB executes a query, including the <strong>winning plan</strong> (index chosen), stages traversed, documents examined, and execution time. It has three verbosity levels: <code>"queryPlanner"</code> (plan only, no execution), <code>"executionStats"</code> (runs query, returns stats), <code>"allPlansExecution"</code> (tests all candidate plans). Key metrics to check: <strong>IXSCAN vs COLLSCAN</strong>, <strong>totalDocsExamined/nReturned ratio</strong> (ideal = 1), <strong>totalKeysExamined</strong>, and <strong>executionTimeMillis</strong>.
+<pre><code>// Basic explain
+db.users.find({ age: { $gt: 25 }, city: "Mumbai" }).explain("executionStats");
+
+// Key fields to inspect:
+// executionStats.nReturned             — docs returned
+// executionStats.totalDocsExamined     — docs scanned (should ≈ nReturned)
+// executionStats.totalKeysExamined     — index entries checked
+// executionStats.executionTimeMillis   — total time in ms
+// queryPlanner.winningPlan.stage       — IXSCAN (good) or COLLSCAN (bad)
+
+// Check aggregation pipeline performance
+db.orders.explain("executionStats").aggregate([
+  { $match: { status: "completed" } },
+  { $group: { _id: "$customerId", total: { $sum: "$amount" } } }
+]);
+
+// Covered query — all fields in index, no document fetch needed
+db.users.createIndex({ email: 1, name: 1 });
+db.users.find({ email: "test@example.com" }, { name: 1, _id: 0 })
+  .explain("executionStats");
+// Look for: "stage": "PROJECTION_COVERED" — never touches the document!
+
+// "hint" — force a specific index
+db.users.find({ email: "test@example.com" })
+  .hint({ email: 1 })
+  .explain("executionStats");</code></pre>
+<p><strong>Why it matters:</strong> <code>explain()</code> is the <strong>primary tool for diagnosing slow queries</strong>. Every MongoDB performance optimization starts with explain(). Understanding how to read explain output is mandatory for backend roles.</p>
+<p><strong>Real applications:</strong> Identifying <strong>missing indexes</strong> on high-traffic API endpoints, detecting <strong>index bloat</strong> (too many keys examined vs docs returned), finding <strong>accidental full collection scans</strong>.</p>
+<p><strong>Common mistakes:</strong> Not checking the <strong>totalDocsExamined / nReturned ratio</strong> — a ratio of 1000:1 means examining 1000 docs to return 1, indicating a poor or missing index.</p>
+                </div>
+            </div>
+        </div>
+        <div class="accordion-item">
+            <h2 class="accordion-header" id="h_q7">
+                <button class="accordion-button collapsed" type="button"
+                    data-bs-toggle="collapse" data-bs-target="#c_q7"
+                    aria-expanded="false">
+                    <span class="question-number">8</span>What is a covered query and why is it the most efficient type?
+                </button>
+            </h2>
+            <div id="c_q7" class="accordion-collapse collapse"
+                data-bs-parent="#questionsAccordion">
+                <div class="accordion-body">A <strong>covered query</strong> is one where ALL fields required by the query (filter and projection) are present in the index, allowing MongoDB to satisfy the entire query <strong>from the index alone without accessing any documents</strong>. The index "covers" the query completely. This is the most efficient query type because: (1) No document I/O — index is much smaller than collection, (2) Index is typically in RAM, (3) No document deserialization needed. To achieve covered queries, create a compound index that includes all filter fields and all projected fields. Documents' <code>_id</code> must also be excluded from projection (or included in the index) for a covered query.
+<pre><code>// Create compound index covering filter + projection fields
+db.users.createIndex({ email: 1, name: 1, role: 1 });
+
+// Covered query — everything resolved from index (no document reads!)
+db.users.find(
+  { email: "mayur@example.com" },        // filter field: in index ✅
+  { name: 1, role: 1, _id: 0 }          // projection fields: in index ✅, _id excluded ✅
+);
+// explain: "winningPlan.stage": "PROJECTION_COVERED"
+
+// NOT covered — _id not in index and not excluded
+db.users.find(
+  { email: "mayur@example.com" },
+  { name: 1, role: 1 }   // _id is returned by default but not in index → fetches doc
+);
+
+// NOT covered — 'age' not in index
+db.users.find(
+  { email: "mayur@example.com" },
+  { name: 1, age: 1, _id: 0 }  // age not in index → fetches doc
+);
+
+// High-performance user lookup (auth check)
+db.users.createIndex({ email: 1, passwordHash: 1, role: 1 });
+db.users.find({ email: "user@example.com" }, { passwordHash: 1, role: 1, _id: 0 });
+// ✅ Covered — login check never touches the document store!</code></pre>
+<p><strong>Why it matters:</strong> Covered queries are the <strong>gold standard</strong> for query optimization. Showing knowledge of covered queries in interviews demonstrates deep understanding of <strong>index mechanics and performance engineering</strong>.</p>
+<p><strong>Real applications:</strong> <strong>Authentication queries</strong> on high-traffic login endpoints, <strong>autocomplete suggestions</strong> (name/email lookup), <strong>count queries</strong> on filtered subsets.</p>
+<p><strong>Common mistakes:</strong> Returning <code>_id</code> (default when not excluded) breaks covered queries because <code>_id</code> must be in the index or explicitly excluded with <code>_id: 0</code>.</p>
+                </div>
+            </div>
+        </div>
+        <div class="accordion-item">
+            <h2 class="accordion-header" id="h_q8">
+                <button class="accordion-button collapsed" type="button"
+                    data-bs-toggle="collapse" data-bs-target="#c_q8"
+                    aria-expanded="false">
+                    <span class="question-number">9</span>What is index selectivity and how does it affect index choice?
+                </button>
+            </h2>
+            <div id="c_q8" class="accordion-collapse collapse"
+                data-bs-parent="#questionsAccordion">
+                <div class="accordion-body"><strong>Index selectivity</strong> measures how uniquely an index identifies documents — high selectivity means the index quickly narrows down to very few matching documents. Selectivity is measured by <strong>cardinality</strong>: unique values / total documents. High-cardinality fields (email, phone, userId) have excellent selectivity. Low-cardinality fields (status: "active"/"inactive", boolean, gender) have poor selectivity. MongoDB's query optimizer uses <strong>index selectivity</strong> to choose which index to use when multiple indexes are available. For compound indexes, <strong>high-selectivity fields should come first</strong> (after equality fields following the ESR rule).
+<pre><code>// HIGH selectivity (good index candidates)
+// email: 1M unique values in 1M docs → selectivity = 1.0
+// userId: unique per document
+// orderId: unique identifier
+db.users.createIndex({ email: 1 }); // excellent! 
+
+// LOW selectivity (poor standalone indexes)
+// status: only "active", "inactive" → selectivity = 0.000002
+// isVerified: only true/false → selectivity = 0.000001
+db.users.createIndex({ isVerified: 1 }); // poor! 50% true, 50% false
+
+// Better: partial index instead of low-selectivity full index
+db.users.createIndex({ email: 1 }, {
+  partialFilterExpression: { isActive: true }
+});
+
+// Check index effectiveness
+db.users.find({ isVerified: true })
+  .explain("executionStats");
+// totalDocsExamined may still be 500,000 (half the collection!)
+
+// MongoDB may prefer COLLSCAN over low-selectivity index
+// for large result sets (collection scan is sometimes faster
+// due to sequential I/O vs random index I/O)</code></pre>
+<p><strong>Why it matters:</strong> Shows deep understanding of how the query optimizer makes decisions. Interviewers ask this to differentiate engineers who <strong>understand index mechanics</strong> vs those who blindly add indexes.</p>
+<p><strong>Real applications:</strong> Creating an index on <code>status</code> alone for 1M orders where 800K are "completed" provides <strong>minimal benefit</strong> — MongoDB scans 80% of the collection anyway.</p>
+<p><strong>Common mistakes:</strong> Creating indexes on boolean or enum fields with only 2-5 unique values — MongoDB often opts for a collection scan instead because the index has poor selectivity.</p>
+                </div>
+            </div>
+        </div>
+        <div class="accordion-item">
+            <h2 class="accordion-header" id="h_q9">
+                <button class="accordion-button collapsed" type="button"
+                    data-bs-toggle="collapse" data-bs-target="#c_q9"
+                    aria-expanded="false">
+                    <span class="question-number">10</span>How do wildcard indexes work in MongoDB?
+                </button>
+            </h2>
+            <div id="c_q9" class="accordion-collapse collapse"
+                data-bs-parent="#questionsAccordion">
+                <div class="accordion-body"><strong>Wildcard indexes</strong> (MongoDB 4.2+) index all fields (or fields matching a pattern) in a collection, enabling ad-hoc queries on unpredictable or dynamic fields without knowing field names in advance. Perfect for collections with <strong>user-defined custom fields, JSON metadata, or flexible schemas</strong>. Create with <code>"$**": 1</code> for all fields or <code>"fieldPath.$**": 1</code> for a sub-document. Wildcard indexes cannot be unique, TTL, text, or hashed. They support <strong>equality, range, and sort operations</strong> but not queries that require knowing the structure upfront (like $exists on the wildcard path).
+<pre><code>// Wildcard index on all fields
+db.products.createIndex({ "$**": 1 });
+// Now any field query uses this index:
+db.products.find({ "specs.screenSize": "15 inch" });  // ✅ uses wildcard index
+db.products.find({ "attributes.color": "red" });       // ✅ uses wildcard index
+db.products.find({ "customFields.delivery": "express" }); // ✅ uses wildcard index
+
+// Wildcard index on specific sub-document
+db.products.createIndex({ "metadata.$**": 1 });
+// Indexes all fields within metadata subdocument
+
+// Wildcard index with exclusions
+db.products.createIndex(
+  { "$**": 1 },
+  {
+    wildcardProjection: {
+      "price": 0,       // exclude price field
+      "inventory": 0    // exclude inventory field
+    }
+  }
+);
+
+// Use case: user-defined product attributes
+{
+  "_id": 1,
+  "name": "Custom Laptop",
+  "attributes": {
+    "cpu": "Intel i7",
+    "RAM": "16GB",
+    "storage": "512GB SSD",
+    "customProp_xyz": "some_value"  // any custom field
+  }
+}</code></pre>
+<p><strong>Why it matters:</strong> Wildcard indexes are essential for <strong>schema-flexible designs</strong> — a key MongoDB strength. Shows knowledge of a relatively newer feature that solves real-world problems with dynamic data.</p>
+<p><strong>Real applications:</strong> <strong>E-commerce product with custom attributes</strong>, <strong>user-defined form fields</strong>, <strong>IoT device telemetry</strong> where each device type has different metrics.</p>
+<p><strong>Common mistakes:</strong> Using wildcard indexes on large collections without understanding they index <strong>every field in every document</strong> — the index can become larger than the collection itself.</p>
+                </div>
+            </div>
+        </div>
+        <div class="accordion-item">
+            <h2 class="accordion-header" id="h_q10">
+                <button class="accordion-button collapsed" type="button"
+                    data-bs-toggle="collapse" data-bs-target="#c_q10"
+                    aria-expanded="false">
+                    <span class="question-number">11</span>What is the difference between foreground and background index builds?
+                </button>
+            </h2>
+            <div id="c_q10" class="accordion-collapse collapse"
+                data-bs-parent="#questionsAccordion">
+                <div class="accordion-body">In MongoDB 4.2 and earlier, <strong>foreground index builds</strong> locked the entire database (blocking all reads and writes) for the duration of the build — fast but causes downtime. <strong>Background index builds</strong> ran concurrently with read/write operations but were slower. MongoDB 4.2+ eliminated this distinction — all index builds are now <strong>hybrid</strong> (optimized concurrent builds that hold a brief exclusive lock only at the start and end). The build status can be monitored with <code>db.currentOp()</code>. For Atlas and MongoDB 4.2+, use rolling index builds (build on each secondary first, then primary) to minimize production impact.
+<pre><code>// MongoDB 4.2+: just createIndex (always hybrid/optimized)
+db.users.createIndex({ email: 1 });  // non-blocking in foreground
+
+// Monitor index build progress
+db.currentOp({
+  "command.createIndexes": { $exists: true }
+});
+// Shows: progress percentage, active phase, elapsed time
+
+// MongoDB 4.0 and earlier — background flag
+db.users.createIndex({ email: 1 }, { background: true });
+// background: true = no writes blocked (slower, deprecated in 4.2)
+
+// Rolling index build on replica set (best practice for large collections)
+// 1. Build on each secondary independently (rs.stepDown first if needed)
+// 2. Stepdown primary → elect new primary  
+// 3. Build on old primary (now secondary)
+// Result: cluster stays available throughout, minimal performance impact
+
+// Drop and rebuild index
+db.users.dropIndex({ email: 1 });
+db.users.createIndex({ email: 1 });
+
+// Create multiple indexes at once (faster than creating one by one)
+db.users.createIndexes([
+  { email: 1 },
+  { createdAt: -1 },
+  { status: 1, role: 1 }
+]);</code></pre>
+<p><strong>Why it matters:</strong> Production index management is a <strong>critical operational concern</strong>. Interviewers for senior/DevOps roles ask this to verify you can add indexes to live production systems without causing outages.</p>
+<p><strong>Real applications:</strong> Adding a missing index to a production collection with 100M documents requires <strong>rolling index build</strong> on each replica set member to avoid query performance degradation.</p>
+<p><strong>Common mistakes:</strong> Building indexes on the primary in MongoDB 4.0 or earlier without <code>background: true</code> — this locks the entire database, causing downtime for all users.</p>
+                </div>
+            </div>
+        </div>
+        <div class="accordion-item">
+            <h2 class="accordion-header" id="h_q11">
+                <button class="accordion-button collapsed" type="button"
+                    data-bs-toggle="collapse" data-bs-target="#c_q11"
+                    aria-expanded="false">
+                    <span class="question-number">12</span>What are hashed indexes and when should you use them?
+                </button>
+            </h2>
+            <div id="c_q11" class="accordion-collapse collapse"
+                data-bs-parent="#questionsAccordion">
+                <div class="accordion-body">A <strong>hashed index</strong> stores hashed values of the indexed field instead of the actual values. MongoDB computes a hash of the field value using a consistent hash function and stores that in the index. Hashed indexes support only <strong>equality queries</strong> (cannot do range queries on hashed indexes). Their primary use case is as a <strong>shard key</strong> for sharded collections — hashed shard keys distribute data evenly across shards regardless of the original value's distribution pattern (e.g., monotonically increasing timestamps). They can also be used for <strong>obfuscating values</strong> in the index while still supporting equality lookup.
+<pre><code>// Create hashed index
+db.users.createIndex({ userId: "hashed" });
+
+// Supports equality queries only
+db.users.find({ userId: "user123" }); // ✅ uses hashed index
+db.users.find({ userId: { $gt: "user100" } }); // ❌ range not supported
+
+// Primary use: hashed shard key for even distribution
+sh.shardCollection("ecommerce.orders", { _id: "hashed" });
+// ObjectId values are hashed → even distribution across shards
+// vs { createdAt: 1 } (range shard key) which creates write hotspots
+
+// Comparison: Range vs Hashed shard key
+// Range key (serial): [0,100) → shard1, [100,200) → shard2
+// New orders all go to highest range shard → HOTSPOT ❌
+
+// Hashed key: hash("order001") → shard3, hash("order002") → shard1
+// Orders distributed evenly → NO hotspot ✅
+
+// Compound hashed index (MongoDB 4.4+)
+db.events.createIndex({ userId: 1, eventId: "hashed" });
+// ↑ userId is range prefix, eventId is hashed</code></pre>
+<p><strong>Why it matters:</strong> Hashed indexes are <strong>critical for sharding strategy</strong> — a key senior MongoDB topic. Understanding when to use hashed vs range shard keys prevents the classic <strong>write hotspot problem</strong>.</p>
+<p><strong>Real applications:</strong> <strong>Sharding user data</strong> by userId hash for even distribution, <strong>sharding event logs</strong> by _id hash to prevent sequential write bottlenecks.</p>
+<p><strong>Common mistakes:</strong> Using hashed shard keys when range queries on the shard key are common — hashed sharding requires <strong>broadcast queries</strong> for range scans, hitting all shards.</p>
+                </div>
+            </div>
+        </div>
+        <div class="accordion-item">
+            <h2 class="accordion-header" id="h_q12">
+                <button class="accordion-button collapsed" type="button"
+                    data-bs-toggle="collapse" data-bs-target="#c_q12"
+                    aria-expanded="false">
+                    <span class="question-number">13</span>What is index intersection and when does MongoDB use it?
+                </button>
+            </h2>
+            <div id="c_q12" class="accordion-collapse collapse"
+                data-bs-parent="#questionsAccordion">
+                <div class="accordion-body"><strong>Index intersection</strong> is MongoDB's ability to use two or more indexes simultaneously to satisfy a single query, merging results from multiple index scans. Instead of scanning one compound index, MongoDB can intersect results from two single-field indexes. However, index intersection is generally <strong>less efficient than a well-designed compound index</strong> due to the overhead of merging index scan results. MongoDB's query optimizer compares compound index vs intersection cost and chooses the optimal plan. Understanding when MongoDB chooses intersection vs compound index helps design better index strategies.
+<pre><code>// Two separate indexes
+db.users.createIndex({ age: 1 });
+db.users.createIndex({ city: 1 });
+
+// Query filtering both fields
+db.users.find({ age: { $gt: 25 }, city: "Mumbai" });
+// MongoDB can:
+// Option 1: Use compound index { age: 1, city: 1 } (best)
+// Option 2: Intersect results from { age: 1 } and { city: 1 }
+
+// Check explain to see if intersection is used
+db.users.find({ age: { $gt: 25 }, city: "Mumbai" }).explain("executionStats");
+// "stage": "AND_HASH" or "AND_SORTED" → index intersection happening
+
+// When intersection helps:
+// - No compound index exists
+// - Multiple queries with different field combinations
+
+// When compound index is better:
+// - Known query patterns
+// - Sort operations (compound supports sort, intersection doesn't)
+// - Better selectivity when fields ordered correctly
+
+// Best practice: prefer compound indexes for known query patterns
+db.users.createIndex({ city: 1, age: 1 }); // better than intersection
+db.users.find({ city: "Mumbai", age: { $gt: 25 } }).explain();
+// "stage": "IXSCAN" (single compound scan, faster than intersection)</code></pre>
+<p><strong>Why it matters:</strong> Index intersection knowledge shows understanding of <strong>query planner internals</strong>. Most production optimizations favor compound indexes over relying on intersection.</p>
+<p><strong>Real applications:</strong> When you inherit a database without compound indexes and cannot change them immediately — knowing MongoDB intersects indexes reassures you queries aren't doing full scans.</p>
+<p><strong>Common mistakes:</strong> Relying on index intersection as a design strategy — it works but is less efficient than compound indexes, especially for queries with sort operations.</p>
+                </div>
+            </div>
+        </div>
+
+            </div>
+            <div class="topic-nav" id="topicNav">
+            <a class="topic-nav-btn prev" href="aggregation-pipeline.html">
+                <span class="label"><i class="bi bi-arrow-left me-1"></i> Prev</span>
+                <span class="title">Aggregation Pipeline</span>
+            </a>
+            <a class="topic-nav-btn next" href="schema-design.html">
+                <span class="label">Next <i class="bi bi-arrow-right ms-1"></i></span>
+                <span class="title">Schema Design</span>
+            </a>
+            </div>
+            <footer class="app-footer">
+                <p>&copy; 2026 InterviewPrep &mdash; MongoDB Interview Questions</p>
+            </footer>
+        </div>
+    </div>
+    <button class="btn-totop" id="backToTop"><i class="bi bi-chevron-up"></i></button>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>
+    <script>
+    (function(){
+        var sb=document.getElementById('sidebar'),bd=document.getElementById('sidebarBackdrop'),
+            tg=document.getElementById('sidebarToggle');
+        if(tg)tg.addEventListener('click',function(){sb.classList.add('open');bd.classList.add('show');});
+        if(bd)bd.addEventListener('click',function(){sb.classList.remove('open');bd.classList.remove('show');});
+        var btt=document.getElementById('backToTop');
+        window.addEventListener('scroll',function(){btt.classList.toggle('show',window.scrollY>400);});
+        btt.addEventListener('click',function(){window.scrollTo({top:0,behavior:'smooth'});});
+        var acc=document.getElementById('questionsAccordion');
+        var totalCount=13;
+        var si=document.getElementById('searchInput');
+        if(si){var t=null;si.addEventListener('input',function(){clearTimeout(t);var v=this.value.trim().toLowerCase();
+        if(v.length<2){acc.querySelectorAll('.accordion-item').forEach(function(el){el.style.display='';});
+        document.getElementById('questionCount').textContent=totalCount+' Questions';return;}
+        t=setTimeout(function(){var c=0;acc.querySelectorAll('.accordion-item').forEach(function(el){
+        var m=el.textContent.toLowerCase().indexOf(v)!==-1;el.style.display=m?'':'none';if(m)c++;});
+        document.getElementById('questionCount').textContent=c+' Questions';},200);});}
+    })();
+    </script>
+</body>
+</html>

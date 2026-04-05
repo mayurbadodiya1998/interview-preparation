@@ -1,0 +1,880 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="MySQL Transactions & ACID interview questions: ACID properties, isolation levels, locks.">
+    <meta name="keywords" content="MySQL transactions, ACID properties, isolation levels, READ UNCOMMITTED SERIALIZABLE, MySQL interview">
+    <meta name="author" content="InterviewPrep">
+    <meta name="robots" content="index, follow">
+    <link rel="icon" type="image/svg+xml" href="../../favicon.svg" sizes="any">
+    <meta property="og:type" content="website">
+    <meta property="og:title" content="MySQL Transactions & ACID — MySQL Interview Questions | InterviewPrep">
+    <meta property="og:description" content="MySQL Transactions & ACID interview questions: ACID properties, isolation levels, locks.">
+    <meta property="og:url" content="https://coddingquestionhub.com/topics/mysql/transactions-acid.html">
+    <meta name="twitter:card" content="summary_large_image">
+    <meta name="twitter:title" content="MySQL Transactions & ACID — MySQL Interview Questions | InterviewPrep">
+    <meta name="twitter:description" content="MySQL Transactions & ACID interview questions: ACID properties, isolation levels, locks.">
+    <meta name="twitter:image" content="https://coddingquestionhub.com/og-mysql.png">
+    <title>MySQL Transactions & ACID — MySQL Interview Questions | InterviewPrep 2026</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&family=Fira+Code:wght@400;500&display=swap" rel="stylesheet">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="../../css/styles.css">
+    <link rel="canonical" href="https://coddingquestionhub.com/topics/mysql/transactions-acid.html">
+    <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-8957020141286926" crossorigin="anonymous"></script>
+    <script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "BreadcrumbList",
+  "itemListElement": [
+    {
+      "@type": "ListItem",
+      "position": 1,
+      "name": "Home",
+      "item": "https://coddingquestionhub.com"
+    },
+    {
+      "@type": "ListItem",
+      "position": 2,
+      "name": "Topics",
+      "item": "https://coddingquestionhub.com/topics"
+    },
+    {
+      "@type": "ListItem",
+      "position": 3,
+      "name": "Mysql",
+      "item": "https://coddingquestionhub.com/topics/mysql"
+    },
+    {
+      "@type": "ListItem",
+      "position": 4,
+      "name": "Transactions Acid",
+      "item": "https://coddingquestionhub.com/topics/mysql/transactions-acid.html"
+    }
+  ]
+}
+    </script>
+</head>
+<body class="theme-mysql">
+    <nav class="navbar navbar-expand-lg sticky-top" id="mainNavbar">
+        <div class="container-fluid px-3 px-lg-4">
+            <a class="navbar-brand fw-bold d-flex align-items-center gap-2" href="../../index.html">
+                <span class="brand-icon"><i class="bi bi-braces-asterisk"></i></span>
+                <span>Interview<span class="brand-accent">Prep</span></span>
+            </a>
+            <button class="navbar-toggler border-0 shadow-none" type="button" data-bs-toggle="collapse" data-bs-target="#navbarContent">
+                <i class="bi bi-list fs-3 text-white"></i>
+            </button>
+            <div class="collapse navbar-collapse" id="navbarContent">
+                <ul class="navbar-nav me-auto mb-2 mb-lg-0 ms-lg-3">
+                    <li class="nav-item dropdown">
+                        <a class="nav-link dropdown-toggle fw-500" href="#" role="button" data-bs-toggle="dropdown">
+                            <i class="bi bi-layers me-1"></i> Choose Category
+                        </a>
+                        <ul class="dropdown-menu">
+                            <li><a class="dropdown-item fw-500" href="../../pages/angular.html"><i class="bi bi-bootstrap me-2 text-danger"></i>Angular</a></li>
+                            <li><a class="dropdown-item fw-500" href="../../pages/react.html"><i class="bi bi-infinity me-2 text-info"></i>React</a></li>
+                            <li><a class="dropdown-item fw-500" href="../../pages/node.html"><i class="bi bi-hdd-network me-2 text-success"></i>Node.js</a></li>
+                            <li><a class="dropdown-item fw-500" href="../../pages/javascript.html"><i class="bi bi-filetype-js me-2 text-warning"></i>JavaScript</a></li>
+                            <li><a class="dropdown-item fw-500" href="../../pages/dsa.html"><i class="bi bi-diagram-3-fill me-2" style="color:#8b5cf6"></i>DSA</a></li>
+                            <li><a class="dropdown-item fw-500" href="../../pages/logical.html"><i class="bi bi-lightbulb me-2" style="color:#f59e0b"></i>Logical Reasoning</a></li>
+                            <li><a class="dropdown-item fw-500" href="../../pages/mongodb.html"><i class="bi bi-database-fill me-2" style="color:#4DB33D"></i>MongoDB</a></li>
+                            <li><a class="dropdown-item fw-500" href="../../pages/mysql.html"><i class="bi bi-table me-2" style="color:#0F766E"></i>MySQL</a></li>
+                        </ul>
+                    </li>
+                </ul>
+                <div class="search-wrap">
+                    <i class="bi bi-search search-icon"></i>
+                    <input class="form-control search-input" type="search" placeholder="Search questions..." id="searchInput">
+                </div>
+                </div>
+            </div>
+        </div>
+    </nav>
+
+        <div class="app-wrapper">
+        <aside class="sidebar" id="sidebar">
+            <div class="sidebar-head">
+                <h6><i class="bi bi-table me-2"></i>MySQL Topics</h6>
+            </div>
+            <nav>
+                <ul class="sidebar-links" id="topicList">
+                    <li><a class="nav-link" href="mysql-fundamentals.html"><i class="bi-diagram-2"></i><span>MySQL Fundamentals</span></a></li>
+                    <li><a class="nav-link" href="crud-operations.html"><i class="bi-pencil-square"></i><span>CRUD Operations</span></a></li>
+                    <li><a class="nav-link" href="sql-joins.html"><i class="bi-link-45deg"></i><span>SQL Joins</span></a></li>
+                    <li><a class="nav-link" href="indexes.html"><i class="bi-lightning-fill"></i><span>Indexes</span></a></li>
+                    <li><a class="nav-link" href="query-optimization.html"><i class="bi-speedometer2"></i><span>Query Optimization</span></a></li>
+                    <li><a class="nav-link active" href="transactions-acid.html"><i class="bi-arrow-repeat"></i><span>Transactions &amp; ACID</span></a></li>
+                    <li><a class="nav-link" href="stored-procedures.html"><i class="bi-code-square"></i><span>Stored Procedures</span></a></li>
+                    <li><a class="nav-link" href="triggers.html"><i class="bi-bell-fill"></i><span>Triggers</span></a></li>
+                    <li><a class="nav-link" href="views.html"><i class="bi-eye"></i><span>Views</span></a></li>
+                    <li><a class="nav-link" href="normalization.html"><i class="bi-diagram-3-fill"></i><span>Normalization</span></a></li>
+                    <li><a class="nav-link" href="data-types.html"><i class="bi-diagram-2"></i><span>Data Types</span></a></li>
+                    <li><a class="nav-link" href="string-functions.html"><i class="bi-chat-square-text"></i><span>String Functions</span></a></li>
+                    <li><a class="nav-link" href="date-time-functions.html"><i class="bi-calendar-event"></i><span>Date &amp; Time</span></a></li>
+                    <li><a class="nav-link" href="aggregate-functions.html"><i class="bi-graph-up"></i><span>Aggregate Functions</span></a></li>
+                    <li><a class="nav-link" href="window-functions.html"><i class="bi-column-gap"></i><span>Window Functions</span></a></li>
+                    <li><a class="nav-link" href="subqueries-ctes.html"><i class="bi-filter"></i><span>Subqueries &amp; CTEs</span></a></li>
+                    <li><a class="nav-link" href="full-text-search.html"><i class="bi-search"></i><span>Full-Text Search</span></a></li>
+                    <li><a class="nav-link" href="replication-ha.html"><i class="bi-diagram-3"></i><span>Replication &amp; HA</span></a></li>
+                    <li><a class="nav-link" href="security-permissions.html"><i class="bi-shield-check"></i><span>Security</span></a></li>
+                    <li><a class="nav-link" href="performance-tuning.html"><i class="bi-sliders"></i><span>Performance Tuning</span></a></li>
+                    <li><a class="nav-link" href="interview-queries-1.html"><i class="bi-gear-fill"></i><span>Interview Queries 1</span></a></li>
+                    <li><a class="nav-link" href="interview-queries-2.html"><i class="bi-gear-fill"></i><span>Interview Queries 2</span></a></li>
+                </ul>
+            </nav>
+        </aside>
+        <div class="sidebar-backdrop" id="sidebarBackdrop"></div>
+        <div class="content-area">
+            <div class="mobile-bar d-lg-none">
+                <button class="btn btn-sm btn-glass" id="sidebarToggle">
+                    <i class="bi bi-layout-sidebar-inset me-1"></i>Topics
+                </button>
+                <span class="badge rounded-pill" style="background:#0F766E;color:#fff;">MySQL</span>
+            </div>
+            <div class="breadcrumb-nav" id="breadcrumb">
+                <a href="../../index.html">Home</a><span class="sep">/</span>
+                <a href="../../pages/mysql.html">MySQL</a><span class="sep">/</span>
+                <span class="current">Transactions &amp; ACID</span>
+            </div>
+            <div class="qs-header">
+                <h1 class="qs-title" id="topicTitle">MySQL Transactions &amp; ACID Interview Questions</h1>
+                <span class="badge qs-badge" id="questionCount">15 Questions</span>
+            </div>
+<div class="accordion" id="questionsAccordion">
+                <!-- Question 1 -->
+                <div class="accordion-item">
+                    <h2 class="accordion-header" id="h_q0">
+                        <button class="accordion-button" type="button" data-bs-toggle="collapse" data-bs-target="#c_q0" aria-expanded="true"><span class="question-number">1</span> What are ACID properties and why are they important?</button>
+                    </h2>
+                    <div id="c_q0" class="accordion-collapse collapse show" data-bs-parent="#questionsAccordion">
+                        <div class="accordion-body">
+                        <p><strong>ACID properties</strong> (Atomicity, Consistency, Isolation, Durability) ensure reliable database transactions. <strong>Atomicity</strong> guarantees all-or-nothing execution, <strong>Consistency</strong> maintains data integrity, <strong>Isolation</strong> prevents interference between concurrent transactions, and <strong>Durability</strong> ensures committed data survives failures. These properties are crucial for financial systems and critical applications.</p>
+                        <pre><code>-- Example: Bank transfer demonstrating ACID properties
+BEGIN;
+    -- Atomicity: Both statements succeed together or both fail
+    UPDATE accounts SET balance = balance - 100 WHERE id = 1;
+    UPDATE accounts SET balance = balance + 100 WHERE id = 2;
+COMMIT;  -- Durability: Changes permanently saved
+
+-- If error occurs
+BEGIN;
+    UPDATE accounts SET balance = balance - 100 WHERE id = 1;
+    -- Error here!
+    UPDATE accounts SET balance = balance + 100 WHERE id = 2;
+ROLLBACK;  -- Atomicity: Both changes reverted, no partial transfer</code></pre>
+
+                        <p><strong>Why it matters:</strong> ACID properties guarantee data integrity in critical applications where partial operations would cause corruption.</p>
+
+                        <p><strong>Real applications:</strong> Banking systems, e-commerce transactions, financial records, reservation systems.</p>
+
+                        <p><strong>Common mistakes:</strong> Assuming autocommit in transactions, not rolling back on errors.</p>
+                    </div>
+                </div>
+                </div>
+
+                <!-- Question 2 -->
+                <div class="accordion-item">
+                    <h2 class="accordion-header" id="h_q1">
+                        <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#c_q1" aria-expanded="false"><span class="question-number">2</span> How do BEGIN, COMMIT, and ROLLBACK work in MySQL?</button>
+                    </h2>
+                    <div id="c_q1" class="accordion-collapse collapse" data-bs-parent="#questionsAccordion">
+                        <div class="accordion-body">
+                        <p><strong>BEGIN</strong> (or START TRANSACTION) starts a transaction grouping SQL statements. <strong>COMMIT</strong> saves all changes permanently, while <strong>ROLLBACK</strong> reverts all changes to the state before BEGIN. In MySQL, autocommit is enabled by default, so each statement auto-commits unless explicitly disabled.</p>
+                        <pre><code>-- Basic transaction
+BEGIN;
+    INSERT INTO orders (customer_id, total) VALUES (1, 100);
+    INSERT INTO order_items (order_id, product_id) VALUES (LAST_INSERT_ID(), 5);
+COMMIT;  -- Both inserts saved
+
+-- Rollback on error
+BEGIN;
+    UPDATE inventory SET quantity = quantity - 10 WHERE product_id = 5;
+    INSERT INTO sales_log (product_id, quantity) VALUES (5, 10);
+    -- Error detected!
+ROLLBACK;  -- Inventory update is reverted
+
+-- Disable autocommit
+SET autocommit = 0;
+INSERT INTO users (name) VALUES ('John');  -- Not committed yet
+ROLLBACK;  -- Changes are reverted
+INSERT INTO users (name) VALUES ('Jane');
+COMMIT;  -- Now it's saved
+
+-- Re-enable autocommit
+SET autocommit = 1;</code></pre>
+
+                        <p><strong>Why it matters:</strong> Understanding transaction control ensures data consistency and is fundamental to database reliability.</p>
+
+                        <p><strong>Real applications:</strong> Multi-step operations where all-or-nothing semantics are required.</p>
+
+                        <p><strong>Common mistakes:</strong> Forgetting to commit changes, not handling errors properly in transactions.</p>
+                    </div>
+                </div>
+                </div>
+
+                <!-- Question 3 -->
+                <div class="accordion-item">
+                    <h2 class="accordion-header" id="h_q2">
+                        <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#c_q2" aria-expanded="false"><span class="question-number">3</span> What are transaction isolation levels?</button>
+                    </h2>
+                    <div id="c_q2" class="accordion-collapse collapse" data-bs-parent="#questionsAccordion">
+                        <div class="accordion-body">
+                        <p><strong>Isolation levels</strong> control how concurrent transactions interact. <strong>READ UNCOMMITTED</strong> (dirty reads allowed), <strong>READ COMMITTED</strong> (prevents dirty reads), <strong>REPEATABLE READ</strong> (default in MySQL, prevents dirty and phantom reads), and <strong>SERIALIZABLE</strong> (strictest, full serialization). Higher isolation levels provide more consistency but reduce concurrency.</p>
+                        <pre><code>-- View current isolation level
+SELECT @@transaction_isolation;  -- default: REPEATABLE-READ
+
+-- Set isolation level for session
+SET TRANSACTION ISOLATION LEVEL READ UNCOMMITTED;
+SET TRANSACTION ISOLATION LEVEL READ COMMITTED;
+SET TRANSACTION ISOLATION LEVEL REPEATABLE READ;  -- Default
+SET TRANSACTION ISOLATION LEVEL SERIALIZABLE;
+
+-- Isolation levels comparison
+-- READ UNCOMMITTED: Allows dirty reads (reading uncommitted data)
+-- Concurrency: HIGH | Consistency: LOW
+
+-- READ COMMITTED: Prevents dirty reads, allows phantom reads
+-- Concurrency: HIGH | Consistency: MEDIUM
+
+-- REPEATABLE READ: Prevents dirty and phantom reads
+-- Concurrency: MEDIUM | Consistency: HIGH
+
+-- SERIALIZABLE: Full serialization, acts like serial execution
+-- Concurrency: LOW | Consistency: HIGHEST
+
+-- Global isolation level
+SET GLOBAL transaction_isolation = 'READ-COMMITTED';</code></pre>
+
+                        <p><strong>Why it matters:</strong> Choosing the right isolation level balances data consistency with application concurrency.</p>
+
+                        <p><strong>Real applications:</strong> High-traffic systems choose READ COMMITTED for performance, financial systems use SERIALIZABLE for safety.</p>
+
+                        <p><strong>Common mistakes:</strong> Not understanding concurrency implications of different levels, using SERIALIZABLE everywhere.</p>
+                    </div>
+                </div>
+                </div>
+
+                <!-- Question 4 -->
+                <div class="accordion-item">
+                    <h2 class="accordion-header" id="h_q3">
+                        <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#c_q3" aria-expanded="false"><span class="question-number">4</span> What are dirty reads, phantom reads, and non-repeatable reads?</button>
+                    </h2>
+                    <div id="c_q3" class="accordion-collapse collapse" data-bs-parent="#questionsAccordion">
+                        <div class="accordion-body">
+                        <p><strong>Dirty reads</strong> occur when reading uncommitted data from another transaction. <strong>Non-repeatable reads</strong> happen when a row changes between two reads within a transaction. <strong>Phantom reads</strong> occur when new rows appear in result set between queries. These problems are prevented at different isolation levels, affecting both consistency and performance.</p>
+                        <pre><code>-- Dirty Read Example (allowed at READ UNCOMMITTED)
+-- Transaction 1:
+BEGIN;
+UPDATE employee SET salary = salary + 1000 WHERE id = 1;
+-- Transaction 2 (before commit):
+SELECT salary FROM employee WHERE id = 1;  -- Sees uncommitted increase!
+ROLLBACK;  -- Transaction 1 rolls back
+
+-- Non-Repeatable Read Example (allowed below REPEATABLE READ)
+-- Transaction 1:
+BEGIN;
+SELECT salary FROM employee WHERE id = 1;  -- Result: 50000
+-- Transaction 2:
+UPDATE employee SET salary = 60000 WHERE id = 1;
+COMMIT;
+-- Transaction 1:
+SELECT salary FROM employee WHERE id = 1;  -- Result: 60000 (different!)
+
+-- Phantom Read Example (allowed below SERIALIZABLE)
+-- Transaction 1:
+BEGIN;
+SELECT COUNT(*) FROM orders WHERE status = 'pending';  -- Result: 5
+-- Transaction 2:
+INSERT INTO orders (status) VALUES ('pending');
+COMMIT;
+-- Transaction 1:
+SELECT COUNT(*) FROM orders WHERE status = 'pending';  -- Result: 6 (phantom!)
+COMMIT;</code></pre>
+
+                        <p><strong>Why it matters:</strong> Understanding these problems helps choose appropriate isolation levels and design transaction logic.</p>
+
+                        <p><strong>Real applications:</strong> Financial systems prevent all three, caching systems may tolerate them for performance.</p>
+
+                        <p><strong>Common mistakes:</strong> Assuming REPEATABLE READ prevents all anomalies, not understanding level differences.</p>
+                    </div>
+                </div>
+                </div>
+
+                <!-- Question 5 -->
+                <div class="accordion-item">
+                    <h2 class="accordion-header" id="h_q4">
+                        <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#c_q4" aria-expanded="false"><span class="question-number">5</span> What are deadlocks and how do you handle them?</button>
+                    </h2>
+                    <div id="c_q4" class="accordion-collapse collapse" data-bs-parent="#questionsAccordion">
+                        <div class="accordion-body">
+                        <p><strong>Deadlocks</strong> occur when two transactions lock resources in opposite order, each waiting for the other. Transaction 1 locks A and waits for B while Transaction 2 locks B and waits for A—neither can proceed. MySQL detects deadlocks and chooses a victim transaction to rollback. Applications must retry rolled-back transactions.</p>
+                        <pre><code>-- Deadlock Example
+-- Connection 1:
+UPDATE accounts SET balance = balance - 100 WHERE id = 1;
+UPDATE accounts SET balance = balance + 100 WHERE id = 2;
+
+-- Connection 2 (simultaneously):
+UPDATE accounts SET balance = balance - 100 WHERE id = 2;
+UPDATE accounts SET balance = balance + 100 WHERE id = 1;
+
+-- One connection gets "ERROR 1213: Deadlock found"
+
+-- Prevent Deadlocks: Lock resources in consistent order
+-- ALWAYS lock account 1 then account 2
+-- Connection 1:
+UPDATE accounts SET balance = balance - 100 WHERE id = 1;
+UPDATE accounts SET balance = balance + 100 WHERE id = 2;
+
+-- Connection 2 (same order):
+UPDATE accounts SET balance = balance - 100 WHERE id = 1;
+UPDATE accounts SET balance = balance + 100 WHERE id = 2;
+
+-- Handle deadlock with retry logic
+DEADLOCK_RETRIES = 3;
+for i in range(DEADLOCK_RETRIES):
+    try:
+        BEGIN;
+        // Execute transaction
+        COMMIT;
+        break;
+    except DeadlockError:
+        ROLLBACK;
+        if i == DEADLOCK_RETRIES - 1:
+            raise;</code></pre>
+
+                        <p><strong>Why it matters:</strong> Deadlock prevention and handling is essential for reliable multi-user systems.</p>
+
+                        <p><strong>Real applications:</strong> Financial systems, inventory management, booking systems.</p>
+
+                        <p><strong>Common mistakes:</strong> Not implementing retry logic, locking resources in inconsistent order.</p>
+                    </div>
+                </div>
+                </div>
+
+                <!-- Question 6 -->
+                <div class="accordion-item">
+                    <h2 class="accordion-header" id="h_q5">
+                        <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#c_q5" aria-expanded="false"><span class="question-number">6</span> What are lock types in MySQL transactions?</button>
+                    </h2>
+                    <div id="c_q5" class="accordion-collapse collapse" data-bs-parent="#questionsAccordion">
+                        <div class="accordion-body">
+                        <p><strong>Shared locks (read locks)</strong> allow multiple readers but block writers. <strong>Exclusive locks (write locks)</strong> block both readers and writers. Locks can be row-level (most common in InnoDB) or table-level. MySQL uses automatic locking—SELECT uses shared locks, UPDATE/DELETE use exclusive locks depending on isolation level and transaction state.</p>
+                        <pre><code>-- Shared Lock (read lock) - multiple connections can read
+SELECT * FROM products WHERE id = 1 LOCK IN SHARE MODE;
+-- Other transactions can also read
+-- But cannot UPDATE or DELETE unless they also use LOCK IN SHARE MODE
+
+-- Exclusive Lock (write lock) - only one connection accesses
+SELECT * FROM products WHERE id = 1 FOR UPDATE;
+-- Other transactions blocked from reading or writing this row
+
+-- Lock types in InnoDB
+-- Row-level locks: Default, most concurrent
+-- Table-level locks: Used for specific operations
+
+-- AUTO-INC locks: Handle auto-increment generation
+-- Gap locks: Prevent phantom reads at higher isolation levels
+
+-- View current locks
+SELECT * FROM INFORMATION_SCHEMA.INNODB_LOCKS;
+SELECT * FROM INFORMATION_SCHEMA.INNODB_LOCK_WAITS;
+
+-- Set lock timeout
+SET innodb_lock_wait_timeout = 50;  -- Seconds before timeout</code></pre>
+
+                        <p><strong>Why it matters:</strong> Understanding lock types helps prevent deadlocks and optimize transaction design.</p>
+
+                        <p><strong>Real applications:</strong> High-concurrency systems need row-level locks, critical sections use FOR UPDATE.</p>
+
+                        <p><strong>Common mistakes:</strong> Holding locks too long, not understanding lock escalation.</p>
+                    </div>
+                </div>
+                </div>
+
+                <!-- Question 7 -->
+                <div class="accordion-item">
+                    <h2 class="accordion-header" id="h_q6">
+                        <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#c_q6" aria-expanded="false"><span class="question-number">7</span> What are savepoints and how do you use them?</button>
+                    </h2>
+                    <div id="c_q6" class="accordion-collapse collapse" data-bs-parent="#questionsAccordion">
+                        <div class="accordion-body">
+                        <p><strong>Savepoints</strong> allow rolling back to a specific point within a transaction without reverting the entire transaction. They're useful for complex operations where some parts might fail. SAVEPOINT creates a marker, ROLLBACK TO reverts to it, RELEASE SAVEPOINT deletes it. Savepoints enable partial transaction recovery.</p>
+                        <pre><code>-- Savepoint usage
+BEGIN;
+    INSERT INTO users (name) VALUES ('John');
+    SAVEPOINT sp1;
+    
+    INSERT INTO user_profiles (user_id, bio) VALUES (1, 'Profile');
+    SAVEPOINT sp2;
+    
+    INSERT INTO notifications (user_id, message) VALUES (1, 'Welcome');
+    
+    -- If notification fails, rollback only that part
+    ROLLBACK TO sp2;
+    -- Users and user_profiles still exist, notification rolled back
+    
+    INSERT INTO notifications (user_id, message) VALUES (1, 'Welcome updated');
+COMMIT;  -- All changes committed
+
+-- Multiple savepoints
+BEGIN;
+    UPDATE accounts SET balance = balance - 100 WHERE id = 1;
+    SAVEPOINT sp_debit;
+    
+    UPDATE accounts SET balance = balance + 100 WHERE id = 2;
+    SAVEPOINT sp_credit;
+    
+    UPDATE audit_log SET entries = entries + 1;
+    
+    -- Rollback to different points based on conditions
+    IF audit_failed THEN
+        ROLLBACK TO sp_credit;  -- Only reverts audit, keeps debit and credit
+    END IF;
+COMMIT;</code></pre>
+
+                        <p><strong>Why it matters:</strong> Savepoints enable complex transaction logic with fine-grained error recovery.</p>
+
+                        <p><strong>Real applications:</strong> Complex business logic, bulk operations with checkpoints, conditional commits.</p>
+
+                        <p><strong>Common mistakes:</strong> Nested savepoints adding complexity, not managing savepoint names.</p>
+                    </div>
+                </div>
+                </div>
+
+                <!-- Question 8 -->
+                <div class="accordion-item">
+                    <h2 class="accordion-header" id="h_q7">
+                        <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#c_q7" aria-expanded="false"><span class="question-number">8</span> What are the issues with long-running transactions?</button>
+                    </h2>
+                    <div id="c_q7" class="accordion-collapse collapse" data-bs-parent="#questionsAccordion">
+                        <div class="accordion-body">
+                        <p><strong>Long-running transactions</strong> hold locks longer, increasing deadlock risk and blocking other operations. They consume memory for undo logs and can cause replication lag. <strong>Best practice</strong> is keeping transactions short—perform heavy computation outside transactions and only lock during necessary database operations.</p>
+                        <pre><code>-- Bad: Long transaction with external processing
+BEGIN;
+    $order = fetch_order_from_api();  // External API call = seconds of delay
+    INSERT INTO orders (data) VALUES ($order);
+    $response = call_external_service();  // Another delay
+    INSERT INTO response_log VALUES ($response);
+COMMIT;
+
+-- Good: External work outside transaction
+$order = fetch_order_from_api();  // External work, no lock
+$response = call_external_service();
+
+BEGIN;  // Quick transaction
+    INSERT INTO orders (data) VALUES ($order);
+    INSERT INTO response_log VALUES ($response);
+COMMIT;
+
+// Further processing outside transaction
+process_order_async($order['id']);
+
+-- Problems with long transactions
+-- 1. Locks held too long - blocks other transactions
+-- 2. Memory usage - undo logs grow
+-- 3. Replication lag - slave falls behind on MySQL replication
+-- 4. Recovery time - if server crashes, recovery takes longer
+
+-- Monitor long transactions
+SELECT * FROM INFORMATION_SCHEMA.INNODB_TRX
+WHERE TIME_TO_SEC(TIMEDIFF(NOW(), trx_started)) > 60;</code></pre>
+
+                        <p><strong>Why it matters:</strong> Long transaction management directly impacts system scalability and reliability.</p>
+
+                        <p><strong>Real applications:</strong> Web applications, API backends, batch processing systems.</p>
+
+                        <p><strong>Common mistakes:</strong> Including external API calls in transactions, not setting transaction timeouts.</p>
+                    </div>
+                </div>
+                </div>
+
+                <!-- Question 9 -->
+                <div class="accordion-item">
+                    <h2 class="accordion-header" id="h_q8">
+                        <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#c_q8" aria-expanded="false"><span class="question-number">9</span> What is transaction logging and how does it work?</button>
+                    </h2>
+                    <div id="c_q8" class="accordion-collapse collapse" data-bs-parent="#questionsAccordion">
+                        <div class="accordion-body">
+                        <p><strong>Binary log (binlog)</strong> records all database changes for recovery and replication. <strong>InnoDB redo log</strong> helps recover uncommitted changes after crash. <strong>Undo log</strong> enables transaction rollback. These logs work together: changes are logged, then committed atomically. This ensures both Durability and precise recovery.</p>
+                        <pre><code>-- Transaction logging process
+-- 1. Write redo log - prepare for recovery
+-- 2. Write change to table
+-- 3. Write binlog - for replication
+-- 4. Commit - mark as durable
+
+-- Check binary log status
+SHOW MASTER STATUS;  -- Shows current binlog file and position
+SHOW BINARY LOGS;  -- Lists all binlog files
+
+-- Enable/disable binlog
+SET sql_log_bin = 1;  -- Log this transaction to binlog
+SET sql_log_bin = 0;  -- Don't log (for testing/bulk operations)
+
+-- Read binlog contents
+SHOW BINLOG EVENTS IN 'mysql-bin.000001' LIMIT 10;
+
+-- InnoDB redo log configuration
+-- Improves crash recovery speed
+-- Larger log = faster recovery but more disk usage
+SHOW VARIABLES LIKE 'innodb_log%';
+
+-- Undo log (automatic)
+-- Stores old values for transaction rollback
+-- Also used for MVCC (Multi-Version Concurrency Control)</code></pre>
+
+                        <p><strong>Why it matters:</strong> Understanding transaction logging is essential for disaster recovery and replication setup.</p>
+
+                        <p><strong>Real applications:</strong> Production backups, disaster recovery procedures, master-slave replication.</p>
+
+                        <p><strong>Common mistakes:</strong> Disabling binlog without understanding consequences, not monitoring undo log size.</p>
+                    </div>
+                </div>
+                </div>
+
+                <!-- Question 10 -->
+                <div class="accordion-item">
+                    <h2 class="accordion-header" id="h_q9">
+                        <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#c_q9" aria-expanded="false"><span class="question-number">10</span> What is optimistic vs pessimistic locking?</button>
+                    </h2>
+                    <div id="c_q9" class="accordion-collapse collapse" data-bs-parent="#questionsAccordion">
+                        <div class="accordion-body">
+                        <p><strong>Optimistic locking</strong> assumes conflicts are rare and checks for them at commit time using version numbers or timestamps. <strong>Pessimistic locking</strong> assumes conflicts are common and locks resources upfront with FOR UPDATE or LOCK IN SHARE MODE. Choice depends on contention level—low contention favors optimistic, high contention favors pessimistic.</p>
+                        <pre><code>-- Optimistic Locking (version-based)
+-- Table structure
+CREATE TABLE products (
+    id INT PRIMARY KEY,
+    name VARCHAR(255),
+    price DECIMAL(10,2),
+    version INT  -- Version counter
+);
+
+-- Read product
+SELECT id, name, price, version FROM products WHERE id = 1;
+
+-- Application modifies locally
+product.price = 99.99;
+
+-- Commit with version check
+UPDATE products SET price = 99.99, version = version + 1
+WHERE id = 1 AND version = 2;  -- Check old version
+
+IF affected_rows == 0:
+    RAISE ConflictError  // Another transaction updated it
+
+-- Pessimistic Locking (lock upfront)
+BEGIN;
+    SELECT * FROM products WHERE id = 1 FOR UPDATE;
+    -- Now this row is locked exclusively
+    
+    UPDATE products SET price = 99.99 WHERE id = 1;
+COMMIT;  -- Lock released
+
+-- Pessimistic with shared lock (readers don't block each other)
+SELECT * FROM products WHERE id = 1 LOCK IN SHARE MODE;
+
+-- Optimistic vs Pessimistic Trade-offs
+-- Optimistic: Better concurrency, may have more conflicts, needs error handling
+-- Pessimistic: Lower concurrency, guaranteed no conflicts, simpler code</code></pre>
+
+                        <p><strong>Why it matters:</strong> Choosing between locking strategies affects both performance and concurrency.</p>
+
+                        <p><strong>Real applications:</strong> Collaborative editing uses optimistic, inventory management uses pessimistic.</p>
+
+                        <p><strong>Common mistakes:</strong> Not implementing retry logic in optimistic locking, overusing pessimistic locking.</p>
+                    </div>
+                </div>
+                </div>
+
+                <!-- Question 11 -->
+                <div class="accordion-item">
+                    <h2 class="accordion-header" id="h_q10">
+                        <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#c_q10" aria-expanded="false"><span class="question-number">11</span> What are distributed transactions and their challenges?</button>
+                    </h2>
+                    <div id="c_q10" class="accordion-collapse collapse" data-bs-parent="#questionsAccordion">
+                        <div class="accordion-body">
+                        <p><strong>Distributed transactions</strong> span multiple databases or systems, ensuring atomicity across independent resources. <strong>Two-phase commit (2PC)</strong> coordinates this with prepare and commit phases. Challenges include complexity, potential for blocking, and network failures. MySQL doesn't natively support cross-server transactions; instead use application logic or XA transactions.</p>
+                        <pre><code>-- XA Transaction (Distributed) - MySQL support
+-- Prepare phase
+XA START 'xid_value';
+    UPDATE accounts SET balance = balance - 100 WHERE server = 'server1';
+XA END 'xid_value';
+XA PREPARE 'xid_value';
+
+-- Commit phase
+XA COMMIT 'xid_value';
+
+-- Or rollback
+XA ROLLBACK 'xid_value';
+
+-- Two-Phase Commit Logic (application level)
+function transfer_across_dbs(amount):
+    try:
+        // Phase 1: Prepare
+        db1_connection.prepare("DEBIT account");
+        db2_connection.prepare("CREDIT account");
+        
+        // Phase 2: Commit
+        db1_connection.commit();
+        db2_connection.commit();
+    except:
+        db1_connection.rollback();
+        db2_connection.rollback();
+        raise;
+
+-- Challenges with distributed transactions
+// 1. Network Partition Risk
+// If network fails during 2PC, database stuck in prepared state
+// 2. Performance Impact
+// Prepare queries lock resources, slowing everything
+// 3. Complexity
+// More code, more failure scenarios to handle</code></pre>
+
+                        <p><strong>Why it matters:</strong> Microservices architecture requires understanding when and how to use distributed transactions.</p>
+
+                        <p><strong>Real applications:</strong> Cross-database money transfers, multi-system updates, event-driven architectures.</p>
+
+                        <p><strong>Common mistakes:</strong> Using XA for non-critical operations, not handling prepare timeouts.</p>
+                    </div>
+                </div>
+                </div>
+
+                <!-- Question 12 -->
+                <div class="accordion-item">
+                    <h2 class="accordion-header" id="h_q11">
+                        <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#c_q11" aria-expanded="false"><span class="question-number">12</span> How does MVCC (Multi-Version Concurrency Control) improve transactions?</button>
+                    </h2>
+                    <div id="c_q11" class="accordion-collapse collapse" data-bs-parent="#questionsAccordion">
+                        <div class="accordion-body">
+                        <p><strong>MVCC</strong> maintains multiple versions of rows, allowing readers and writers to work concurrently without blocking. Each transaction sees a consistent snapshot based on when it started. InnoDB uses MVCC with undo logs to store old row versions. This dramatically improves concurrency compared to traditional row locking.</p>
+                        <pre><code>-- MVCC in action
+-- Transaction 1 (Reader):
+BEGIN;
+SELECT * FROM products;  // Sees snapshot from transaction start time
+
+-- Transaction 2 (simultaneously, Writer):
+UPDATE products SET price = 99 WHERE id = 1;
+COMMIT;
+
+-- Transaction 1 (Reader):
+SELECT * FROM products WHERE id = 1;  // Still sees old price = 100
+// Because MVCC provides consistent snapshot
+COMMIT;
+
+-- MVCC Snapshot Isolation
+-- Each transaction has a view of data at specific point in time
+-- Determined by:
+// 1. Transaction isolation level
+// 2. When transaction started
+// 3. What other transactions committed before it
+
+-- InnoDB MVCC implementation
+// Uses two hidden columns: transaction ID and delete ID
+// SELECT * FROM products shows rows visible to current transaction
+// Based on version number and transaction state
+
+-- MVCC Benefits
+// 1. SELECT queries don't block UPDATE queries
+// 2. UPDATE queries don't block SELECT queries
+// 3. High concurrency with REPEATABLE READ isolation</code></pre>
+
+                        <p><strong>Why it matters:</strong> MVCC is fundamental to InnoDB's high concurrency model.</p>
+
+                        <p><strong>Real applications:</strong> High-traffic web applications, data warehouses, real-time systems.</p>
+
+                        <p><strong>Common mistakes:</strong> Not understanding that different transactions see different data, assuming all queries see same view.</p>
+                    </div>
+                </div>
+                </div>
+
+                <!-- Question 13 -->
+                <div class="accordion-item">
+                    <h2 class="accordion-header" id="h_q12">
+                        <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#c_q12" aria-expanded="false"><span class="question-number">13</span> What is the default isolation level in MySQL and its implications?</button>
+                    </h2>
+                    <div id="c_q12" class="accordion-collapse collapse" data-bs-parent="#questionsAccordion">
+                        <div class="accordion-body">
+                        <p><strong>MySQL default: REPEATABLE READ</strong> provides a good balance between consistency and concurrency. It prevents dirty reads and non-repeatable reads but allows phantom reads. This level is stronger than most other databases' defaults (typically READ COMMITTED) and sufficient for most applications without requiring special handling.</p>
+                        <pre><code>-- Check default isolation level
+SELECT @@GLOBAL.transaction_isolation;  -- REPEATABLE-READ
+SELECT @@SESSION.transaction_isolation;  -- Current session level
+
+-- REPEATABLE READ characteristics
+-- 1. Prevents dirty reads - no uncommitted data visible
+-- 2. Prevents non-repeatable reads - row values don't change mid-transaction
+// 3. Allows phantoms - new rows may appear (gap between range queries)
+
+-- Example of phantom read in REPEATABLE READ
+BEGIN;
+    SELECT COUNT(*) FROM orders WHERE status = 'pending';  // 5 rows
+    
+    // Meanwhile, another transaction commits:
+    // INSERT INTO orders VALUES (..., 'pending');
+    
+    SELECT COUNT(*) FROM orders WHERE status = 'pending';  // May see 6 rows!
+COMMIT;
+
+-- To prevent phantoms, use SERIALIZABLE (higher overhead)
+SET TRANSACTION ISOLATION LEVEL SERIALIZABLE;
+BEGIN;
+    SELECT * FROM orders WHERE status = 'pending' FOR UPDATE;
+    // Locks all matching rows AND gap between them
+COMMIT;
+
+-- Performance comparison at different isolation levels
+// READ UNCOMMITTED: Fastest, least safe
+// READ COMMITTED: Good balance, default in PostgreSQL
+// REPEATABLE READ: MySQL default, strong safety
+// SERIALIZABLE: Safest, worst performance</code></pre>
+
+                        <p><strong>Why it matters:</strong> Understanding MySQL's default isolation level helps optimize application design without requiring non-standard configurations.</p>
+
+                        <p><strong>Real applications:</strong> Most MySQL applications run with default REPEATABLE READ without issues.</p>
+
+                        <p><strong>Common mistakes:</strong> Changing isolation level unnecessarily, not understanding phantom read implications.</p>
+                    </div>
+                </div>
+                </div>
+
+                <!-- Question 14 -->
+                <div class="accordion-item">
+                    <h2 class="accordion-header" id="h_q13">
+                        <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#c_q13" aria-expanded="false"><span class="question-number">14</span> How do you monitor and troubleshoot transaction issues?</button>
+                    </h2>
+                    <div id="c_q13" class="accordion-collapse collapse" data-bs-parent="#questionsAccordion">
+                        <div class="accordion-body">
+                        <p><strong>Transaction monitoring</strong> involves checking INNODB_TRX, INNODB_LOCKS, and INNODB_LOCK_WAITS tables. <strong>Processlist</strong> shows active queries and their states. Look for long-running transactions, lock waits, and deadlocks. Enable the slow query log to capture problematic transactions. Use Performance Schema for detailed metrics.</p>
+                        <pre><code>-- View active transactions
+SELECT * FROM INFORMATION_SCHEMA.INNODB_TRX
+ORDER BY trx_started;
+
+-- Check transaction command and time
+SELECT trx_id, trx_state, trx_started FROM INFORMATION_SCHEMA.INNODB_TRX;
+
+-- Find blocking transactions
+SELECT * FROM INFORMATION_SCHEMA.INNODB_LOCK_WAITS;
+
+-- View current locks
+SELECT * FROM INFORMATION_SCHEMA.INNODB_LOCKS;
+
+-- Monitor with SHOW PROCESSLIST
+SHOW PROCESSLIST;
+// Look for "Waiting for table lock", "Lock wait timeout" states
+
+// Kill blocking transaction if necessary
+KILL QUERY 123;  // Kill specific query
+KILL 123;  // Kill entire connection
+
+-- Check slow transactions
+SELECT * FROM INFORMATION_SCHEMA.INNODB_TRX
+WHERE TIME_TO_SEC(TIMEDIFF(NOW(), trx_started)) > 60;
+
+-- Enable Performance Schema for metrics
+SHOW VARIABLES LIKE 'performance_schema';
+
+SELECT * FROM performance_schema.events_transactions_summary_by_host_by_event_name;</code></pre>
+
+                        <p><strong>Why it matters:</strong> Effective monitoring helps identify and resolve transaction issues before they impact users.</p>
+
+                        <p><strong>Real applications:</strong> Production support, performance optimization, troubleshooting customer issues.</p>
+
+                        <p><strong>Common mistakes:</strong> Not monitoring transactions in production, not killing blocked queries promptly.</p>
+                    </div>
+                </div>
+                </div>
+
+                <!-- Question 15 -->
+                <div class="accordion-item">
+                    <h2 class="accordion-header" id="h_q14">
+                        <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#c_q14" aria-expanded="false"><span class="question-number">15</span> What transaction design patterns improve application reliability?</button>
+                    </h2>
+                    <div id="c_q14" class="accordion-collapse collapse" data-bs-parent="#questionsAccordion">
+                        <div class="accordion-body">
+                        <p><strong>Good transaction design</strong> includes: keep transactions short, lock resources in consistent order to prevent deadlocks, implement retry logic for transient failures, use savepoints for complex operations, and perform external work outside transactions. Design for idempotency so retries are safe and fail fast with appropriate error handling.</p>
+                        <pre><code>-- Pattern 1: Short Transaction
+// Bad: Long computation inside transaction
+BEGIN;
+    complex_calculation();  // Takes 5 seconds
+    INSERT INTO results VALUES (...);
+COMMIT;
+
+// Good: Compute first, then quick transaction
+result = complex_calculation();
+BEGIN;
+    INSERT INTO results VALUES (result);
+COMMIT;
+
+-- Pattern 2: Deadlock-safe operation order
+// Bad: Inconsistent lock order
+connection1: UPDATE table1; UPDATE table2;
+connection2: UPDATE table2; UPDATE table1;  // Deadlock!
+
+// Good: Always lock in same order
+connection1: UPDATE table2; UPDATE table1;
+connection2: UPDATE table2; UPDATE table1;  // No deadlock
+
+-- Pattern 3: Transaction retry with backoff
+for attempt in range(3):
+    try:
+        BEGIN;
+            execute_operation();
+        COMMIT;
+        break;
+    except DeadlockError:
+        ROLLBACK;
+        sleep(random(0, 2^attempt));  // Exponential backoff
+
+-- Pattern 4: Idempotent transactions
+// Bad: Non-idempotent (fails on retry)
+INSERT INTO accounts VALUES (1, 100);
+// If retry, duplicate key error
+
+// Good: Idempotent (safe to retry)
+INSERT INTO accounts VALUES (1, 100)
+ON DUPLICATE KEY UPDATE balance = 100;
+// Retry is safe</code></pre>
+                        <p><strong>Why it matters:</strong> Good transaction design patterns prevent data corruption, deadlocks, and improve application reliability under failure conditions.</p>
+                        <p><strong>Real applications:</strong> E-commerce checkout, financial transfers, inventory management — all production systems need robust transaction patterns.</p>
+                        <p><strong>Common mistakes:</strong> Long-running transactions holding locks, inconsistent lock ordering causing deadlocks, no retry logic for transient errors.</p>
+                    </div>
+                </div>
+                </div>
+            </div>
+           
+
+
+              <div class="topic-nav" id="topicNav">
+            <a class="topic-nav-btn prev" href="stored-procedures.html">
+                <span class="label"><i class="bi bi-arrow-left me-1"></i> Previous</span>
+                <span class="title">Stored Procedures</span>
+            </a>
+            <a class="topic-nav-btn next" href="views.html">
+                <span class="label">Next <i class="bi bi-arrow-right ms-1"></i></span>
+                <span class="title">Views</span>
+            </a>
+            </div>
+             <footer class="app-footer">
+                <p>&copy; 2026 InterviewPrep &mdash; MySQL Interview Questions</p>
+            </footer>
+        </div>
+    </div>
+    <button class="btn-totop" id="backToTop"><i class="bi bi-chevron-up"></i></button>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>
+    <script>
+    (function(){
+        var sb=document.getElementById('sidebar'),bd=document.getElementById('sidebarBackdrop'),
+            tg=document.getElementById('sidebarToggle');
+        if(tg)tg.addEventListener('click',function(){sb.classList.add('open');bd.classList.add('show');});
+        if(bd)bd.addEventListener('click',function(){sb.classList.remove('open');bd.classList.remove('show');});
+        var btt=document.getElementById('backToTop');
+        window.addEventListener('scroll',function(){btt.classList.toggle('show',window.scrollY>400);});
+        btt.addEventListener('click',function(){window.scrollTo({top:0,behavior:'smooth'});});
+    })();
+    </script>
+</body>
+
+</html>
+// Retry is safe

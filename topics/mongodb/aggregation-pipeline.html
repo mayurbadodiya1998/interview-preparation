@@ -1,0 +1,949 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="Top 15 MongoDB aggregation pipeline interview questions. Master $group, $lookup, $unwind, $project, $facet, $graphLookup and window functions with real code examples.">
+    <meta name="keywords" content="MongoDB aggregation pipeline, $group, $lookup, $unwind, $project, $facet, $graphLookup, $setWindowFields, MongoDB interview questions">
+    <meta name="author" content="InterviewPrep">
+    <meta name="robots" content="index, follow">
+    <link rel="icon" type="image/svg+xml" href="../../favicon.svg" sizes="any">
+    <meta property="og:type" content="website">
+    <meta property="og:title" content="Aggregation Pipeline — MongoDB Interview Questions | InterviewPrep">
+    <meta property="og:description" content="Top 15 MongoDB aggregation pipeline interview questions. Master $group, $lookup, $unwind, $project, $facet, $graphLookup and window functions with real code examples.">
+    <meta property="og:url" content="https://coddingquestionhub.com/topics/mongodb/aggregation-pipeline.html">
+    <title>Aggregation Pipeline — MongoDB Interview Questions | InterviewPrep 2026</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&family=Fira+Code:wght@400;500&display=swap" rel="stylesheet">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="../../css/styles.css">
+    <link rel="canonical" href="https://coddingquestionhub.com/topics/mongodb/aggregation-pipeline.html">
+    <script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "FAQPage",
+  "mainEntity": [
+    {
+      "@type": "Question",
+      "name": "Aggregation Pipeline — MongoDB Interview Questions | InterviewPrep",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "Top 15 MongoDB aggregation pipeline interview questions. Master $group, $lookup, $unwind, $project, $facet, $graphLookup and window functions with real code examples."
+      }
+    }
+  ]
+}
+    </script>
+    <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-8957020141286926" crossorigin="anonymous"></script>
+    <script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "BreadcrumbList",
+  "itemListElement": [
+    {
+      "@type": "ListItem",
+      "position": 1,
+      "name": "Home",
+      "item": "https://coddingquestionhub.com"
+    },
+    {
+      "@type": "ListItem",
+      "position": 2,
+      "name": "Topics",
+      "item": "https://coddingquestionhub.com/topics"
+    },
+    {
+      "@type": "ListItem",
+      "position": 3,
+      "name": "Mongodb",
+      "item": "https://coddingquestionhub.com/topics/mongodb"
+    },
+    {
+      "@type": "ListItem",
+      "position": 4,
+      "name": "Aggregation Pipeline",
+      "item": "https://coddingquestionhub.com/topics/mongodb/aggregation-pipeline.html"
+    }
+  ]
+}
+    </script>
+</head>
+<body class="theme-mongodb">
+    <nav class="navbar navbar-expand-lg sticky-top" id="mainNavbar">
+        <div class="container-fluid px-3 px-lg-4">
+            <a class="navbar-brand fw-bold d-flex align-items-center gap-2" href="../../index.html">
+                <span class="brand-icon"><i class="bi bi-braces-asterisk"></i></span>
+                <span>Interview<span class="brand-accent">Prep</span></span>
+            </a>
+            <button class="navbar-toggler border-0 shadow-none" type="button"
+                    data-bs-toggle="collapse" data-bs-target="#navbarContent">
+                <i class="bi bi-list fs-3 text-white"></i>
+            </button>
+            <div class="collapse navbar-collapse" id="navbarContent">
+                <ul class="navbar-nav me-auto mb-2 mb-lg-0 ms-lg-3">
+                    <li class="nav-item dropdown">
+                        <a class="nav-link dropdown-toggle fw-500" href="#" role="button" data-bs-toggle="dropdown">
+                            <i class="bi bi-layers me-1"></i> Choose Category
+                        </a>
+                        <ul class="dropdown-menu">
+                            <li><a class="dropdown-item fw-500" href="../../pages/angular.html"><i class="bi bi-bootstrap me-2 text-danger"></i>Angular</a></li>
+                            <li><a class="dropdown-item fw-500" href="../../pages/react.html"><i class="bi bi-infinity me-2 text-info"></i>React</a></li>
+                            <li><a class="dropdown-item fw-500" href="../../pages/node.html"><i class="bi bi-hdd-network me-2 text-success"></i>Node.js</a></li>
+                            <li><a class="dropdown-item fw-500" href="../../pages/javascript.html"><i class="bi bi-filetype-js me-2 text-warning"></i>JavaScript</a></li>
+                            <li><a class="dropdown-item fw-500" href="../../pages/dsa.html"><i class="bi bi-diagram-3-fill me-2" style="color:#8b5cf6"></i>DSA</a></li>
+                            <li><a class="dropdown-item fw-500" href="../../pages/logical.html"><i class="bi bi-lightbulb me-2" style="color:#f59e0b"></i>Logical Reasoning</a></li>
+                            <li><a class="dropdown-item fw-500" href="../../pages/mongodb.html"><i class="bi bi-database-fill me-2" style="color:#4DB33D"></i>MongoDB</a></li>
+                            <li><a class="dropdown-item fw-500" href="../../pages/mysql.html"><i class="bi bi-table me-2" style="color:#0F766E"></i>MySQL</a></li>
+                        </ul>
+                    </li>
+                </ul>
+                <div class="search-wrap">
+                    <i class="bi bi-search search-icon"></i>
+                    <input class="form-control search-input" type="search" placeholder="Search questions..." id="searchInput">
+                </div>
+            </div>
+        </div>
+    </nav>    <div class="app-wrapper">
+        <aside class="sidebar" id="sidebar">
+            <div class="sidebar-head">
+                <h6><i class="bi bi-database-fill me-2"></i>MongoDB Topics</h6>
+            </div>
+            <nav>
+                <ul class="sidebar-links" id="topicList">
+                    <li><a class="nav-link" href="mongodb-fundamentals.html"><i class="bi bi-database-fill"></i><span>MongoDB Fundamentals</span></a></li>
+                    <li><a class="nav-link" href="crud-operations.html"><i class="bi bi-pencil-square"></i><span>CRUD Operations</span></a></li>
+                    <li><a class="nav-link active" href="aggregation-pipeline.html"><i class="bi bi-funnel-fill"></i><span>Aggregation Pipeline</span></a></li>
+                    <li><a class="nav-link" href="indexes.html"><i class="bi bi-lightning-fill"></i><span>Indexes & Performance</span></a></li>
+                    <li><a class="nav-link" href="schema-design.html"><i class="bi bi-layout-wtf"></i><span>Schema Design</span></a></li>
+                    <li><a class="nav-link" href="relationships.html"><i class="bi bi-diagram-3-fill"></i><span>Relationships</span></a></li>
+                    <li><a class="nav-link" href="transactions.html"><i class="bi bi-arrow-repeat"></i><span>Transactions</span></a></li>
+                    <li><a class="nav-link" href="mongoose-odm.html"><i class="bi bi-box-seam"></i><span>Mongoose ODM</span></a></li>
+                    <li><a class="nav-link" href="performance-optimization.html"><i class="bi bi-speedometer2"></i><span>Performance Optimization</span></a></li>
+                    <li><a class="nav-link" href="replication-sharding.html"><i class="bi bi-hdd-stack-fill"></i><span>Replication & Sharding</span></a></li>
+                    <li><a class="nav-link" href="security.html"><i class="bi bi-shield-lock-fill"></i><span>Security & Auth</span></a></li>
+                    <li><a class="nav-link" href="text-search-geospatial.html"><i class="bi bi-search"></i><span>Text Search & Geospatial</span></a></li>
+                    <li><a class="nav-link" href="change-streams-watchers.html"><i class="bi bi-bell-fill"></i><span>Change Streams & Watch</span></a></li>
+                    <li><a class="nav-link" href="interview-queries-1.html"><i class="bi bi-code-slash"></i><span>Interview Queries — I</span></a></li>
+                    <li><a class="nav-link" href="interview-queries-2.html"><i class="bi bi-code-square"></i><span>Interview Queries — II</span></a></li>
+                </ul>
+            </nav>
+        </aside>
+        <div class="sidebar-backdrop" id="sidebarBackdrop"></div>
+        <div class="content-area">
+            <div class="mobile-bar d-lg-none">
+                <button class="btn btn-sm btn-glass" id="sidebarToggle">
+                    <i class="bi bi-layout-sidebar-inset me-1"></i>Topics
+                </button>
+                <span class="badge rounded-pill bg-success">MongoDB</span>
+            </div>
+            <div class="breadcrumb-nav" id="breadcrumb">
+                <a href="../../index.html">Home</a><span class="sep">/</span>
+                <a href="../../pages/mongodb.html">MongoDB</a><span class="sep">/</span>
+                <span class="current">Aggregation Pipeline</span>
+            </div>
+            <div class="qs-header">
+                <h1 class="qs-title" id="topicTitle">Aggregation Pipeline</h1>
+                <span class="badge qs-badge" id="questionCount">15 Questions</span>
+            </div>
+            <div class="accordion" id="questionsAccordion">
+        <div class="accordion-item">
+            <h2 class="accordion-header" id="h_q0">
+                <button class="accordion-button" type="button"
+                    data-bs-toggle="collapse" data-bs-target="#c_q0"
+                    aria-expanded="true">
+                    <span class="question-number">1</span>What is the MongoDB aggregation pipeline and how does it work?
+                </button>
+            </h2>
+            <div id="c_q0" class="accordion-collapse collapse show"
+                data-bs-parent="#questionsAccordion">
+                <div class="accordion-body">The <strong>aggregation pipeline</strong> is MongoDB's most powerful data processing framework, consisting of a sequence of <strong>stages</strong> that transform documents step-by-step. Data flows through stages like water through a pipe — each stage receives documents from the previous stage, processes them, and passes results onward. Common stages include <strong>$match</strong> (filter), <strong>$group</strong> (aggregate), <strong>$project</strong> (reshape), <strong>$sort</strong>, <strong>$limit</strong>, <strong>$skip</strong>, <strong>$lookup</strong> (join), <strong>$unwind</strong> (flatten arrays), and <strong>$addFields</strong>. Unlike the <code>find()</code> API, aggregation can compute totals, averages, transformations, and joins — making it the backbone of analytics and reporting.
+<pre><code>// Basic pipeline structure
+db.orders.aggregate([
+  // Stage 1: Filter
+  { $match: { status: "completed", createdAt: { $gte: ISODate("2026-01-01") } } },
+
+  // Stage 2: Group and compute totals
+  { $group: {
+    _id: "$customerId",
+    totalSpent: { $sum: "$amount" },
+    orderCount: { $sum: 1 },
+    avgOrder:  { $avg: "$amount" }
+  }},
+
+  // Stage 3: Add computed field
+  { $addFields: {
+    tier: { $cond: { if: { $gte: ["$totalSpent", 10000] }, then: "VIP", else: "Regular" } }
+  }},
+
+  // Stage 4: Sort
+  { $sort: { totalSpent: -1 } },
+
+  // Stage 5: Limit top 10
+  { $limit: 10 }
+]);</code></pre>
+<p><strong>Why it matters:</strong> The aggregation pipeline is the most-tested advanced MongoDB topic. Interviewers assess your ability to <strong>chain stages logically</strong> and use the right operator for each transformation.</p>
+<p><strong>Real applications:</strong> <strong>Sales dashboards</strong> (total revenue per customer), <strong>user analytics</strong> (active users per day), <strong>inventory reports</strong> (low-stock products by category).</p>
+<p><strong>Common mistakes:</strong> Not putting <code>$match</code> first — placing it early reduces data flowing through all subsequent stages. Late <code>$match</code> stages miss index optimization opportunities.</p>
+                </div>
+            </div>
+        </div>
+        <div class="accordion-item">
+            <h2 class="accordion-header" id="h_q1">
+                <button class="accordion-button collapsed" type="button"
+                    data-bs-toggle="collapse" data-bs-target="#c_q1"
+                    aria-expanded="false">
+                    <span class="question-number">2</span>What does the $group stage do and what accumulators are available?
+                </button>
+            </h2>
+            <div id="c_q1" class="accordion-collapse collapse"
+                data-bs-parent="#questionsAccordion">
+                <div class="accordion-body">The <strong>$group</strong> stage aggregates documents by a specified <code>_id</code> expression (the grouping key) and applies <strong>accumulator operators</strong> to compute values. Each unique grouping key value produces one output document. Setting <code>_id: null</code> groups all documents together for a total. Key accumulators: <strong>$sum</strong> (total), <strong>$avg</strong> (average), <strong>$min/$max</strong> (extremes), <strong>$count</strong> (document count, MongoDB 5.0+), <strong>$push</strong> (array of values), <strong>$addToSet</strong> (unique array), <strong>$first/$last</strong> (first/last value in group), <strong>$stdDevPop/$stdDevSamp</strong> (standard deviation).
+<pre><code>// Group by product category
+db.products.aggregate([{
+  $group: {
+    _id: "$category",              // group by category field
+    count:      { $sum: 1 },       // count documents
+    totalStock: { $sum: "$stock" },
+    avgPrice:   { $avg: "$price" },
+    maxPrice:   { $max: "$price" },
+    minPrice:   { $min: "$price" },
+    allBrands:  { $addToSet: "$brand" }, // unique brands array
+    firstAdded: { $first: "$createdAt" }
+  }
+}]);
+
+// Group all documents (grand total)
+db.orders.aggregate([{
+  $group: {
+    _id: null,                     // null = all documents
+    grandTotal: { $sum: "$amount" },
+    orderCount: { $count: {} }     // MongoDB 5.0+
+  }
+}]);
+
+// Multi-field grouping key
+db.sales.aggregate([{
+  $group: {
+    _id: { year: { $year: "$saleDate" }, category: "$category" },
+    revenue: { $sum: "$amount" }
+  }
+}]);</code></pre>
+<p><strong>Why it matters:</strong> <code>$group</code> is the core of all aggregation queries. Mastering accumulators and <strong>grouping key expressions</strong> is essential for any data analytics or reporting task.</p>
+<p><strong>Real applications:</strong> <strong>Monthly revenue reports</strong>, <strong>user activity summaries</strong> (login count per user per month), <strong>inventory valuation</strong> (total stock value per warehouse).</p>
+<p><strong>Common mistakes:</strong> Forgetting that <code>$group</code> does not guarantee output order — always add <code>$sort</code> after <code>$group</code> if order matters.</p>
+                </div>
+            </div>
+        </div>
+        <div class="accordion-item">
+            <h2 class="accordion-header" id="h_q2">
+                <button class="accordion-button collapsed" type="button"
+                    data-bs-toggle="collapse" data-bs-target="#c_q2"
+                    aria-expanded="false">
+                    <span class="question-number">3</span>How does the $lookup stage work for joining collections?
+                </button>
+            </h2>
+            <div id="c_q2" class="accordion-collapse collapse"
+                data-bs-parent="#questionsAccordion">
+                <div class="accordion-body">The <strong>$lookup</strong> stage performs a <strong>left outer join</strong> between collections, similar to SQL's LEFT JOIN. It matches documents from a <strong>foreign collection</strong> based on a field equality condition and adds the matching documents as an <strong>array field</strong> on the input documents. Basic syntax uses <code>from</code> (foreign collection), <code>localField</code>, <code>foreignField</code>, and <code>as</code> (output array field). MongoDB 3.6+ added <strong>expressive $lookup</strong> using a pipeline, enabling complex multi-condition joins, computed fields, and nested lookups. Non-matching documents get an empty array.
+<pre><code>// Basic $lookup — join orders with users
+db.orders.aggregate([{
+  $lookup: {
+    from: "users",          // foreign collection
+    localField: "userId",   // field in orders
+    foreignField: "_id",    // field in users
+    as: "userDetails"       // output field name (array)
+  }
+}]);
+// Result: each order document gets "userDetails": [{ ... user doc ... }]
+
+// Unwind the array (if one-to-one)
+db.orders.aggregate([
+  { $lookup: { from: "users", localField: "userId", foreignField: "_id", as: "user" } },
+  { $unwind: "$user" },     // flatten array to single object
+  { $project: { "user.password": 0 } }  // exclude sensitive fields
+]);
+
+// Expressive $lookup (pipeline) — join with conditions
+db.orders.aggregate([{
+  $lookup: {
+    from: "products",
+    let: { orderItems: "$items" },
+    pipeline: [
+      { $match: { $expr: { $in: ["$_id", "$$orderItems"] } } },
+      { $project: { name: 1, price: 1 } }
+    ],
+    as: "productDetails"
+  }
+}]);</code></pre>
+<p><strong>Why it matters:</strong> <code>$lookup</code> is critical for working with normalized data models. Tests knowledge of <strong>MongoDB's join capabilities</strong> and when to denormalize vs join.</p>
+<p><strong>Real applications:</strong> <strong>Order detail views</strong> joining order items with product info, <strong>user activity feeds</strong> joining events with user profiles, <strong>comment threads</strong> joining comments with author details.</p>
+<p><strong>Common mistakes:</strong> Not indexing <code>foreignField</code> — <code>$lookup</code> performs a collection scan on the foreign collection per input document without an index, making it extremely slow.</p>
+                </div>
+            </div>
+        </div>
+        <div class="accordion-item">
+            <h2 class="accordion-header" id="h_q3">
+                <button class="accordion-button collapsed" type="button"
+                    data-bs-toggle="collapse" data-bs-target="#c_q3"
+                    aria-expanded="false">
+                    <span class="question-number">4</span>What does $unwind do and when do you need it?
+                </button>
+            </h2>
+            <div id="c_q3" class="accordion-collapse collapse"
+                data-bs-parent="#questionsAccordion">
+                <div class="accordion-body">The <strong>$unwind</strong> stage deconstructs an <strong>array field</strong> from input documents, outputting one document per array element. If a document has an array with 5 elements, <code>$unwind</code> produces 5 documents, each with one array element. This is essential before performing <code>$group</code> or <code>$sort</code> on array contents. By default, documents with missing or empty array fields are excluded — use <code>preserveNullAndEmptyArrays: true</code> to keep them. The <code>includeArrayIndex</code> option adds a field with the array element's original index position.
+<pre><code>// Input: { _id: 1, tags: ["mongodb", "database", "nosql"] }
+db.posts.aggregate([{ $unwind: "$tags" }]);
+// Output:
+// { _id: 1, tags: "mongodb" }
+// { _id: 1, tags: "database" }
+// { _id: 1, tags: "nosql" }
+
+// Count tags across all posts
+db.posts.aggregate([
+  { $unwind: "$tags" },
+  { $group: { _id: "$tags", count: { $sum: 1 } } },
+  { $sort: { count: -1 } }
+]);
+
+// Preserve documents with missing/empty arrays
+db.products.aggregate([{
+  $unwind: {
+    path: "$reviews",
+    preserveNullAndEmptyArrays: true,  // keep products with no reviews
+    includeArrayIndex: "reviewIndex"    // add index field
+  }
+}]);
+
+// Unwind nested array
+db.orders.aggregate([
+  { $unwind: "$items" },
+  { $group: { _id: "$items.productId", totalSold: { $sum: "$items.qty" } } }
+]);</code></pre>
+<p><strong>Why it matters:</strong> Understanding array deconstruction is crucial for analytics on array fields. <code>$unwind</code> enables <strong>per-element aggregations</strong> that would otherwise be impossible.</p>
+<p><strong>Real applications:</strong> <strong>Tag frequency analysis</strong>, <strong>sales per product SKU</strong> from order item arrays, <strong>skill distribution analysis</strong> from user skill arrays.</p>
+<p><strong>Common mistakes:</strong> Unwinding without <code>preserveNullAndEmptyArrays</code> silently drops documents with missing arrays, causing incorrect totals in reports.</p>
+                </div>
+            </div>
+        </div>
+        <div class="accordion-item">
+            <h2 class="accordion-header" id="h_q4">
+                <button class="accordion-button collapsed" type="button"
+                    data-bs-toggle="collapse" data-bs-target="#c_q4"
+                    aria-expanded="false">
+                    <span class="question-number">5</span>How does the $project stage reshape documents?
+                </button>
+            </h2>
+            <div id="c_q4" class="accordion-collapse collapse"
+                data-bs-parent="#questionsAccordion">
+                <div class="accordion-body">The <strong>$project</strong> stage reshapes each document by <strong>including, excluding, renaming, or computing</strong> fields. Unlike <code>find()</code> projections, <code>$project</code> in aggregation supports <strong>computed fields</strong> using expressions, string operations, arithmetic, date functions, and conditional logic. Use <code>1</code> to include, <code>0</code> to exclude. Computed fields use aggregation expressions with the <code>$</code> prefix for field references. <code>$addFields</code> is a variant that only adds new fields without removing existing ones.
+<pre><code>db.employees.aggregate([{
+  $project: {
+    // Include fields
+    name: 1,
+    email: 1,
+
+    // Exclude sensitive fields
+    password: 0,
+    ssn: 0,
+
+    // Rename field
+    fullName: "$name",
+
+    // Computed: annual salary
+    annualSalary: { $multiply: ["$monthlySalary", 12] },
+
+    // String concatenation
+    displayName: { $concat: ["$firstName", " ", "$lastName"] },
+
+    // Date parts
+    joinYear: { $year: "$joinedAt" },
+
+    // Conditional
+    status: {
+      $cond: { if: { $gte: ["$experience", 5] }, then: "Senior", else: "Junior" }
+    },
+
+    // Nested field rename
+    "contact.primary": "$phone"
+  }
+}]);
+
+// $addFields — add without removing existing
+db.users.aggregate([{
+  $addFields: {
+    fullName: { $concat: ["$firstName", " ", "$lastName"] },
+    ageGroup: {
+      $switch: {
+        branches: [
+          { case: { $lt: ["$age", 25] }, then: "Young" },
+          { case: { $lt: ["$age", 40] }, then: "Middle" }
+        ],
+        default: "Senior"
+      }
+    }
+  }
+}]);</code></pre>
+<p><strong>Why it matters:</strong> <code>$project</code> is used in virtually every pipeline. Tests ability to <strong>compute derived fields and reshape documents</strong> for downstream stages or API responses.</p>
+<p><strong>Real applications:</strong> Computing <strong>profit margins</strong> from revenue/cost fields, creating <strong>display names</strong> from firstName/lastName, formatting <strong>dates into readable strings</strong>.</p>
+<p><strong>Common mistakes:</strong> Using <code>$project</code> to add fields while also excluding others — mixing inclusion/exclusion in aggregation <code>$project</code> is allowed, unlike <code>find()</code> projections.</p>
+                </div>
+            </div>
+        </div>
+        <div class="accordion-item">
+            <h2 class="accordion-header" id="h_q5">
+                <button class="accordion-button collapsed" type="button"
+                    data-bs-toggle="collapse" data-bs-target="#c_q5"
+                    aria-expanded="false">
+                    <span class="question-number">6</span>What are $facet and $bucket stages used for?
+                </button>
+            </h2>
+            <div id="c_q5" class="accordion-collapse collapse"
+                data-bs-parent="#questionsAccordion">
+                <div class="accordion-body"><strong>$facet</strong> allows running <strong>multiple independent aggregation pipelines</strong> within a single stage, each producing its own output. This is perfect for generating multiple summaries in one query (e.g., faceted search results with category counts, price histograms, and rating distributions simultaneously). <strong>$bucket</strong> categorizes documents into <strong>user-defined buckets</strong> based on a field's value range. <strong>$bucketAuto</strong> automatically determines bucket boundaries for even distribution. These are key for implementing <strong>faceted search</strong> (like e-commerce filters).
+<pre><code>// $facet — multiple pipelines in one query
+db.products.aggregate([{
+  $facet: {
+    // Pipeline 1: Category breakdown
+    "byCategory": [
+      { $group: { _id: "$category", count: { $sum: 1 } } },
+      { $sort: { count: -1 } }
+    ],
+
+    // Pipeline 2: Price distribution
+    "priceRanges": [
+      { $bucket: {
+        groupBy: "$price",
+        boundaries: [0, 1000, 5000, 20000, 100000],
+        default: "Other",
+        output: { count: { $sum: 1 }, avgPrice: { $avg: "$price" } }
+      }}
+    ],
+
+    // Pipeline 3: Rating stats
+    "ratingStats": [
+      { $group: { _id: null, avgRating: { $avg: "$rating" }, total: { $sum: 1 } } }
+    ]
+  }
+}]);
+
+// $bucketAuto — auto-generate 5 equal buckets
+db.products.aggregate([{
+  $bucketAuto: {
+    groupBy: "$price",
+    buckets: 5,
+    output: { count: { $sum: 1 }, avgPrice: { $avg: "$price" } }
+  }
+}]);</code></pre>
+<p><strong>Why it matters:</strong> <code>$facet</code> is the MongoDB way to build <strong>e-commerce-style faceted search</strong>. This is a high-value interview topic showing advanced aggregation knowledge.</p>
+<p><strong>Real applications:</strong> <strong>E-commerce product search</strong> with simultaneous category counts, price ranges, and brand filters — all computed in one database round-trip.</p>
+<p><strong>Common mistakes:</strong> Running separate aggregation queries for each facet — <code>$facet</code> does all of them in a single pass through data, which is significantly more efficient.</p>
+                </div>
+            </div>
+        </div>
+        <div class="accordion-item">
+            <h2 class="accordion-header" id="h_q6">
+                <button class="accordion-button collapsed" type="button"
+                    data-bs-toggle="collapse" data-bs-target="#c_q6"
+                    aria-expanded="false">
+                    <span class="question-number">7</span>How does the $lookup with pipeline (expressive join) work?
+                </button>
+            </h2>
+            <div id="c_q6" class="accordion-collapse collapse"
+                data-bs-parent="#questionsAccordion">
+                <div class="accordion-body">MongoDB 3.6 introduced <strong>expressive $lookup</strong> that uses a <strong>pipeline</strong> instead of simple field equality, enabling complex join conditions, sub-pipelines, and multi-condition matches. The <code>let</code> option exposes local document fields as variables (prefixed with <code>$$</code>) inside the pipeline. The pipeline runs against the foreign collection with access to both the local variables and pipeline operators. This enables <strong>filtered joins, computed joins, and nested lookups</strong> that are impossible with basic $lookup.
+<pre><code>// Expressive lookup — join with multiple conditions
+db.orders.aggregate([{
+  $lookup: {
+    from: "promotions",
+    let: { orderTotal: "$total", orderDate: "$createdAt", custId: "$customerId" },
+    pipeline: [
+      {
+        $match: {
+          $expr: {
+            $and: [
+              { $lte: ["$minOrderValue", "$$orderTotal"] }, // promo threshold met
+              { $lte: ["$startDate", "$$orderDate"] },       // promo active
+              { $gte: ["$endDate",   "$$orderDate"] }
+            ]
+          }
+        }
+      },
+      { $project: { code: 1, discount: 1 } }  // only return needed fields
+    ],
+    as: "eligiblePromos"
+  }
+}]);
+
+// Self-join — employees with their managers
+db.employees.aggregate([{
+  $lookup: {
+    from: "employees",
+    let: { managerId: "$managerId" },
+    pipeline: [
+      { $match: { $expr: { $eq: ["$_id", "$$managerId"] } } },
+      { $project: { name: 1, email: 1 } }
+    ],
+    as: "manager"
+  }
+}, {
+  $unwind: { path: "$manager", preserveNullAndEmptyArrays: true }
+}]);</code></pre>
+<p><strong>Why it matters:</strong> Expressive $lookup is a <strong>senior-level feature</strong>. It demonstrates mastery of MongoDB's join capabilities and shows you can handle complex data relationships without application-level joins.</p>
+<p><strong>Real applications:</strong> <strong>Eligibility checks</strong> (which promotions apply to an order), <strong>hierarchical data</strong> (employee-manager trees), <strong>product recommendations</strong> based on order history and category.</p>
+<p><strong>Common mistakes:</strong> Not indexing the foreign collection's match fields within the pipeline — each input document triggers a pipeline scan on the foreign collection without proper indexes.</p>
+                </div>
+            </div>
+        </div>
+        <div class="accordion-item">
+            <h2 class="accordion-header" id="h_q7">
+                <button class="accordion-button collapsed" type="button"
+                    data-bs-toggle="collapse" data-bs-target="#c_q7"
+                    aria-expanded="false">
+                    <span class="question-number">8</span>What is $expr and how is it used in aggregation?
+                </button>
+            </h2>
+            <div id="c_q7" class="accordion-collapse collapse"
+                data-bs-parent="#questionsAccordion">
+                <div class="accordion-body"><strong>$expr</strong> allows using <strong>aggregation expressions</strong> inside query operators like <code>$match</code> and <code>find()</code>. It enables comparing two fields in the same document, applying aggregation expressions in queries, and using variables. Without <code>$expr</code>, MongoDB query operators only compare a field against a literal value. With <code>$expr</code>, you can write <code>{ $gt: ["$fieldA", "$fieldB"] }</code> — comparing two document fields. It's especially powerful in <code>$lookup</code> pipelines for correlated queries.
+<pre><code>// Find orders where actual amount exceeds budget
+db.orders.find({
+  $expr: { $gt: ["$actualCost", "$budgetedCost"] }
+});
+
+// Use in $match stage
+db.products.aggregate([
+  { $match: {
+    $expr: {
+      $and: [
+        { $gt: ["$price", "$cost"] },        // profitable
+        { $lt: ["$stock", "$reorderPoint"] ] // needs reorder
+      ]
+    }
+  }}
+]);
+
+// Compute with $expr
+db.employees.find({
+  $expr: {
+    $gte: [
+      { $multiply: ["$yearsExp", 10000] },  // computed value
+      "$salary"
+    ]
+  }
+});
+
+// Variables in $expr ($$ROOT, $$CURRENT, $$NOW)
+db.events.aggregate([{
+  $match: {
+    $expr: { $lt: ["$eventDate", "$$NOW"] } // already occurred
+  }
+}]);</code></pre>
+<p><strong>Why it matters:</strong> <code>$expr</code> bridges the gap between <strong>query language and aggregation expressions</strong>. It's essential for field-to-field comparisons, which are impossible with regular query operators.</p>
+<p><strong>Real applications:</strong> Finding <strong>overdue tasks</strong> (due date < current date), <strong>profitable products</strong> (price > cost), <strong>over-budget projects</strong> (actual > estimated).</p>
+<p><strong>Common mistakes:</strong> Trying to compare two document fields with regular operators: <code>{ $gt: ["$a", "$b"] }</code> doesn't work outside <code>$expr</code> — MongoDB treats <code>"$b"</code> as a literal string.</p>
+                </div>
+            </div>
+        </div>
+        <div class="accordion-item">
+            <h2 class="accordion-header" id="h_q8">
+                <button class="accordion-button collapsed" type="button"
+                    data-bs-toggle="collapse" data-bs-target="#c_q8"
+                    aria-expanded="false">
+                    <span class="question-number">9</span>What is $merge and $out and how do they differ?
+                </button>
+            </h2>
+            <div id="c_q8" class="accordion-collapse collapse"
+                data-bs-parent="#questionsAccordion">
+                <div class="accordion-body">Both <strong>$out</strong> and <strong>$merge</strong> write aggregation results to a collection. <code>$out</code> (MongoDB 2.6+) completely <strong>replaces</strong> the target collection — if it exists, all existing documents are deleted and replaced with pipeline results. <code>$merge</code> (MongoDB 4.2+) is more flexible: it can <strong>insert, replace, merge, fail, or keep</strong> existing documents based on matching criteria. <code>$merge</code> supports <strong>upsert-like behavior</strong> for incrementally updating materialized views. Both must be the <strong>last stage</strong> in the pipeline and cannot be used in transactions.
+<pre><code>// $out — replace collection entirely
+db.orders.aggregate([
+  { $match: { status: "completed" } },
+  { $group: { _id: "$customerId", totalSpent: { $sum: "$amount" } } },
+  { $out: "customer_lifetime_value" }  // replaces entire collection
+]);
+
+// $merge — upsert into existing collection
+db.daily_sales.aggregate([
+  { $group: { _id: "$date", revenue: { $sum: "$amount" }, count: { $sum: 1 } } },
+  {
+    $merge: {
+      into: "sales_summary",         // target collection
+      on: "_id",                     // match key
+      whenMatched: "merge",          // merge fields if doc exists
+      whenNotMatched: "insert"       // insert if doc doesn't exist
+    }
+  }
+]);
+
+// whenMatched options:
+// "replace"   — replace entire document
+// "merge"     — merge incoming with existing
+// "keepExisting" — keep existing, discard new
+// "fail"      — throw error on conflict
+// pipeline    — custom merge logic</code></pre>
+<p><strong>Why it matters:</strong> <code>$merge</code> enables building <strong>materialized views</strong> and <strong>incremental aggregations</strong> — a critical pattern for pre-computing expensive analytics without full recalculation.</p>
+<p><strong>Real applications:</strong> <strong>Daily revenue summaries</strong> updated incrementally each night, <strong>product popularity scores</strong> updated as new orders arrive, <strong>user analytics</strong> tables for reporting dashboards.</p>
+<p><strong>Common mistakes:</strong> Using <code>$out</code> for incremental updates — it deletes all existing records first. Use <code>$merge</code> with <code>whenMatched: "merge"</code> for incremental views.</p>
+                </div>
+            </div>
+        </div>
+        <div class="accordion-item">
+            <h2 class="accordion-header" id="h_q9">
+                <button class="accordion-button collapsed" type="button"
+                    data-bs-toggle="collapse" data-bs-target="#c_q9"
+                    aria-expanded="false">
+                    <span class="question-number">10</span>How do you use $addFields and $set in aggregation?
+                </button>
+            </h2>
+            <div id="c_q9" class="accordion-collapse collapse"
+                data-bs-parent="#questionsAccordion">
+                <div class="accordion-body"><strong>$addFields</strong> and its alias <strong>$set</strong> (MongoDB 4.2+) add new fields to documents or overwrite existing ones without removing other fields. Unlike <code>$project</code>, they only specify what to add — all existing fields are retained automatically. Multiple fields can be added in a single stage. They support all aggregation expressions for computing values. <code>$unset</code> (alias: <code>$project</code> with <code>0</code>) removes fields. Using <code>$set</code>/<code>$unset</code> is the idiomatic MongoDB 4.2+ style for field manipulation.
+<pre><code>// $addFields / $set — add computed fields
+db.products.aggregate([{
+  $set: {
+    // Add profit margin
+    margin: {
+      $multiply: [
+        { $divide: [{ $subtract: ["$price", "$cost"] }, "$price"] },
+        100
+      ]
+    },
+
+    // Add full name from parts
+    fullName: { $concat: ["$brand", " - ", "$model"] },
+
+    // Overwrite existing field with formatted version
+    price: { $round: ["$price", 2] },
+
+    // Conditional tag
+    inStock: { $gt: ["$stock", 0] },
+
+    // Current timestamp
+    processedAt: "$$NOW"
+  }
+}]);
+
+// $unset — remove fields
+db.users.aggregate([
+  { $unset: ["password", "ssn", "creditCard"] }
+]);
+
+// Chain $set stages for readability
+db.employees.aggregate([
+  { $set: { annualSalary: { $multiply: ["$monthlySalary", 12] } } },
+  { $set: { taxBracket: { $switch: {
+    branches: [
+      { case: { $gte: ["$annualSalary", 1000000] }, then: "30%" },
+      { case: { $gte: ["$annualSalary", 500000] }, then: "20%" }
+    ],
+    default: "10%"
+  }}}},
+  { $unset: "monthlySalary" }
+]);</code></pre>
+<p><strong>Why it matters:</strong> <code>$set/$addFields</code> is the most readable way to enrich documents in pipelines. Shows awareness of MongoDB 4.2+ modernized syntax and the preference for <strong>readable stage names</strong>.</p>
+<p><strong>Real applications:</strong> Computing <strong>derived metrics</strong> (profit margins, engagement rates), adding <strong>display fields</strong> for API responses, and <strong>normalizing data</strong> during migration pipelines.</p>
+<p><strong>Common mistakes:</strong> Using <code>$project</code> when only adding fields — this requires explicitly listing all fields you want to keep, making pipelines verbose and fragile when schema changes.</p>
+                </div>
+            </div>
+        </div>
+        <div class="accordion-item">
+            <h2 class="accordion-header" id="h_q10">
+                <button class="accordion-button collapsed" type="button"
+                    data-bs-toggle="collapse" data-bs-target="#c_q10"
+                    aria-expanded="false">
+                    <span class="question-number">11</span>What is the $lookup with $unwind vs preserveNullAndEmptyArrays pattern?
+                </button>
+            </h2>
+            <div id="c_q10" class="accordion-collapse collapse"
+                data-bs-parent="#questionsAccordion">
+                <div class="accordion-body">When using <code>$lookup</code> followed by <code>$unwind</code>, the combined behavior is like an <strong>INNER JOIN</strong> — documents without matches are dropped because <code>$lookup</code> produces an empty array and <code>$unwind</code> removes documents with empty arrays. To simulate a <strong>LEFT JOIN</strong> (keep unmatched documents), use <code>$unwind</code> with <code>preserveNullAndEmptyArrays: true</code>. This is one of the most common patterns in MongoDB aggregation and is critical for understanding when documents might be accidentally lost in pipelines.
+<pre><code>// INNER JOIN behavior (drops unmatched orders)
+db.orders.aggregate([
+  { $lookup: { from: "users", localField: "userId", foreignField: "_id", as: "user" } },
+  { $unwind: "$user" }  // drops orders with no matching user!
+]);
+
+// LEFT JOIN behavior (keeps orders without user)
+db.orders.aggregate([
+  { $lookup: { from: "users", localField: "userId", foreignField: "_id", as: "user" } },
+  { $unwind: { path: "$user", preserveNullAndEmptyArrays: true } }
+  // unmatched orders: user = null
+]);
+
+// Check for orphaned records
+db.orders.aggregate([
+  { $lookup: { from: "users", localField: "userId", foreignField: "_id", as: "user" } },
+  { $match: { user: { $size: 0 } } }  // find orders with no user
+]);
+
+// Best practice: filter early, join late
+db.orders.aggregate([
+  { $match: { status: "pending", createdAt: { $gte: ISODate("2026-01-01") } } },
+  { $lookup: { from: "users", localField: "userId", foreignField: "_id", as: "user" } },
+  { $unwind: { path: "$user", preserveNullAndEmptyArrays: true } },
+  { $project: { "user.password": 0 } }
+]);</code></pre>
+<p><strong>Why it matters:</strong> This is the most common data integrity issue in MongoDB aggregations. Accidentally dropping documents by not using <code>preserveNullAndEmptyArrays</code> causes <strong>silent incorrect report totals</strong>.</p>
+<p><strong>Real applications:</strong> <strong>Order reports</strong> must include all orders even if the user account was deleted. <strong>Product listings</strong> should show all products even those without reviews.</p>
+<p><strong>Common mistakes:</strong> In analytics, missing the <code>preserveNullAndEmptyArrays</code> flag causes totals to silently undercount — the most common cause of <strong>data discrepancies in MongoDB reports</strong>.</p>
+                </div>
+            </div>
+        </div>
+        <div class="accordion-item">
+            <h2 class="accordion-header" id="h_q11">
+                <button class="accordion-button collapsed" type="button"
+                    data-bs-toggle="collapse" data-bs-target="#c_q11"
+                    aria-expanded="false">
+                    <span class="question-number">12</span>How does $graphLookup enable recursive tree/graph traversals?
+                </button>
+            </h2>
+            <div id="c_q11" class="accordion-collapse collapse"
+                data-bs-parent="#questionsAccordion">
+                <div class="accordion-body"><strong>$graphLookup</strong> performs recursive lookups in a collection, enabling traversal of <strong>hierarchical and graph-like data structures</strong> like organizational charts, category trees, friend networks, and bill-of-materials. It starts from a set of seed documents, then recursively looks up connected documents based on matching fields, extending up to a <strong>maxDepth</strong> limit. The result is an array of all reachable documents in the traversal. Unlike application-level recursion with multiple queries, <code>$graphLookup</code> does this in a single aggregation pipeline stage.
+<pre><code>// Employee hierarchy — find all reports under a manager
+db.employees.aggregate([{
+  $graphLookup: {
+    from: "employees",          // same collection (self-join)
+    startWith: "$_id",          // start from this employee's ID
+    connectFromField: "_id",    // match outgoing field
+    connectToField: "managerId",// field in other docs that points back
+    as: "allReports",           // output array field
+    maxDepth: 5,                // max recursion depth
+    depthField: "level"         // add depth level to each result
+  }
+}]);
+
+// Category tree — find all subcategories
+db.categories.aggregate([
+  { $match: { name: "Electronics" } },
+  {
+    $graphLookup: {
+      from: "categories",
+      startWith: "$_id",
+      connectFromField: "_id",
+      connectToField: "parentId",
+      as: "allSubcategories",
+      maxDepth: 4
+    }
+  }
+]);
+
+// Friend-of-friend network (social graph)
+db.users.aggregate([
+  { $match: { _id: userId } },
+  { $graphLookup: {
+    from: "users",
+    startWith: "$friends",
+    connectFromField: "friends",
+    connectToField: "_id",
+    as: "network",
+    maxDepth: 2           // friends of friends
+  }}
+]);</code></pre>
+<p><strong>Why it matters:</strong> Shows mastery of <strong>graph/tree data problems</strong> in MongoDB. This stage replaces multiple recursive application-level queries with a single efficient database operation.</p>
+<p><strong>Real applications:</strong> <strong>Org chart</strong> traversal, <strong>e-commerce category trees</strong>, <strong>bill of materials</strong> (product components), and <strong>social network</strong> friend graphs.</p>
+<p><strong>Common mistakes:</strong> Not setting <code>maxDepth</code> on circular graphs — this causes infinite loops. Also not indexing <code>connectToField</code>, making recursive lookups extremely slow on large collections.</p>
+                </div>
+            </div>
+        </div>
+        <div class="accordion-item">
+            <h2 class="accordion-header" id="h_q12">
+                <button class="accordion-button collapsed" type="button"
+                    data-bs-toggle="collapse" data-bs-target="#c_q12"
+                    aria-expanded="false">
+                    <span class="question-number">13</span>How do you use window functions with $setWindowFields?
+                </button>
+            </h2>
+            <div id="c_q12" class="accordion-collapse collapse"
+                data-bs-parent="#questionsAccordion">
+                <div class="accordion-body"><strong>$setWindowFields</strong> (MongoDB 5.0+) brings <strong>window function capabilities</strong> similar to SQL's OVER() clause, allowing computations across a defined window of documents without collapsing them into groups. Unlike <code>$group</code> which reduces N documents to 1, <code>$setWindowFields</code> adds computed fields to each document while considering surrounding documents. Key operators: <strong>$rank, $denseRank</strong> (ranking), <strong>$sum, $avg, $count</strong> (cumulative/windowed), <strong>$shift</strong> (access previous/next document), <strong>$derivative, $integral</strong> (rate of change), <strong>$first/$last</strong> (window boundaries).
+<pre><code>// Running total (cumulative sum)
+db.sales.aggregate([{
+  $setWindowFields: {
+    partitionBy: "$region",       // group by region
+    sortBy: { saleDate: 1 },      // order within partition
+    output: {
+      runningRevenue: {
+        $sum: "$revenue",
+        window: { documents: ["unbounded", "current"] } // from start to current
+      },
+      rank: { $rank: {} },        // rank within region by saleDate
+      prevDayRevenue: {
+        $shift: { output: "$revenue", by: -1, default: 0 } // previous day
+      }
+    }
+  }
+}]);
+
+// Moving average (last 7 days)
+db.metrics.aggregate([{
+  $setWindowFields: {
+    sortBy: { date: 1 },
+    output: {
+      movingAvg: {
+        $avg: "$value",
+        window: { documents: [-6, 0] } // current + 6 previous docs
+      }
+    }
+  }
+}]);
+
+// Dense rank for leaderboard
+db.scores.aggregate([{
+  $setWindowFields: {
+    sortBy: { score: -1 },
+    output: { leaderboardRank: { $denseRank: {} } }
+  }
+}]);</code></pre>
+<p><strong>Why it matters:</strong> Window functions are a major MongoDB 5.0 feature that brings MongoDB on par with SQL analytics. Shows awareness of <strong>modern MongoDB capabilities</strong> for time-series and analytics workloads.</p>
+<p><strong>Real applications:</strong> <strong>Sales leaderboards with ranks</strong>, <strong>7-day moving average metrics</strong>, <strong>cumulative revenue by region</strong>, <strong>day-over-day growth rates</strong>.</p>
+<p><strong>Common mistakes:</strong> Using <code>$group</code> + application-level ranking instead of <code>$setWindowFields</code> — this is far less efficient and requires multiple queries or complex application code.</p>
+                </div>
+            </div>
+        </div>
+        <div class="accordion-item">
+            <h2 class="accordion-header" id="h_q13">
+                <button class="accordion-button collapsed" type="button"
+                    data-bs-toggle="collapse" data-bs-target="#c_q13"
+                    aria-expanded="false">
+                    <span class="question-number">14</span>What are aggregation pipeline optimization techniques?
+                </button>
+            </h2>
+            <div id="c_q13" class="accordion-collapse collapse"
+                data-bs-parent="#questionsAccordion">
+                <div class="accordion-body">MongoDB automatically optimizes some pipeline stages, but understanding <strong>manual optimization techniques</strong> is critical for production performance. Key rules: (1) Put <code>$match</code> and <code>$limit</code> as early as possible to reduce data volume flowing through stages. (2) <code>$match + $sort</code> at the start uses an index. (3) Use <code>$project</code> early to reduce document size. (4) Avoid <code>$unwind</code> before <code>$group</code> when possible (use <code>$group</code> with <code>$push</code>). (5) Use <code>allowDiskUse: true</code> for large aggregations exceeding 100 MB memory limit. (6) Use the <strong>explain()</strong> method to analyze pipeline performance.
+<pre><code>// ❌ BAD: $match at end (processes all docs)
+db.orders.aggregate([
+  { $lookup: { ... } },
+  { $unwind: "$items" },
+  { $group: { ... } },
+  { $match: { status: "completed" } }  // too late!
+]);
+
+// ✅ GOOD: $match first (reduces docs early)
+db.orders.aggregate([
+  { $match: { status: "completed", createdAt: { $gte: startDate } } }, // uses index
+  { $lookup: { ... } },
+  { $project: { "items.price": 1, customerId: 1 } }, // reduce doc size
+  { $unwind: "$items" },
+  { $group: { ... } }
+]);
+
+// Allow disk use for large aggregations (>100MB)
+db.bigCollection.aggregate([...], { allowDiskUse: true });
+
+// Explain aggregation pipeline
+db.orders.aggregate([...], { explain: true });
+// or
+db.orders.explain("executionStats").aggregate([...]);
+
+// Use $indexStats to find unused indexes
+db.orders.aggregate([{ $indexStats: {} }]);</code></pre>
+<p><strong>Why it matters:</strong> Pipeline optimization is a key topic for <strong>senior roles and system design</strong>. Poorly ordered pipelines on large collections can be 100× slower than optimized ones.</p>
+<p><strong>Real applications:</strong> <strong>Nightly analytics jobs</strong> processing millions of documents must use <code>allowDiskUse</code> and carefully ordered stages to complete in reasonable time.</p>
+<p><strong>Common mistakes:</strong> Forgetting <code>allowDiskUse: true</code> for aggregations on large collections — MongoDB throws a memory exceeded error at 100 MB without it.</p>
+                </div>
+            </div>
+        </div>
+        <div class="accordion-item">
+            <h2 class="accordion-header" id="h_q14">
+                <button class="accordion-button collapsed" type="button"
+                    data-bs-toggle="collapse" data-bs-target="#c_q14"
+                    aria-expanded="false">
+                    <span class="question-number">15</span>How do you use $dateToString and date operators in aggregation?
+                </button>
+            </h2>
+            <div id="c_q14" class="accordion-collapse collapse"
+                data-bs-parent="#questionsAccordion">
+                <div class="accordion-body">MongoDB's aggregation framework includes comprehensive <strong>date operator</strong> expressions for extracting, formatting, and computing date values. Key operators: <strong>$year, $month, $dayOfMonth, $hour, $minute, $second, $dayOfWeek, $week, $isoWeek</strong> (extract date parts), <strong>$dateToString</strong> (format date as string), <strong>$dateFromString</strong> (parse string to date), <strong>$dateAdd/$dateSubtract</strong> (date arithmetic, MongoDB 5.0+), <strong>$dateDiff</strong> (difference between dates, MongoDB 5.0+). These enable powerful <strong>time-series aggregations</strong> and date-based reporting.
+<pre><code>// Group sales by month and year
+db.sales.aggregate([{
+  $group: {
+    _id: {
+      year:  { $year:  "$saleDate" },
+      month: { $month: "$saleDate" }
+    },
+    revenue: { $sum: "$amount" },
+    count: { $sum: 1 }
+  }
+}, { $sort: { "_id.year": 1, "_id.month": 1 } }]);
+
+// $dateToString — custom format
+db.events.aggregate([{
+  $project: {
+    formattedDate: { $dateToString: { format: "%Y-%m-%d", date: "$createdAt" } },
+    dayOfWeek: { $dayOfWeek: "$createdAt" }, // 1=Sun, 7=Sat
+    hour: { $hour: "$createdAt" }
+  }
+}]);
+
+// $dateDiff — time-since-signup in days
+db.users.aggregate([{
+  $addFields: {
+    accountAgeDays: {
+      $dateDiff: {
+        startDate: "$createdAt",
+        endDate: "$$NOW",
+        unit: "day"
+      }
+    }
+  }
+}]);
+
+// Group by week
+db.orders.aggregate([{
+  $group: {
+    _id: { week: { $isoWeek: "$createdAt" }, year: { $isoWeekYear: "$createdAt" } },
+    total: { $sum: "$amount" }
+  }
+}]);</code></pre>
+<p><strong>Why it matters:</strong> Date aggregations are fundamental for <strong>business intelligence and analytics</strong>. Every production application needs date-based reporting — by day, week, month, hour.</p>
+<p><strong>Real applications:</strong> <strong>Daily active user charts</strong>, <strong>monthly revenue reports</strong>, <strong>peak hour analysis</strong> for capacity planning, and <strong>cohort analysis</strong> by signup week.</p>
+<p><strong>Common mistakes:</strong> Not accounting for <strong>timezone offsets</strong> — using <code>$dateToString</code> without a timezone option returns UTC dates, which may not match the user's local dates for business reporting.</p>
+                </div>
+            </div>
+        </div>
+
+            </div>
+            <div class="topic-nav" id="topicNav">
+            <a class="topic-nav-btn prev" href="crud-operations.html">
+                <span class="label"><i class="bi bi-arrow-left me-1"></i> Prev</span>
+                <span class="title">CRUD Operations</span>
+            </a>
+            <a class="topic-nav-btn next" href="indexes.html">
+                <span class="label">Next <i class="bi bi-arrow-right ms-1"></i></span>
+                <span class="title">Indexes & Performance</span>
+            </a>
+            </div>
+            <footer class="app-footer">
+                <p>&copy; 2026 InterviewPrep &mdash; MongoDB Interview Questions</p>
+            </footer>
+        </div>
+    </div>
+    <button class="btn-totop" id="backToTop"><i class="bi bi-chevron-up"></i></button>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>
+    <script>
+    (function(){
+        var sb=document.getElementById('sidebar'),bd=document.getElementById('sidebarBackdrop'),
+            tg=document.getElementById('sidebarToggle');
+        if(tg)tg.addEventListener('click',function(){sb.classList.add('open');bd.classList.add('show');});
+        if(bd)bd.addEventListener('click',function(){sb.classList.remove('open');bd.classList.remove('show');});
+        var btt=document.getElementById('backToTop');
+        window.addEventListener('scroll',function(){btt.classList.toggle('show',window.scrollY>400);});
+        btt.addEventListener('click',function(){window.scrollTo({top:0,behavior:'smooth'});});
+        var acc=document.getElementById('questionsAccordion');
+        var totalCount=15;
+        var si=document.getElementById('searchInput');
+        if(si){var t=null;si.addEventListener('input',function(){clearTimeout(t);var v=this.value.trim().toLowerCase();
+        if(v.length<2){acc.querySelectorAll('.accordion-item').forEach(function(el){el.style.display='';});
+        document.getElementById('questionCount').textContent=totalCount+' Questions';return;}
+        t=setTimeout(function(){var c=0;acc.querySelectorAll('.accordion-item').forEach(function(el){
+        var m=el.textContent.toLowerCase().indexOf(v)!==-1;el.style.display=m?'':'none';if(m)c++;});
+        document.getElementById('questionCount').textContent=c+' Questions';},200);});}
+    })();
+    </script>
+</body>
+</html>

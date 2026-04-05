@@ -1,0 +1,723 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="MongoDB Change Streams interview questions covering real-time data watching, event types, resume tokens, filtering, and practical use cases like notifications and sync.">
+    <meta name="keywords" content="MongoDB change streams, MongoDB watch, real-time MongoDB, resume token, change event, MongoDB interview 2026">
+    <meta name="author" content="InterviewPrep">
+    <meta name="robots" content="index, follow">
+    <link rel="icon" type="image/svg+xml" href="../../favicon.svg" sizes="any">
+    <meta property="og:type" content="website">
+    <meta property="og:title" content="Change Streams — MongoDB Interview Questions | InterviewPrep">
+    <meta property="og:description" content="MongoDB Change Streams interview questions covering real-time data watching, event types, resume tokens, filtering, and practical use cases like notifications and sync.">
+    <meta property="og:url" content="https://coddingquestionhub.com/topics/mongodb/change-streams-watchers.html">
+    <title>Change Streams — MongoDB Interview Questions | InterviewPrep 2026</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&family=Fira+Code:wght@400;500&display=swap" rel="stylesheet">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="../../css/styles.css">
+    <link rel="canonical" href="https://coddingquestionhub.com/topics/mongodb/change-streams-watchers.html">
+    <script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "FAQPage",
+  "mainEntity": [
+    {
+      "@type": "Question",
+      "name": "Change Streams — MongoDB Interview Questions | InterviewPrep",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "MongoDB Change Streams interview questions covering real-time data watching, event types, resume tokens, filtering, and practical use cases like notifications and sync."
+      }
+    }
+  ]
+}
+    </script>
+    <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-8957020141286926" crossorigin="anonymous"></script>
+    <script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "BreadcrumbList",
+  "itemListElement": [
+    {
+      "@type": "ListItem",
+      "position": 1,
+      "name": "Home",
+      "item": "https://coddingquestionhub.com"
+    },
+    {
+      "@type": "ListItem",
+      "position": 2,
+      "name": "Topics",
+      "item": "https://coddingquestionhub.com/topics"
+    },
+    {
+      "@type": "ListItem",
+      "position": 3,
+      "name": "Mongodb",
+      "item": "https://coddingquestionhub.com/topics/mongodb"
+    },
+    {
+      "@type": "ListItem",
+      "position": 4,
+      "name": "Change Streams Watchers",
+      "item": "https://coddingquestionhub.com/topics/mongodb/change-streams-watchers.html"
+    }
+  ]
+}
+    </script>
+</head>
+<body class="theme-mongodb">
+    <nav class="navbar navbar-expand-lg sticky-top" id="mainNavbar">
+        <div class="container-fluid px-3 px-lg-4">
+            <a class="navbar-brand fw-bold d-flex align-items-center gap-2" href="../../index.html">
+                <span class="brand-icon"><i class="bi bi-braces-asterisk"></i></span>
+                <span>Interview<span class="brand-accent">Prep</span></span>
+            </a>
+            <button class="navbar-toggler border-0 shadow-none" type="button"
+                    data-bs-toggle="collapse" data-bs-target="#navbarContent">
+                <i class="bi bi-list fs-3 text-white"></i>
+            </button>
+            <div class="collapse navbar-collapse" id="navbarContent">
+                <ul class="navbar-nav me-auto mb-2 mb-lg-0 ms-lg-3">
+                    <li class="nav-item dropdown">
+                        <a class="nav-link dropdown-toggle fw-500" href="#" role="button"
+                           data-bs-toggle="dropdown">
+                            <i class="bi bi-layers me-1"></i> Choose Category
+                        </a>
+                        <ul class="dropdown-menu">
+                            <li><a class="dropdown-item fw-500" href="../../pages/angular.html"><i class="bi bi-bootstrap me-2 text-danger"></i>Angular</a></li>
+                            <li><a class="dropdown-item fw-500" href="../../pages/react.html"><i class="bi bi-infinity me-2 text-info"></i>React</a></li>
+                            <li><a class="dropdown-item fw-500" href="../../pages/node.html"><i class="bi bi-hdd-network me-2 text-success"></i>Node.js</a></li>
+                            <li><a class="dropdown-item fw-500" href="../../pages/javascript.html"><i class="bi bi-filetype-js me-2 text-warning"></i>JavaScript</a></li>
+                            <li><a class="dropdown-item fw-500" href="../../pages/dsa.html"><i class="bi bi-diagram-3-fill me-2" style="color:#8b5cf6"></i>DSA</a></li>
+                            <li><a class="dropdown-item fw-500" href="../../pages/logical.html"><i class="bi bi-lightbulb me-2" style="color:#f59e0b"></i>Logical Reasoning</a></li>
+                            <li><a class="dropdown-item fw-500" href="../../pages/mongodb.html"><i class="bi bi-database-fill me-2" style="color:#4DB33D"></i>MongoDB</a></li>
+                            <li><a class="dropdown-item fw-500" href="../../pages/mysql.html"><i class="bi bi-table me-2" style="color:#0F766E"></i>MySQL</a></li>
+                        </ul>
+                    </li>
+                </ul>
+                <div class="search-wrap">
+                    <i class="bi bi-search search-icon"></i>
+                    <input class="form-control search-input" type="search"
+                           placeholder="Search questions..." id="searchInput">
+                </div>
+            </div>
+        </div>
+    </nav>
+    <div class="app-wrapper">
+        <aside class="sidebar" id="sidebar">
+            <div class="sidebar-head">
+                <h6><i class="bi bi-database-fill me-2"></i>MongoDB Topics</h6>
+            </div>
+            <nav>
+                <ul class="sidebar-links" id="topicList">
+                    <li><a class="nav-link" href="mongodb-fundamentals.html"><i class="bi-diagram-2"></i><span>MongoDB Fundamentals</span></a></li>
+                    <li><a class="nav-link" href="crud-operations.html"><i class="bi-pencil-square"></i><span>CRUD Operations</span></a></li>
+                    <li><a class="nav-link" href="aggregation-pipeline.html"><i class="bi-shuffle"></i><span>Aggregation Pipeline</span></a></li>
+                    <li><a class="nav-link" href="indexes.html"><i class="bi-lightning-fill"></i><span>Indexes</span></a></li>
+                    <li><a class="nav-link" href="schema-design.html"><i class="bi-layout-wtf"></i><span>Schema Design</span></a></li>
+                    <li><a class="nav-link" href="relationships.html"><i class="bi-link-45deg"></i><span>Relationships</span></a></li>
+                    <li><a class="nav-link" href="transactions.html"><i class="bi-arrow-repeat"></i><span>Transactions</span></a></li>
+                    <li><a class="nav-link" href="mongoose-odm.html"><i class="bi-code-square"></i><span>Mongoose ODM</span></a></li>
+                    <li><a class="nav-link" href="performance-optimization.html"><i class="bi-speedometer2"></i><span>Performance Optimization</span></a></li>
+                    <li><a class="nav-link" href="replication-sharding.html"><i class="bi-diagram-3-fill"></i><span>Replication &amp; Sharding</span></a></li>
+                    <li><a class="nav-link" href="security.html"><i class="bi-shield-check"></i><span>Security</span></a></li>
+                    <li><a class="nav-link" href="text-search-geospatial.html"><i class="bi-search"></i><span>Text Search &amp; Geo</span></a></li>
+                    <li><a class="nav-link active" href="change-streams-watchers.html"><i class="bi-eye"></i><span>Change Streams</span></a></li>
+                    <li><a class="nav-link" href="interview-queries-1.html"><i class="bi-gear-fill"></i><span>Interview Queries 1</span></a></li>
+                    <li><a class="nav-link" href="interview-queries-2.html"><i class="bi-gear-fill"></i><span>Interview Queries 2</span></a></li>
+                </ul>
+            </nav>
+        </aside>
+        <div class="sidebar-backdrop" id="sidebarBackdrop"></div>
+        <div class="content-area">
+            <div class="mobile-bar d-lg-none">
+                <button class="btn btn-sm btn-glass" id="sidebarToggle">
+                    <i class="bi bi-layout-sidebar-inset me-1"></i>Topics
+                </button>
+                <span class="badge rounded-pill bg-success">MongoDB</span>
+            </div>
+            <div class="breadcrumb-nav" id="breadcrumb">
+                <a href="../../index.html">Home</a><span class="sep">/</span>
+                <a href="../../pages/mongodb.html">MongoDB</a><span class="sep">/</span>
+                <span class="current">Change Streams</span>
+            </div>
+            <div class="qs-header">
+                <h1 class="qs-title" id="topicTitle">Change Streams</h1>
+                <span class="badge qs-badge" id="questionCount">15 Questions</span>
+            </div>
+            <div class="accordion" id="questionsAccordion">
+        <div class="accordion-item">
+            <h2 class="accordion-header" id="h_q0">
+                <button class="accordion-button" type="button"
+                    data-bs-toggle="collapse" data-bs-target="#c_q0"
+                    aria-expanded="true">
+                    <span class="question-number">1</span>What are MongoDB Change Streams?
+                </button>
+            </h2>
+            <div id="c_q0" class="accordion-collapse collapse show"
+                data-bs-parent="#questionsAccordion">
+                <div class="accordion-body"><strong>Change Streams</strong> allow applications to watch for real-time data changes in MongoDB collections, databases, or entire deployments. They are built on MongoDB's <strong>oplog</strong> (operations log) and provide a push-based notification model. When a document is inserted, updated, replaced, or deleted, the change stream emits an event with details about the change. Change Streams require a <strong>replica set or sharded cluster</strong> (not available on standalone MongoDB). They use <strong>resumable</strong> cursors — if the connection drops, the stream can resume from where it left off using a <strong>resume token</strong>. They are widely used for real-time notifications, cache invalidation, and event-driven architectures.
+<pre><code>// Watch a collection for changes
+const changeStream = db.collection('orders').watch();
+
+changeStream.on('change', (event) => {
+  console.log('Change detected:', event.operationType);
+  console.log('Document:', event.fullDocument);
+  console.log('Document key:', event.documentKey._id);
+});
+
+// Using async iterator (preferred)
+for await (const change of changeStream) {
+  console.log(change.operationType); // insert, update, delete, replace
+}</code></pre>
+                </div>
+            </div>
+        </div>
+        <div class="accordion-item">
+            <h2 class="accordion-header" id="h_q1">
+                <button class="accordion-button collapsed" type="button"
+                    data-bs-toggle="collapse" data-bs-target="#c_q1"
+                    aria-expanded="false">
+                    <span class="question-number">2</span>What event types does a MongoDB Change Stream emit?
+                </button>
+            </h2>
+            <div id="c_q1" class="accordion-collapse collapse"
+                data-bs-parent="#questionsAccordion">
+                <div class="accordion-body">Change Streams emit events with an <strong>operationType</strong> field identifying what happened. The primary types are: <strong>insert</strong> (new document added), <strong>update</strong> (fields modified via update operators), <strong>replace</strong> (entire document replaced), <strong>delete</strong> (document removed), <strong>drop</strong> (collection dropped), <strong>rename</strong> (collection renamed), <strong>dropDatabase</strong> (database dropped), and <strong>invalidate</strong> (stream closed due to drop/rename). Update events include <code>updateDescription.updatedFields</code> and <code>updateDescription.removedFields</code> showing exactly what changed. The <code>fullDocument</code> field requires <code>fullDocument: 'updateLookup'</code> option for update/delete events.
+<pre><code>// Change event structure for INSERT
+{
+  _id: { /* resume token */ },
+  operationType: "insert",
+  fullDocument: { _id: ObjectId("..."), name: "Alice", age: 30 },
+  ns: { db: "myapp", coll: "users" },
+  documentKey: { _id: ObjectId("...") },
+  clusterTime: Timestamp(...)
+}
+
+// Change event structure for UPDATE
+{
+  operationType: "update",
+  documentKey: { _id: ObjectId("...") },
+  updateDescription: {
+    updatedFields: { age: 31, "address.city": "Mumbai" },
+    removedFields: ["oldField"],
+    truncatedArrays: []
+  }
+}</code></pre>
+                </div>
+            </div>
+        </div>
+        <div class="accordion-item">
+            <h2 class="accordion-header" id="h_q2">
+                <button class="accordion-button collapsed" type="button"
+                    data-bs-toggle="collapse" data-bs-target="#c_q2"
+                    aria-expanded="false">
+                    <span class="question-number">3</span>What is a resume token and how do you use it?
+                </button>
+            </h2>
+            <div id="c_q2" class="accordion-collapse collapse"
+                data-bs-parent="#questionsAccordion">
+                <div class="accordion-body">Every change event includes an <strong>_id</strong> field called the <strong>resume token</strong> — a unique identifier for that specific change in the oplog. When a change stream disconnects (network error, application restart), you can resume it from the last processed event using the <code>resumeAfter</code> or <code>startAfter</code> option. This ensures <strong>no events are missed</strong>. Store the resume token durably (e.g., in MongoDB itself or Redis) after each processed event. The difference: <code>resumeAfter</code> resumes after the given token; <code>startAfter</code> starts after an invalidate event. Token validity depends on oplog size — tokens expire if the oplog is older than the token's position.
+<pre><code">// Persist resume token to avoid missing events on restart
+let resumeToken = null;
+
+async function watchWithResume() {
+  const options = resumeToken ? { resumeAfter: resumeToken } : {};
+  const changeStream = db.collection('orders').watch([], options);
+
+  for await (const change of changeStream) {
+    // Process the change
+    await processOrderChange(change);
+    
+    // Save token AFTER successful processing
+    resumeToken = change._id;
+    await db.collection('_changeStreamState').updateOne(
+      { _id: 'orders_stream' },
+      { $set: { resumeToken } },
+      { upsert: true }
+    );
+  }
+}
+
+// On startup: load saved token
+const state = await db.collection('_changeStreamState').findOne({ _id: 'orders_stream' });
+resumeToken = state?.resumeToken;</code></pre>
+                </div>
+            </div>
+        </div>
+        <div class="accordion-item">
+            <h2 class="accordion-header" id="h_q3">
+                <button class="accordion-button collapsed" type="button"
+                    data-bs-toggle="collapse" data-bs-target="#c_q3"
+                    aria-expanded="false">
+                    <span class="question-number">4</span>How do you filter change stream events using aggregation pipelines?
+                </button>
+            </h2>
+            <div id="c_q3" class="accordion-collapse collapse"
+                data-bs-parent="#questionsAccordion">
+                <div class="accordion-body">The <code>watch()</code> method accepts an <strong>aggregation pipeline</strong> as its first argument, allowing you to filter and transform events server-side before they arrive. This is more efficient than filtering in application code because MongoDB only sends relevant events. The pipeline stages allowed in change streams are limited to: <strong>$match</strong>, <strong>$project</strong>, <strong>$addFields</strong>, <strong>$replaceRoot</strong>, <strong>$redact</strong>, and <strong>$set</strong>. Use <code>$match</code> on <code>operationType</code>, <code>fullDocument</code> fields, or <code>documentKey</code>. Filtered streams consume fewer resources and reduce event processing overhead in high-write collections.
+<pre><code>// Only watch for order insertions with high value
+const changeStream = db.collection('orders').watch([
+  {
+    $match: {
+      operationType: 'insert',
+      'fullDocument.amount': { $gte: 10000 }
+    }
+  }
+]);
+
+// Watch only specific operation types
+const changeStream = db.collection('users').watch([
+  { $match: { operationType: { $in: ['insert', 'delete'] } } }
+]);
+
+// Filter updates to specific fields
+const changeStream = db.collection('inventory').watch([
+  {
+    $match: {
+      operationType: 'update',
+      'updateDescription.updatedFields.stock': { $exists: true }
+    }
+  }
+]);</code></pre>
+                </div>
+            </div>
+        </div>
+        <div class="accordion-item">
+            <h2 class="accordion-header" id="h_q4">
+                <button class="accordion-button collapsed" type="button"
+                    data-bs-toggle="collapse" data-bs-target="#c_q4"
+                    aria-expanded="false">
+                    <span class="question-number">5</span>How do you watch an entire database or deployment with Change Streams?
+                </button>
+            </h2>
+            <div id="c_q4" class="accordion-collapse collapse"
+                data-bs-parent="#questionsAccordion">
+                <div class="accordion-body">Change Streams can be opened at three levels: <strong>collection</strong> (<code>collection.watch()</code>), <strong>database</strong> (<code>db.watch()</code>), and <strong>deployment/client</strong> (<code>client.watch()</code>). Database-level streams emit events for all collections. Client-level streams watch all databases and collections. Higher-level streams include additional context — the <code>ns</code> (namespace) field in the event identifies which database and collection changed. This is useful for audit logging, data replication pipelines, and event buses. For high-traffic deployments, database/client-level streams can generate very high event volumes — always use filtering pipelines.
+<pre><code>// Watch entire database — all collections
+const dbStream = db.watch([
+  { $match: { 'ns.coll': { $in: ['orders', 'payments'] } } }
+]);
+
+dbStream.on('change', event => {
+  console.log(`Change in ${event.ns.coll}:`, event.operationType);
+});
+
+// Watch entire deployment (all databases)
+const deploymentStream = client.watch([
+  { $match: { 'ns.db': { $ne: 'admin' } } }  // exclude admin db
+]);
+
+// Event includes namespace info
+{
+  operationType: "insert",
+  ns: { db: "shop", coll: "orders" },  // which db and collection
+  fullDocument: { ... }
+}</code></pre>
+                </div>
+            </div>
+        </div>
+        <div class="accordion-item">
+            <h2 class="accordion-header" id="h_q5">
+                <button class="accordion-button collapsed" type="button"
+                    data-bs-toggle="collapse" data-bs-target="#c_q5"
+                    aria-expanded="false">
+                    <span class="question-number">6</span>How do you use Change Streams for real-time notifications?
+                </button>
+            </h2>
+            <div id="c_q5" class="accordion-collapse collapse"
+                data-bs-parent="#questionsAccordion">
+                <div class="accordion-body">Change Streams integrate naturally with <strong>WebSockets</strong> or <strong>Server-Sent Events (SSE)</strong> to push real-time updates to connected clients. When a change event is received, the Node.js server emits it to the relevant WebSocket subscribers. Use <strong>Socket.IO rooms</strong> to route events only to users watching specific documents (e.g., order status page). The change stream runs in one long-lived background process (not per-request), and the Socket.IO emission is triggered for each event. A typical pattern: user opens order tracking page → joins Socket.IO room → server watches order collection → on change event, emit to room.
+<pre><code">// server.js — real-time order status updates
+const io = require('socket.io')(httpServer);
+
+async function startOrderWatcher() {
+  const changeStream = db.collection('orders').watch([
+    { $match: { operationType: { $in: ['update', 'replace'] } } }
+  ], { fullDocument: 'updateLookup' });
+
+  for await (const change of changeStream) {
+    const orderId = change.documentKey._id.toString();
+    const order = change.fullDocument;
+    
+    // Emit only to users watching this specific order
+    io.to(`order:${orderId}`).emit('orderUpdate', {
+      orderId,
+      status: order.status,
+      updatedAt: order.updatedAt
+    });
+  }
+}
+
+// Client joins room when viewing order
+socket.on('watchOrder', (orderId) => {
+  socket.join(`order:${orderId}`);
+});</code></pre>
+                </div>
+            </div>
+        </div>
+        <div class="accordion-item">
+            <h2 class="accordion-header" id="h_q6">
+                <button class="accordion-button collapsed" type="button"
+                    data-bs-toggle="collapse" data-bs-target="#c_q6"
+                    aria-expanded="false">
+                    <span class="question-number">7</span>How do you use the fullDocument option in Change Streams?
+                </button>
+            </h2>
+            <div id="c_q6" class="accordion-collapse collapse"
+                data-bs-parent="#questionsAccordion">
+                <div class="accordion-body">By default, <strong>update events</strong> only include <code>updateDescription</code> (what changed) and <code>documentKey</code> — not the full document. To receive the complete updated document, set the <code>fullDocument</code> option to <strong>'updateLookup'</strong>. MongoDB performs a secondary lookup to fetch the current document state. Note this is a post-change lookup — in rare race conditions (rapid successive updates), the fetched document may reflect a later state than the event. MongoDB 6.0 introduced <strong>'whenAvailable'</strong> and <strong>'required'</strong> options that use pre/post-image collections for guaranteed point-in-time snapshots on collections with <code>changeStreamPreAndPostImages</code> enabled.
+<pre><code">// Get full document on update events
+const changeStream = db.collection('orders').watch([], {
+  fullDocument: 'updateLookup'  // fetch full document on update
+});
+
+changeStream.on('change', event => {
+  if (event.operationType === 'update') {
+    console.log('Full updated order:', event.fullDocument); // complete document
+    console.log('Changed fields only:', event.updateDescription.updatedFields);
+  }
+});
+
+// MongoDB 6.0+: precise pre/post images
+db.createCollection('orders');
+db.runCommand({
+  collMod: 'orders',
+  changeStreamPreAndPostImages: { enabled: true }
+})
+
+const precise = db.collection('orders').watch([], {
+  fullDocument: 'required',      // post-image
+  fullDocumentBeforeChange: 'required'  // pre-image
+});</code></pre>
+                </div>
+            </div>
+        </div>
+        <div class="accordion-item">
+            <h2 class="accordion-header" id="h_q7">
+                <button class="accordion-button collapsed" type="button"
+                    data-bs-toggle="collapse" data-bs-target="#c_q7"
+                    aria-expanded="false">
+                    <span class="question-number">8</span>How do Change Streams work in sharded clusters?
+                </button>
+            </h2>
+            <div id="c_q7" class="accordion-collapse collapse"
+                data-bs-parent="#questionsAccordion">
+                <div class="accordion-body">In a <strong>sharded cluster</strong>, change streams opened on a collection or database are managed by <strong>mongos</strong>, which opens individual change streams on each shard and merges them into a single ordered stream. Events are ordered by <strong>cluster time</strong> ensuring causally consistent ordering across shards. For deployment-level streams, events from all shards are merged. This happens transparently to the application. Performance consideration: each shard's primary must tick the oplog for each change, and mongos must track the merge cursor — high-throughput sharded change streams can be resource-intensive. Filtering with aggregation pipelines is especially important in sharded environments to minimize event volume.
+<pre><code">// Change stream on sharded collection — same API, mongos handles merging
+const changeStream = db.collection('orders').watch([
+  { $match: { 'fullDocument.region': 'APAC' } }
+]);
+
+// Change event includes clusterTime for ordering across shards
+{
+  _id: { resumeToken... },
+  operationType: "insert",
+  clusterTime: Timestamp(1704000000, 1),  // used for ordering
+  ns: { db: "shop", coll: "orders" },
+  fullDocument: { region: "APAC", amount: 5000, ... }
+}
+
+// Split brain prevention: change streams guarantee exactly-once
+// delivery per event across shard merges</code></pre>
+                </div>
+            </div>
+        </div>
+        <div class="accordion-item">
+            <h2 class="accordion-header" id="h_q8">
+                <button class="accordion-button collapsed" type="button"
+                    data-bs-toggle="collapse" data-bs-target="#c_q8"
+                    aria-expanded="false">
+                    <span class="question-number">9</span>How do you implement cache invalidation with Change Streams?
+                </button>
+            </h2>
+            <div id="c_q8" class="accordion-collapse collapse"
+                data-bs-parent="#questionsAccordion">
+                <div class="accordion-body"><strong>Cache invalidation</strong> is one of the most practical change stream use cases. When data changes in MongoDB, the change stream event triggers deletion or update of the corresponding cache entry in <strong>Redis</strong> or an in-memory cache, keeping cached data consistent. This eliminates stale cache problems without TTL hacks. Watch only the specific fields that affect cached data to minimize cache churn. Use the document ID as the cache key for precise invalidation. For aggregate/computed caches (dashboards, report summaries), use a <strong>coalescing pattern</strong> — debounce rapid updates to recalculate once rather than on every change.
+<pre><code>const redis = require('redis').createClient();
+
+async function startCacheInvalidationWatcher() {
+  const changeStream = db.collection('products').watch([
+    { $match: { operationType: { $in: ['update', 'replace', 'delete'] } } }
+  ]);
+
+  for await (const change of changeStream) {
+    const productId = change.documentKey._id.toString();
+    
+    // Invalidate specific cache keys
+    await redis.del(`product:${productId}`);
+    await redis.del(`product:${productId}:details`);
+    
+    // Also invalidate list caches for this category
+    if (change.updateDescription?.updatedFields?.category) {
+      const oldCategory = change.updateDescription.updatedFields.category;
+      await redis.del(`products:category:${oldCategory}`);
+    }
+    
+    console.log(`Cache invalidated for product ${productId}`);
+  }
+}</code></pre>
+                </div>
+            </div>
+        </div>
+        <div class="accordion-item">
+            <h2 class="accordion-header" id="h_q9">
+                <button class="accordion-button collapsed" type="button"
+                    data-bs-toggle="collapse" data-bs-target="#c_q9"
+                    aria-expanded="false">
+                    <span class="question-number">10</span>How do you handle errors and reconnection in Change Streams?
+                </button>
+            </h2>
+            <div id="c_q9" class="accordion-collapse collapse"
+                data-bs-parent="#questionsAccordion">
+                <div class="accordion-body">Change Streams can fail due to network errors, replica set elections (up to 30 seconds), or oplog overwrites. A robust implementation must: catch errors, store the resume token persistently, and reconnect automatically with backoff. The <strong>resumeAfter</strong> token allows picking up exactly where processing stopped. Use <strong>exponential backoff</strong> for reconnection to avoid thundering herd problems on cluster recovery. Check if the error is a <strong>resumable error</strong> (network/election related) vs. <strong>non-resumable</strong> (invalidate event — collection dropped). Modern MongoDB drivers handle most transient failures automatically via built-in retry logic.
+<pre><code>async function watchWithRetry(collection, pipeline, handler) {
+  let resumeToken = await loadResumeToken();
+  let retryDelay = 1000;
+  
+  while (true) {
+    try {
+      const options = { fullDocument: 'updateLookup' };
+      if (resumeToken) options.resumeAfter = resumeToken;
+      
+      const stream = db.collection(collection).watch(pipeline, options);
+      
+      for await (const change of stream) {
+        await handler(change);
+        resumeToken = change._id;
+        await saveResumeToken(resumeToken);
+        retryDelay = 1000; // reset on success
+      }
+    } catch (err) {
+      if (err.code === 136 || err.message.includes('invalidate')) {
+        console.error('Stream invalidated — collection dropped. Stopping.');
+        break; // non-resumable
+      }
+      console.error(`Stream error, retrying in ${retryDelay}ms:`, err.message);
+      await sleep(retryDelay);
+      retryDelay = Math.min(retryDelay * 2, 30000); // max 30s backoff
+    }
+  }
+}</code></pre>
+                </div>
+            </div>
+        </div>
+        <div class="accordion-item">
+            <h2 class="accordion-header" id="h_q10">
+                <button class="accordion-button collapsed" type="button"
+                    data-bs-toggle="collapse" data-bs-target="#c_q10"
+                    aria-expanded="false">
+                    <span class="question-number">11</span>What is the difference between Change Streams and polling?
+                </button>
+            </h2>
+            <div id="c_q10" class="accordion-collapse collapse"
+                data-bs-parent="#questionsAccordion">
+                <div class="accordion-body"><strong>Polling</strong> periodically queries the database for changes (e.g., every 5 seconds), consuming database and network resources even when nothing changed, adding latency up to the poll interval, and missing rapid changes between polls. <strong>Change Streams</strong> are <strong>push-based</strong> — MongoDB notifies the application immediately when data changes, with virtually zero latency, no wasted queries, and guaranteed event ordering. Polling is simpler to implement but inefficient at scale. Change Streams require a replica set and proper error handling but are significantly more efficient. For anything requiring real-time behavior (notifications, live feeds, inventory updates), Change Streams are the correct approach.
+<pre><code">// BAD — polling approach (wastes resources, adds latency)
+setInterval(async () => {
+  const newOrders = await db.collection('orders').find({
+    status: 'pending',
+    createdAt: { $gt: lastCheckTime }
+  }).toArray();
+  if (newOrders.length) processOrders(newOrders);
+  lastCheckTime = new Date();
+}, 5000); // 5 second delay, 17,280 queries/day even if no changes!
+
+// GOOD — Change Stream (push-based, immediate, efficient)
+const stream = db.collection('orders').watch([
+  { $match: { operationType: 'insert', 'fullDocument.status': 'pending' } }
+]);
+for await (const change of stream) {
+  await processOrder(change.fullDocument); // immediate, zero wasted queries
+}</code></pre>
+                </div>
+            </div>
+        </div>
+        <div class="accordion-item">
+            <h2 class="accordion-header" id="h_q11">
+                <button class="accordion-button collapsed" type="button"
+                    data-bs-toggle="collapse" data-bs-target="#c_q11"
+                    aria-expanded="false">
+                    <span class="question-number">12</span>How do you build a data audit trail with Change Streams?
+                </button>
+            </h2>
+            <div id="c_q11" class="accordion-collapse collapse"
+                data-bs-parent="#questionsAccordion">
+                <div class="accordion-body">An <strong>audit trail</strong> records every change to sensitive data — who changed what, when, and what it looked like before and after. Change Streams automatically capture all mutations. The pattern is to watch the target collection and write each change event to an <strong>audit_log collection</strong>. For GDPR/HIPAA compliance, include user context by enabling MongoDB <strong>Auditing</strong> or by capturing user session info at write time. With MongoDB 6.0's <strong>pre and post images</strong>, the change stream includes both the before and after state without a separate lookup. Store audit logs in a <strong>time-series collection</strong> for efficient time-range queries.
+<pre><code">// Comprehensive audit trail
+const changeStream = db.collection('financialRecords').watch([], {
+  fullDocument: 'updateLookup',
+  fullDocumentBeforeChange: 'required' // MongoDB 6.0+, requires preAndPostImages enabled
+});
+
+for await (const change of changeStream) {
+  await db.collection('audit_log').insertOne({
+    timestamp: change.clusterTime,
+    collection: change.ns.coll,
+    operationType: change.operationType,
+    documentId: change.documentKey._id,
+    before: change.fullDocumentBeforeChange || null,
+    after: change.fullDocument || null,
+    changedFields: change.updateDescription?.updatedFields || null,
+    // Capture user context if passed via session variables
+    modifiedBy: change.fullDocument?.lastModifiedBy || 'system'
+  });
+}</code></pre>
+                </div>
+            </div>
+        </div>
+        <div class="accordion-item">
+            <h2 class="accordion-header" id="h_q12">
+                <button class="accordion-button collapsed" type="button"
+                    data-bs-toggle="collapse" data-bs-target="#c_q12"
+                    aria-expanded="false">
+                    <span class="question-number">13</span>How do you synchronize data between MongoDB and another system using Change Streams?
+                </button>
+            </h2>
+            <div id="c_q12" class="accordion-collapse collapse"
+                data-bs-parent="#questionsAccordion">
+                <div class="accordion-body">Change Streams enable <strong>CDC (Change Data Capture)</strong> — synchronizing MongoDB changes to Elasticsearch, a relational database, message queues, or data warehouses in real time. The pattern: watch MongoDB, transform each event to the target format, and write to the destination. For Elasticsearch sync, an insert/update in MongoDB creates/updates the corresponding Elasticsearch document. Use <strong>idempotent processing</strong> — if the same event is replayed (from resume token), the result should be the same. Include the resume token in a managed transaction with the write to the destination for exactly-once guarantees. Tools like <strong>Debezium</strong> and <strong>MongoDB Kafka Connector</strong> implement this pattern at scale.
+<pre><code">const { Client } = require('@elastic/elasticsearch');
+const esClient = new Client({ node: 'http://localhost:9200' });
+
+const changeStream = db.collection('products').watch([], {
+  fullDocument: 'updateLookup'
+});
+
+for await (const change of changeStream) {
+  const { operationType, documentKey, fullDocument } = change;
+  
+  if (operationType === 'insert' || operationType === 'update' || operationType === 'replace') {
+    // Sync to Elasticsearch
+    await esClient.index({
+      index: 'products',
+      id: documentKey._id.toString(),
+      document: {
+        name: fullDocument.name,
+        price: fullDocument.price,
+        category: fullDocument.category,
+        updatedAt: new Date()
+      }
+    });
+  } else if (operationType === 'delete') {
+    await esClient.delete({ index: 'products', id: documentKey._id.toString() });
+  }
+}</code></pre>
+                </div>
+            </div>
+        </div>
+        <div class="accordion-item">
+            <h2 class="accordion-header" id="h_q13">
+                <button class="accordion-button collapsed" type="button"
+                    data-bs-toggle="collapse" data-bs-target="#c_q13"
+                    aria-expanded="false">
+                    <span class="question-number">14</span>What are the requirements and limitations of Change Streams?
+                </button>
+            </h2>
+            <div id="c_q13" class="accordion-collapse collapse"
+                data-bs-parent="#questionsAccordion">
+                <div class="accordion-body">Change Streams require: a <strong>replica set or sharded cluster</strong> (not standalone), MongoDB 3.6+, and the <strong>WiredTiger storage engine</strong>. Key limitations: the stream is tied to oplog retention — if the oplog rolls over your resume token position, you cannot resume and must do a full re-sync. Only <strong>$match, $project, $addFields, $replaceRoot, $redact, $set</strong> pipeline stages are supported. Change streams do <strong>not trigger on internal MongoDB operations</strong> (e.g., chunk migrations in sharded clusters). Very high-write collections can generate substantial change stream overhead. Each open change stream is a persistent server-side cursor — avoid opening hundreds of streams from a single deployment.
+<pre><code">// Check oplog configuration
+use local
+db.oplog.rs.stats()
+// Check oplog size and retention window
+
+// Requirements check
+db.adminCommand({ isMaster: 1 }).setName  // must not be null (must be RS)
+db.serverStatus().storageEngine.name      // must be "wiredTiger"
+
+// Unsupported pipeline stages (will throw error):
+db.collection('data').watch([
+  { $lookup: { ... } }  // ERROR: not allowed in change stream pipeline
+]);
+
+// Performance: limit open streams
+// BAD — opening stream per user request
+app.get('/watch/:id', (req, res) => {
+  const stream = db.collection('orders').watch(); // creates millions of cursors!
+});
+
+// GOOD — single shared stream, broadcast via WebSocket rooms</code></pre>
+                </div>
+            </div>
+        </div>
+        <div class="accordion-item">
+            <h2 class="accordion-header" id="h_q14">
+                <button class="accordion-button collapsed" type="button"
+                    data-bs-toggle="collapse" data-bs-target="#c_q14"
+                    aria-expanded="false">
+                    <span class="question-number">15</span>How do you use Change Streams with the startAtOperationTime option?
+                </button>
+            </h2>
+            <div id="c_q14" class="accordion-collapse collapse"
+                data-bs-parent="#questionsAccordion">
+                <div class="accordion-body">The <strong>startAtOperationTime</strong> option opens a change stream starting from a specific cluster timestamp, allowing you to replay changes from a point in the past — useful for backfilling missed events during downtime. The timestamp must be within the oplog retention window. Get the current cluster time via <code>db.hello().operationTime</code> or from any server response. This is different from <code>resumeAfter</code> (which uses a stored token from a previous stream) — <code>startAtOperationTime</code> uses an absolute time. It's commonly used when deploying a new consumer service that needs to catch up from a known point without a stored token.
+<pre><code">const { Timestamp } = require('mongodb');
+
+// Get cluster time before starting an operation
+const startTime = db.hello().operationTime; // current cluster time
+
+// Perform some operations that we want to capture
+await db.collection('orders').insertMany(bulkOrders);
+
+// Open change stream from BEFORE those operations
+// (will capture them and all future changes)
+const changeStream = db.collection('orders').watch([], {
+  startAtOperationTime: startTime
+});
+
+// Replay from 1 hour ago (within oplog window)
+const oneHourAgo = Timestamp.fromNumber(
+  Math.floor((Date.now() - 3600000) / 1000)
+);
+const historicalStream = db.collection('orders').watch([], {
+  startAtOperationTime: oneHourAgo
+});</code></pre>
+                </div>
+            </div>
+        </div>
+            </div>
+            <div class="topic-nav" id="topicNav">
+            <a class="topic-nav-btn prev" href="text-search-geospatial.html">
+                <span class="label"><i class="bi bi-arrow-left me-1"></i> Previous</span>
+                <span class="title">Text Search &amp; Geo</span>
+            </a>
+            <a class="topic-nav-btn next" href="interview-queries-1.html">
+                <span class="label">Next <i class="bi bi-arrow-right ms-1"></i></span>
+                <span class="title">Interview Queries 1</span>
+            </a>
+            </div>
+            <footer class="app-footer">
+                <p>&copy; 2026 InterviewPrep &mdash; MongoDB Interview Questions</p>
+            </footer>
+        </div>
+    </div>
+    <button class="btn-totop" id="backToTop"><i class="bi bi-chevron-up"></i></button>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>
+    <script>
+    (function(){
+        var sb=document.getElementById('sidebar'),bd=document.getElementById('sidebarBackdrop'),
+            tg=document.getElementById('sidebarToggle');
+        if(tg)tg.addEventListener('click',function(){sb.classList.add('open');bd.classList.add('show');});
+        if(bd)bd.addEventListener('click',function(){sb.classList.remove('open');bd.classList.remove('show');});
+        var btt=document.getElementById('backToTop');
+        window.addEventListener('scroll',function(){btt.classList.toggle('show',window.scrollY>400);});
+        btt.addEventListener('click',function(){window.scrollTo({top:0,behavior:'smooth'});});
+        var acc=document.getElementById('questionsAccordion');
+        var totalCount=15;
+        var si=document.getElementById('searchInput');
+        if(si){var t=null;si.addEventListener('input',function(){clearTimeout(t);var v=this.value.trim().toLowerCase();
+        if(v.length<2){acc.querySelectorAll('.accordion-item').forEach(function(el){el.style.display='';});
+        document.getElementById('questionCount').textContent=totalCount+' Questions';return;}
+        t=setTimeout(function(){var c=0;acc.querySelectorAll('.accordion-item').forEach(function(el){
+        var m=el.textContent.toLowerCase().indexOf(v)!==-1;el.style.display=m?'':'none';if(m)c++;});
+        document.getElementById('questionCount').textContent=c+' Questions';},200);});}
+    })();
+    </script>
+</body>
+</html>

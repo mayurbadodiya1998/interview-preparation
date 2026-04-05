@@ -1,0 +1,820 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="Top 15 MongoDB relationships interview questions. Master 1:1, 1:N, M:N relationships, embedding vs referencing, junction collections and relationship indexing.">
+    <meta name="keywords" content="MongoDB relationships, one-to-many MongoDB, many-to-many MongoDB, embedding vs referencing, junction collection, MongoDB interview questions">
+    <meta name="author" content="InterviewPrep">
+    <meta name="robots" content="index, follow">
+    <link rel="icon" type="image/svg+xml" href="../../favicon.svg" sizes="any">
+    <meta property="og:type" content="website">
+    <meta property="og:title" content="Relationships — MongoDB Interview Questions | InterviewPrep">
+    <meta property="og:description" content="Top 15 MongoDB relationships interview questions. Master 1:1, 1:N, M:N relationships, embedding vs referencing, junction collections and relationship indexing.">
+    <meta property="og:url" content="https://coddingquestionhub.com/topics/mongodb/relationships.html">
+    <title>Relationships — MongoDB Interview Questions | InterviewPrep 2026</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&family=Fira+Code:wght@400;500&display=swap" rel="stylesheet">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="../../css/styles.css">
+    <link rel="canonical" href="https://coddingquestionhub.com/topics/mongodb/relationships.html">
+    <script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "FAQPage",
+  "mainEntity": [
+    {
+      "@type": "Question",
+      "name": "Relationships — MongoDB Interview Questions | InterviewPrep",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "Top 15 MongoDB relationships interview questions. Master 1:1, 1:N, M:N relationships, embedding vs referencing, junction collections and relationship indexing."
+      }
+    }
+  ]
+}
+    </script>
+    <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-8957020141286926" crossorigin="anonymous"></script>
+    <script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "BreadcrumbList",
+  "itemListElement": [
+    {
+      "@type": "ListItem",
+      "position": 1,
+      "name": "Home",
+      "item": "https://coddingquestionhub.com"
+    },
+    {
+      "@type": "ListItem",
+      "position": 2,
+      "name": "Topics",
+      "item": "https://coddingquestionhub.com/topics"
+    },
+    {
+      "@type": "ListItem",
+      "position": 3,
+      "name": "Mongodb",
+      "item": "https://coddingquestionhub.com/topics/mongodb"
+    },
+    {
+      "@type": "ListItem",
+      "position": 4,
+      "name": "Relationships",
+      "item": "https://coddingquestionhub.com/topics/mongodb/relationships.html"
+    }
+  ]
+}
+    </script>
+</head>
+<body class="theme-mongodb">
+    <nav class="navbar navbar-expand-lg sticky-top" id="mainNavbar">
+        <div class="container-fluid px-3 px-lg-4">
+            <a class="navbar-brand fw-bold d-flex align-items-center gap-2" href="../../index.html">
+                <span class="brand-icon"><i class="bi bi-braces-asterisk"></i></span>
+                <span>Interview<span class="brand-accent">Prep</span></span>
+            </a>
+            <button class="navbar-toggler border-0 shadow-none" type="button"
+                    data-bs-toggle="collapse" data-bs-target="#navbarContent">
+                <i class="bi bi-list fs-3 text-white"></i>
+            </button>
+            <div class="collapse navbar-collapse" id="navbarContent">
+                <ul class="navbar-nav me-auto mb-2 mb-lg-0 ms-lg-3">
+                    <li class="nav-item dropdown">
+                        <a class="nav-link dropdown-toggle fw-500" href="#" role="button" data-bs-toggle="dropdown">
+                            <i class="bi bi-layers me-1"></i> Choose Category
+                        </a>
+                        <ul class="dropdown-menu">
+                            <li><a class="dropdown-item fw-500" href="../../pages/angular.html"><i class="bi bi-bootstrap me-2 text-danger"></i>Angular</a></li>
+                            <li><a class="dropdown-item fw-500" href="../../pages/react.html"><i class="bi bi-infinity me-2 text-info"></i>React</a></li>
+                            <li><a class="dropdown-item fw-500" href="../../pages/node.html"><i class="bi bi-hdd-network me-2 text-success"></i>Node.js</a></li>
+                            <li><a class="dropdown-item fw-500" href="../../pages/javascript.html"><i class="bi bi-filetype-js me-2 text-warning"></i>JavaScript</a></li>
+                            <li><a class="dropdown-item fw-500" href="../../pages/dsa.html"><i class="bi bi-diagram-3-fill me-2" style="color:#8b5cf6"></i>DSA</a></li>
+                            <li><a class="dropdown-item fw-500" href="../../pages/logical.html"><i class="bi bi-lightbulb me-2" style="color:#f59e0b"></i>Logical Reasoning</a></li>
+                            <li><a class="dropdown-item fw-500" href="../../pages/mongodb.html"><i class="bi bi-database-fill me-2" style="color:#4DB33D"></i>MongoDB</a></li>
+                            <li><a class="dropdown-item fw-500" href="../../pages/mysql.html"><i class="bi bi-table me-2" style="color:#0F766E"></i>MySQL</a></li>
+                        </ul>
+                    </li>
+                </ul>
+                <div class="search-wrap">
+                    <i class="bi bi-search search-icon"></i>
+                    <input class="form-control search-input" type="search" placeholder="Search questions..." id="searchInput">
+                </div>
+            </div>
+        </div>
+    </nav>    <div class="app-wrapper">
+        <aside class="sidebar" id="sidebar">
+            <div class="sidebar-head">
+                <h6><i class="bi bi-database-fill me-2"></i>MongoDB Topics</h6>
+            </div>
+            <nav>
+                <ul class="sidebar-links" id="topicList">
+                    <li><a class="nav-link" href="mongodb-fundamentals.html"><i class="bi bi-database-fill"></i><span>MongoDB Fundamentals</span></a></li>
+                    <li><a class="nav-link" href="crud-operations.html"><i class="bi bi-pencil-square"></i><span>CRUD Operations</span></a></li>
+                    <li><a class="nav-link" href="aggregation-pipeline.html"><i class="bi bi-funnel-fill"></i><span>Aggregation Pipeline</span></a></li>
+                    <li><a class="nav-link" href="indexes.html"><i class="bi bi-lightning-fill"></i><span>Indexes & Performance</span></a></li>
+                    <li><a class="nav-link" href="schema-design.html"><i class="bi bi-layout-wtf"></i><span>Schema Design</span></a></li>
+                    <li><a class="nav-link active" href="relationships.html"><i class="bi bi-diagram-3-fill"></i><span>Relationships</span></a></li>
+                    <li><a class="nav-link" href="transactions.html"><i class="bi bi-arrow-repeat"></i><span>Transactions</span></a></li>
+                    <li><a class="nav-link" href="mongoose-odm.html"><i class="bi bi-box-seam"></i><span>Mongoose ODM</span></a></li>
+                    <li><a class="nav-link" href="performance-optimization.html"><i class="bi bi-speedometer2"></i><span>Performance Optimization</span></a></li>
+                    <li><a class="nav-link" href="replication-sharding.html"><i class="bi bi-hdd-stack-fill"></i><span>Replication & Sharding</span></a></li>
+                    <li><a class="nav-link" href="security.html"><i class="bi bi-shield-lock-fill"></i><span>Security & Auth</span></a></li>
+                    <li><a class="nav-link" href="text-search-geospatial.html"><i class="bi bi-search"></i><span>Text Search & Geospatial</span></a></li>
+                    <li><a class="nav-link" href="change-streams-watchers.html"><i class="bi bi-bell-fill"></i><span>Change Streams & Watch</span></a></li>
+                    <li><a class="nav-link" href="interview-queries-1.html"><i class="bi bi-code-slash"></i><span>Interview Queries — I</span></a></li>
+                    <li><a class="nav-link" href="interview-queries-2.html"><i class="bi bi-code-square"></i><span>Interview Queries — II</span></a></li>
+                </ul>
+            </nav>
+        </aside>
+        <div class="sidebar-backdrop" id="sidebarBackdrop"></div>
+        <div class="content-area">
+            <div class="mobile-bar d-lg-none">
+                <button class="btn btn-sm btn-glass" id="sidebarToggle">
+                    <i class="bi bi-layout-sidebar-inset me-1"></i>Topics
+                </button>
+                <span class="badge rounded-pill bg-success">MongoDB</span>
+            </div>
+            <div class="breadcrumb-nav" id="breadcrumb">
+                <a href="../../index.html">Home</a><span class="sep">/</span>
+                <a href="../../pages/mongodb.html">MongoDB</a><span class="sep">/</span>
+                <span class="current">Relationships</span>
+            </div>
+            <div class="qs-header">
+                <h1 class="qs-title" id="topicTitle">Relationships</h1>
+                <span class="badge qs-badge" id="questionCount">12 Questions</span>
+            </div>
+            <div class="accordion" id="questionsAccordion">
+        <div class="accordion-item">
+            <h2 class="accordion-header" id="h_q0">
+                <button class="accordion-button" type="button"
+                    data-bs-toggle="collapse" data-bs-target="#c_q0"
+                    aria-expanded="true">
+                    <span class="question-number">1</span>How does MongoDB model one-to-one relationships?
+                </button>
+            </h2>
+            <div id="c_q0" class="accordion-collapse collapse show"
+                data-bs-parent="#questionsAccordion">
+                <div class="accordion-body">A <strong>one-to-one (1:1)</strong> relationship between two entities can be modeled either by <strong>embedding</strong> the related document or by <strong>referencing</strong> via a foreign key-like field. For 1:1 relationships, <strong>embedding is almost always preferred</strong> since it stores related data together in one document, enabling single-document retrieval. Reference the related entity when: the related document is large, it's queried independently of the parent, or it needs security isolation (sensitive data in a separate collection). True 1:1 relationships are relatively rare in real applications — user + profile, employee + payroll, product + inventory are typical examples.
+<pre><code>// EMBEDDED 1:1 (preferred for small, tightly coupled data)
+// users collection
+{
+  "_id": ObjectId("u1"),
+  "username": "mayur",
+  "email": "mayur@example.com",
+  "profile": {             // embedded 1:1
+    "fullName": "Mayur Badodiya",
+    "bio": "Full Stack Developer",
+    "location": "Mumbai",
+    "website": "https://mayur.dev",
+    "joinedAt": ISODate("2023-01-15")
+  }
+}
+// Single query gets user + profile ✅
+
+// REFERENCED 1:1 (for sensitive or independently accessed data)
+// users collection
+{ "_id": ObjectId("u1"), "username": "mayur", "profileId": ObjectId("p1") }
+
+// user_payroll collection (sensitive, separate access control)
+{
+  "_id": ObjectId("p1"),
+  "userId": ObjectId("u1"),
+  "salary": 150000,
+  "bankAccount": "XXXX1234",  // sensitive!
+  "pf": 18000,
+  "tds": 15000
+}
+// Query: separate query needed (or $lookup in aggregation)
+
+// Bidirectional reference (link both ways)
+db.employees.updateOne({ _id: empId }, { $set: { payrollId: payrollId } });
+db.payroll.updateOne({ _id: payrollId }, { $set: { employeeId: empId } });</code></pre>
+<p><strong>Why it matters:</strong> 1:1 modeling tests your ability to make the <strong>embed vs reference decision</strong> which has significant performance implications. Shows schema design maturity.</p>
+<p><strong>Real applications:</strong> <strong>User + profile</strong> (embed), <strong>employee + payroll</strong> (reference for security), <strong>product + extended specs</strong> (embed if small, reference if large).</p>
+<p><strong>Common mistakes:</strong> Assuming 1:1 always means embed — if the related document is 100KB (large binary, detailed specs), embedding it into every parent document bloats all reads unnecessarily.</p>
+                </div>
+            </div>
+        </div>
+        <div class="accordion-item">
+            <h2 class="accordion-header" id="h_q1">
+                <button class="accordion-button collapsed" type="button"
+                    data-bs-toggle="collapse" data-bs-target="#c_q1"
+                    aria-expanded="false">
+                    <span class="question-number">2</span>How do you model one-to-many relationships in MongoDB?
+                </button>
+            </h2>
+            <div id="c_q1" class="accordion-collapse collapse"
+                data-bs-parent="#questionsAccordion">
+                <div class="accordion-body"><strong>One-to-many (1:N)</strong> is the most common relationship type. MongoDB offers three approaches: (1) <strong>Embed array</strong> in the parent (one-to-few: N is small and bounded), (2) <strong>Reference parent in children</strong> — each child stores the parent _id (one-to-many: N is large), (3) <strong>Hybrid</strong> — embed summary data in parent, full data in children. The choice depends on <strong>how many children there are</strong>, how they're accessed, and whether they need to be queried independently. A blog post with 10 comments = embed. A blog post with 100,000 comments = reference from comments collection.
+<pre><code>// APPROACH 1: Embed array (one-to-FEW)
+// Best when: N < 100, always accessed with parent, no independent queries
+{
+  "_id": ObjectId("o1"),
+  "customerId": ObjectId("c1"),
+  "items": [              // embedded array (N is small: 1-100 items)
+    { "productId": ObjectId("p1"), "name": "Laptop", "qty": 1, "price": 75000 },
+    { "productId": ObjectId("p2"), "name": "Mouse",  "qty": 2, "price": 800 }
+  ],
+  "total": 76600
+}
+
+// APPROACH 2: Reference parent (one-to-MANY)
+// Best when: N is large or unbounded, children queried independently
+// blog_posts collection
+{ "_id": ObjectId("bp1"), "title": "Intro to MongoDB", "commentCount": 5000 }
+
+// comments collection (each references the post)
+{ "_id": ObjectId("c1"), "postId": ObjectId("bp1"), "user": "Alice", "text": "Great!" }
+{ "_id": ObjectId("c2"), "postId": ObjectId("bp1"), "user": "Bob",   "text": "Helpful!" }
+// Index: db.comments.createIndex({ postId: 1, createdAt: -1 })
+
+// Query: paginated comments for a post
+db.comments.find({ postId: postId }).sort({ createdAt: -1 }).limit(20);
+
+// APPROACH 3: Hybrid (summary in parent, full in children)
+{
+  "_id": ObjectId("bp1"),
+  "title": "Intro to MongoDB",
+  "commentCount": 5000,
+  "latestComments": [   // last 3 for preview
+    { "user": "Carol", "text": "Excellent!", "date": ISODate("...") }
+  ]
+}
+// Full comments via separate query to comments collection</code></pre>
+<p><strong>Why it matters:</strong> 1:N is the most common relationship type and the core of all MongoDB schema design interviews. Choosing the wrong approach leads to <strong>16 MB document explosions or N+1 query problems</strong>.</p>
+<p><strong>Real applications:</strong> <strong>Orders with items</strong> (embed, bounded), <strong>posts with comments</strong> (reference, unbounded), <strong>users with orders</strong> (reference, large N).</p>
+<p><strong>Common mistakes:</strong> Embedding all children without considering growth — a "one-to-few" design becomes "one-to-many" as the application scales, hitting document size limits in production.</p>
+                </div>
+            </div>
+        </div>
+        <div class="accordion-item">
+            <h2 class="accordion-header" id="h_q2">
+                <button class="accordion-button collapsed" type="button"
+                    data-bs-toggle="collapse" data-bs-target="#c_q2"
+                    aria-expanded="false">
+                    <span class="question-number">3</span>How do you model many-to-many relationships in MongoDB?
+                </button>
+            </h2>
+            <div id="c_q2" class="accordion-collapse collapse"
+                data-bs-parent="#questionsAccordion">
+                <div class="accordion-body"><strong>Many-to-many (M:N)</strong> relationships require careful design in MongoDB. Options: (1) <strong>Embed arrays in both sides</strong> (only for small, bounded sets — tags on posts, roles on users), (2) <strong>Separate junction/link collection</strong> (like SQL join table — for large, bidirectional, or attribute-rich relationships), (3) <strong>Reference from one side only</strong> (if the relationship is predominantly queried in one direction). The junction collection approach stores the relationship with its own metadata (created date, strength, status) and supports efficient bidirectional queries with proper indexing.
+<pre><code>// M:N APPROACH 1: Embed arrays (for small, bounded sets)
+// Students and courses (each student in < 20 courses)
+db.students.insertOne({
+  _id: ObjectId("s1"),
+  name: "Mayur",
+  enrolledCourses: [ObjectId("c1"), ObjectId("c2"), ObjectId("c3")]
+});
+
+// Find student's courses (array of ObjectIds → $lookup)
+db.students.aggregate([
+  { $match: { _id: studentId } },
+  { $lookup: { from: "courses", localField: "enrolledCourses", foreignField: "_id", as: "courses" } }
+]);
+
+// M:N APPROACH 2: Junction collection (for large M:N with metadata)
+// Users and products (many users like many products)
+db.likes.insertOne({
+  _id: ObjectId("..."),
+  userId: ObjectId("u1"),
+  productId: ObjectId("p1"),
+  likedAt: ISODate("2026-04-01"),
+  rating: 4            // relationship attribute!
+});
+// Indexes for both directions
+db.likes.createIndex({ userId: 1, productId: 1 }, { unique: true });
+db.likes.createIndex({ productId: 1, likedAt: -1 });
+
+// Query: products liked by a user
+db.likes.find({ userId: userId }).sort({ likedAt: -1 });
+
+// Query: users who liked a product (with user info via $lookup)
+db.likes.aggregate([
+  { $match: { productId: productId } },
+  { $lookup: { from: "users", localField: "userId", foreignField: "_id", as: "user" } },
+  { $unwind: "$user" },
+  { $project: { "user.name": 1, likedAt: 1 } }
+]);</code></pre>
+<p><strong>Why it matters:</strong> M:N modeling is a key interview challenge that reveals your ability to balance <strong>query efficiency vs write complexity vs data integrity</strong>.</p>
+<p><strong>Real applications:</strong> <strong>Users with roles</strong>, <strong>students with courses</strong>, <strong>products with categories</strong>, <strong>posts with tags</strong>, <strong>actors in movies</strong>.</p>
+<p><strong>Common mistakes:</strong> Using embedded arrays for genuinely large M:N relationships — a user with 10,000 liked products can't have them all embedded. Use a junction collection with proper indexes.</p>
+                </div>
+            </div>
+        </div>
+        <div class="accordion-item">
+            <h2 class="accordion-header" id="h_q3">
+                <button class="accordion-button collapsed" type="button"
+                    data-bs-toggle="collapse" data-bs-target="#c_q3"
+                    aria-expanded="false">
+                    <span class="question-number">4</span>What is the Two-Way Reference Pattern?
+                </button>
+            </h2>
+            <div id="c_q3" class="accordion-collapse collapse"
+                data-bs-parent="#questionsAccordion">
+                <div class="accordion-body">The <strong>Two-Way Reference Pattern</strong> stores references on both sides of a relationship, enabling efficient queries in both directions without <code>$lookup</code>. This is useful when: (1) both parent-to-child and child-to-parent queries are frequent, (2) the relationship array is small and bounded, (3) you want to avoid join-style aggregations for common queries. The trade-off: <strong>write complexity doubles</strong> — adding or removing a relationship requires updating two documents, which should be done <strong>atomically in a transaction</strong> to prevent inconsistency.
+<pre><code>// TWO-WAY REFERENCE: Author-Books relationship
+
+// books collection (stores authorId reference)
+{
+  "_id": ObjectId("b1"),
+  "title": "Effective Java",
+  "authorId": ObjectId("a1"),   // reference to author
+  "year": 2018
+}
+
+// authors collection (stores array of book _ids)
+{
+  "_id": ObjectId("a1"),
+  "name": "Joshua Bloch",
+  "bookIds": [ObjectId("b1"), ObjectId("b2")],  // reference to books
+  "bookCount": 2
+}
+
+// Query: books by an author (uses embedded array — no join!)
+const author = db.authors.findOne({ name: "Joshua Bloch" });
+db.books.find({ _id: { $in: author.bookIds } }); // fast!
+
+// Query: author of a book (uses embedded reference — no join!)
+const book = db.books.findOne({ title: "Effective Java" });
+db.authors.findOne({ _id: book.authorId }); // fast!
+
+// Adding a new book (must update BOTH atomically)
+const session = client.startSession();
+await session.withTransaction(async () => {
+  const book = await db.books.insertOne({ title: "New Book", authorId: authorId }, { session });
+  await db.authors.updateOne(
+    { _id: authorId },
+    { $push: { bookIds: book.insertedId }, $inc: { bookCount: 1 } },
+    { session }
+  );
+});</code></pre>
+<p><strong>Why it matters:</strong> Shows understanding of <strong>bidirectional efficiency</strong> vs write complexity trade-offs and the need for <strong>atomic operations</strong> when maintaining consistency across documents.</p>
+<p><strong>Real applications:</strong> <strong>Friend relationships</strong> (user A friends B → B's friendList gains A), <strong>author-book</strong> catalog, <strong>employee-department</strong> with frequent queries in both directions.</p>
+<p><strong>Common mistakes:</strong> Not using transactions for two-way reference updates — if the second update fails, you have a one-sided reference that causes data inconsistency.</p>
+                </div>
+            </div>
+        </div>
+        <div class="accordion-item">
+            <h2 class="accordion-header" id="h_q4">
+                <button class="accordion-button collapsed" type="button"
+                    data-bs-toggle="collapse" data-bs-target="#c_q4"
+                    aria-expanded="false">
+                    <span class="question-number">5</span>How do you model hierarchical (parent-child) relationships efficiently?
+                </button>
+            </h2>
+            <div id="c_q4" class="accordion-collapse collapse"
+                data-bs-parent="#questionsAccordion">
+                <div class="accordion-body">Hierarchical or <strong>parent-child</strong> relationships (categories, org charts, comments with replies) require specialized MongoDB approaches. The most efficient general approach for MongoDB is the <strong>Closure Table pattern</strong> or the <strong>Array of Ancestors pattern</strong> — each node stores an array of all its ancestor _ids. This enables: single-query subtree fetches, efficient ancestor/descendant checks, fast path/breadcrumb queries. The array updates on every insert but the read benefits usually outweigh write costs for <strong>read-heavy tree traversal</strong> needs.
+<pre><code>// ARRAY OF ANCESTORS pattern (best for reads)
+// Category tree:
+// Electronics → Computers → Laptops → Gaming Laptops
+
+// categories collection
+{ _id: "electronics",    name: "Electronics",    ancestors: [],                                              level: 0 }
+{ _id: "computers",      name: "Computers",       ancestors: ["electronics"],                                level: 1 }
+{ _id: "laptops",        name: "Laptops",          ancestors: ["electronics", "computers"],                  level: 2 }
+{ _id: "gaming-laptops", name: "Gaming Laptops",   ancestors: ["electronics", "computers", "laptops"],       level: 3 }
+
+// Query: all products under "computers" (all descendants)
+db.categories.find({ ancestors: "computers" });
+// Returns: computers, laptops, gaming-laptops and all their children
+// Single query! No recursive lookups!
+
+// Query: full breadcrumb path for "gaming-laptops"
+const cat = db.categories.findOne({ _id: "gaming-laptops" });
+db.categories.find({ _id: { $in: cat.ancestors } }).sort({ level: 1 });
+// Returns ancestor chain for breadcrumb display
+
+// Query: immediate children of "computers"
+db.categories.find({ ancestors: { $all: ["computers"], $size: /* level + 1 */ } });
+// More precise: find docs where computers is the LAST ancestor
+db.categories.find({ "ancestors.2": { $exists: false }, ancestors: "computers" });
+
+// Index on ancestors array (multikey)
+db.categories.createIndex({ ancestors: 1 });
+db.categories.createIndex({ level: 1, ancestors: 1 });</code></pre>
+<p><strong>Why it matters:</strong> Tree queries are a complex but realistic interview topic, especially for e-commerce, CMS, and org chart systems. Shows knowledge beyond basic CRUD.</p>
+<p><strong>Real applications:</strong> <strong>E-commerce category trees</strong> (finding all products in "Electronics" and all its subcategories), <strong>org chart queries</strong> (all reports under a manager), <strong>comment threading</strong>.</p>
+<p><strong>Common mistakes:</strong> Using recursive application-level fetching for tree traversal — each level requires a new query, resulting in N queries for an N-level tree (N+1 problem).</p>
+                </div>
+            </div>
+        </div>
+        <div class="accordion-item">
+            <h2 class="accordion-header" id="h_q5">
+                <button class="accordion-button collapsed" type="button"
+                    data-bs-toggle="collapse" data-bs-target="#c_q5"
+                    aria-expanded="false">
+                    <span class="question-number">6</span>What is denormalization and when is it appropriate in MongoDB?
+                </button>
+            </h2>
+            <div id="c_q5" class="accordion-collapse collapse"
+                data-bs-parent="#questionsAccordion">
+                <div class="accordion-body"><strong>Denormalization</strong> is the intentional duplication of data across documents to improve read performance at the cost of write complexity and potential inconsistency. In relational databases, denormalization is an optimization applied sparingly. In MongoDB, denormalization via <strong>embedding</strong> is actually the default and recommended approach for related data that is accessed together. Appropriate denormalization examples: embedding author name in posts (avoid lookup for display), storing product price at time of order (price snapshot), embedding category path in products (avoid tree traversal). The key is identifying <strong>which fields are stable enough to duplicate</strong>.
+<pre><code>// PRICE SNAPSHOT — denormalize at time of purchase
+// (product price may change in the future; order must preserve historical price)
+db.orders.insertOne({
+  "_id": ObjectId("..."),
+  "customerId": userId,
+  "items": [{
+    "productId": ObjectId("p1"),
+    "name": "MacBook Pro",       // denormalized snapshot
+    "price": 200000,             // price AT TIME OF PURCHASE (not live price)
+    "qty": 1,
+    "category": "Laptops"        // denormalized for reporting
+  }],
+  "total": 200000,
+  "createdAt": new Date()
+});
+// Even if product is deleted or price changes, order is accurate
+
+// CATEGORY PATH — denormalize for product display
+{
+  "_id": ObjectId("prod1"),
+  "name": "Gaming Laptop",
+  "price": 150000,
+  "categoryId": ObjectId("cat1"),
+  "categoryPath": "Electronics / Computers / Laptops",  // denormalized
+  "categoryIds": [ObjectId("root"), ObjectId("cat2"), ObjectId("cat1")]
+}
+
+// AUTHOR INFO in posts — denormalized for feed display
+{
+  "_id": ObjectId("post1"),
+  "title": "MongoDB Tips",
+  "authorId": ObjectId("u1"),
+  "author": {                    // denormalized subset
+    "name": "Mayur",
+    "avatar": "https://cdn.example.com/avatars/mayur.jpg"
+  }
+}</code></pre>
+<p><strong>Why it matters:</strong> Denormalization is a key tool in MongoDB schema optimization. Shows ability to make <strong>informed trade-offs between consistency and performance</strong>.</p>
+<p><strong>Real applications:</strong> <strong>Price snapshots in orders</strong> (legal requirement), <strong>author info in posts</strong> (avoid join on every feed request), <strong>product category paths</strong> (avoid tree traversal for breadcrumbs).</p>
+<p><strong>Common mistakes:</strong> Denormalizing highly volatile data (user's current address) — every address change requires updating hundreds of order documents. Only denormalize <strong>stable or snapshot data</strong>.</p>
+                </div>
+            </div>
+        </div>
+        <div class="accordion-item">
+            <h2 class="accordion-header" id="h_q6">
+                <button class="accordion-button collapsed" type="button"
+                    data-bs-toggle="collapse" data-bs-target="#c_q6"
+                    aria-expanded="false">
+                    <span class="question-number">7</span>How do you handle M:N tag relationships efficiently?
+                </button>
+            </h2>
+            <div id="c_q6" class="accordion-collapse collapse"
+                data-bs-parent="#questionsAccordion">
+                <div class="accordion-body"><strong>Tag systems</strong> are a common M:N relationship where documents can have many tags and tags can be on many documents. MongoDB handles tags very naturally with <strong>embedded arrays</strong> because: tags are typically small strings, tag arrays are bounded (typically 5-20 per document), documents are always queried with their tags, and MongoDB's multikey indexes make tag-based queries efficient. The tag collection (if needed) stores tag metadata. This is different from heavy M:N (e.g., users-courses) where junction collections are needed.
+<pre><code>// EMBEDDED TAG ARRAYS (most common approach)
+// posts collection
+{
+  "_id": ObjectId("p1"),
+  "title": "MongoDB Indexing Guide",
+  "body": "...",
+  "tags": ["mongodb", "database", "performance", "indexing"],
+  "tagCount": 4
+}
+
+// Create multikey index on tags
+db.posts.createIndex({ tags: 1 });
+
+// Query: find all posts with "mongodb" tag
+db.posts.find({ tags: "mongodb" });  // uses multikey index!
+
+// Query: posts with ALL of these tags
+db.posts.find({ tags: { $all: ["mongodb", "indexing"] } });
+
+// Query: posts with ANY of these tags
+db.posts.find({ tags: { $in: ["mongodb", "nosql"] } });
+
+// Tag statistics (count posts per tag)
+db.posts.aggregate([
+  { $unwind: "$tags" },
+  { $group: { _id: "$tags", count: { $sum: 1 } } },
+  { $sort: { count: -1 } },
+  { $limit: 20 }  // top 20 tags
+]);
+
+// Separate tags collection (for metadata: description, image, related tags)
+{
+  "_id": "mongodb",
+  "description": "MongoDB is a NoSQL document database...",
+  "relatedTags": ["nosql", "database", "atlas"],
+  "postCount": 1245  // computed field updated on write
+}
+
+// Enforce tag existence (optional)
+db.posts.createIndex({ tags: 1 }, {
+  partialFilterExpression: { tags: { $type: "array", $not: { $size: 0 } } }
+});</code></pre>
+<p><strong>Why it matters:</strong> Tag systems are in virtually every application. Shows ability to choose the <strong>right relationship model</strong> for actual query patterns rather than applying generic M:N handling.</p>
+<p><strong>Real applications:</strong> <strong>Blog post tags</strong>, <strong>product categories</strong>, <strong>e-commerce product attributes</strong>, <strong>GitHub repo topics</strong>, <strong>recipe ingredient lists</strong>.</p>
+<p><strong>Common mistakes:</strong> Creating a full junction collection for tags when embedded arrays work perfectly — over-engineering a simple use case with unnecessary complexity.</p>
+                </div>
+            </div>
+        </div>
+        <div class="accordion-item">
+            <h2 class="accordion-header" id="h_q7">
+                <button class="accordion-button collapsed" type="button"
+                    data-bs-toggle="collapse" data-bs-target="#c_q7"
+                    aria-expanded="false">
+                    <span class="question-number">8</span>What is the lookup anti-pattern and when should you avoid $lookup?
+                </button>
+            </h2>
+            <div id="c_q7" class="accordion-collapse collapse"
+                data-bs-parent="#questionsAccordion">
+                <div class="accordion-body">While <code>$lookup</code> is MongoDB's join mechanism, relying on it heavily is considered an <strong>anti-pattern</strong> in MongoDB because: (1) MongoDB is designed for <strong>locality of data</strong> — related data should be stored together, (2) <code>$lookup</code> cannot use indexes on the local collection's joined field as efficiently as the foreign collection's field, (3) across shards, <code>$lookup</code> requires <strong>scatter-gather operations</strong> (cannot be routed to a single shard), (4) it adds latency proportional to the number of input documents. The MongoDB recommendation is to embed data that is <strong>always accessed together</strong> rather than constantly joining it.
+<pre><code>// ❌ LOOKUP ANTI-PATTERN: Joining on every API request
+// App fetches user profile + address + preferences + subscription
+// This runs 4 $lookup operations per user profile load
+db.users.aggregate([
+  { $match: { _id: userId } },
+  { $lookup: { from: "addresses", localField: "_id", foreignField: "userId", as: "address" } },
+  { $lookup: { from: "preferences", localField: "_id", foreignField: "userId", as: "prefs" } },
+  { $lookup: { from: "subscriptions", localField: "_id", foreignField: "userId", as: "sub" } },
+  { $lookup: { from: "paymentMethods", localField: "_id", foreignField: "userId", as: "payment" } }
+]);
+// 4 joins per request × 10K req/second = massive overhead!
+
+// ✅ BETTER: Embed data that is always accessed together
+{
+  "_id": ObjectId("u1"),
+  "name": "Mayur",
+  "email": "mayur@example.com",
+  "address": {              // embedded (always shown with profile)
+    "city": "Mumbai",
+    "pincode": "400001"
+  },
+  "preferences": {          // embedded (always loaded with user)
+    "theme": "dark",
+    "language": "en"
+  }
+  // subscription and payment: separate documents (different access pattern, sensitive)
+}
+// Single document read — no join needed!
+
+// When $lookup IS appropriate:
+// - Rarely accessed combined views (admin reports)
+// - Aggregation queries (not hot user-facing paths)
+// - Data that changes independently at different rates</code></pre>
+<p><strong>Why it matters:</strong> Knowing <strong>when NOT to use $lookup</strong> demonstrates mature MongoDB design philosophy. Over-reliance on joins indicates a developer is still thinking relationally.</p>
+<p><strong>Real applications:</strong> Every <strong>high-traffic API endpoint</strong> that powers user-facing features should avoid repeated $lookup — embed the data that belongs together. Reserve $lookup for analytics pipelines.</p>
+<p><strong>Common mistakes:</strong> Normalizing MongoDB schemas like SQL tables "for data integrity" and then using $lookup on every request — this gives you the worst of both worlds: no SQL ACID and no MongoDB performance.</p>
+                </div>
+            </div>
+        </div>
+        <div class="accordion-item">
+            <h2 class="accordion-header" id="h_q8">
+                <button class="accordion-button collapsed" type="button"
+                    data-bs-toggle="collapse" data-bs-target="#c_q8"
+                    aria-expanded="false">
+                    <span class="question-number">9</span>How do you model time-series data relationships in MongoDB?
+                </button>
+            </h2>
+            <div id="c_q8" class="accordion-collapse collapse"
+                data-bs-parent="#questionsAccordion">
+                <div class="accordion-body">Time-series data in MongoDB involves modeling <strong>continuous measurements</strong> (sensor readings, stock prices, user events) where the relationship is between an <strong>entity</strong> (sensor, stock, user) and its <strong>time-stamped observations</strong>. MongoDB 5.0 introduced native <strong>Time Series Collections</strong> that are optimized for this pattern with automatic bucketing, efficient storage, and time-based queries. For earlier versions, the <strong>Bucket Pattern</strong> manually groups measurements by time windows. The key design decisions are: bucket interval, metadata schema, and whether to use native time series or manual bucketing.
+<pre><code>// NATIVE TIME SERIES COLLECTIONS (MongoDB 5.0+)
+db.createCollection("sensorReadings", {
+  timeseries: {
+    timeField: "timestamp",    // required: the time field
+    metaField: "sensorId",     // field for grouping (the entity ID)
+    granularity: "minutes"     // "seconds" | "minutes" | "hours"
+  },
+  expireAfterSeconds: 7776000  // TTL: 90 days
+});
+
+// Insert measurements (same as regular insert)
+db.sensorReadings.insertMany([
+  { timestamp: new Date(), sensorId: "temp001", temperature: 23.5, humidity: 65 },
+  { timestamp: new Date(), sensorId: "temp001", temperature: 23.7, humidity: 64 }
+]);
+
+// MongoDB automatically buckets by time + sensorId for optimal storage
+
+// Efficient time-range query
+db.sensorReadings.find({
+  sensorId: "temp001",
+  timestamp: { $gte: ISODate("2026-04-05T09:00:00"), $lte: ISODate("2026-04-05T17:00:00") }
+}).sort({ timestamp: 1 });
+
+// Aggregation on time series
+db.sensorReadings.aggregate([
+  { $match: { sensorId: "temp001", timestamp: { $gte: yesterday } } },
+  { $group: {
+    _id: { $dateTrunc: { date: "$timestamp", unit: "hour" } },
+    avgTemp: { $avg: "$temperature" },
+    maxTemp: { $max: "$temperature" }
+  }},
+  { $sort: { "_id": 1 } }
+]);
+
+// Sensors metadata (separate entity collection)
+{
+  "_id": "temp001",
+  "location": "Server Room A",
+  "type": "temperature",
+  "unit": "celsius",
+  "installDate": ISODate("2025-01-01")
+}</code></pre>
+<p><strong>Why it matters:</strong> Time-series data is one of the fastest-growing data types in modern applications. Native Time Series Collections (MongoDB 5.0+) are a key feature gap that shows MongoDB vs InfluxDB/TimescaleDB knowledge.</p>
+<p><strong>Real applications:</strong> <strong>IoT sensor networks</strong>, <strong>stock/crypto price feeds</strong>, <strong>DevOps monitoring</strong> (CPU, memory, latency over time), <strong>user activity tracking</strong>.</p>
+<p><strong>Common mistakes:</strong> Using regular collections for high-throughput time-series data instead of time series collections — native collections provide 10x+ better compression and query performance.</p>
+                </div>
+            </div>
+        </div>
+        <div class="accordion-item">
+            <h2 class="accordion-header" id="h_q9">
+                <button class="accordion-button collapsed" type="button"
+                    data-bs-toggle="collapse" data-bs-target="#c_q9"
+                    aria-expanded="false">
+                    <span class="question-number">10</span>What is polymorphic relationship modeling?
+                </button>
+            </h2>
+            <div id="c_q9" class="accordion-collapse collapse"
+                data-bs-parent="#questionsAccordion">
+                <div class="accordion-body"><strong>Polymorphic relationships</strong> occur when a foreign key can reference documents from <strong>multiple collections</strong> (like comments that can be on posts OR videos OR products). In SQL this is solved with polymorphic associations. In MongoDB, you store both the <strong>referenced ID and a type discriminator</strong> indicating which collection to query. Alternatively, normalize all commentable types into a single collection (the polymorphic collection pattern). Another approach is <strong>union references</strong> — store multiple nullable foreign key fields.
+<pre><code>// PATTERN 1: Type discriminator reference
+// comments collection — comments on either posts or videos
+{
+  "_id": ObjectId("c1"),
+  "userId": ObjectId("u1"),
+  "text": "Great content!",
+  "targetType": "post",          // discriminator
+  "targetId": ObjectId("p1")     // reference (which collection = targetType)
+}
+{
+  "_id": ObjectId("c2"),
+  "userId": ObjectId("u1"),
+  "text": "Amazing video!",
+  "targetType": "video",
+  "targetId": ObjectId("v1")
+}
+
+// Application: route query based on targetType
+const comment = await db.comments.findOne({ _id: commentId });
+const target = comment.targetType === "post"
+  ? await db.posts.findOne({ _id: comment.targetId })
+  : await db.videos.findOne({ _id: comment.targetId });
+
+// PATTERN 2: Union reference (explicit optional fields)
+{
+  "_id": ObjectId("c3"),
+  "userId": ObjectId("u1"),
+  "text": "Interesting!",
+  "postId": ObjectId("p1"),      // null if on a video
+  "videoId": null                // null if on a post
+}
+
+// PATTERN 3: Unified parent collection approach
+// All commentable content in one collection
+{ _id: ObjectId("..."), type: "post", title: "...", content: "..." }
+{ _id: ObjectId("..."), type: "video", title: "...", url: "..." }
+// comments.targetId always points to this single collection</code></pre>
+<p><strong>Why it matters:</strong> Polymorphic relationships appear in real-world systems and test your ability to design <strong>flexible, maintainable schemas</strong> for complex domain models.</p>
+<p><strong>Real applications:</strong> <strong>Notification systems</strong> (notify about likes on posts, videos, or comments), <strong>like/reaction systems</strong> on multiple content types, <strong>tagging</strong> across different entities.</p>
+<p><strong>Common mistakes:</strong> Not indexing <code>{ targetType: 1, targetId: 1 }</code> — fetching all comments for an entity without this compound index causes full collection scans.</p>
+                </div>
+            </div>
+        </div>
+        <div class="accordion-item">
+            <h2 class="accordion-header" id="h_q10">
+                <button class="accordion-button collapsed" type="button"
+                    data-bs-toggle="collapse" data-bs-target="#c_q10"
+                    aria-expanded="false">
+                    <span class="question-number">11</span>How do you model many-to-many with attributes on the relationship itself?
+                </button>
+            </h2>
+            <div id="c_q10" class="accordion-collapse collapse"
+                data-bs-parent="#questionsAccordion">
+                <div class="accordion-body">In many-to-many relationships, the relationship itself often has <strong>attributes</strong> (enrollment date, role in project, quantity purchased). In SQL, these go in the junction table. In MongoDB, use a <strong>junction/link collection</strong> where each document represents one instance of the relationship AND its metadata. This is one area where MongoDB aligns closely with relational modeling — the junction document is a first-class entity with its own schema, indexes, and queries. The junction collection is optimized with compound indexes for efficient queries in both directions.
+<pre><code>// M:N with attributes: Students enrolled in Courses
+
+// students collection
+{ _id: ObjectId("s1"), name: "Mayur", email: "mayur@example.com" }
+
+// courses collection
+{ _id: ObjectId("c1"), name: "MongoDB Mastery", instructor: "Prof. John", credits: 4 }
+
+// enrollments collection (junction with attributes)
+{
+  "_id": ObjectId("e1"),
+  "studentId": ObjectId("s1"),    // M side reference
+  "courseId": ObjectId("c1"),     // N side reference
+  // Relationship attributes:
+  "enrolledAt": ISODate("2026-01-15"),
+  "grade": null,                  // updated after completion
+  "status": "active",             // "active" | "completed" | "dropped"
+  "paymentId": ObjectId("pay1"),  // payment made for this enrollment
+  "completedAt": null
+}
+
+// Indexes for both directions + filtering
+db.enrollments.createIndex({ studentId: 1, status: 1 });         // student's courses
+db.enrollments.createIndex({ courseId: 1, enrolledAt: -1 });     // course's students
+db.enrollments.createIndex({ studentId: 1, courseId: 1 }, { unique: true }); // no duplicate
+
+// Query: all active courses for a student (with course details)
+db.enrollments.aggregate([
+  { $match: { studentId: studentId, status: "active" } },
+  { $lookup: { from: "courses", localField: "courseId", foreignField: "_id", as: "course" } },
+  { $unwind: "$course" }
+]);</code></pre>
+<p><strong>Why it matters:</strong> Identifies whether you know when a simple embedded array is insufficient and a full <strong>junction collection</strong> is required. Relationship attributes are a clear indicator.</p>
+<p><strong>Real applications:</strong> <strong>E-learning enrollments</strong> (enrollment date, grade, progress), <strong>project memberships</strong> (role: lead/member, joined date), <strong>order items</strong> (quantity, price at purchase, discount applied).</p>
+<p><strong>Common mistakes:</strong> Trying to push relationship attributes into the array elements on both sides — this creates data duplication and consistency issues when relationship attributes change.</p>
+                </div>
+            </div>
+        </div>
+        <div class="accordion-item">
+            <h2 class="accordion-header" id="h_q11">
+                <button class="accordion-button collapsed" type="button"
+                    data-bs-toggle="collapse" data-bs-target="#c_q11"
+                    aria-expanded="false">
+                    <span class="question-number">12</span>What is the importance of indexing in relationship modeling?
+                </button>
+            </h2>
+            <div id="c_q11" class="accordion-collapse collapse"
+                data-bs-parent="#questionsAccordion">
+                <div class="accordion-body">The effectiveness of relationship models in MongoDB depends almost entirely on <strong>proper indexing of foreign key fields</strong>. Every field used to relate documents must be indexed: (1) Referenced fields in child collections (e.g., <code>userId</code> in orders), (2) Both fields in compound indexes for junction collections (e.g., <code>{ userId: 1 }</code> and <code>{ productId: 1 }</code> in likes), (3) The <code>localField</code> referenced in <code>$lookup</code>'s <code>foreignField</code>. Without these indexes, what looks like an efficient reference schema degrades into full collection scans on every join operation.
+<pre><code>// Relationship indexes — non-negotiable for production!
+
+// One-to-many: orders belong to users
+db.orders.createIndex({ userId: 1, createdAt: -1 });     // query user's orders by date
+db.orders.createIndex({ userId: 1, status: 1 });         // query active orders for user
+
+// Many-to-many junction: likes (userId + productId)
+db.likes.createIndex({ userId: 1, productId: 1 }, { unique: true }); // dedup + user query
+db.likes.createIndex({ productId: 1, createdAt: -1 });               // product's likers
+
+// Comment polymorphism
+db.comments.createIndex({ targetType: 1, targetId: 1, createdAt: -1 });
+
+// Social: follows
+db.follows.createIndex({ followerId: 1 });   // who am I following?
+db.follows.createIndex({ followeeId: 1 });   // who follows me?
+
+// Verify indexes are used with explain
+db.orders.find({ userId: userId }).explain("executionStats");
+// Check: "winningPlan.stage": "IXSCAN" (not "COLLSCAN"!)
+
+// Index on $lookup foreignField is critical
+// $lookup from orders joining on userId — must have userId indexed!
+db.users.aggregate([{
+  $lookup: {
+    from: "orders",
+    localField: "_id",       // user _id
+    foreignField: "userId",  // orders.userId MUST BE INDEXED
+    as: "orders"
+  }
+}]);</code></pre>
+<p><strong>Why it matters:</strong> Many developers design good relationship schemas but forget to index the relationship fields — making all the carefully designed references perform poorly in production.</p>
+<p><strong>Real applications:</strong> A social media app without an index on <code>followerId</code> in the follows collection performs a full scan of 100M rows every time a user's follow list is loaded.</p>
+<p><strong>Common mistakes:</strong> Creating the data model correctly but not adding the corresponding indexes — this makes every <code>$lookup</code> and relationship query a <strong>full collection scan</strong>.</p>
+                </div>
+            </div>
+        </div>
+
+            </div>
+            <div class="topic-nav" id="topicNav">
+            <a class="topic-nav-btn prev" href="schema-design.html">
+                <span class="label"><i class="bi bi-arrow-left me-1"></i> Prev</span>
+                <span class="title">Schema Design</span>
+            </a>
+            <a class="topic-nav-btn next" href="transactions.html">
+                <span class="label">Next <i class="bi bi-arrow-right ms-1"></i></span>
+                <span class="title">Transactions</span>
+            </a>
+            </div>
+            <footer class="app-footer">
+                <p>&copy; 2026 InterviewPrep &mdash; MongoDB Interview Questions</p>
+            </footer>
+        </div>
+    </div>
+    <button class="btn-totop" id="backToTop"><i class="bi bi-chevron-up"></i></button>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>
+    <script>
+    (function(){
+        var sb=document.getElementById('sidebar'),bd=document.getElementById('sidebarBackdrop'),
+            tg=document.getElementById('sidebarToggle');
+        if(tg)tg.addEventListener('click',function(){sb.classList.add('open');bd.classList.add('show');});
+        if(bd)bd.addEventListener('click',function(){sb.classList.remove('open');bd.classList.remove('show');});
+        var btt=document.getElementById('backToTop');
+        window.addEventListener('scroll',function(){btt.classList.toggle('show',window.scrollY>400);});
+        btt.addEventListener('click',function(){window.scrollTo({top:0,behavior:'smooth'});});
+        var acc=document.getElementById('questionsAccordion');
+        var totalCount=12;
+        var si=document.getElementById('searchInput');
+        if(si){var t=null;si.addEventListener('input',function(){clearTimeout(t);var v=this.value.trim().toLowerCase();
+        if(v.length<2){acc.querySelectorAll('.accordion-item').forEach(function(el){el.style.display='';});
+        document.getElementById('questionCount').textContent=totalCount+' Questions';return;}
+        t=setTimeout(function(){var c=0;acc.querySelectorAll('.accordion-item').forEach(function(el){
+        var m=el.textContent.toLowerCase().indexOf(v)!==-1;el.style.display=m?'':'none';if(m)c++;});
+        document.getElementById('questionCount').textContent=c+' Questions';},200);});}
+    })();
+    </script>
+</body>
+</html>

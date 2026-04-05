@@ -1,0 +1,711 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="Top 15 MongoDB fundamentals interview questions. Master collections, documents, BSON, ObjectId, replica sets, storage engines and core MongoDB concepts.">
+    <meta name="keywords" content="MongoDB fundamentals, MongoDB interview questions, BSON, ObjectId, collections, documents, WiredTiger, replica set, GridFS, capped collection">
+    <meta name="author" content="InterviewPrep">
+    <meta name="robots" content="index, follow">
+    <link rel="icon" type="image/svg+xml" href="../../favicon.svg" sizes="any">
+    <meta property="og:type" content="website">
+    <meta property="og:title" content="MongoDB Fundamentals — MongoDB Interview Questions | InterviewPrep">
+    <meta property="og:description" content="Top 15 MongoDB fundamentals interview questions. Master collections, documents, BSON, ObjectId, replica sets, storage engines and core MongoDB concepts.">
+    <meta property="og:url" content="https://coddingquestionhub.com/topics/mongodb/mongodb-fundamentals.html">
+    <title>MongoDB Fundamentals — MongoDB Interview Questions | InterviewPrep 2026</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&family=Fira+Code:wght@400;500&display=swap" rel="stylesheet">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="../../css/styles.css">
+    <link rel="canonical" href="https://coddingquestionhub.com/topics/mongodb/mongodb-fundamentals.html">
+    <script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "FAQPage",
+  "mainEntity": [
+    {
+      "@type": "Question",
+      "name": "MongoDB Fundamentals — MongoDB Interview Questions | InterviewPrep",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "Top 15 MongoDB fundamentals interview questions. Master collections, documents, BSON, ObjectId, replica sets, storage engines and core MongoDB concepts."
+      }
+    }
+  ]
+}
+    </script>
+    <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-8957020141286926" crossorigin="anonymous"></script>
+    <script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "BreadcrumbList",
+  "itemListElement": [
+    {
+      "@type": "ListItem",
+      "position": 1,
+      "name": "Home",
+      "item": "https://coddingquestionhub.com"
+    },
+    {
+      "@type": "ListItem",
+      "position": 2,
+      "name": "Topics",
+      "item": "https://coddingquestionhub.com/topics"
+    },
+    {
+      "@type": "ListItem",
+      "position": 3,
+      "name": "Mongodb",
+      "item": "https://coddingquestionhub.com/topics/mongodb"
+    },
+    {
+      "@type": "ListItem",
+      "position": 4,
+      "name": "Mongodb Fundamentals",
+      "item": "https://coddingquestionhub.com/topics/mongodb/mongodb-fundamentals.html"
+    }
+  ]
+}
+    </script>
+</head>
+<body class="theme-mongodb">
+    <nav class="navbar navbar-expand-lg sticky-top" id="mainNavbar">
+        <div class="container-fluid px-3 px-lg-4">
+            <a class="navbar-brand fw-bold d-flex align-items-center gap-2" href="../../index.html">
+                <span class="brand-icon"><i class="bi bi-braces-asterisk"></i></span>
+                <span>Interview<span class="brand-accent">Prep</span></span>
+            </a>
+            <button class="navbar-toggler border-0 shadow-none" type="button"
+                    data-bs-toggle="collapse" data-bs-target="#navbarContent">
+                <i class="bi bi-list fs-3 text-white"></i>
+            </button>
+            <div class="collapse navbar-collapse" id="navbarContent">
+                <ul class="navbar-nav me-auto mb-2 mb-lg-0 ms-lg-3">
+                    <li class="nav-item dropdown">
+                        <a class="nav-link dropdown-toggle fw-500" href="#" role="button" data-bs-toggle="dropdown">
+                            <i class="bi bi-layers me-1"></i> Choose Category
+                        </a>
+                        <ul class="dropdown-menu">
+                            <li><a class="dropdown-item fw-500" href="../../pages/angular.html"><i class="bi bi-bootstrap me-2 text-danger"></i>Angular</a></li>
+                            <li><a class="dropdown-item fw-500" href="../../pages/react.html"><i class="bi bi-infinity me-2 text-info"></i>React</a></li>
+                            <li><a class="dropdown-item fw-500" href="../../pages/node.html"><i class="bi bi-hdd-network me-2 text-success"></i>Node.js</a></li>
+                            <li><a class="dropdown-item fw-500" href="../../pages/javascript.html"><i class="bi bi-filetype-js me-2 text-warning"></i>JavaScript</a></li>
+                            <li><a class="dropdown-item fw-500" href="../../pages/dsa.html"><i class="bi bi-diagram-3-fill me-2" style="color:#8b5cf6"></i>DSA</a></li>
+                            <li><a class="dropdown-item fw-500" href="../../pages/logical.html"><i class="bi bi-lightbulb me-2" style="color:#f59e0b"></i>Logical Reasoning</a></li>
+                            <li><a class="dropdown-item fw-500" href="../../pages/mongodb.html"><i class="bi bi-database-fill me-2" style="color:#4DB33D"></i>MongoDB</a></li>
+                            <li><a class="dropdown-item fw-500" href="../../pages/mysql.html"><i class="bi bi-table me-2" style="color:#0F766E"></i>MySQL</a></li>
+                        </ul>
+                    </li>
+                </ul>
+                <div class="search-wrap">
+                    <i class="bi bi-search search-icon"></i>
+                    <input class="form-control search-input" type="search" placeholder="Search questions..." id="searchInput">
+                </div>
+            </div>
+        </div>
+    </nav>    <div class="app-wrapper">
+        <aside class="sidebar" id="sidebar">
+            <div class="sidebar-head">
+                <h6><i class="bi bi-database-fill me-2"></i>MongoDB Topics</h6>
+            </div>
+            <nav>
+                <ul class="sidebar-links" id="topicList">
+                    <li><a class="nav-link active" href="mongodb-fundamentals.html"><i class="bi bi-database-fill"></i><span>MongoDB Fundamentals</span></a></li>
+                    <li><a class="nav-link" href="crud-operations.html"><i class="bi bi-pencil-square"></i><span>CRUD Operations</span></a></li>
+                    <li><a class="nav-link" href="aggregation-pipeline.html"><i class="bi bi-funnel-fill"></i><span>Aggregation Pipeline</span></a></li>
+                    <li><a class="nav-link" href="indexes.html"><i class="bi bi-lightning-fill"></i><span>Indexes & Performance</span></a></li>
+                    <li><a class="nav-link" href="schema-design.html"><i class="bi bi-layout-wtf"></i><span>Schema Design</span></a></li>
+                    <li><a class="nav-link" href="relationships.html"><i class="bi bi-diagram-3-fill"></i><span>Relationships</span></a></li>
+                    <li><a class="nav-link" href="transactions.html"><i class="bi bi-arrow-repeat"></i><span>Transactions</span></a></li>
+                    <li><a class="nav-link" href="mongoose-odm.html"><i class="bi bi-box-seam"></i><span>Mongoose ODM</span></a></li>
+                    <li><a class="nav-link" href="performance-optimization.html"><i class="bi bi-speedometer2"></i><span>Performance Optimization</span></a></li>
+                    <li><a class="nav-link" href="replication-sharding.html"><i class="bi bi-hdd-stack-fill"></i><span>Replication & Sharding</span></a></li>
+                    <li><a class="nav-link" href="security.html"><i class="bi bi-shield-lock-fill"></i><span>Security & Auth</span></a></li>
+                    <li><a class="nav-link" href="text-search-geospatial.html"><i class="bi bi-search"></i><span>Text Search & Geospatial</span></a></li>
+                    <li><a class="nav-link" href="change-streams-watchers.html"><i class="bi bi-bell-fill"></i><span>Change Streams & Watch</span></a></li>
+                    <li><a class="nav-link" href="interview-queries-1.html"><i class="bi bi-code-slash"></i><span>Interview Queries — I</span></a></li>
+                    <li><a class="nav-link" href="interview-queries-2.html"><i class="bi bi-code-square"></i><span>Interview Queries — II</span></a></li>
+                </ul>
+            </nav>
+        </aside>
+        <div class="sidebar-backdrop" id="sidebarBackdrop"></div>
+        <div class="content-area">
+            <div class="mobile-bar d-lg-none">
+                <button class="btn btn-sm btn-glass" id="sidebarToggle">
+                    <i class="bi bi-layout-sidebar-inset me-1"></i>Topics
+                </button>
+                <span class="badge rounded-pill bg-success">MongoDB</span>
+            </div>
+            <div class="breadcrumb-nav" id="breadcrumb">
+                <a href="../../index.html">Home</a><span class="sep">/</span>
+                <a href="../../pages/mongodb.html">MongoDB</a><span class="sep">/</span>
+                <span class="current">MongoDB Fundamentals</span>
+            </div>
+            <div class="qs-header">
+                <h1 class="qs-title" id="topicTitle">MongoDB Fundamentals</h1>
+                <span class="badge qs-badge" id="questionCount">15 Questions</span>
+            </div>
+            <div class="accordion" id="questionsAccordion">
+        <div class="accordion-item">
+            <h2 class="accordion-header" id="h_q0">
+                <button class="accordion-button" type="button"
+                    data-bs-toggle="collapse" data-bs-target="#c_q0"
+                    aria-expanded="true">
+                    <span class="question-number">1</span>What is MongoDB and how does it differ from relational databases?
+                </button>
+            </h2>
+            <div id="c_q0" class="accordion-collapse collapse show"
+                data-bs-parent="#questionsAccordion">
+                <div class="accordion-body"><strong>MongoDB</strong> is a <strong>NoSQL, document-oriented database</strong> that stores data in flexible, JSON-like <strong>BSON</strong> (Binary JSON) format instead of rows and columns. Unlike relational databases (MySQL, PostgreSQL), MongoDB does not require a fixed schema — each document in a collection can have different fields. Data is stored in <strong>collections</strong> (analogous to tables) and <strong>documents</strong> (analogous to rows), but documents can contain nested objects and arrays natively. MongoDB is designed for <strong>horizontal scalability, high availability, and flexible data modeling</strong>, making it ideal for applications with evolving data requirements.
+<pre><code>// Relational DB (SQL)
+SELECT * FROM users WHERE age > 25;
+
+// MongoDB
+db.users.find({ age: { $gt: 25 } });
+
+// A MongoDB document (BSON/JSON)
+{
+  "_id": ObjectId("64a1b2c3d4e5f6789012345"),
+  "name": "Mayur",
+  "age": 30,
+  "skills": ["MongoDB", "Node.js", "React"],
+  "address": {
+    "city": "Mumbai",
+    "pincode": "400001"
+  }
+}</code></pre>
+<p><strong>Why it matters:</strong> This is always the first question to gauge your understanding of NoSQL fundamentals. Interviewers want to know if you can articulate key differences like <strong>schema flexibility, horizontal scaling, and document model</strong>.</p>
+<p><strong>Real applications:</strong> Used by companies like LinkedIn, Forbes, and Uber for <strong>user profile systems, event logging, real-time analytics</strong>, and catalog management where data shapes vary per document.</p>
+<p><strong>Common mistakes:</strong> Developers often assume MongoDB always outperforms SQL. MongoDB is <strong>not ideal for complex multi-table joins</strong> or strict transactional workflows — relational databases handle those better.</p>
+                </div>
+            </div>
+        </div>
+        <div class="accordion-item">
+            <h2 class="accordion-header" id="h_q1">
+                <button class="accordion-button collapsed" type="button"
+                    data-bs-toggle="collapse" data-bs-target="#c_q1"
+                    aria-expanded="false">
+                    <span class="question-number">2</span>What is BSON and why does MongoDB use it?
+                </button>
+            </h2>
+            <div id="c_q1" class="accordion-collapse collapse"
+                data-bs-parent="#questionsAccordion">
+                <div class="accordion-body"><strong>BSON</strong> (Binary JSON) is the binary serialization format MongoDB uses to store and transfer documents. While JSON is human-readable text, BSON is an <strong>encoded binary format</strong> that is faster to traverse, supports more data types (like <strong>Date, ObjectId, Binary, Decimal128</strong>), and allows MongoDB to efficiently encode/decode documents. BSON documents can be up to <strong>16 MB</strong> in size. MongoDB drivers convert BSON to the language's native types automatically, so developers work with JSON-like objects in code while the database stores BSON internally.
+<pre><code>// BSON supports richer types than JSON
+{
+  "_id": ObjectId("64a1b2c3d4e5f6789012345"), // ObjectId type
+  "name": "Mayur",
+  "createdAt": ISODate("2026-04-05T00:00:00Z"), // Date type
+  "salary": NumberDecimal("75000.50"),           // Decimal128
+  "profilePic": BinData(0, "base64encodeddata"), // Binary
+  "isActive": true
+}
+
+// Size limit: 16 MB per document
+// Use GridFS for files larger than 16 MB</code></pre>
+<p><strong>Why it matters:</strong> Understanding BSON shows depth of knowledge beyond surface-level MongoDB usage. Interviewers assess whether you know the <strong>16 MB limit, supported data types</strong>, and how MongoDB handles dates and binary data.</p>
+<p><strong>Real applications:</strong> When storing timestamps, <strong>GridFS chunking</strong> for large files, geospatial coordinates (GeoJSON), and financial data using <strong>Decimal128</strong> for precision.</p>
+<p><strong>Common mistakes:</strong> Using JavaScript <code>Date</code> as a string instead of <strong>ISODate</strong> breaks date queries. Also forgetting the <strong>16 MB document limit</strong> when embedding large blobs.</p>
+                </div>
+            </div>
+        </div>
+        <div class="accordion-item">
+            <h2 class="accordion-header" id="h_q2">
+                <button class="accordion-button collapsed" type="button"
+                    data-bs-toggle="collapse" data-bs-target="#c_q2"
+                    aria-expanded="false">
+                    <span class="question-number">3</span>What are collections and documents in MongoDB?
+                </button>
+            </h2>
+            <div id="c_q2" class="accordion-collapse collapse"
+                data-bs-parent="#questionsAccordion">
+                <div class="accordion-body">In MongoDB, a <strong>database</strong> contains <strong>collections</strong>, and each collection holds multiple <strong>documents</strong>. A <strong>collection</strong> is analogous to a table in SQL but has no enforced schema — documents within a collection can have entirely different fields. A <strong>document</strong> is a BSON object (key-value pairs) analogous to a row. Documents are the core unit of storage and can contain nested documents and arrays, enabling rich, hierarchical data representation without joins. Collections are created implicitly when you first insert a document.
+<pre><code>// Database: "ecommerce"
+// Collection: "products"
+
+// Document 1
+{
+  "_id": ObjectId("aaa"),
+  "name": "Laptop",
+  "price": 75000,
+  "brand": "Dell",
+  "specs": { "ram": "16GB", "storage": "512GB SSD" },
+  "tags": ["electronics", "computers"]
+}
+
+// Document 2 — different shape is OK!
+{
+  "_id": ObjectId("bbb"),
+  "name": "T-Shirt",
+  "price": 499,
+  "sizes": ["S", "M", "L", "XL"],
+  "color": "blue"
+}</code></pre>
+<p><strong>Why it matters:</strong> Fundamental concept tested in every MongoDB interview. Understanding the <strong>schema-less nature</strong> is key to designing MongoDB data models.</p>
+<p><strong>Real applications:</strong> E-commerce catalogs where <strong>different product categories</strong> (electronics vs apparel) have completely different attributes but live in the same collection.</p>
+<p><strong>Common mistakes:</strong> Over-applying SQL thinking — trying to keep documents in a collection <strong>strictly uniform</strong> when MongoDB's flexibility is a feature, not a bug.</p>
+                </div>
+            </div>
+        </div>
+        <div class="accordion-item">
+            <h2 class="accordion-header" id="h_q3">
+                <button class="accordion-button collapsed" type="button"
+                    data-bs-toggle="collapse" data-bs-target="#c_q3"
+                    aria-expanded="false">
+                    <span class="question-number">4</span>What is the _id field and ObjectId in MongoDB?
+                </button>
+            </h2>
+            <div id="c_q3" class="accordion-collapse collapse"
+                data-bs-parent="#questionsAccordion">
+                <div class="accordion-body">Every MongoDB document must have a unique <strong>_id</strong> field that acts as its <strong>primary key</strong>. If you don't provide one, MongoDB automatically generates a <strong>12-byte ObjectId</strong>. An <strong>ObjectId</strong> consists of: a <strong>4-byte Unix timestamp</strong> (creation time), <strong>5-byte random value</strong> (unique per machine/process), and <strong>3-byte incrementing counter</strong>. This makes ObjectIds <strong>globally unique</strong> across distributed servers. The _id field is automatically indexed and supports extremely fast lookups. You can use any unique value as _id (string, integer, UUID), but ObjectId is the default.
+<pre><code>// ObjectId structure (12 bytes)
+ObjectId("64a1b2c3d4e5f6789012345a")
+//         └──────┘└──────────┘└────┘
+//         timestamp  random   counter
+
+// Extract timestamp from ObjectId
+const id = new ObjectId("64a1b2c3d4e5f6789012345a");
+console.log(id.getTimestamp()); // 2026-04-05T...
+
+// Custom _id
+db.users.insertOne({ _id: "user_mayur", name: "Mayur" });
+
+// Find by _id (most efficient query)
+db.users.findOne({ _id: ObjectId("64a1b2c3d4e5f6789012345a") });</code></pre>
+<p><strong>Why it matters:</strong> Shows understanding of MongoDB's <strong>distributed identity generation</strong> and primary key mechanics. Critical for <strong>pagination, sorting by insertion order</strong>, and cross-shard uniqueness.</p>
+<p><strong>Real applications:</strong> Extracting creation time from ObjectId for <strong>time-series analysis</strong> without a separate timestamp field, and using ObjectId for <strong>cursor-based pagination</strong>.</p>
+<p><strong>Common mistakes:</strong> Passing ObjectId as a plain string in queries — you must wrap it: <code>ObjectId("...")</code>. Also comparing ObjectIds with <code>==</code> instead of <code>.equals()</code> in application code.</p>
+                </div>
+            </div>
+        </div>
+        <div class="accordion-item">
+            <h2 class="accordion-header" id="h_q4">
+                <button class="accordion-button collapsed" type="button"
+                    data-bs-toggle="collapse" data-bs-target="#c_q4"
+                    aria-expanded="false">
+                    <span class="question-number">5</span>What is the difference between find() and findOne()?
+                </button>
+            </h2>
+            <div id="c_q4" class="accordion-collapse collapse"
+                data-bs-parent="#questionsAccordion">
+                <div class="accordion-body"><strong>find()</strong> returns a <strong>cursor</strong> pointing to all documents matching the query, which you iterate over. <strong>findOne()</strong> returns the <strong>first matching document</strong> as an object (not a cursor) and stops searching after finding a match. <code>find()</code> is used when you need multiple results, while <code>findOne()</code> is optimized for single-document retrieval. Using <code>findOne()</code> is more efficient when you only need one document because MongoDB stops scanning after the first match. Both support <strong>projection</strong> as a second argument to include/exclude fields.
+<pre><code>// find() — returns cursor, iterate all matches
+const cursor = db.users.find({ city: "Mumbai" });
+cursor.forEach(doc => console.log(doc));
+
+// find() with projection (include only name, email)
+db.users.find({ city: "Mumbai" }, { name: 1, email: 1, _id: 0 });
+
+// findOne() — returns first match as object
+const user = db.users.findOne({ email: "mayur@example.com" });
+console.log(user.name); // Direct property access
+
+// find() with limit, skip, sort
+db.users.find({}).sort({ age: -1 }).skip(10).limit(5);
+
+// Count matching documents
+db.users.countDocuments({ city: "Mumbai" });</code></pre>
+<p><strong>Why it matters:</strong> Tests understanding of <strong>cursor mechanics</strong> and performance implications. Using <code>find()</code> when you need only one result is wasteful — MongoDB keeps scanning beyond the first match.</p>
+<p><strong>Real applications:</strong> <code>findOne()</code> for <strong>auth lookups by email</strong>, <code>find()</code> for <strong>listing all orders for a user</strong> with pagination.</p>
+<p><strong>Common mistakes:</strong> Using <code>find()</code> expecting an array — it returns a cursor. Call <code>.toArray()</code> or iterate with <code>.forEach()</code>. Also not using projections, fetching entire documents when only 2 fields are needed.</p>
+                </div>
+            </div>
+        </div>
+        <div class="accordion-item">
+            <h2 class="accordion-header" id="h_q5">
+                <button class="accordion-button collapsed" type="button"
+                    data-bs-toggle="collapse" data-bs-target="#c_q5"
+                    aria-expanded="false">
+                    <span class="question-number">6</span>How does MongoDB handle schema validation?
+                </button>
+            </h2>
+            <div id="c_q5" class="accordion-collapse collapse"
+                data-bs-parent="#questionsAccordion">
+                <div class="accordion-body">MongoDB supports <strong>schema validation</strong> through <strong>JSON Schema</strong> using the <code>$jsonSchema</code> validator applied at the collection level. You define rules like required fields, data types, string patterns, and value ranges. Validation can be set to <strong>strict</strong> (reject invalid documents) or <strong>moderate</strong> (only validate existing documents). Schema validation was added in MongoDB 3.6 and enforced at the database level, providing a middle ground between <strong>full schema-less freedom and strict SQL-like enforcement</strong>. Mongoose ODM provides application-level schema validation for Node.js applications.
+<pre><code>// Create collection with validation
+db.createCollection("users", {
+  validator: {
+    $jsonSchema: {
+      bsonType: "object",
+      required: ["name", "email", "age"],
+      properties: {
+        name: { bsonType: "string", minLength: 2 },
+        email: {
+          bsonType: "string",
+          pattern: "^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$"
+        },
+        age: { bsonType: "int", minimum: 18, maximum: 120 },
+        role: { enum: ["user", "admin", "moderator"] }
+      }
+    }
+  },
+  validationLevel: "strict",   // "strict" | "moderate"
+  validationAction: "error"    // "error" | "warn"
+});
+
+// Insert violating document — throws error
+db.users.insertOne({ name: "A", email: "bad", age: 15 });</code></pre>
+<p><strong>Why it matters:</strong> Shows you understand MongoDB's evolution toward <strong>data integrity guarantees</strong>. This bridges the gap between pure NoSQL freedom and data reliability needed in production.</p>
+<p><strong>Real applications:</strong> Enforcing email format and age range for <strong>user registration services</strong>, ensuring required fields in <strong>financial transaction records</strong>.</p>
+<p><strong>Common mistakes:</strong> Forgetting that <code>validationLevel: "moderate"</code> only validates new/modified documents, not the existing ones during schema migration.</p>
+                </div>
+            </div>
+        </div>
+        <div class="accordion-item">
+            <h2 class="accordion-header" id="h_q6">
+                <button class="accordion-button collapsed" type="button"
+                    data-bs-toggle="collapse" data-bs-target="#c_q6"
+                    aria-expanded="false">
+                    <span class="question-number">7</span>What are the main data types supported in MongoDB?
+                </button>
+            </h2>
+            <div id="c_q6" class="accordion-collapse collapse"
+                data-bs-parent="#questionsAccordion">
+                <div class="accordion-body">MongoDB via BSON supports a rich set of data types beyond standard JSON. Key types include: <strong>String</strong> (UTF-8), <strong>Integer</strong> (Int32/Int64), <strong>Double</strong> (64-bit float), <strong>Decimal128</strong> (128-bit decimal for precision), <strong>Boolean</strong>, <strong>Date</strong> (milliseconds since epoch), <strong>ObjectId</strong> (12-byte unique identifier), <strong>Array</strong>, <strong>Embedded Document</strong> (nested object), <strong>Null</strong>, <strong>Regular Expression</strong>, <strong>Binary Data</strong>, <strong>Timestamp</strong> (internal MongoDB use), and <strong>Symbol</strong>. Choosing the correct type is critical for <strong>accurate queries, correct sorting, and storage efficiency</strong>.
+<pre><code>{
+  "_id": ObjectId("..."),               // ObjectId
+  "name": "Mayur",                      // String
+  "age": NumberInt(30),                 // Int32
+  "salary": NumberDecimal("75000.50"),  // Decimal128
+  "rating": 4.8,                        // Double
+  "isActive": true,                     // Boolean
+  "joinedAt": ISODate("2026-01-01"),    // Date
+  "tags": ["dev", "mongodb"],           // Array
+  "address": { "city": "Mumbai" },      // Embedded Doc
+  "photo": BinData(0, "base64..."),     // Binary
+  "pattern": /^mongo/i,                 // Regex
+  "deletedAt": null                     // Null
+}</code></pre>
+<p><strong>Why it matters:</strong> Type choice affects <strong>query correctness, index efficiency, and storage size</strong>. Storing numbers as strings breaks range queries and sorting.</p>
+<p><strong>Real applications:</strong> Use <strong>Decimal128</strong> for financial amounts, <strong>Date</strong> for timestamps (not string), <strong>Array</strong> for tags or multi-value fields.</p>
+<p><strong>Common mistakes:</strong> Storing dates as strings breaks <code>$gte/$lte</code> date range queries. Using <code>Double</code> for currency causes floating-point precision errors — always use <strong>Decimal128</strong> for money.</p>
+                </div>
+            </div>
+        </div>
+        <div class="accordion-item">
+            <h2 class="accordion-header" id="h_q7">
+                <button class="accordion-button collapsed" type="button"
+                    data-bs-toggle="collapse" data-bs-target="#c_q7"
+                    aria-expanded="false">
+                    <span class="question-number">8</span>What is a MongoDB Atlas and how does it differ from self-hosted MongoDB?
+                </button>
+            </h2>
+            <div id="c_q7" class="accordion-collapse collapse"
+                data-bs-parent="#questionsAccordion">
+                <div class="accordion-body"><strong>MongoDB Atlas</strong> is the official <strong>fully-managed cloud database service</strong> by MongoDB Inc., available on AWS, Azure, and GCP. Atlas handles provisioning, patching, backups, monitoring, scaling, and security — you focus purely on application development. <strong>Self-hosted MongoDB</strong> (Community/Enterprise) is installed on your own servers or VMs, giving full control but requiring your team to manage all operations. Atlas provides additional services like <strong>Atlas Search</strong> (full-text search), <strong>Atlas Charts</strong> (visualization), <strong>Data API</strong>, <strong>Triggers</strong>, and <strong>Realm</strong> (mobile sync), making it far more than just a hosted database.
+<pre><code>// Connecting to Atlas (Node.js / Mongoose)
+const mongoose = require('mongoose');
+
+const uri = process.env.MONGODB_URI;
+// Atlas URI format:
+// mongodb+srv://username:password@cluster.abc.mongodb.net/dbname
+
+mongoose.connect(uri, {
+  useNewUrlParser: true,
+  useUnifiedTopology: true,
+  serverSelectionTimeoutMS: 5000
+}).then(() => console.log('Connected to Atlas'))
+  .catch(err => console.error('Atlas connection error:', err));
+
+// Atlas free tier: M0 — 512 MB storage, shared cluster
+// Production: M10+ dedicated clusters</code></pre>
+<p><strong>Why it matters:</strong> Most modern projects use Atlas for deployment. Understanding Atlas vs self-hosted shows <strong>production deployment awareness</strong> and knowledge of managed services trade-offs.</p>
+<p><strong>Real applications:</strong> Startups use <strong>Atlas M0 free tier</strong> for development, enterprises scale to <strong>M30+ dedicated clusters</strong> with automated backups, VPC peering, and PrivateLink.</p>
+<p><strong>Common mistakes:</strong> Storing Atlas connection strings in <strong>plain text in code</strong> instead of environment variables. Also forgetting to whitelist IP addresses in Atlas Network Access settings.</p>
+                </div>
+            </div>
+        </div>
+        <div class="accordion-item">
+            <h2 class="accordion-header" id="h_q8">
+                <button class="accordion-button collapsed" type="button"
+                    data-bs-toggle="collapse" data-bs-target="#c_q8"
+                    aria-expanded="false">
+                    <span class="question-number">9</span>Explain MongoDB's horizontal scaling (sharding) at a high level.
+                </button>
+            </h2>
+            <div id="c_q8" class="accordion-collapse collapse"
+                data-bs-parent="#questionsAccordion">
+                <div class="accordion-body"><strong>Sharding</strong> is MongoDB's mechanism for <strong>horizontal scaling</strong> — distributing data across multiple servers (shards) so no single server holds all data. Data is partitioned by a <strong>shard key</strong> into chunks and distributed across shards. Each shard is a <strong>replica set</strong> for high availability. The system includes <strong>mongos routers</strong> (query routers), <strong>config servers</strong> (store cluster metadata), and the <strong>shards themselves</strong>. Applications connect to <strong>mongos</strong>, which routes queries to the correct shard(s) transparently. Sharding enables MongoDB to handle <strong>petabyte-scale datasets</strong> by scaling out rather than up.
+<pre><code>// Enable sharding on a database
+sh.enableSharding("ecommerce");
+
+// Shard a collection by a shard key
+sh.shardCollection("ecommerce.orders", { userId: 1 });
+
+// Hashed sharding — better distribution
+sh.shardCollection("ecommerce.events", { _id: "hashed" });
+
+// Architecture:
+// Client App
+//    ↓
+// mongos (router) — 1+
+//    ↓
+// Config Servers (3 replica set nodes)
+//    ↓
+// Shard 1 RS  | Shard 2 RS | Shard 3 RS
+// (P+2S+2A)   | (P+2S+2A)  | (P+2S+2A)</code></pre>
+<p><strong>Why it matters:</strong> Sharding is a senior/advanced topic that tests your understanding of <strong>distributed database architecture</strong>. An examiner wants to know if you can design for scale from the start.</p>
+<p><strong>Real applications:</strong> MongoDB at <strong>eBay, Foursquare, LinkedIn</strong> uses sharding for billions of documents across hundreds of shards.</p>
+<p><strong>Common mistakes:</strong> Choosing a <strong>monotonically increasing shard key</strong> (like ObjectId) creates a "hotspot" — all writes go to one shard. Use <strong>hashed sharding</strong> or a high-cardinality key for even distribution.</p>
+                </div>
+            </div>
+        </div>
+        <div class="accordion-item">
+            <h2 class="accordion-header" id="h_q9">
+                <button class="accordion-button collapsed" type="button"
+                    data-bs-toggle="collapse" data-bs-target="#c_q9"
+                    aria-expanded="false">
+                    <span class="question-number">10</span>What is a replica set in MongoDB?
+                </button>
+            </h2>
+            <div id="c_q9" class="accordion-collapse collapse"
+                data-bs-parent="#questionsAccordion">
+                <div class="accordion-body">A <strong>replica set</strong> is a group of MongoDB servers that maintain the <strong>same dataset</strong>, providing <strong>redundancy and high availability</strong>. A replica set has one <strong>primary</strong> (accepts all writes) and one or more <strong>secondaries</strong> (replicate from primary). If the primary fails, an automatic <strong>election</strong> promotes a secondary to primary within seconds. Replica sets also provide <strong>read scaling</strong> by allowing reads from secondaries. A typical production replica set has <strong>3 members minimum</strong> to enable proper elections. MongoDB Atlas always provisions replica sets automatically for every cluster tier.
+<pre><code>// Replica set architecture (3-node)
+// Primary:   p1.example.com:27017 (handles writes)
+// Secondary: p2.example.com:27017 (replicates data)
+// Secondary: p3.example.com:27017 (replicates data)
+
+// Connecting to a replica set
+const uri = "mongodb://p1,p2,p3/?replicaSet=myRS&readPreference=primaryPreferred";
+
+// Read preferences:
+// primary         — reads from primary only (default)
+// primaryPreferred — primary if available, else secondary
+// secondary       — reads from secondaries only
+// nearest         — lowest latency member
+
+// Check replica set status
+rs.status()
+rs.isMaster()</code></pre>
+<p><strong>Why it matters:</strong> Replica sets are the foundation of MongoDB's <strong>fault tolerance</strong>. Every production MongoDB setup must use replica sets, and understanding elections and read preferences is key for <strong>system design interviews</strong>.</p>
+<p><strong>Real applications:</strong> Netflix uses replica sets to ensure <strong>zero-downtime failover</strong>. Read-heavy analytics dashboards use <strong>secondary reads</strong> to offload the primary.</p>
+<p><strong>Common mistakes:</strong> Running a <strong>standalone MongoDB in production</strong> (no replica set) means no failover. Also not understanding that <strong>secondary reads may return stale data</strong> due to replication lag.</p>
+                </div>
+            </div>
+        </div>
+        <div class="accordion-item">
+            <h2 class="accordion-header" id="h_q10">
+                <button class="accordion-button collapsed" type="button"
+                    data-bs-toggle="collapse" data-bs-target="#c_q10"
+                    aria-expanded="false">
+                    <span class="question-number">11</span>What is the WiredTiger storage engine?
+                </button>
+            </h2>
+            <div id="c_q10" class="accordion-collapse collapse"
+                data-bs-parent="#questionsAccordion">
+                <div class="accordion-body"><strong>WiredTiger</strong> is the default storage engine for MongoDB since version 3.2, replacing the older MMAPv1. It provides <strong>document-level concurrency control</strong> (multiple writers can update different documents simultaneously), <strong>data compression</strong> (snappy by default, zlib optional), and <strong>checkpoint-based durability</strong> with a write-ahead log (journal). WiredTiger uses a <strong>B-tree + LSM hybrid</strong> approach. It supports both <strong>in-memory</strong> and persistent storage configurations. The compression and concurrency improvements over MMAPv1 make WiredTiger significantly more efficient in CPU usage and disk space.
+<pre><code>// Check storage engine
+db.serverStatus().storageEngine;
+// { name: "wiredTiger", ... }
+
+// WiredTiger collection options
+db.createCollection("events", {
+  storageEngine: {
+    wiredTiger: {
+      configString: "block_compressor=zlib"  // zlib for better compression
+    }
+  }
+});
+
+// WiredTiger cache size (50% of RAM by default)
+// mongod --wiredTigerCacheSizeGB 4
+
+// Cache hit ratio (should be > 95%)
+db.serverStatus().wiredTiger.cache["pages read into cache"]</code></pre>
+<p><strong>Why it matters:</strong> Shows deep operational knowledge. Interviewers for <strong>senior/DBA roles</strong> ask about storage engines to assess your ability to tune MongoDB at the infrastructure level.</p>
+<p><strong>Real applications:</strong> Tuning <strong>WiredTiger cache size</strong> is the first optimization step for high-traffic applications, ensuring the working set fits in RAM.</p>
+<p><strong>Common mistakes:</strong> Not monitoring <strong>cache eviction rates</strong> — if evictions are high, your working set doesn't fit in cache and performance degrades significantly.</p>
+                </div>
+            </div>
+        </div>
+        <div class="accordion-item">
+            <h2 class="accordion-header" id="h_q11">
+                <button class="accordion-button collapsed" type="button"
+                    data-bs-toggle="collapse" data-bs-target="#c_q11"
+                    aria-expanded="false">
+                    <span class="question-number">12</span>What is the difference between MongoDB Community and Enterprise?
+                </button>
+            </h2>
+            <div id="c_q11" class="accordion-collapse collapse"
+                data-bs-parent="#questionsAccordion">
+                <div class="accordion-body"><strong>MongoDB Community Server</strong> is the free, open-source edition covering all core database functionality. <strong>MongoDB Enterprise</strong> is the paid edition with additional features for large organizations: <strong>LDAP/Active Directory authentication</strong>, <strong>Kerberos authentication</strong>, <strong>field-level encryption</strong>, <strong>auditing</strong> (who ran which command), <strong>In-Memory storage engine</strong>, <strong>encrypted storage engine</strong>, and <strong>SNMP monitoring</strong>. Enterprise also comes with official MongoDB Inc. support SLAs. For most applications and startups, Community is sufficient. Enterprise is required for organizations with strict <strong>compliance, security, and regulatory requirements</strong> (HIPAA, SOC2, PCI-DSS).
+<pre><code>// Enterprise-only: LDAP Authentication
+security:
+  authorization: enabled
+  ldap:
+    servers: "ldap.company.com"
+    transportSecurity: tls
+    authz:
+      queryTemplate: "..."
+
+// Enterprise-only: Field-Level Encryption
+const clientEncryption = new ClientEncryption(mongoClient, {
+  keyVaultNamespace: "encryption.__keyVault",
+  kmsProviders: { aws: awsCredentials }
+});
+
+// Enterprise-only: Audit log
+auditLog:
+  destination: file
+  filter: '{ atype: { $in: ["authenticate", "find"] } }'</code></pre>
+<p><strong>Why it matters:</strong> Shows awareness of <strong>licensing, compliance, and security features</strong> that matter in enterprise environments. A common question in <strong>enterprise job interviews</strong>.</p>
+<p><strong>Real applications:</strong> Healthcare companies use <strong>Enterprise's field-level encryption</strong> for HIPAA compliance. Financial institutions use <strong>Enterprise auditing</strong> for SOC2 certification.</p>
+<p><strong>Common mistakes:</strong> Attempting to implement LDAP auth with Community Edition — those security features are <strong>strictly Enterprise-only</strong>.</p>
+                </div>
+            </div>
+        </div>
+        <div class="accordion-item">
+            <h2 class="accordion-header" id="h_q12">
+                <button class="accordion-button collapsed" type="button"
+                    data-bs-toggle="collapse" data-bs-target="#c_q12"
+                    aria-expanded="false">
+                    <span class="question-number">13</span>What is a capped collection in MongoDB?
+                </button>
+            </h2>
+            <div id="c_q12" class="accordion-collapse collapse"
+                data-bs-parent="#questionsAccordion">
+                <div class="accordion-body">A <strong>capped collection</strong> is a fixed-size, circular collection that automatically <strong>overwrites the oldest documents</strong> when the size limit is reached, maintaining insertion order. Capped collections are ideal for <strong>high-throughput logging, event streams, and caches</strong> where you need the most recent N records. They support very fast writes because documents are always appended at the end. Capped collections do not support <strong>deletions or document growth</strong> (updates that increase size are rejected). They support <strong>natural order</strong> queries (fastest possible) and <strong>tailable cursors</strong> (like UNIX tail -f) for real-time data streaming.
+<pre><code>// Create capped collection (1MB, max 1000 docs)
+db.createCollection("app_logs", {
+  capped: true,
+  size: 1048576, // 1 MB (required, in bytes)
+  max: 1000      // optional max document count
+});
+
+// Insert works normally
+db.app_logs.insertOne({
+  level: "ERROR",
+  message: "DB connection failed",
+  timestamp: new Date()
+});
+
+// Tailable cursor — streams new documents in real-time
+const cursor = db.app_logs.find({}, { tailable: true, awaitData: true });
+cursor.forEach(doc => console.log(doc)); // stays open, waits for new docs
+
+// Check if collection is capped
+db.app_logs.isCapped(); // true</code></pre>
+<p><strong>Why it matters:</strong> Tests knowledge of <strong>specialized collection types</strong>. Capped collections are a go-to solution for logging use cases and show understanding of <strong>trade-offs between functionality and performance</strong>.</p>
+<p><strong>Real applications:</strong> <strong>Activity feeds</strong> keeping last 500 events, <strong>application error logs</strong>, <strong>audit trails</strong> with bounded storage, and <strong>real-time dashboards</strong> using tailable cursors.</p>
+<p><strong>Common mistakes:</strong> Trying to delete documents from a capped collection (not allowed except <code>drop()</code>). Also not pre-allocating enough size — once the limit is hit, old data is gone forever.</p>
+                </div>
+            </div>
+        </div>
+        <div class="accordion-item">
+            <h2 class="accordion-header" id="h_q13">
+                <button class="accordion-button collapsed" type="button"
+                    data-bs-toggle="collapse" data-bs-target="#c_q13"
+                    aria-expanded="false">
+                    <span class="question-number">14</span>What is GridFS and when should you use it?
+                </button>
+            </h2>
+            <div id="c_q13" class="accordion-collapse collapse"
+                data-bs-parent="#questionsAccordion">
+                <div class="accordion-body"><strong>GridFS</strong> is a MongoDB specification for storing and retrieving files <strong>larger than the 16 MB BSON document limit</strong>. GridFS splits files into chunks (default <strong>255 KB each</strong>) and stores them in two collections: <strong>fs.files</strong> (file metadata: name, size, uploadDate, contentType) and <strong>fs.chunks</strong> (binary data chunks with file reference). When reading, GridFS reassembles chunks into the original file. It supports <strong>streaming, range queries</strong> (seek to any byte position), and works with any file type. Most drivers provide GridFS built-in. For small files (< 16 MB), storing as <strong>BinData</strong> directly in a document is more efficient.
+<pre><code>// Node.js GridFS with Mongoose (gridfs-stream)
+const mongoose = require('mongoose');
+const Grid = require('gridfs-stream');
+
+const conn = mongoose.connection;
+let gfs;
+conn.once('open', () => {
+  gfs = Grid(conn.db, mongoose.mongo);
+  gfs.collection('uploads');
+});
+
+// Upload using GridFSBucket (modern API)
+const { GridFSBucket } = require('mongodb');
+const bucket = new GridFSBucket(db, { bucketName: 'images' });
+
+// Upload a file
+fs.createReadStream('./photo.jpg')
+  .pipe(bucket.openUploadStream('photo.jpg', {
+    metadata: { userId: '123', contentType: 'image/jpeg' }
+  }))
+  .on('finish', () => console.log('Upload complete'));
+
+// Download a file
+bucket.openDownloadStreamByName('photo.jpg')
+  .pipe(res); // pipe to HTTP response</code></pre>
+<p><strong>Why it matters:</strong> Shows knowledge of MongoDB's file handling capabilities. Commonly asked when discussing <strong>file upload architectures</strong> and whether to store files in MongoDB vs S3/CDN.</p>
+<p><strong>Real applications:</strong> Storing <strong>user-uploaded profile images</strong>, <strong>PDF reports</strong>, and <strong>video recordings</strong> when a separate object storage service is not desired.</p>
+<p><strong>Common mistakes:</strong> Using GridFS for small files (< 1 MB) when <strong>BinData embedded in a document</strong> is simpler and faster. GridFS shines for <strong>large files that need streaming</strong>.</p>
+                </div>
+            </div>
+        </div>
+        <div class="accordion-item">
+            <h2 class="accordion-header" id="h_q14">
+                <button class="accordion-button collapsed" type="button"
+                    data-bs-toggle="collapse" data-bs-target="#c_q14"
+                    aria-expanded="false">
+                    <span class="question-number">15</span>How does MongoDB ensure data durability with the journal?
+                </button>
+            </h2>
+            <div id="c_q14" class="accordion-collapse collapse"
+                data-bs-parent="#questionsAccordion">
+                <div class="accordion-body">MongoDB's <strong>journal</strong> is a <strong>write-ahead log (WAL)</strong> that records all operations before they are applied to the data files. This ensures that if MongoDB crashes mid-operation, the journal can be <strong>replayed on restart</strong> to restore the database to a consistent state. By default, MongoDB flushes the journal to disk every <strong>50–100 milliseconds</strong>. With <code>writeConcern: { j: true }</code>, a write is acknowledged only after it has been persisted to the journal on disk — providing the highest level of single-node durability. WiredTiger uses <strong>checkpoints</strong> (60-second intervals by default) combined with the journal for full crash recovery.
+<pre><code>// Write concern options
+// j: true  — wait until write is journaled (durable)
+// j: false — acknowledge when in memory (faster, risky)
+
+db.orders.insertOne(
+  { item: "laptop", qty: 5 },
+  { writeConcern: { w: 1, j: true, wtimeout: 5000 } }
+);
+
+// w: 1         — acknowledged by primary
+// w: "majority" — acknowledged by majority of replica set
+// j: true      — persisted to journal on disk
+
+// Check journaling status
+db.serverStatus().dur
+
+// Checkpoint interval (default 60s)
+// mongod --syncdelay 60</code></pre>
+<p><strong>Why it matters:</strong> Critical for understanding MongoDB's <strong>ACID guarantees and durability</strong>. Interviewers ask this to test your understanding of data safety in production systems.</p>
+<p><strong>Real applications:</strong> Financial transaction systems use <code>w: "majority", j: true</code> to guarantee writes are durable across replica set members before confirmation.</p>
+<p><strong>Common mistakes:</strong> Using <code>j: false</code> in production for performance without understanding the risk — a server crash before the journal flush can <strong>silently lose confirmed writes</strong>.</p>
+                </div>
+            </div>
+        </div>
+
+            </div>
+            <div class="topic-nav" id="topicNav">
+
+            <a class="topic-nav-btn next" href="crud-operations.html">
+                <span class="label">Next <i class="bi bi-arrow-right ms-1"></i></span>
+                <span class="title">CRUD Operations</span>
+            </a>
+            </div>
+            <footer class="app-footer">
+                <p>&copy; 2026 InterviewPrep &mdash; MongoDB Interview Questions</p>
+            </footer>
+        </div>
+    </div>
+    <button class="btn-totop" id="backToTop"><i class="bi bi-chevron-up"></i></button>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>
+    <script>
+    (function(){
+        var sb=document.getElementById('sidebar'),bd=document.getElementById('sidebarBackdrop'),
+            tg=document.getElementById('sidebarToggle');
+        if(tg)tg.addEventListener('click',function(){sb.classList.add('open');bd.classList.add('show');});
+        if(bd)bd.addEventListener('click',function(){sb.classList.remove('open');bd.classList.remove('show');});
+        var btt=document.getElementById('backToTop');
+        window.addEventListener('scroll',function(){btt.classList.toggle('show',window.scrollY>400);});
+        btt.addEventListener('click',function(){window.scrollTo({top:0,behavior:'smooth'});});
+        var acc=document.getElementById('questionsAccordion');
+        var totalCount=15;
+        var si=document.getElementById('searchInput');
+        if(si){var t=null;si.addEventListener('input',function(){clearTimeout(t);var v=this.value.trim().toLowerCase();
+        if(v.length<2){acc.querySelectorAll('.accordion-item').forEach(function(el){el.style.display='';});
+        document.getElementById('questionCount').textContent=totalCount+' Questions';return;}
+        t=setTimeout(function(){var c=0;acc.querySelectorAll('.accordion-item').forEach(function(el){
+        var m=el.textContent.toLowerCase().indexOf(v)!==-1;el.style.display=m?'':'none';if(m)c++;});
+        document.getElementById('questionCount').textContent=c+' Questions';},200);});}
+    })();
+    </script>
+</body>
+</html>

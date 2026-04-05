@@ -1,0 +1,791 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="MongoDB Text Search and Geospatial interview questions covering full-text search, search indexes, 2dsphere indexes, geo queries, and Atlas Search.">
+    <meta name="keywords" content="MongoDB text search, MongoDB geospatial, $text operator, 2dsphere index, Atlas Search, geo queries, MongoDB interview 2026">
+    <meta name="author" content="InterviewPrep">
+    <meta name="robots" content="index, follow">
+    <link rel="icon" type="image/svg+xml" href="../../favicon.svg" sizes="any">
+    <meta property="og:type" content="website">
+    <meta property="og:title" content="Text Search &amp; Geospatial — MongoDB Interview Questions | InterviewPrep">
+    <meta property="og:description" content="MongoDB Text Search and Geospatial interview questions covering full-text search, search indexes, 2dsphere indexes, geo queries, and Atlas Search.">
+    <meta property="og:url" content="https://coddingquestionhub.com/topics/mongodb/text-search-geospatial.html">
+    <title>Text Search &amp; Geospatial — MongoDB Interview Questions | InterviewPrep 2026</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&family=Fira+Code:wght@400;500&display=swap" rel="stylesheet">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="../../css/styles.css">
+    <link rel="canonical" href="https://coddingquestionhub.com/topics/mongodb/text-search-geospatial.html">
+    <script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "FAQPage",
+  "mainEntity": [
+    {
+      "@type": "Question",
+      "name": "Text Search &amp; Geospatial — MongoDB Interview Questions | InterviewPrep",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "MongoDB Text Search and Geospatial interview questions covering full-text search, search indexes, 2dsphere indexes, geo queries, and Atlas Search."
+      }
+    }
+  ]
+}
+    </script>
+    <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-8957020141286926" crossorigin="anonymous"></script>
+    <script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "BreadcrumbList",
+  "itemListElement": [
+    {
+      "@type": "ListItem",
+      "position": 1,
+      "name": "Home",
+      "item": "https://coddingquestionhub.com"
+    },
+    {
+      "@type": "ListItem",
+      "position": 2,
+      "name": "Topics",
+      "item": "https://coddingquestionhub.com/topics"
+    },
+    {
+      "@type": "ListItem",
+      "position": 3,
+      "name": "Mongodb",
+      "item": "https://coddingquestionhub.com/topics/mongodb"
+    },
+    {
+      "@type": "ListItem",
+      "position": 4,
+      "name": "Text Search Geospatial",
+      "item": "https://coddingquestionhub.com/topics/mongodb/text-search-geospatial.html"
+    }
+  ]
+}
+    </script>
+</head>
+<body class="theme-mongodb">
+    <nav class="navbar navbar-expand-lg sticky-top" id="mainNavbar">
+        <div class="container-fluid px-3 px-lg-4">
+            <a class="navbar-brand fw-bold d-flex align-items-center gap-2" href="../../index.html">
+                <span class="brand-icon"><i class="bi bi-braces-asterisk"></i></span>
+                <span>Interview<span class="brand-accent">Prep</span></span>
+            </a>
+            <button class="navbar-toggler border-0 shadow-none" type="button"
+                    data-bs-toggle="collapse" data-bs-target="#navbarContent">
+                <i class="bi bi-list fs-3 text-white"></i>
+            </button>
+            <div class="collapse navbar-collapse" id="navbarContent">
+                <ul class="navbar-nav me-auto mb-2 mb-lg-0 ms-lg-3">
+                    <li class="nav-item dropdown">
+                        <a class="nav-link dropdown-toggle fw-500" href="#" role="button"
+                           data-bs-toggle="dropdown">
+                            <i class="bi bi-layers me-1"></i> Choose Category
+                        </a>
+                        <ul class="dropdown-menu">
+                            <li><a class="dropdown-item fw-500" href="../../pages/angular.html"><i class="bi bi-bootstrap me-2 text-danger"></i>Angular</a></li>
+                            <li><a class="dropdown-item fw-500" href="../../pages/react.html"><i class="bi bi-infinity me-2 text-info"></i>React</a></li>
+                            <li><a class="dropdown-item fw-500" href="../../pages/node.html"><i class="bi bi-hdd-network me-2 text-success"></i>Node.js</a></li>
+                            <li><a class="dropdown-item fw-500" href="../../pages/javascript.html"><i class="bi bi-filetype-js me-2 text-warning"></i>JavaScript</a></li>
+                            <li><a class="dropdown-item fw-500" href="../../pages/dsa.html"><i class="bi bi-diagram-3-fill me-2" style="color:#8b5cf6"></i>DSA</a></li>
+                            <li><a class="dropdown-item fw-500" href="../../pages/logical.html"><i class="bi bi-lightbulb me-2" style="color:#f59e0b"></i>Logical Reasoning</a></li>
+                            <li><a class="dropdown-item fw-500" href="../../pages/mongodb.html"><i class="bi bi-database-fill me-2" style="color:#4DB33D"></i>MongoDB</a></li>
+                            <li><a class="dropdown-item fw-500" href="../../pages/mysql.html"><i class="bi bi-table me-2" style="color:#0F766E"></i>MySQL</a></li>
+                        </ul>
+                    </li>
+                </ul>
+                <div class="search-wrap">
+                    <i class="bi bi-search search-icon"></i>
+                    <input class="form-control search-input" type="search"
+                           placeholder="Search questions..." id="searchInput">
+                </div>
+            </div>
+        </div>
+    </nav>
+    <div class="app-wrapper">
+        <aside class="sidebar" id="sidebar">
+            <div class="sidebar-head">
+                <h6><i class="bi bi-database-fill me-2"></i>MongoDB Topics</h6>
+            </div>
+            <nav>
+                <ul class="sidebar-links" id="topicList">
+                    <li><a class="nav-link" href="mongodb-fundamentals.html"><i class="bi-diagram-2"></i><span>MongoDB Fundamentals</span></a></li>
+                    <li><a class="nav-link" href="crud-operations.html"><i class="bi-pencil-square"></i><span>CRUD Operations</span></a></li>
+                    <li><a class="nav-link" href="aggregation-pipeline.html"><i class="bi-shuffle"></i><span>Aggregation Pipeline</span></a></li>
+                    <li><a class="nav-link" href="indexes.html"><i class="bi-lightning-fill"></i><span>Indexes</span></a></li>
+                    <li><a class="nav-link" href="schema-design.html"><i class="bi-layout-wtf"></i><span>Schema Design</span></a></li>
+                    <li><a class="nav-link" href="relationships.html"><i class="bi-link-45deg"></i><span>Relationships</span></a></li>
+                    <li><a class="nav-link" href="transactions.html"><i class="bi-arrow-repeat"></i><span>Transactions</span></a></li>
+                    <li><a class="nav-link" href="mongoose-odm.html"><i class="bi-code-square"></i><span>Mongoose ODM</span></a></li>
+                    <li><a class="nav-link" href="performance-optimization.html"><i class="bi-speedometer2"></i><span>Performance Optimization</span></a></li>
+                    <li><a class="nav-link" href="replication-sharding.html"><i class="bi-diagram-3-fill"></i><span>Replication &amp; Sharding</span></a></li>
+                    <li><a class="nav-link" href="security.html"><i class="bi-shield-check"></i><span>Security</span></a></li>
+                    <li><a class="nav-link active" href="text-search-geospatial.html"><i class="bi-search"></i><span>Text Search &amp; Geo</span></a></li>
+                    <li><a class="nav-link" href="change-streams-watchers.html"><i class="bi-eye"></i><span>Change Streams</span></a></li>
+                    <li><a class="nav-link" href="interview-queries-1.html"><i class="bi-gear-fill"></i><span>Interview Queries 1</span></a></li>
+                    <li><a class="nav-link" href="interview-queries-2.html"><i class="bi-gear-fill"></i><span>Interview Queries 2</span></a></li>
+                </ul>
+            </nav>
+        </aside>
+        <div class="sidebar-backdrop" id="sidebarBackdrop"></div>
+        <div class="content-area">
+            <div class="mobile-bar d-lg-none">
+                <button class="btn btn-sm btn-glass" id="sidebarToggle">
+                    <i class="bi bi-layout-sidebar-inset me-1"></i>Topics
+                </button>
+                <span class="badge rounded-pill bg-success">MongoDB</span>
+            </div>
+            <div class="breadcrumb-nav" id="breadcrumb">
+                <a href="../../index.html">Home</a><span class="sep">/</span>
+                <a href="../../pages/mongodb.html">MongoDB</a><span class="sep">/</span>
+                <span class="current">Text Search &amp; Geospatial</span>
+            </div>
+            <div class="qs-header">
+                <h1 class="qs-title" id="topicTitle">Text Search &amp; Geospatial</h1>
+                <span class="badge qs-badge" id="questionCount">15 Questions</span>
+            </div>
+            <div class="accordion" id="questionsAccordion">
+        <div class="accordion-item">
+            <h2 class="accordion-header" id="h_q0">
+                <button class="accordion-button" type="button"
+                    data-bs-toggle="collapse" data-bs-target="#c_q0"
+                    aria-expanded="true">
+                    <span class="question-number">1</span>How does MongoDB full-text search work with the $text operator?
+                </button>
+            </h2>
+            <div id="c_q0" class="accordion-collapse collapse show"
+                data-bs-parent="#questionsAccordion">
+                <div class="accordion-body">MongoDB's <strong>$text operator</strong> performs full-text search on string fields that have a <strong>text index</strong>. The text index tokenizes strings, removes stop words, and applies stemming for the specified language. MongoDB creates an inverted index of <strong>root word stems</strong>, so searching for "running" also matches "run" and "runs". A collection can have only <strong>one text index</strong>, but it can cover multiple fields with different weights. The <code>$meta: "textScore"</code> projection adds relevance scores to results. Text search supports phrase matching with quotes and exclusion with minus prefix.
+<pre><code>// Create text index on multiple fields
+db.articles.createIndex({
+  title: "text",
+  content: "text",
+  tags: "text"
+}, {
+  weights: { title: 10, tags: 5, content: 1 },
+  default_language: "english"
+})
+
+// Basic search
+db.articles.find({ $text: { $search: "mongodb performance" } })
+
+// Phrase search
+db.articles.find({ $text: { $search: '"replica set"' } })
+
+// Exclude term (search mongodb but not sharding)
+db.articles.find({ $text: { $search: "mongodb -sharding" } })
+
+// Sort by relevance
+db.articles.find(
+  { $text: { $search: "mongodb index" } },
+  { score: { $meta: "textScore" } }
+).sort({ score: { $meta: "textScore" } })</code></pre>
+                </div>
+            </div>
+        </div>
+        <div class="accordion-item">
+            <h2 class="accordion-header" id="h_q1">
+                <button class="accordion-button collapsed" type="button"
+                    data-bs-toggle="collapse" data-bs-target="#c_q1"
+                    aria-expanded="false">
+                    <span class="question-number">2</span>What are the limitations of MongoDB's built-in text search?
+                </button>
+            </h2>
+            <div id="c_q1" class="accordion-collapse collapse"
+                data-bs-parent="#questionsAccordion">
+                <div class="accordion-body">MongoDB's built-in text search has significant limitations compared to dedicated search engines. It does <strong>not support</strong>: fuzzy matching (typo tolerance), autocomplete/prefix search, faceted search, vector/semantic search, advanced relevance tuning, or complex multi-field boosting. Only <strong>one text index per collection</strong> is allowed. It cannot combine text search with range filters efficiently (requires text index to dominate the query plan). It has no real-time index updates — writes are slower with text indexes due to tokenization overhead. For production search features, use <strong>MongoDB Atlas Search</strong> (built on Apache Lucene) or integrate with <strong>Elasticsearch</strong>.
+<pre><code>// Built-in $text limitations:
+db.products.find({
+  $text: { $search: "laptop" },
+  price: { $lt: 1000 } // NOT efficient — text search dominates
+})
+
+// Atlas Search handles this properly with compound operator
+{
+  $search: {
+    compound: {
+      must: [{ text: { query: "laptop", path: "name" } }],
+      filter: [{ range: { path: "price", lt: 1000 } }]
+    }
+  }
+}
+
+// No fuzzy matching in $text:
+db.products.find({ $text: { $search: "labtop" } }) // no results for typo
+
+// Atlas Search with fuzzy:
+{ $search: { text: { query: "labtop", path: "name", fuzzy: { maxEdits: 1 } } } }</code></pre>
+                </div>
+            </div>
+        </div>
+        <div class="accordion-item">
+            <h2 class="accordion-header" id="h_q2">
+                <button class="accordion-button collapsed" type="button"
+                    data-bs-toggle="collapse" data-bs-target="#c_q2"
+                    aria-expanded="false">
+                    <span class="question-number">3</span>What is MongoDB Atlas Search and how does it differ from $text?
+                </button>
+            </h2>
+            <div id="c_q2" class="accordion-collapse collapse"
+                data-bs-parent="#questionsAccordion">
+                <div class="accordion-body"><strong>MongoDB Atlas Search</strong> is a fully managed full-text search built on <strong>Apache Lucene</strong>, integrated directly into Atlas clusters. Unlike the basic <code>$text</code> operator, Atlas Search supports: <strong>fuzzy search</strong> (typo tolerance), <strong>autocomplete</strong>, <strong>faceted search</strong>, <strong>vector search</strong> (semantic/AI), <strong>synonyms</strong>, <strong>highlighting</strong>, and advanced <strong>relevance scoring</strong>. Queries use the <strong>$search</strong> aggregation stage. Atlas Search indexes are separate from regular MongoDB indexes and are synchronized asynchronously. It powers features like Airbnb's listing search and eBay's product discovery at scale.
+<pre><code>// Create an Atlas Search index (via Atlas UI or Atlas CLI)
+// Index definition:
+{
+  "mappings": {
+    "dynamic": false,
+    "fields": {
+      "name": [{ "type": "string", "analyzer": "lucene.standard" },
+               { "type": "autocomplete" }],
+      "description": { "type": "string" },
+      "price": { "type": "number" }
+    }
+  }
+}
+
+// Atlas Search query
+db.products.aggregate([
+  {
+    $search: {
+      index: "default",
+      compound: {
+        should: [
+          { text: { query: "wireless headphones", path: "name", score: { boost: { value: 3 } } } },
+          { text: { query: "wireless headphones", path: "description" } }
+        ]
+      }
+    }
+  },
+  { $limit: 10 },
+  { $project: { name: 1, price: 1, score: { $meta: "searchScore" } } }
+])</code></pre>
+                </div>
+            </div>
+        </div>
+        <div class="accordion-item">
+            <h2 class="accordion-header" id="h_q3">
+                <button class="accordion-button collapsed" type="button"
+                    data-bs-toggle="collapse" data-bs-target="#c_q3"
+                    aria-expanded="false">
+                    <span class="question-number">4</span>What is autocomplete search in MongoDB Atlas Search?
+                </button>
+            </h2>
+            <div id="c_q3" class="accordion-collapse collapse"
+                data-bs-parent="#questionsAccordion">
+                <div class="accordion-body">Atlas Search's <strong>autocomplete</strong> index type uses <strong>edge n-gram tokenization</strong> to build prefix tokens for efficient prefix-based search. When a user types "mon", autocomplete returns results matching "mongodb", "monitor", "money", etc. The index definition must explicitly set field type to <strong>autocomplete</strong>. The <code>$search</code> query uses the <strong>autocomplete</strong> operator. You can configure <code>tokenOrder</code> (sequential or any) and minimum/maximum gram sizes to balance index size against search quality. This is real-time search-as-you-type and is used in search bars, tag inputs, and filter dropdowns.
+<pre><code>// Atlas Search index with autocomplete
+{
+  "mappings": {
+    "fields": {
+      "title": [
+        { "type": "autocomplete", "analyzer": "lucene.standard",
+          "tokenization": "edgeGram", "minGrams": 2, "maxGrams": 15 }
+      ]
+    }
+  }
+}
+
+// Autocomplete query — called on every keystroke
+db.movies.aggregate([
+  {
+    $search: {
+      autocomplete: {
+        query: req.query.q,  // "mon" from user
+        path: "title",
+        tokenOrder: "sequential"
+      }
+    }
+  },
+  { $limit: 10 },
+  { $project: { title: 1, _id: 1 } }
+])</code></pre>
+                </div>
+            </div>
+        </div>
+        <div class="accordion-item">
+            <h2 class="accordion-header" id="h_q4">
+                <button class="accordion-button collapsed" type="button"
+                    data-bs-toggle="collapse" data-bs-target="#c_q4"
+                    aria-expanded="false">
+                    <span class="question-number">5</span>What is geospatial data in MongoDB and what index types support it?
+                </button>
+            </h2>
+            <div id="c_q4" class="accordion-collapse collapse"
+                data-bs-parent="#questionsAccordion">
+                <div class="accordion-body">MongoDB stores geospatial data as <strong>GeoJSON objects</strong> (Point, LineString, Polygon, MultiPolygon) or as legacy coordinate pairs <code>[longitude, latitude]</code>. Two index types support geospatial queries: <strong>2dsphere</strong> (spherical Earth model, WGS84 coordinates, supports GeoJSON) and <strong>2d</strong> (flat coordinate plane, legacy, for non-Earth coordinates like game maps). The <strong>2dsphere</strong> index is the standard for location-based features. Geospatial queries enable: proximity search, within shape, intersecting shapes, and distance calculations. Store coordinates as <code>[longitude, latitude]</code> — note MongoDB uses longitude first, unlike most mapping libraries.
+<pre><code>// GeoJSON point structure (longitude FIRST, then latitude)
+{
+  name: "Coffee Shop",
+  location: {
+    type: "Point",
+    coordinates: [72.8777, 19.0760]  // [longitude, latitude]
+  }
+}
+
+// Create 2dsphere index
+db.places.createIndex({ location: "2dsphere" })
+
+// 2d index for flat plane (legacy)
+db.gameObjects.createIndex({ position: "2d" })
+
+// Store polygon for delivery zone
+{
+  name: "Mumbai Central Zone",
+  area: {
+    type: "Polygon",
+    coordinates: [[
+      [72.82, 18.97], [72.88, 18.97],
+      [72.88, 19.05], [72.82, 19.05], [72.82, 18.97]
+    ]]
+  }
+}</code></pre>
+                </div>
+            </div>
+        </div>
+        <div class="accordion-item">
+            <h2 class="accordion-header" id="h_q5">
+                <button class="accordion-button collapsed" type="button"
+                    data-bs-toggle="collapse" data-bs-target="#c_q5"
+                    aria-expanded="false">
+                    <span class="question-number">6</span>How do you find nearby places using MongoDB geospatial queries?
+                </button>
+            </h2>
+            <div id="c_q5" class="accordion-collapse collapse"
+                data-bs-parent="#questionsAccordion">
+                <div class="accordion-body">The <strong>$near</strong> and <strong>$nearSphere</strong> operators find documents closest to a given point, returned in order of distance. <strong>$geoNear</strong> in the aggregation pipeline also adds distance fields. The <code>$maxDistance</code> and <code>$minDistance</code> options limit the search radius. For <strong>flat coordinates</strong> use <code>$near</code> with a 2d index; for <strong>spherical Earth</strong> coordinates use <code>$near</code> with a 2dsphere index. Distance in <code>$near</code> with GeoJSON is in <strong>meters</strong>. The aggregation <code>$geoNear</code> stage is more flexible — it can calculate distance, filter, and sort in one stage and works in sharded collections.
+<pre><code">// Find restaurants within 2km of user location
+db.restaurants.find({
+  location: {
+    $near: {
+      $geometry: { type: "Point", coordinates: [72.8777, 19.0760] },
+      $maxDistance: 2000  // meters
+    }
+  }
+})
+
+// Aggregation with $geoNear (adds distance field, works in sharded clusters)
+db.restaurants.aggregate([
+  {
+    $geoNear: {
+      near: { type: "Point", coordinates: [72.8777, 19.0760] },
+      distanceField: "dist.calculated",
+      maxDistance: 5000,
+      spherical: true,
+      query: { category: "coffee" }  // combine with filter
+    }
+  },
+  { $limit: 20 },
+  { $project: { name: 1, "dist.calculated": 1 } }
+])</code></pre>
+                </div>
+            </div>
+        </div>
+        <div class="accordion-item">
+            <h2 class="accordion-header" id="h_q6">
+                <button class="accordion-button collapsed" type="button"
+                    data-bs-toggle="collapse" data-bs-target="#c_q6"
+                    aria-expanded="false">
+                    <span class="question-number">7</span>How do you find all documents within a polygon using $geoWithin?
+                </button>
+            </h2>
+            <div id="c_q6" class="accordion-collapse collapse"
+                data-bs-parent="#questionsAccordion">
+                <div class="accordion-body">The <strong>$geoWithin</strong> operator finds all documents whose location is completely within a specified shape. Shapes include <strong>$polygon</strong> (legacy flat coordinates), <strong>$box</strong>, <strong>$center</strong> (circle with flat coordinates), <strong>$centerSphere</strong> (circle with radians), and <strong>GeoJSON Polygon/MultiPolygon</strong>. Unlike <code>$near</code>, <code>$geoWithin</code> does <strong>not sort by distance</strong> and does not use an index by default (though a 2dsphere index improves performance). Use it for zone-based queries like "all delivery addresses in this service area" or "all stores within city boundaries". GeoJSON geometry is preferred for accuracy.
+<pre><code>// Find all users within a predefined delivery zone (polygon)
+const deliveryZone = {
+  type: "Polygon",
+  coordinates: [[
+    [72.82, 18.97], [72.95, 18.97],
+    [72.95, 19.10], [72.82, 19.10],
+    [72.82, 18.97]  // close the polygon
+  ]]
+};
+
+db.users.find({
+  location: {
+    $geoWithin: { $geometry: deliveryZone }
+  }
+})
+
+// Simple circle using $centerSphere (radius in radians: km / 6378.1)
+db.stores.find({
+  location: {
+    $geoWithin: {
+      $centerSphere: [[72.8777, 19.0760], 10 / 6378.1] // 10km radius
+    }
+  }
+})</code></pre>
+                </div>
+            </div>
+        </div>
+        <div class="accordion-item">
+            <h2 class="accordion-header" id="h_q7">
+                <button class="accordion-button collapsed" type="button"
+                    data-bs-toggle="collapse" data-bs-target="#c_q7"
+                    aria-expanded="false">
+                    <span class="question-number">8</span>What is $geoIntersects and when is it used?
+                </button>
+            </h2>
+            <div id="c_q7" class="accordion-collapse collapse"
+                data-bs-parent="#questionsAccordion">
+                <div class="accordion-body"><strong>$geoIntersects</strong> finds documents whose <strong>geometry intersects</strong> with a specified GeoJSON object. Unlike <code>$geoWithin</code> (completely inside), <code>$geoIntersects</code> returns documents that partially overlap, touch, or are inside the given shape. This is ideal for: finding delivery routes that pass through a city, finding service areas that overlap with a user's region, or finding geofences triggered by a moving location. It requires a <strong>2dsphere</strong> index for best performance. Common use case: a logistics app checking if a truck route intersects any restricted zones.
+<pre><code">// Find all delivery routes that pass through Mumbai city limits
+const mumbaiCity = {
+  type: "Polygon",
+  coordinates: [[
+    [72.77, 18.89], [72.99, 18.89],
+    [72.99, 19.27], [72.77, 19.27],
+    [72.77, 18.89]
+  ]]
+};
+
+db.deliveryRoutes.find({
+  path: { $geoIntersects: { $geometry: mumbaiCity } }
+})
+
+// Find geofences that cover a user's current location (point in polygon)
+db.geofences.find({
+  boundary: {
+    $geoIntersects: {
+      $geometry: { type: "Point", coordinates: [72.8777, 19.0760] }
+    }
+  }
+})</code></pre>
+                </div>
+            </div>
+        </div>
+        <div class="accordion-item">
+            <h2 class="accordion-header" id="h_q8">
+                <button class="accordion-button collapsed" type="button"
+                    data-bs-toggle="collapse" data-bs-target="#c_q8"
+                    aria-expanded="false">
+                    <span class="question-number">9</span>How do you implement a location-based "stores near me" feature?
+                </button>
+            </h2>
+            <div id="c_q8" class="accordion-collapse collapse"
+                data-bs-parent="#questionsAccordion">
+                <div class="accordion-body">A "stores near me" feature combines a <strong>2dsphere index</strong> with <code>$geoNear</code> aggregation to return sorted, paginated results with distance. The key considerations are: store coordinates as GeoJSON Points, create a 2dsphere index, use <code>$geoNear</code> with <code>spherical: true</code>, and add distance to each result. On the frontend, get user coordinates via the <strong>Geolocation API</strong> and pass them to your Node.js/Express API which queries MongoDB. Cache results for commonly queried locations (city centers, malls) to reduce database load. Combine with <code>$match</code> to filter by category, rating, or business hours.
+<pre><code>// Express route for "stores near me"
+app.get('/api/stores/nearby', async (req, res) => {
+  const { lng, lat, radius = 5000, category } = req.query;
+  
+  const matchFilter = {};
+  if (category) matchFilter.category = category;
+  
+  const stores = await db.collection('stores').aggregate([
+    {
+      $geoNear: {
+        near: { type: "Point", coordinates: [parseFloat(lng), parseFloat(lat)] },
+        distanceField: "distance",
+        maxDistance: parseInt(radius),
+        spherical: true,
+        query: matchFilter
+      }
+    },
+    { $limit: 20 },
+    {
+      $project: {
+        name: 1, address: 1, rating: 1,
+        distanceKm: { $divide: ["$distance", 1000] }
+      }
+    }
+  ]).toArray();
+  
+  res.json(stores);
+});</code></pre>
+                </div>
+            </div>
+        </div>
+        <div class="accordion-item">
+            <h2 class="accordion-header" id="h_q9">
+                <button class="accordion-button collapsed" type="button"
+                    data-bs-toggle="collapse" data-bs-target="#c_q9"
+                    aria-expanded="false">
+                    <span class="question-number">10</span>What is vector search in MongoDB Atlas?
+                </button>
+            </h2>
+            <div id="c_q9" class="accordion-collapse collapse"
+                data-bs-parent="#questionsAccordion">
+                <div class="accordion-body"><strong>MongoDB Atlas Vector Search</strong> enables <strong>semantic search</strong> using machine learning embeddings — finding documents that are conceptually similar rather than keyword-matched. Store document embeddings (arrays of floats from models like OpenAI's text-embedding-ada-002 or sentence transformers) in a field, create a <strong>vectorSearch index</strong>, and query using <strong>$vectorSearch</strong> aggregation stage with the k-Nearest Neighbors (kNN) algorithm. This powers AI-driven features like: semantic document search, recommendation systems, image similarity, and RAG (Retrieval Augmented Generation) for LLMs. Combine with <code>$search</code> (lexical) for hybrid search.
+<pre><code>// Store document with embedding
+await db.collection('articles').insertOne({
+  title: "MongoDB Performance Tips",
+  content: "...",
+  embedding: [0.021, -0.134, 0.876, ...] // vector from ML model
+});
+
+// Atlas Vector Search index definition
+{
+  "fields": [{
+    "type": "vector",
+    "path": "embedding",
+    "numDimensions": 1536,
+    "similarity": "cosine"
+  }]
+}
+
+// Semantic search query
+db.articles.aggregate([
+  {
+    $vectorSearch: {
+      index: "vector_index",
+      path: "embedding",
+      queryVector: await getEmbedding("how to speed up MongoDB?"),
+      numCandidates: 100,
+      limit: 5
+    }
+  },
+  { $project: { title: 1, score: { $meta: "vectorSearchScore" } } }
+])</code></pre>
+                </div>
+            </div>
+        </div>
+        <div class="accordion-item">
+            <h2 class="accordion-header" id="h_q10">
+                <button class="accordion-button collapsed" type="button"
+                    data-bs-toggle="collapse" data-bs-target="#c_q10"
+                    aria-expanded="false">
+                    <span class="question-number">11</span>How do you implement faceted search in MongoDB Atlas Search?
+                </button>
+            </h2>
+            <div id="c_q10" class="accordion-collapse collapse"
+                data-bs-parent="#questionsAccordion">
+                <div class="accordion-body"><strong>Faceted search</strong> returns search results along with aggregated counts by category, price range, rating, etc. — like the filters on an e-commerce site. Atlas Search's <strong>$searchMeta</strong> stage (or <code>$facet</code> within <code>$search</code>) computes facet counts without returning documents, enabling sidebar filter counts. String facets count by distinct value; numeric facets bucket by ranges. This requires the field to have a <code>facet</code> type in the Atlas Search index definition. Faceted search is not possible with MongoDB's basic <code>$text</code> operator and is one of the primary reasons to use Atlas Search.
+<pre><code>// Atlas Search index with facet fields
+{
+  "mappings": {
+    "fields": {
+      "category": [{"type": "stringFacet"}, {"type": "string"}],
+      "price": [{"type": "numberFacet"}, {"type": "number"}],
+      "name": [{"type": "string"}]
+    }
+  }
+}
+
+// Faceted search — get results AND facet counts
+db.products.aggregate([
+  {
+    $searchMeta: {
+      facet: {
+        operator: { text: { query: "laptop", path: "name" } },
+        facets: {
+          categoryFacet: { type: "string", path: "category", numBuckets: 10 },
+          priceRanges: {
+            type: "number", path: "price",
+            boundaries: [0, 500, 1000, 2000, 5000]
+          }
+        }
+      }
+    }
+  }
+])</code></pre>
+                </div>
+            </div>
+        </div>
+        <div class="accordion-item">
+            <h2 class="accordion-header" id="h_q11">
+                <button class="accordion-button collapsed" type="button"
+                    data-bs-toggle="collapse" data-bs-target="#c_q11"
+                    aria-expanded="false">
+                    <span class="question-number">12</span>How do you track user location history in MongoDB?
+                </button>
+            </h2>
+            <div id="c_q11" class="accordion-collapse collapse"
+                data-bs-parent="#questionsAccordion">
+                <div class="accordion-body">Location tracking requires storing time-series coordinates efficiently. The <strong>bucket pattern</strong> is ideal — embed multiple location readings in one document per time period instead of one document per ping. Use <strong>GeoJSON LineString</strong> for route paths. MongoDB 5.0+ <strong>Time Series collections</strong> natively optimize time-stamped data with compression and time-based clustering. Geospatial indexes on location arrays let you query all pings within a zone. For real-time tracking, consider using MongoDB Change Streams to publish location updates to connected clients via WebSockets.
+<pre><code">// Bucket pattern: store 100 location pings per document
+{
+  _id: ObjectId(),
+  userId: "driver123",
+  date: ISODate("2024-01-15"),
+  bucketNum: 1,
+  count: 100,
+  pings: [
+    { ts: ISODate("2024-01-15T09:00:00Z"), loc: { type: "Point", coordinates: [72.88, 19.07] } },
+    { ts: ISODate("2024-01-15T09:01:00Z"), loc: { type: "Point", coordinates: [72.89, 19.08] } },
+    // ... up to 100 pings
+  ]
+}
+
+// Time series collection (MongoDB 5.0+)
+db.createCollection("gpsPings", {
+  timeseries: {
+    timeField: "timestamp",
+    metaField: "driverId",
+    granularity: "minutes"
+  }
+})</code></pre>
+                </div>
+            </div>
+        </div>
+        <div class="accordion-item">
+            <h2 class="accordion-header" id="h_q12">
+                <button class="accordion-button collapsed" type="button"
+                    data-bs-toggle="collapse" data-bs-target="#c_q12"
+                    aria-expanded="false">
+                    <span class="question-number">13</span>What is the difference between $near and $geoNear?
+                </button>
+            </h2>
+            <div id="c_q12" class="accordion-collapse collapse"
+                data-bs-parent="#questionsAccordion">
+                <div class="accordion-body"><strong>$near</strong> is a query operator used in <code>find()</code> that sorts results by distance but cannot add a distance field or be used in sharded collections as a query predicate. <strong>$geoNear</strong> is an aggregation pipeline stage that adds a computed distance field, supports sharding, allows combining with additional filters in the same stage, and can be used anywhere in a pipeline. MongoDB recommends <code>$geoNear</code> for new applications. Both require a 2dsphere or 2d index. With <code>$geoNear</code>, it must be the <strong>first stage</strong> in the pipeline. The <code>distanceMultiplier</code> option in <code>$geoNear</code> converts meters to km (multiply by 0.001).
+<pre><code>// $near — query operator in find()
+db.stores.find({
+  location: {
+    $near: {
+      $geometry: { type: "Point", coordinates: [72.88, 19.07] },
+      $maxDistance: 3000
+    }
+  }
+}).limit(10)
+
+// $geoNear — aggregation stage (preferred)
+db.stores.aggregate([
+  {
+    $geoNear: {
+      near: { type: "Point", coordinates: [72.88, 19.07] },
+      distanceField: "distanceMeters",
+      maxDistance: 3000,
+      spherical: true,
+      distanceMultiplier: 0.001  // convert to km
+    }
+  },
+  { $match: { isOpen: true } },  // additional filters after
+  { $limit: 10 },
+  { $project: { name: 1, distanceKm: "$distanceMeters" } }
+])</code></pre>
+                </div>
+            </div>
+        </div>
+        <div class="accordion-item">
+            <h2 class="accordion-header" id="h_q13">
+                <button class="accordion-button collapsed" type="button"
+                    data-bs-toggle="collapse" data-bs-target="#c_q13"
+                    aria-expanded="false">
+                    <span class="question-number">14</span>How do you implement a ride-sharing style driver matching feature?
+                </button>
+            </h2>
+            <div id="c_q13" class="accordion-collapse collapse"
+                data-bs-parent="#questionsAccordion">
+                <div class="accordion-body">A ride-sharing driver matching system requires <strong>real-time location updates</strong> and <strong>geospatial proximity queries</strong>. Drivers continuously update their location document; a passenger request triggers a geospatial query to find available drivers nearby, sorted by distance. Use <code>$geoNear</code> to find and rank nearby available drivers. Combine with <code>$match</code> to filter by status (available), vehicle type, and rating. Index on <code>{ status: 1, location: "2dsphere" }</code> for compound filtering. The <strong>partial index</strong> feature can index only available drivers (<code>{ status: "available" }</code>) for a smaller, faster index.
+<pre><code">// Driver document
+{ _id: "d1", name: "Ravi", status: "available", rating: 4.8,
+  location: { type: "Point", coordinates: [72.88, 19.07] },
+  updatedAt: new Date() }
+
+// Index — partial index only on available drivers
+db.drivers.createIndex(
+  { location: "2dsphere" },
+  { partialFilterExpression: { status: "available" } }
+)
+
+// Passenger request: find nearest 5 available drivers
+const nearbyDrivers = await db.collection('drivers').aggregate([
+  {
+    $geoNear: {
+      near: { type: "Point", coordinates: [passengerLng, passengerLat] },
+      distanceField: "dist",
+      maxDistance: 10000, // 10km
+      query: { status: "available", rating: { $gte: 4.0 } },
+      spherical: true
+    }
+  },
+  { $limit: 5 }
+]).toArray();</code></pre>
+                </div>
+            </div>
+        </div>
+        <div class="accordion-item">
+            <h2 class="accordion-header" id="h_q14">
+                <button class="accordion-button collapsed" type="button"
+                    data-bs-toggle="collapse" data-bs-target="#c_q14"
+                    aria-expanded="false">
+                    <span class="question-number">15</span>How do you combine text search and geospatial filtering in MongoDB?
+                </button>
+            </h2>
+            <div id="c_q14" class="accordion-collapse collapse"
+                data-bs-parent="#questionsAccordion">
+                <div class="accordion-body">Combining text search and geospatial queries in a single pipeline requires either <strong>Atlas Search</strong> (cleanest approach) or a two-step approach with the basic driver. With the basic driver, you cannot use both a text index and a 2dsphere index in the same query efficiently — one dominates. The solution is to filter geographically first using <code>$geoNear</code>, then apply text matching on the reduced result set. Atlas Search's <strong>compound operator</strong> with <code>geoWithin</code> or <code>near</code> geo filters handles this natively in one stage. For production location-based search (e.g., "coffee shops near me"), Atlas Search is strongly recommended.
+<pre><code>// Approach 1: $geoNear then text filter in aggregation
+db.restaurants.aggregate([
+  {
+    $geoNear: {
+      near: { type: "Point", coordinates: [72.88, 19.07] },
+      distanceField: "dist",
+      maxDistance: 5000,
+      spherical: true
+    }
+  },
+  { $match: { $text: { $search: "pizza" } } }, // text match on reduced set
+  { $sort: { dist: 1 } },
+  { $limit: 10 }
+])
+
+// Approach 2 (Atlas Search — recommended)
+db.restaurants.aggregate([
+  {
+    $search: {
+      compound: {
+        must: [{ text: { query: "pizza", path: "cuisine" } }],
+        filter: [{
+          geoWithin: {
+            path: "location",
+            circle: {
+              center: { type: "Point", coordinates: [72.88, 19.07] },
+              radius: 5000
+            }
+          }
+        }]
+      }
+    }
+  }
+])</code></pre>
+                </div>
+            </div>
+        </div>
+            </div>
+            <div class="topic-nav" id="topicNav">
+            <a class="topic-nav-btn prev" href="security.html">
+                <span class="label"><i class="bi bi-arrow-left me-1"></i> Previous</span>
+                <span class="title">Security</span>
+            </a>
+            <a class="topic-nav-btn next" href="change-streams-watchers.html">
+                <span class="label">Next <i class="bi bi-arrow-right ms-1"></i></span>
+                <span class="title">Change Streams</span>
+            </a>
+            </div>
+            <footer class="app-footer">
+                <p>&copy; 2026 InterviewPrep &mdash; MongoDB Interview Questions</p>
+            </footer>
+        </div>
+    </div>
+    <button class="btn-totop" id="backToTop"><i class="bi bi-chevron-up"></i></button>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>
+    <script>
+    (function(){
+        var sb=document.getElementById('sidebar'),bd=document.getElementById('sidebarBackdrop'),
+            tg=document.getElementById('sidebarToggle');
+        if(tg)tg.addEventListener('click',function(){sb.classList.add('open');bd.classList.add('show');});
+        if(bd)bd.addEventListener('click',function(){sb.classList.remove('open');bd.classList.remove('show');});
+        var btt=document.getElementById('backToTop');
+        window.addEventListener('scroll',function(){btt.classList.toggle('show',window.scrollY>400);});
+        btt.addEventListener('click',function(){window.scrollTo({top:0,behavior:'smooth'});});
+        var acc=document.getElementById('questionsAccordion');
+        var totalCount=15;
+        var si=document.getElementById('searchInput');
+        if(si){var t=null;si.addEventListener('input',function(){clearTimeout(t);var v=this.value.trim().toLowerCase();
+        if(v.length<2){acc.querySelectorAll('.accordion-item').forEach(function(el){el.style.display='';});
+        document.getElementById('questionCount').textContent=totalCount+' Questions';return;}
+        t=setTimeout(function(){var c=0;acc.querySelectorAll('.accordion-item').forEach(function(el){
+        var m=el.textContent.toLowerCase().indexOf(v)!==-1;el.style.display=m?'':'none';if(m)c++;});
+        document.getElementById('questionCount').textContent=c+' Questions';},200);});}
+    })();
+    </script>
+</body>
+</html>

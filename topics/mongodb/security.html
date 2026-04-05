@@ -1,0 +1,750 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="MongoDB Security interview questions covering authentication, authorization, RBAC, TLS/SSL encryption, auditing, and field-level encryption.">
+    <meta name="keywords" content="MongoDB security, MongoDB authentication, MongoDB RBAC, field level encryption, MongoDB TLS, MongoDB audit, interview questions 2026">
+    <meta name="author" content="InterviewPrep">
+    <meta name="robots" content="index, follow">
+    <link rel="icon" type="image/svg+xml" href="../../favicon.svg" sizes="any">
+    <meta property="og:type" content="website">
+    <meta property="og:title" content="Security — MongoDB Interview Questions | InterviewPrep">
+    <meta property="og:description" content="MongoDB Security interview questions covering authentication, authorization, RBAC, TLS/SSL encryption, auditing, and field-level encryption.">
+    <meta property="og:url" content="https://coddingquestionhub.com/topics/mongodb/security.html">
+    <title>Security — MongoDB Interview Questions | InterviewPrep 2026</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&family=Fira+Code:wght@400;500&display=swap" rel="stylesheet">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="../../css/styles.css">
+    <link rel="canonical" href="https://coddingquestionhub.com/topics/mongodb/security.html">
+    <script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "FAQPage",
+  "mainEntity": [
+    {
+      "@type": "Question",
+      "name": "Security — MongoDB Interview Questions | InterviewPrep",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "MongoDB Security interview questions covering authentication, authorization, RBAC, TLS/SSL encryption, auditing, and field-level encryption."
+      }
+    }
+  ]
+}
+    </script>
+    <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-8957020141286926" crossorigin="anonymous"></script>
+    <script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "BreadcrumbList",
+  "itemListElement": [
+    {
+      "@type": "ListItem",
+      "position": 1,
+      "name": "Home",
+      "item": "https://coddingquestionhub.com"
+    },
+    {
+      "@type": "ListItem",
+      "position": 2,
+      "name": "Topics",
+      "item": "https://coddingquestionhub.com/topics"
+    },
+    {
+      "@type": "ListItem",
+      "position": 3,
+      "name": "Mongodb",
+      "item": "https://coddingquestionhub.com/topics/mongodb"
+    },
+    {
+      "@type": "ListItem",
+      "position": 4,
+      "name": "Security",
+      "item": "https://coddingquestionhub.com/topics/mongodb/security.html"
+    }
+  ]
+}
+    </script>
+</head>
+<body class="theme-mongodb">
+    <nav class="navbar navbar-expand-lg sticky-top" id="mainNavbar">
+        <div class="container-fluid px-3 px-lg-4">
+            <a class="navbar-brand fw-bold d-flex align-items-center gap-2" href="../../index.html">
+                <span class="brand-icon"><i class="bi bi-braces-asterisk"></i></span>
+                <span>Interview<span class="brand-accent">Prep</span></span>
+            </a>
+            <button class="navbar-toggler border-0 shadow-none" type="button"
+                    data-bs-toggle="collapse" data-bs-target="#navbarContent">
+                <i class="bi bi-list fs-3 text-white"></i>
+            </button>
+            <div class="collapse navbar-collapse" id="navbarContent">
+                <ul class="navbar-nav me-auto mb-2 mb-lg-0 ms-lg-3">
+                    <li class="nav-item dropdown">
+                        <a class="nav-link dropdown-toggle fw-500" href="#" role="button"
+                           data-bs-toggle="dropdown">
+                            <i class="bi bi-layers me-1"></i> Choose Category
+                        </a>
+                        <ul class="dropdown-menu">
+                            <li><a class="dropdown-item fw-500" href="../../pages/angular.html"><i class="bi bi-bootstrap me-2 text-danger"></i>Angular</a></li>
+                            <li><a class="dropdown-item fw-500" href="../../pages/react.html"><i class="bi bi-infinity me-2 text-info"></i>React</a></li>
+                            <li><a class="dropdown-item fw-500" href="../../pages/node.html"><i class="bi bi-hdd-network me-2 text-success"></i>Node.js</a></li>
+                            <li><a class="dropdown-item fw-500" href="../../pages/javascript.html"><i class="bi bi-filetype-js me-2 text-warning"></i>JavaScript</a></li>
+                            <li><a class="dropdown-item fw-500" href="../../pages/dsa.html"><i class="bi bi-diagram-3-fill me-2" style="color:#8b5cf6"></i>DSA</a></li>
+                            <li><a class="dropdown-item fw-500" href="../../pages/logical.html"><i class="bi bi-lightbulb me-2" style="color:#f59e0b"></i>Logical Reasoning</a></li>
+                            <li><a class="dropdown-item fw-500" href="../../pages/mongodb.html"><i class="bi bi-database-fill me-2" style="color:#4DB33D"></i>MongoDB</a></li>
+                            <li><a class="dropdown-item fw-500" href="../../pages/mysql.html"><i class="bi bi-table me-2" style="color:#0F766E"></i>MySQL</a></li>
+                        </ul>
+                    </li>
+                </ul>
+                <div class="search-wrap">
+                    <i class="bi bi-search search-icon"></i>
+                    <input class="form-control search-input" type="search"
+                           placeholder="Search questions..." id="searchInput">
+                </div>
+            </div>
+        </div>
+    </nav>
+    <div class="app-wrapper">
+        <aside class="sidebar" id="sidebar">
+            <div class="sidebar-head">
+                <h6><i class="bi bi-database-fill me-2"></i>MongoDB Topics</h6>
+            </div>
+            <nav>
+                <ul class="sidebar-links" id="topicList">
+                    <li><a class="nav-link" href="mongodb-fundamentals.html"><i class="bi-diagram-2"></i><span>MongoDB Fundamentals</span></a></li>
+                    <li><a class="nav-link" href="crud-operations.html"><i class="bi-pencil-square"></i><span>CRUD Operations</span></a></li>
+                    <li><a class="nav-link" href="aggregation-pipeline.html"><i class="bi-shuffle"></i><span>Aggregation Pipeline</span></a></li>
+                    <li><a class="nav-link" href="indexes.html"><i class="bi-lightning-fill"></i><span>Indexes</span></a></li>
+                    <li><a class="nav-link" href="schema-design.html"><i class="bi-layout-wtf"></i><span>Schema Design</span></a></li>
+                    <li><a class="nav-link" href="relationships.html"><i class="bi-link-45deg"></i><span>Relationships</span></a></li>
+                    <li><a class="nav-link" href="transactions.html"><i class="bi-arrow-repeat"></i><span>Transactions</span></a></li>
+                    <li><a class="nav-link" href="mongoose-odm.html"><i class="bi-code-square"></i><span>Mongoose ODM</span></a></li>
+                    <li><a class="nav-link" href="performance-optimization.html"><i class="bi-speedometer2"></i><span>Performance Optimization</span></a></li>
+                    <li><a class="nav-link" href="replication-sharding.html"><i class="bi-diagram-3-fill"></i><span>Replication &amp; Sharding</span></a></li>
+                    <li><a class="nav-link active" href="security.html"><i class="bi-shield-check"></i><span>Security</span></a></li>
+                    <li><a class="nav-link" href="text-search-geospatial.html"><i class="bi-search"></i><span>Text Search &amp; Geo</span></a></li>
+                    <li><a class="nav-link" href="change-streams-watchers.html"><i class="bi-eye"></i><span>Change Streams</span></a></li>
+                    <li><a class="nav-link" href="interview-queries-1.html"><i class="bi-gear-fill"></i><span>Interview Queries 1</span></a></li>
+                    <li><a class="nav-link" href="interview-queries-2.html"><i class="bi-gear-fill"></i><span>Interview Queries 2</span></a></li>
+                </ul>
+            </nav>
+        </aside>
+        <div class="sidebar-backdrop" id="sidebarBackdrop"></div>
+        <div class="content-area">
+            <div class="mobile-bar d-lg-none">
+                <button class="btn btn-sm btn-glass" id="sidebarToggle">
+                    <i class="bi bi-layout-sidebar-inset me-1"></i>Topics
+                </button>
+                <span class="badge rounded-pill bg-success">MongoDB</span>
+            </div>
+            <div class="breadcrumb-nav" id="breadcrumb">
+                <a href="../../index.html">Home</a><span class="sep">/</span>
+                <a href="../../pages/mongodb.html">MongoDB</a><span class="sep">/</span>
+                <span class="current">Security</span>
+            </div>
+            <div class="qs-header">
+                <h1 class="qs-title" id="topicTitle">Security</h1>
+                <span class="badge qs-badge" id="questionCount">15 Questions</span>
+            </div>
+            <div class="accordion" id="questionsAccordion">
+        <div class="accordion-item">
+            <h2 class="accordion-header" id="h_q0">
+                <button class="accordion-button" type="button"
+                    data-bs-toggle="collapse" data-bs-target="#c_q0"
+                    aria-expanded="true">
+                    <span class="question-number">1</span>How do you enable authentication in MongoDB?
+                </button>
+            </h2>
+            <div id="c_q0" class="accordion-collapse collapse show"
+                data-bs-parent="#questionsAccordion">
+                <div class="accordion-body">MongoDB authentication is enabled via the <strong>--auth</strong> flag or <code>security.authorization: enabled</code> in <strong>mongod.conf</strong>. Without it, anyone with network access can read and write all data — a major security risk. Before enabling auth, create an <strong>administrative user</strong> in the admin database to avoid locking yourself out. MongoDB supports several authentication mechanisms: <strong>SCRAM-SHA-256</strong> (default, password-based), <strong>x.509</strong> (certificate-based), <strong>LDAP</strong> (enterprise), and <strong>Kerberos</strong> (enterprise). Always enable auth in production — thousands of MongoDB instances have been ransomed due to no authentication being set.
+<pre><code># mongod.conf
+security:
+  authorization: enabled
+
+# Step 1: Connect WITHOUT auth (first time only)
+mongosh --port 27017
+
+# Step 2: Create admin user
+use admin
+db.createUser({
+  user: "adminUser",
+  pwd: "SecurePassword!123",
+  roles: [{ role: "userAdminAnyDatabase", db: "admin" }, "readWriteAnyDatabase"]
+})
+
+# Step 3: Reconnect WITH auth
+mongosh -u adminUser -p SecurePassword!123 --authenticationDatabase admin</code></pre>
+                <p><strong>Why it matters:</strong> Authentication is the foundation of database security; no auth meant 33,000 MongoDB instances were ransomed in 2017, making it the most critical first step.</p>
+                <p><strong>Real applications:</strong> Production systems require auth enabled by default to prevent unauthorized access; even a brief window without auth can expose the entire database.</p>
+                <p><strong>Common mistakes:</strong> Not enabling auth in early deployments, storing credentials in plaintext in connection strings, or locking yourself out by creating auth without an admin user first.</p>
+                </div>
+            </div>
+        </div>
+        <div class="accordion-item">
+            <h2 class="accordion-header" id="h_q1">
+                <button class="accordion-button collapsed" type="button"
+                    data-bs-toggle="collapse" data-bs-target="#c_q1"
+                    aria-expanded="false">
+                    <span class="question-number">2</span>What is RBAC (Role-Based Access Control) in MongoDB?
+                </button>
+            </h2>
+            <div id="c_q1" class="accordion-collapse collapse"
+                data-bs-parent="#questionsAccordion">
+                <div class="accordion-body"><strong>RBAC</strong> in MongoDB grants users the minimum permissions needed to perform their job (principle of least privilege). Built-in roles include: <strong>read</strong>, <strong>readWrite</strong>, <strong>dbAdmin</strong>, <strong>userAdmin</strong>, <strong>clusterAdmin</strong>, and <strong>readWriteAnyDatabase</strong>. Custom roles let you define exactly which actions on which resources are permitted. Users can have multiple roles across different databases. Application service accounts should have only <strong>readWrite</strong> on their specific database — never <strong>root</strong> or <strong>dbAdminAnyDatabase</strong>. Role inheritance allows building layered permission structures.
+<pre><code>// Create a read-only reporting user
+db.createUser({
+  user: "reportUser",
+  pwd: "ReportPass!456",
+  roles: [{ role: "read", db: "analytics" }]
+})
+
+// Create a custom role with specific permissions
+db.createRole({
+  role: "orderProcessor",
+  privileges: [
+    {
+      resource: { db: "shop", collection: "orders" },
+      actions: ["find", "update"]
+    }
+  ],
+  roles: []
+})
+
+// Assign custom role to user
+db.grantRolesToUser("appUser", [{ role: "orderProcessor", db: "shop" }])</code></pre>
+                <p><strong>Why it matters:</strong> RBAC implements the "principle of least privilege" — a core security principle tested heavily in compliance and security interviews.</p>
+                <p><strong>Real applications:</strong> Service accounts should have only readWrite on their specific database, preventing lateral movement if credentials leak; attackers can't drop databases they have no permissions on.</p>
+                <p><strong>Common mistakes:</strong> Assigning root or dbAdminAnyDatabase roles to application accounts, not creating separate service accounts per environment, or not documenting role purposes.</p>
+                </div>
+            </div>
+        </div>
+        <div class="accordion-item">
+            <h2 class="accordion-header" id="h_q2">
+                <button class="accordion-button collapsed" type="button"
+                    data-bs-toggle="collapse" data-bs-target="#c_q2"
+                    aria-expanded="false">
+                    <span class="question-number">3</span>How do you enable TLS/SSL for MongoDB connections?
+                </button>
+            </h2>
+            <div id="c_q2" class="accordion-collapse collapse"
+                data-bs-parent="#questionsAccordion">
+                <div class="accordion-body"><strong>TLS (Transport Layer Security)</strong> encrypts data in transit between MongoDB clients and servers, preventing eavesdropping and MITM attacks. Configure it via <code>net.tls</code> settings in mongod.conf. You need a valid certificate (PEM format) and can optionally require client certificate authentication. Use <strong>tlsMode: requireTLS</strong> for production to reject all unencrypted connections. MongoDB Atlas enforces TLS automatically. For self-hosted deployments, use Let's Encrypt or your organization's CA. The <strong>--tlsCAFile</strong> option specifies the CA certificate to validate server certificates against.
+<pre><code># mongod.conf
+net:
+  tls:
+    mode: requireTLS
+    certificateKeyFile: /etc/ssl/mongodb.pem
+    CAFile: /etc/ssl/ca.pem
+
+# Connect with TLS from driver
+const client = new MongoClient(uri, {
+  tls: true,
+  tlsCAFile: '/etc/ssl/ca.pem',
+  tlsCertificateKeyFile: '/etc/ssl/client.pem'
+});
+
+# Connect from mongosh with TLS
+mongosh --tls --tlsCAFile /etc/ssl/ca.pem \
+  --tlsCertificateKeyFile /etc/ssl/client.pem \
+  "mongodb://hostname:27017"</code></pre>
+                <p><strong>Why it matters:</strong> TLS encrypts credentials and data in transit; without it, network sniffing can capture passwords and sensitive data even on private networks.</p>
+                <p><strong>Real applications:</strong> Production systems use TLS with requireTLS mode to reject all unencrypted connections; MongoDB Atlas enforces it automatically.</p>
+                <p><strong>Common mistakes:</strong> Using tls: true without requireTLS (allowing unencrypted fallback), not validating server certificates, or using self-signed certs without CA validation in production.</p>
+                </div>
+            </div>
+        </div>
+        <div class="accordion-item">
+            <h2 class="accordion-header" id="h_q3">
+                <button class="accordion-button collapsed" type="button"
+                    data-bs-toggle="collapse" data-bs-target="#c_q3"
+                    aria-expanded="false">
+                    <span class="question-number">4</span>What is encryption at rest in MongoDB?
+                </button>
+            </h2>
+            <div id="c_q3" class="accordion-collapse collapse"
+                data-bs-parent="#questionsAccordion">
+                <div class="accordion-body"><strong>Encryption at rest</strong> protects data stored on disk from unauthorized access if physical media is stolen or a disk is decommissioned. MongoDB Enterprise provides <strong>WiredTiger Encrypted Storage Engine</strong> using AES-256 encryption. The encryption key is protected by a <strong>master key</strong> stored in a KMIP-compliant key management server (HashiCorp Vault, AWS KMS, etc.). MongoDB Atlas automatically encrypts all data at rest using disk-level encryption. For Community Edition, OS-level encryption (LUKS on Linux, BitLocker on Windows) is the standard approach. Never store plaintext credentials or secrets in MongoDB documents.
+<pre><code># mongod.conf (Enterprise only)
+security:
+  enableEncryption: true
+  kmip:
+    serverName: kmip-server.example.com
+    port: 5696
+    clientCertificateFile: /etc/ssl/kmip-client.pem
+    serverCAFile: /etc/ssl/kmip-ca.pem
+
+# Atlas: Encryption at rest with Customer Key Management
+# Configured via Atlas UI or API with AWS KMS / Azure Key Vault / GCP KMS
+
+// Application-level encryption (available in all editions via driver)
+const encryption = new ClientEncryption(client, {
+  keyVaultNamespace: 'encryption.__keyVault',
+  kmsProviders: { aws: { accessKeyId, secretAccessKey } }
+});</code></pre>
+                <p><strong>Why it matters:</strong> Encryption at rest protects against stolen disks and compliance violations; it's mandatory for regulated industries like healthcare and finance.</p>
+                <p><strong>Real applications:</strong> MongoDB Atlas and Enterprise provide disk encryption; Community Edition relies on OS-level encryption (LUKS, BitLocker).</p>
+                <p><strong>Common mistakes:</strong> Assuming HTTPS encryption covers data at rest (it doesn't), not managing encryption keys properly, or losing key recovery procedures.</p>
+                </div>
+            </div>
+        </div>
+        <div class="accordion-item">
+            <h2 class="accordion-header" id="h_q4">
+                <button class="accordion-button collapsed" type="button"
+                    data-bs-toggle="collapse" data-bs-target="#c_q4"
+                    aria-expanded="false">
+                    <span class="question-number">5</span>What is Client-Side Field Level Encryption (CSFLE) in MongoDB?
+                </button>
+            </h2>
+            <div id="c_q4" class="accordion-collapse collapse"
+                data-bs-parent="#questionsAccordion">
+                <div class="accordion-body"><strong>CSFLE</strong> encrypts specific document fields on the client before sending data to MongoDB. Even MongoDB server administrators cannot see the plaintext values — only the application with the correct encryption key can decrypt them. This provides encryption in transit, at rest, and from MongoDB itself. Supported encryption algorithms: <strong>Deterministic</strong> (same value always encrypts to same ciphertext — allows equality queries) and <strong>Random</strong> (different ciphertext each time — more secure, no querying). MongoDB 6.0 introduced <strong>Queryable Encryption</strong> (QE) which allows range, equality, and prefix queries on encrypted fields without revealing data to the server.
+<pre><code>const { ClientEncryption } = require('mongodb-client-encryption');
+
+// Create encryption key
+const encryption = new ClientEncryption(client, {
+  keyVaultNamespace: 'encryption.__keyVault',
+  kmsProviders: { local: { key: localMasterKey } }
+});
+const keyId = await encryption.createDataKey('local');
+
+// Encrypt before insert
+const encryptedSSN = await encryption.encrypt("123-45-6789", {
+  algorithm: 'AEAD_AES_256_CBC_HMAC_SHA_512-Deterministic',
+  keyId
+});
+await db.collection('users').insertOne({
+  name: "Alice",
+  ssn: encryptedSSN // stored as binary ciphertext
+});
+
+// Decrypt on read
+const doc = await db.collection('users').findOne({ name: "Alice" });
+const plainSSN = await encryption.decrypt(doc.ssn);</code></pre>
+                <p><strong>Why it matters:</strong> CSFLE protects sensitive data (PII, PHI, credentials) even from MongoDB administrators — critical for highly sensitive applications.</p>
+                <p><strong>Real applications:</strong> Financial and healthcare apps use CSFLE to ensure that data remains encrypted even if a DBA's credentials are compromised.</p>
+                <p><strong>Common mistakes:</strong> Not using encryption for PII, using random mode for queryable fields (preventing queries), or not managing encryption keys separately from connection strings.</p>
+                </div>
+            </div>
+        </div>
+        <div class="accordion-item">
+            <h2 class="accordion-header" id="h_q5">
+                <button class="accordion-button collapsed" type="button"
+                    data-bs-toggle="collapse" data-bs-target="#c_q5"
+                    aria-expanded="false">
+                    <span class="question-number">6</span>How do you prevent NoSQL injection attacks in MongoDB?
+                </button>
+            </h2>
+            <div id="c_q5" class="accordion-collapse collapse"
+                data-bs-parent="#questionsAccordion">
+                <div class="accordion-body"><strong>NoSQL injection</strong> occurs when attackers send malicious operator objects (like <code>{ "$gt": "" }</code>) as query parameters, bypassing authentication or exfiltrating data. The fix is to validate and sanitize all user input, using schema validation libraries like <strong>Joi</strong> or <strong>express-validator</strong>. Use <strong>$eq</strong> operator explicitly, or cast user inputs to the expected type (string, number, ObjectId). Libraries like <strong>mongo-sanitize</strong> strip MongoDB operators from user input. Never construct queries by concatenating strings from user input. Use parameterized patterns consistently.
+<pre><code>// VULNERABLE — attacker sends { username: { $gt: "" }, password: { $gt: "" } }
+const user = await db.collection('users').findOne({
+  username: req.body.username, // could be { $gt: "" }
+  password: req.body.password
+});
+
+// SECURE — sanitize with mongo-sanitize
+const sanitize = require('mongo-sanitize');
+const user = await db.collection('users').findOne({
+  username: sanitize(req.body.username),
+  password: sanitize(req.body.password)
+});
+
+// BETTER — validate types explicitly
+const { username, password } = req.body;
+if (typeof username !== 'string' || typeof password !== 'string') {
+  return res.status(400).json({ error: 'Invalid input' });
+}
+// Hash password before comparing (never store plaintext)
+const user = await db.collection('users').findOne({ username });</code></pre>
+                <p><strong>Why it matters:</strong> NoSQL injection is a common web vulnerability that attackers actively exploit; understanding it is essential for secure API development.</p>
+                <p><strong>Real applications:</strong> Login endpoints and search forms are frequent targets; attackers send { "$gt": "" } to bypass auth or exfiltrate data.</p>
+                <p><strong>Common mistakes:</strong> Not sanitizing user input, using string concatenation in queries, or not validating input types before database operations.</p>
+                </div>
+            </div>
+        </div>
+        <div class="accordion-item">
+            <h2 class="accordion-header" id="h_q6">
+                <button class="accordion-button collapsed" type="button"
+                    data-bs-toggle="collapse" data-bs-target="#c_q6"
+                    aria-expanded="false">
+                    <span class="question-number">7</span>What is MongoDB network security and IP allowlisting?
+                </button>
+            </h2>
+            <div id="c_q6" class="accordion-collapse collapse"
+                data-bs-parent="#questionsAccordion">
+                <div class="accordion-body"><strong>Network security</strong> for MongoDB involves binding the server to specific interfaces, configuring firewall rules, and using <strong>IP allowlisting</strong> to restrict which hosts can connect. By default, MongoDB listens on all interfaces (<code>0.0.0.0</code>) — this should be restricted to specific IPs using <code>net.bindIp</code>. In MongoDB Atlas, each project has an IP Access List that must include your application server's IP before any connection succeeds. On self-hosted clusters, use OS firewalls (iptables/ufw) to allow only application server IPs on port 27017. VPC peering and private endpoints eliminate public internet exposure entirely.
+<pre><code># mongod.conf — bind to specific IP only
+net:
+  bindIp: 127.0.0.1,10.0.1.15  # localhost + app server IP only
+  port: 27017
+
+# iptables rule — allow only app server
+iptables -A INPUT -p tcp --dport 27017 -s 10.0.1.0/24 -j ACCEPT
+iptables -A INPUT -p tcp --dport 27017 -j DROP
+
+# Atlas IP allowlist via CLI
+atlas accessLists create --currentIp --projectId <projectId>
+atlas accessLists create --ipAddress 10.0.1.15 --projectId <projectId>
+
+# Connection string with auth + TLS (production standard)
+mongodb+srv://appUser:password@cluster.mongodb.net/mydb?tls=true</code></pre>
+                <p><strong>Why it matters:</strong> Network security is the first line of defense; binding to 0.0.0.0 is how thousands of MongoDB instances were compromised in ransomware attacks.</p>
+                <p><strong>Real applications:</strong> Production deployments restrict MongoDB to specific subnets; cloud systems use VPC/VPN to eliminate internet exposure.</p>
+                <p><strong>Common mistakes:</strong> Binding to 0.0.0.0 on public networks, not configuring firewall rules, or thinking VPC isolation is sufficient without IP allowlisting.</p>
+                </div>
+            </div>
+        </div>
+        <div class="accordion-item">
+            <h2 class="accordion-header" id="h_q7">
+                <button class="accordion-button collapsed" type="button"
+                    data-bs-toggle="collapse" data-bs-target="#c_q7"
+                    aria-expanded="false">
+                    <span class="question-number">8</span>How do you audit database activity in MongoDB?
+                </button>
+            </h2>
+            <div id="c_q7" class="accordion-collapse collapse"
+                data-bs-parent="#questionsAccordion">
+                <div class="accordion-body">MongoDB <strong>Auditing</strong> (Enterprise/Atlas only) records specified database events — authentication, CRUD operations, admin actions — to a log file or syslog for compliance (SOC2, HIPAA, PCI-DSS). The audit log captures: who performed the action, what action was taken, when, from which IP, and whether it succeeded. Configure audit filters to capture only high-risk operations (e.g., user creation, role changes, data deletion) to avoid excessive log volume. MongoDB Atlas provides <strong>Database Auditing</strong> via the Atlas UI with built-in retention and encrypted log storage. For Community Edition, application-level audit logging must be implemented manually.
+<pre><code># mongod.conf (Enterprise)
+auditLog:
+  destination: file
+  format: JSON
+  path: /var/log/mongodb/auditLog.json
+  filter: '{
+    atype: {
+      $in: ["authenticate", "createCollection", "dropCollection",
+            "createUser", "dropUser", "grantRolesToUser",
+            "authCheck", "logout"]
+    }
+  }'
+
+// Application-level audit (Community Edition fallback)
+async function auditedDelete(collection, filter, userId) {
+  const result = await collection.deleteMany(filter);
+  await db.collection('audit_log').insertOne({
+    action: 'deleteMany',
+    collection: collection.collectionName,
+    filter, userId,
+    deletedCount: result.deletedCount,
+    timestamp: new Date()
+  });
+  return result;
+}</code></pre>
+                <p><strong>Why it matters:</strong> Audit logs provide accountability and compliance proof; without them, breach investigations cannot determine what was accessed or compromised.</p>
+                <p><strong>Real applications:</strong> Compliance audits (SOC2, HIPAA, PCI-DSS) require proof of who accessed what data and when; Atlas audit logging provides this automatically.</p>
+                <p><strong>Common mistakes:</strong> Not enabling auditing, enabling too verbose logging causing storage issues, or not retaining audit logs long enough for compliance.</p>
+                </div>
+            </div>
+        </div>
+        <div class="accordion-item">
+            <h2 class="accordion-header" id="h_q8">
+                <button class="accordion-button collapsed" type="button"
+                    data-bs-toggle="collapse" data-bs-target="#c_q8"
+                    aria-expanded="false">
+                    <span class="question-number">9</span>How do you store passwords securely in MongoDB?
+                </button>
+            </h2>
+            <div id="c_q8" class="accordion-collapse collapse"
+                data-bs-parent="#questionsAccordion">
+                <div class="accordion-body">Passwords must <strong>never be stored in plaintext</strong>. Use <strong>bcrypt</strong>, <strong>argon2</strong>, or <strong>scrypt</strong> to hash passwords with a random salt before storing. Bcrypt automatically generates a salt and embeds it in the hash, so you never store the salt separately. The work factor (cost) should be high enough to make brute-force attacks expensive (bcrypt rounds: 12–14 for modern hardware). Never use MD5 or SHA-1 for passwords — they are fast hashes designed for data integrity, not password security. Also never store <strong>API keys</strong> or <strong>tokens</strong> in plaintext; hash them with SHA-256 before storage.
+<pre><code>const bcrypt = require('bcrypt');
+
+// Register: hash before saving
+async function registerUser(username, plainPassword) {
+  const SALT_ROUNDS = 12;
+  const hashedPassword = await bcrypt.hash(plainPassword, SALT_ROUNDS);
+  await db.collection('users').insertOne({
+    username,
+    password: hashedPassword, // never plaintext
+    createdAt: new Date()
+  });
+}
+
+// Login: compare with hash
+async function loginUser(username, plainPassword) {
+  const user = await db.collection('users').findOne({ username });
+  if (!user) return null;
+  const isValid = await bcrypt.compare(plainPassword, user.password);
+  return isValid ? user : null;
+}
+
+// Also: use projection to exclude password from queries
+db.users.find({}, { password: 0 })</code></pre>
+                <p><strong>Why it matters:</strong> Password security is fundamental; plaintext password storage is a guaranteed breach outcome that exposes users on other sites.</p>
+                <p><strong>Real applications:</strong> All production systems use bcrypt with high salt rounds (12+) to make breached password files useless to attackers.</p>
+                <p><strong>Common mistakes:</strong> Using MD5 or SHA-1 for passwords, not salting hashes, storing passwords in ways that can be reversed, or not hashing API keys.</p>
+                </div>
+            </div>
+        </div>
+        <div class="accordion-item">
+            <h2 class="accordion-header" id="h_q9">
+                <button class="accordion-button collapsed" type="button"
+                    data-bs-toggle="collapse" data-bs-target="#c_q9"
+                    aria-expanded="false">
+                    <span class="question-number">10</span>What is x.509 certificate authentication in MongoDB?
+                </button>
+            </h2>
+            <div id="c_q9" class="accordion-collapse collapse"
+                data-bs-parent="#questionsAccordion">
+                <div class="accordion-body"><strong>x.509 authentication</strong> uses TLS certificates instead of usernames/passwords for authenticating clients and replica set/sharded cluster members. The certificate's <strong>Subject Distinguished Name (DN)</strong> maps to a MongoDB user. This is the preferred authentication method for service accounts and inter-node communication because it eliminates password management. Internal authentication between replica set members uses <strong>keyfiles</strong> (shared secrets) or x.509 certificates. Certificate-based auth requires a proper PKI infrastructure — typically the same CA that issues your TLS server certificates also issues client certificates.
+<pre><code># Create MongoDB user mapped to certificate subject
+db.getSiblingDB("$external").createUser({
+  user: "CN=appService,OU=engineering,O=MyCompany,C=US",
+  roles: [{ role: "readWrite", db: "myapp" }]
+})
+
+# Connect using x.509 certificate
+mongosh --tls \
+  --tlsCertificateKeyFile /etc/ssl/app-client.pem \
+  --tlsCAFile /etc/ssl/ca.pem \
+  --authenticationMechanism MONGODB-X509 \
+  --authenticationDatabase '$external' \
+  "mongodb://hostname:27017"
+
+# Internal replica set auth with keyfile
+# mongod.conf
+security:
+  keyFile: /etc/mongodb/keyfile  # same file on all RS members</code></pre>
+                <p><strong>Why it matters:</strong> x.509 authentication eliminates password management for service-to-service and inter-node communication; it's the security standard for infrastructure.</p>
+                <p><strong>Real applications:</strong> Large MongoDB deployments use x.509 for all inter-node communication and service accounts, eliminating password rotation burden.</p>
+                <p><strong>Common mistakes:</strong> Not setting up proper certificate management, using x.509 without verifying certificate chain, or misunderstanding certificate subject DN mapping.</p>
+                </div>
+            </div>
+        </div>
+        <div class="accordion-item">
+            <h2 class="accordion-header" id="h_q10">
+                <button class="accordion-button collapsed" type="button"
+                    data-bs-toggle="collapse" data-bs-target="#c_q10"
+                    aria-expanded="false">
+                    <span class="question-number">11</span>How does MongoDB schema validation help with security?
+                </button>
+            </h2>
+            <div id="c_q10" class="accordion-collapse collapse"
+                data-bs-parent="#questionsAccordion">
+                <div class="accordion-body">MongoDB's <strong>schema validation</strong> (JSON Schema) enforces document structure at the database level, preventing malformed or malicious data from being inserted regardless of application bugs. This acts as a server-side defense layer — attackers who bypass application validation still cannot insert invalid documents. Validation can enforce required fields, data types, value ranges, and string patterns. The <strong>validationAction</strong> can be <code>error</code> (reject invalid) or <code>warn</code> (log but allow). Combining schema validation with application-level validation and input sanitization creates defense-in-depth against injection and data corruption.
+<pre><code>db.createCollection("users", {
+  validator: {
+    $jsonSchema: {
+      bsonType: "object",
+      required: ["username", "email", "password"],
+      properties: {
+        username: {
+          bsonType: "string",
+          minLength: 3,
+          maxLength: 50,
+          pattern: "^[a-zA-Z0-9_]+$"  // alphanumeric only
+        },
+        email: {
+          bsonType: "string",
+          pattern: "^[^@]+@[^@]+\\.[^@]+$"
+        },
+        age: {
+          bsonType: "int",
+          minimum: 0,
+          maximum: 150
+        }
+      },
+      additionalProperties: false  // reject unexpected fields
+    }
+  },
+  validationAction: "error"  // reject invalid documents
+})</code></pre>
+                <p><strong>Why it matters:</strong> Schema validation provides server-side data quality enforcement; attackers who bypass application validation still can't insert malformed data.</p>
+                <p><strong>Real applications:</strong> Validation prevents injection attacks, ensures data type consistency, and documents expected document structure for developers.</p>
+                <p><strong>Common mistakes:</strong> Using validation only at application level without server-side validation, not restricting additionalProperties, or using warn mode when error is needed.</p>
+                </div>
+            </div>
+        </div>
+        <div class="accordion-item">
+            <h2 class="accordion-header" id="h_q11">
+                <button class="accordion-button collapsed" type="button"
+                    data-bs-toggle="collapse" data-bs-target="#c_q11"
+                    aria-expanded="false">
+                    <span class="question-number">12</span>What security mistakes commonly expose MongoDB databases?
+                </button>
+            </h2>
+            <div id="c_q11" class="accordion-collapse collapse"
+                data-bs-parent="#questionsAccordion">
+                <div class="accordion-body">The most common MongoDB security failures involve: <strong>no authentication</strong> (MongoDB 3.6 and older shipped with it disabled), <strong>binding to 0.0.0.0</strong> without firewall rules making the database internet-accessible, <strong>default admin credentials</strong>, <strong>no TLS</strong> (plaintext network traffic), <strong>overprivileged service accounts</strong>, and <strong>storing secrets in documents</strong>. These mistakes resulted in the <strong>"MongoDB ransomware"</strong> attacks of 2017 where 33,000 databases were wiped. Use MongoDB's Security Checklist, enable MongoDB Atlas security defaults, or run the <strong>mongodb-security-checklist</strong> tool to audit deployments.
+<pre><code>// Security checklist verification
+db.adminCommand({ getParameter: 1, authenticationMechanisms: 1 })
+// Expect: { authenticationMechanisms: ['SCRAM-SHA-256', ...] }
+
+// Check users
+db.system.users.find({}, { user: 1, roles: 1 })
+
+// Check bind IP
+db.adminCommand({ getCmdLineOpts: 1 }).parsed.net.bindIp
+// Should NOT be 0.0.0.0 in production
+
+// Verify TLS is required
+db.adminCommand({ getCmdLineOpts: 1 }).parsed.net.tls.mode
+// Should be 'requireTLS'
+
+// Check for users with excessive privileges
+db.system.users.find({ "roles.role": "root" })</code></pre>
+                <p><strong>Why it matters:</strong> Understanding common security mistakes is essential for preventing becoming another victim of data breaches and ransomware attacks.</p>
+                <p><strong>Real applications:</strong> The MongoDB ransomware attacks of 2017 explicitly exploited no-auth + public accessibility combinations that are simple to prevent.</p>
+                <p><strong>Common mistakes:</strong> Treating security as optional ("we're behind a firewall"), assuming cloud platforms provide all security by default, or ignoring security advisories and patches.</p>
+                </div>
+            </div>
+        </div>
+        <div class="accordion-item">
+            <h2 class="accordion-header" id="h_q12">
+                <button class="accordion-button collapsed" type="button"
+                    data-bs-toggle="collapse" data-bs-target="#c_q12"
+                    aria-expanded="false">
+                    <span class="question-number">13</span>How do you manage secrets and connection strings securely in Node.js + MongoDB apps?
+                </button>
+            </h2>
+            <div id="c_q12" class="accordion-collapse collapse"
+                data-bs-parent="#questionsAccordion">
+                <div class="accordion-body">Connection strings contain sensitive credentials and must never be hardcoded or committed to version control. Use <strong>environment variables</strong> via <code>.env</code> files (with <strong>dotenv</strong>) loaded at runtime, <strong>never committed to git</strong>. In production, use secret management services: <strong>AWS Secrets Manager</strong>, <strong>HashiCorp Vault</strong>, <strong>Azure Key Vault</strong>, or <strong>GCP Secret Manager</strong>. Rotate credentials regularly. Add `.env` to `.gitignore`. Use different credentials per environment (development, staging, production) with least-privilege roles for each. Atlas allows <strong>database users</strong> with IP-specific access that can be rotated without changing connection strings.
+<pre><code># .env (NEVER commit this file!)
+MONGODB_URI=mongodb+srv://appUser:SecurePass!@cluster.mongodb.net/myapp
+
+# .gitignore
+.env
+*.pem
+*.key
+
+// app.js — load from env
+require('dotenv').config();
+const client = new MongoClient(process.env.MONGODB_URI, {
+  // never hardcode credentials here
+});
+
+// AWS Secrets Manager integration
+const { SecretsManager } = require('@aws-sdk/client-secrets-manager');
+async function getMongoURI() {
+  const client = new SecretsManager({ region: 'us-east-1' });
+  const secret = await client.getSecretValue({ SecretId: 'prod/mongodb/uri' });
+  return JSON.parse(secret.SecretString).MONGODB_URI;
+}</code></pre>
+                <p><strong>Why it matters:</strong> Credential management is critical; leaked connection strings in logs or version control lead to data breaches within hours.</p>
+                <p><strong>Real applications:</strong> Production systems use environment variables in development, secret vaults in production (AWS Secrets Manager, Vault), and rotate credentials regularly.</p>
+                <p><strong>Common mistakes:</strong> Storing .env files in git, hardcoding connection strings in code, using same credentials across environments, or not rotating credentials regularly.</p>
+                </div>
+            </div>
+        </div>
+        <div class="accordion-item">
+            <h2 class="accordion-header" id="h_q13">
+                <button class="accordion-button collapsed" type="button"
+                    data-bs-toggle="collapse" data-bs-target="#c_q13"
+                    aria-expanded="false">
+                    <span class="question-number">14</span>What is the MongoDB Security Hardening Checklist?
+                </button>
+            </h2>
+            <div id="c_q13" class="accordion-collapse collapse"
+                data-bs-parent="#questionsAccordion">
+                <div class="accordion-body">MongoDB's official security checklist covers: <strong>Enable Authentication</strong> (--auth), <strong>Enable Access Control</strong> (RBAC with least privilege), <strong>Encrypt Communications</strong> (TLS/SSL), <strong>Encrypt Data at Rest</strong> (WiredTiger encryption or OS-level), <strong>Limit Network Exposure</strong> (bindIP, firewall rules), <strong>Enable Auditing</strong>, <strong>Run MongoDB with Dedicated OS Account</strong> (not root), <strong>Disable Unused Features</strong> (HTTP admin interface in older versions), and <strong>Keep MongoDB Updated</strong> (patch security vulnerabilities). For Atlas, most of these are enforced by default, making it significantly easier to maintain a secure posture.
+<pre><code># Complete mongod.conf security hardening
+net:
+  bindIp: 10.0.1.15,127.0.0.1  # restrict network access
+  port: 27017
+  tls:
+    mode: requireTLS
+    certificateKeyFile: /etc/ssl/mongodb.pem
+    CAFile: /etc/ssl/ca.pem
+
+security:
+  authorization: enabled        # require authentication
+  javascriptEnabled: false      # disable server-side JS if not needed
+
+# Run mongod as non-root user
+# $ useradd -r -s /bin/false mongod
+# $ chown -R mongod:mongod /var/lib/mongodb
+# $ sudo -u mongod mongod --config /etc/mongod.conf
+
+# Keep updated
+# $ sudo apt update && sudo apt install -y mongodb-org</code></pre>                <p><strong>Why it matters:</strong> Following a comprehensive hardening checklist ensures you don't miss critical security configurations; it's the standard framework for MongoDB security.</p>
+                <p><strong>Real applications:</strong> MongoDB Atlas uses this checklist as the default configuration, proving it's both necessary and achievablefor all deployments.</p>
+                <p><strong>Common mistakes:</strong> Implementing security partially (e.g., auth but no TLS), ignoring less obvious items (disabling JS eval, running as non-root), or not keeping systems updated.</p>                </div>
+            </div>
+        </div>
+        <div class="accordion-item">
+            <h2 class="accordion-header" id="h_q14">
+                <button class="accordion-button collapsed" type="button"
+                    data-bs-toggle="collapse" data-bs-target="#c_q14"
+                    aria-expanded="false">
+                    <span class="question-number">15</span>How do you implement rate limiting and protect MongoDB from abuse?
+                </button>
+            </h2>
+            <div id="c_q14" class="accordion-collapse collapse"
+                data-bs-parent="#questionsAccordion">
+                <div class="accordion-body">MongoDB itself has no built-in rate limiting — it must be implemented at the application or API gateway layer. Use <strong>express-rate-limit</strong> to throttle API requests. For authentication endpoints, implement <strong>account lockout</strong> (e.g., lock after 5 failed attempts). Use <strong>maxTimeMS</strong> on queries to prevent long-running queries from exhausting resources. Implement <strong>query timeout</strong> at the connection level. Use MongoDB Atlas's <strong>IP access list</strong> and <strong>connection limits</strong> per user. Monitor for unusual query patterns (sudden spike in read/write ops) using Atlas alerts or Prometheus metrics to detect attempted data exfiltration.
+<pre><code">const rateLimit = require('express-rate-limit');
+
+// Rate limit login endpoint
+const loginLimiter = rateLimit({
+  windowMs: 15 * 60 * 1000, // 15 minutes
+  max: 5, // 5 attempts per window
+  message: 'Too many login attempts, please try again later'
+});
+app.post('/login', loginLimiter, loginHandler);
+
+// MongoDB query timeout to prevent abuse
+const results = await db.collection('products')
+  .find({ category: userInput })
+  .maxTimeMS(5000) // kill query after 5 seconds
+  .toArray();
+
+// Atlas: set operation timeout on MongoClient
+const client = new MongoClient(uri, {
+  serverSelectionTimeoutMS: 5000,
+  socketTimeoutMS: 45000,
+  connectTimeoutMS: 10000
+});</code></pre>
+                <p><strong>Why it matters:</strong> Rate limiting and abuse protection prevent DoS attacks, brute-force login attempts, and resource exhaustion attacks from succeeding.</p>
+                <p><strong>Real applications:</strong> Social media platforms use rate limiting to prevent API abuse; authentication endpoints use account lockout to prevent brute-force password cracking.</p>
+                <p><strong>Common mistakes:</strong> Only rate-limiting login endpoints (should also protect search, data export endpoints), setting timeouts too lenient, or not monitoring for abuse patterns.</p>
+                </div>
+            </div>
+        </div>
+            </div>
+            <div class="topic-nav" id="topicNav">
+  <a class="topic-nav-btn prev" href="replication-sharding.html">
+    <span class="label"><i class="bi bi-arrow-left me-1"></i>Previous</span>
+    <span class="title">Replication &amp; Sharding</span>
+  </a>
+  <a class="topic-nav-btn next" href="text-search-geospatial.html">
+    <span class="label">Next <i class="bi bi-arrow-right ms-1"></i></span>
+    <span class="title">Text Search &amp; Geo</span>
+  </a>
+</div>
+         
+            <footer class="app-footer">
+                <p>&copy; 2026 InterviewPrep &mdash; MongoDB Interview Questions</p>
+            </footer>
+        </div>
+    </div>
+    <button class="btn-totop" id="backToTop"><i class="bi bi-chevron-up"></i></button>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>
+    <script>
+    (function(){
+        var sb=document.getElementById('sidebar'),bd=document.getElementById('sidebarBackdrop'),
+            tg=document.getElementById('sidebarToggle');
+        if(tg)tg.addEventListener('click',function(){sb.classList.add('open');bd.classList.add('show');});
+        if(bd)bd.addEventListener('click',function(){sb.classList.remove('open');bd.classList.remove('show');});
+        var btt=document.getElementById('backToTop');
+        window.addEventListener('scroll',function(){btt.classList.toggle('show',window.scrollY>400);});
+        btt.addEventListener('click',function(){window.scrollTo({top:0,behavior:'smooth'});});
+        var acc=document.getElementById('questionsAccordion');
+        var totalCount=15;
+        var si=document.getElementById('searchInput');
+        if(si){var t=null;si.addEventListener('input',function(){clearTimeout(t);var v=this.value.trim().toLowerCase();
+        if(v.length<2){acc.querySelectorAll('.accordion-item').forEach(function(el){el.style.display='';});
+        document.getElementById('questionCount').textContent=totalCount+' Questions';return;}
+        t=setTimeout(function(){var c=0;acc.querySelectorAll('.accordion-item').forEach(function(el){
+        var m=el.textContent.toLowerCase().indexOf(v)!==-1;el.style.display=m?'':'none';if(m)c++;});
+        document.getElementById('questionCount').textContent=c+' Questions';},200);});}
+    })();
+    </script>
+</body>
+</html>

@@ -1,0 +1,1204 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="MySQL Stored Procedures interview questions: CREATE, CALL, parameters, variables, conditional logic.">
+    <meta name="keywords" content="MySQL stored procedures, CREATE PROCEDURE, parameters, variables, IF WHILE, MySQL interview">
+    <meta name="author" content="InterviewPrep">
+    <meta name="robots" content="index, follow">
+    <link rel="icon" type="image/svg+xml" href="../../favicon.svg" sizes="any">
+    <meta property="og:type" content="website">
+    <meta property="og:title" content="MySQL Stored Procedures — MySQL Interview Questions | InterviewPrep">
+    <meta property="og:description" content="MySQL Stored Procedures interview questions: CREATE, CALL, parameters, variables, conditional logic.">
+    <meta property="og:url" content="https://coddingquestionhub.com/topics/mysql/stored-procedures.html">
+    <meta name="twitter:card" content="summary_large_image">
+    <meta name="twitter:title" content="MySQL Stored Procedures — MySQL Interview Questions | InterviewPrep">
+    <meta name="twitter:description" content="MySQL Stored Procedures interview questions: CREATE, CALL, parameters, variables, conditional logic.">
+    <meta name="twitter:image" content="https://coddingquestionhub.com/og-mysql.png">
+    <title>MySQL Stored Procedures — MySQL Interview Questions | InterviewPrep 2026</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&family=Fira+Code:wght@400;500&display=swap" rel="stylesheet">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="../../css/styles.css">
+    <link rel="canonical" href="https://coddingquestionhub.com/topics/mysql/stored-procedures.html">
+    <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-8957020141286926" crossorigin="anonymous"></script>
+    <script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "BreadcrumbList",
+  "itemListElement": [
+    {
+      "@type": "ListItem",
+      "position": 1,
+      "name": "Home",
+      "item": "https://coddingquestionhub.com"
+    },
+    {
+      "@type": "ListItem",
+      "position": 2,
+      "name": "Topics",
+      "item": "https://coddingquestionhub.com/topics"
+    },
+    {
+      "@type": "ListItem",
+      "position": 3,
+      "name": "Mysql",
+      "item": "https://coddingquestionhub.com/topics/mysql"
+    },
+    {
+      "@type": "ListItem",
+      "position": 4,
+      "name": "Stored Procedures",
+      "item": "https://coddingquestionhub.com/topics/mysql/stored-procedures.html"
+    }
+  ]
+}
+    </script>
+</head>
+<body class="theme-mysql">
+    <nav class="navbar navbar-expand-lg sticky-top" id="mainNavbar">
+        <div class="container-fluid px-3 px-lg-4">
+            <a class="navbar-brand fw-bold d-flex align-items-center gap-2" href="../../index.html">
+                <span class="brand-icon"><i class="bi bi-braces-asterisk"></i></span>
+                <span>Interview<span class="brand-accent">Prep</span></span>
+            </a>
+            <button class="navbar-toggler border-0 shadow-none" type="button" data-bs-toggle="collapse" data-bs-target="#navbarContent">
+                <i class="bi bi-list fs-3 text-white"></i>
+            </button>
+            <div class="collapse navbar-collapse" id="navbarContent">
+                <ul class="navbar-nav me-auto mb-2 mb-lg-0 ms-lg-3">
+                    <li class="nav-item dropdown">
+                        <a class="nav-link dropdown-toggle fw-500" href="#" role="button" data-bs-toggle="dropdown">
+                            <i class="bi bi-layers me-1"></i> Choose Category
+                        </a>
+                        <ul class="dropdown-menu">
+                            <li><a class="dropdown-item fw-500" href="../../pages/angular.html"><i class="bi bi-bootstrap me-2 text-danger"></i>Angular</a></li>
+                            <li><a class="dropdown-item fw-500" href="../../pages/react.html"><i class="bi bi-infinity me-2 text-info"></i>React</a></li>
+                            <li><a class="dropdown-item fw-500" href="../../pages/node.html"><i class="bi bi-hdd-network me-2 text-success"></i>Node.js</a></li>
+                            <li><a class="dropdown-item fw-500" href="../../pages/javascript.html"><i class="bi bi-filetype-js me-2 text-warning"></i>JavaScript</a></li>
+                            <li><a class="dropdown-item fw-500" href="../../pages/dsa.html"><i class="bi bi-diagram-3-fill me-2" style="color:#8b5cf6"></i>DSA</a></li>
+                            <li><a class="dropdown-item fw-500" href="../../pages/logical.html"><i class="bi bi-lightbulb me-2" style="color:#f59e0b"></i>Logical Reasoning</a></li>
+                            <li><a class="dropdown-item fw-500" href="../../pages/mongodb.html"><i class="bi bi-database-fill me-2" style="color:#4DB33D"></i>MongoDB</a></li>
+                            <li><a class="dropdown-item fw-500" href="../../pages/mysql.html"><i class="bi bi-table me-2" style="color:#0F766E"></i>MySQL</a></li>
+                        </ul>
+                    </li>
+                </ul>
+                <div class="search-wrap">
+                    <i class="bi bi-search search-icon"></i>
+                    <input class="form-control search-input" type="search" placeholder="Search questions..." id="searchInput">
+                </div>
+            </div>
+        </div>
+    </nav>
+
+        <div class="app-wrapper">
+        <aside class="sidebar" id="sidebar">
+            <div class="sidebar-head">
+                <h6><i class="bi bi-table me-2"></i>MySQL Topics</h6>
+            </div>
+            <nav>
+                <ul class="sidebar-links" id="topicList">
+                    <li><a class="nav-link" href="mysql-fundamentals.html"><i class="bi-diagram-2"></i><span>MySQL Fundamentals</span></a></li>
+                    <li><a class="nav-link" href="crud-operations.html"><i class="bi-pencil-square"></i><span>CRUD Operations</span></a></li>
+                    <li><a class="nav-link" href="sql-joins.html"><i class="bi-link-45deg"></i><span>SQL Joins</span></a></li>
+                    <li><a class="nav-link" href="indexes.html"><i class="bi-lightning-fill"></i><span>Indexes</span></a></li>
+                    <li><a class="nav-link" href="query-optimization.html"><i class="bi-speedometer2"></i><span>Query Optimization</span></a></li>
+                    <li><a class="nav-link" href="transactions-acid.html"><i class="bi-arrow-repeat"></i><span>Transactions &amp; ACID</span></a></li>
+                    <li><a class="nav-link active" href="stored-procedures.html"><i class="bi-code-square"></i><span>Stored Procedures</span></a></li>
+                    <li><a class="nav-link" href="triggers.html"><i class="bi-bell-fill"></i><span>Triggers</span></a></li>
+                    <li><a class="nav-link" href="views.html"><i class="bi-eye"></i><span>Views</span></a></li>
+                    <li><a class="nav-link" href="normalization.html"><i class="bi-diagram-3-fill"></i><span>Normalization</span></a></li>
+                    <li><a class="nav-link" href="data-types.html"><i class="bi-diagram-2"></i><span>Data Types</span></a></li>
+                    <li><a class="nav-link" href="string-functions.html"><i class="bi-chat-square-text"></i><span>String Functions</span></a></li>
+                    <li><a class="nav-link" href="date-time-functions.html"><i class="bi-calendar-event"></i><span>Date &amp; Time</span></a></li>
+                    <li><a class="nav-link" href="aggregate-functions.html"><i class="bi-graph-up"></i><span>Aggregate Functions</span></a></li>
+                    <li><a class="nav-link" href="window-functions.html"><i class="bi-column-gap"></i><span>Window Functions</span></a></li>
+                    <li><a class="nav-link" href="subqueries-ctes.html"><i class="bi-filter"></i><span>Subqueries &amp; CTEs</span></a></li>
+                    <li><a class="nav-link" href="full-text-search.html"><i class="bi-search"></i><span>Full-Text Search</span></a></li>
+                    <li><a class="nav-link" href="replication-ha.html"><i class="bi-diagram-3"></i><span>Replication &amp; HA</span></a></li>
+                    <li><a class="nav-link" href="security-permissions.html"><i class="bi-shield-check"></i><span>Security</span></a></li>
+                    <li><a class="nav-link" href="performance-tuning.html"><i class="bi-sliders"></i><span>Performance Tuning</span></a></li>
+                    <li><a class="nav-link" href="interview-queries-1.html"><i class="bi-gear-fill"></i><span>Interview Queries 1</span></a></li>
+                    <li><a class="nav-link" href="interview-queries-2.html"><i class="bi-gear-fill"></i><span>Interview Queries 2</span></a></li>
+                </ul>
+            </nav>
+        </aside>
+        <div class="sidebar-backdrop" id="sidebarBackdrop"></div>
+        <div class="content-area">
+            <div class="mobile-bar d-lg-none">
+                <button class="btn btn-sm btn-glass" id="sidebarToggle">
+                    <i class="bi bi-layout-sidebar-inset me-1"></i>Topics
+                </button>
+                <span class="badge rounded-pill" style="background:#0F766E;color:#fff;">MySQL</span>
+            </div>
+            <div class="breadcrumb-nav" id="breadcrumb">
+                <a href="../../index.html">Home</a><span class="sep">/</span>
+                <a href="../../pages/mysql.html">MySQL</a><span class="sep">/</span>
+                <span class="current">Stored Procedures</span>
+            </div>
+            <div class="qs-header">
+                <h1 class="qs-title" id="topicTitle">MySQL Stored Procedures Interview Questions</h1>
+                <span class="badge qs-badge" id="questionCount">15 Questions</span>
+            </div>
+<div class="accordion" id="questionsAccordion">
+                <div class="accordion-item">
+                    <h2 class="accordion-header" id="h_q0">
+                        <button class="accordion-button" type="button" data-bs-toggle="collapse" data-bs-target="#c_q0" aria-expanded="true"><span class="question-number">1</span> What is a stored procedure and what are its advantages?</button>
+                    </h2>
+                    <div id="c_q0" class="accordion-collapse collapse show" data-bs-parent="#questionsAccordion">
+                        <div class="accordion-body">
+                        <p>A <strong>stored procedure</strong> is a precompiled SQL program stored in the database and executed by name. <strong>Advantages</strong> include reduced network traffic (logic runs server-side), improved performance (pre-compiled), reusability across applications, security (controlled execution), and consistency (business logic in one place).</p>
+                        <pre><code>-- Simple stored procedure
+DELIMITER //
+CREATE PROCEDURE GetEmployeesByDepartment(
+    IN dept_id INT
+)
+BEGIN
+    SELECT employee_id, name, salary
+    FROM employees
+    WHERE department_id = dept_id
+    ORDER BY salary DESC;
+END //
+DELIMITER ;
+
+-- Call the procedure
+CALL GetEmployeesByDepartment(10);
+
+-- Advantages example:
+// Without procedure: Application sends full query each time
+SELECT * FROM employees WHERE department_id = 10;
+
+// With procedure: Application calls one function name
+CALL GetEmployeesByDepartment(10);</code></pre>
+
+                        <p><strong>Why it matters:</strong> Stored procedures encapsulate business logic and improve code organization and performance.</p>
+
+                        <p><strong>Real applications:</strong> E-commerce systems use procedures for order processing, financial systems for transaction handling.</p>
+
+                        <p><strong>Common mistakes:</strong> Putting too much complexity in procedures, not documenting parameter requirements.</p>
+                    </div>
+                </div>
+            </div>
+
+                <div class="accordion-item">
+                    <h2 class="accordion-header" id="h_q1">
+                        <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#c_q1" aria-expanded="false"><span class="question-number">2</span> How do you create procedures with parameters (IN, OUT, INOUT)?</button>
+                    </h2>
+                    <div id="c_q1" class="accordion-collapse collapse" data-bs-parent="#questionsAccordion">
+                        <div class="accordion-body">
+                        <p><strong>IN parameters</strong> pass values to the procedure, <strong>OUT parameters</strong> return values, and <strong>INOUT parameters</strong> do both. Parameters allow procedures to be dynamic and reusable. SET statements modify values, SELECT INTO captures query results into variables.</p>
+                        <pre><code>-- IN parameter (input only)
+DELIMITER //
+CREATE PROCEDURE CalculateBonus(
+    IN employee_id INT,
+    IN bonus_percent DECIMAL(5,2)
+)
+BEGIN
+    SELECT salary * (bonus_percent / 100) as bonus
+    FROM employees
+    WHERE employee_id = employee_id;
+END //
+DELIMITER ;
+
+-- OUT parameter (output only)
+DELIMITER //
+CREATE PROCEDURE GetEmployeeCount(
+    IN dept_id INT,
+    OUT emp_count INT
+)
+BEGIN
+    SELECT COUNT(*) INTO emp_count
+    FROM employees
+    WHERE department_id = dept_id;
+END //
+DELIMITER ;
+
+-- INOUT parameter (both input and output)
+DELIMITER //
+CREATE PROCEDURE DoubleAndAdd(
+    INOUT value INT,
+    IN increment INT
+)
+BEGIN
+    SET value = value * 2 + increment;
+END //
+DELIMITER ;
+
+-- Usage examples
+CALL CalculateBonus(1, 10.5);  -- Just reads
+
+CALL GetEmployeeCount(10, @count);
+SELECT @count;  -- 0utput captured in user variable
+
+SET @num = 5;
+CALL DoubleAndAdd(@num, 3);  -- Input modified to output
+SELECT @num;  -- Result: 13</code></pre>
+
+                        <p><strong>Why it matters:</strong> Understanding parameter types is essential for writing flexible procedures.</p>
+
+                        <p><strong>Real applications:</strong> Data processing procedures, reporting routines, data transformation jobs.</p>
+
+                        <p><strong>Common mistakes:</strong> Confusing parameter order, not initializing OUT parameters before use.</p>
+                    </div>
+                </div>
+            </div>
+
+                <div class="accordion-item">
+                    <h2 class="accordion-header" id="h_q2">
+                        <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#c_q2" aria-expanded="false"><span class="question-number">3</span> How do you use variables and control flow in procedures?</button>
+                    </h2>
+                    <div id="c_q2" class="accordion-collapse collapse" data-bs-parent="#questionsAccordion">
+                        <div class="accordion-body">
+                        <p><strong>DECLARE</strong> creates local variables for temporary storage. <strong>Control flow statements</strong> include IF/ELSE for branching, CASE for multiple choices, LOOP for repetition, and WHILE for conditional looping. These enable complex business logic within procedures.</p>
+                        <pre><code>-- Variable declaration and usage
+DELIMITER //
+CREATE PROCEDURE ProcessOrder(
+    IN order_id INT,
+    OUT status VARCHAR(50)
+)
+BEGIN
+    DECLARE total_amount DECIMAL(10,2);
+    DECLARE customer_credit DECIMAL(10,2);
+    
+    SELECT SUM(amount) INTO total_amount
+    FROM order_items WHERE order_id = order_id;
+    
+    SELECT credit_limit INTO customer_credit
+    FROM customers WHERE id = (
+        SELECT customer_id FROM orders WHERE id = order_id
+    );
+    
+    IF total_amount > customer_credit THEN
+        SET status = 'CREDIT_LIMIT_EXCEEDED';
+    ELSEIF total_amount > 10000 THEN
+        SET status = 'LARGE_ORDER_APPROVAL_REQUIRED';
+    ELSE
+        SET status = 'APPROVED';
+    END IF;
+END //
+DELIMITER ;
+
+-- CASE statement
+DELIMITER //
+CREATE PROCEDURE CategorizeEmployee(
+    IN salary DECIMAL(10,2),
+    OUT category VARCHAR(50)
+)
+BEGIN
+    CASE
+        WHEN salary < 30000 THEN SET category = 'Junior';
+        WHEN salary < 50000 THEN SET category = 'Mid-level';
+        WHEN salary < 80000 THEN SET category = 'Senior';
+        ELSE SET category = 'Executive';
+    END CASE;
+END //
+DELIMITER ;
+
+-- LOOP control structure
+DELIMITER //
+CREATE PROCEDURE GenerateNumbers(
+    IN max_number INT,
+    OUT result VARCHAR(255)
+)
+BEGIN
+    DECLARE counter INT DEFAULT 1;
+    DECLARE numbers VARCHAR(255) DEFAULT '';
+    
+    WHILE counter <= max_number DO
+        SET numbers = CONCAT(numbers, counter, ', ');
+        SET counter = counter + 1;
+    END WHILE;
+    
+    SET result = numbers;
+END //
+DELIMITER ;</code></pre>
+
+                        <p><strong>Why it matters:</strong> Control flow enables complex procedures to implement business logic.</p>
+
+                        <p><strong>Real applications:</strong> Data validation routines, report generation, transaction processing.</p>
+
+                        <p><strong>Common mistakes:</strong> Infinite loops, variable naming conflicts, not initializing variables.</p>
+                    </div>
+                </div>
+            </div>
+
+                <div class="accordion-item">
+                    <h2 class="accordion-header" id="h_q3">
+                        <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#c_q3" aria-expanded="false"><span class="question-number">4</span> How do you handle errors in stored procedures?</button>
+                    </h2>
+                    <div id="c_q3" class="accordion-collapse collapse" data-bs-parent="#questionsAccordion">
+                        <div class="accordion-body">
+                        <p><strong>DECLARE CONTINUE HANDLER</strong> catches errors and continues, while <strong>DECLARE EXIT HANDLER</strong> catches and stops. <strong>SQLEXCEPTION</strong> catches all errors, specific error codes catch particular issues. Error handling enables graceful failure recovery and ensures data consistency.</p>
+                        <pre><code>-- Basic error handler
+DELIMITER //
+CREATE PROCEDURE TransferFunds(
+    IN from_account INT,
+    IN to_account INT,
+    IN amount DECIMAL(10,2)
+)
+BEGIN
+    DECLARE EXIT HANDLER FOR SQLEXCEPTION
+    BEGIN
+        ROLLBACK;
+        SELECT 'Error: Transfer failed' as message;
+    END;
+    
+    BEGIN
+        DECLARE EXIT HANDLER FOR 1064  -- Specific error code
+        BEGIN
+            SELECT 'SQL Syntax Error' as message;
+            ROLLBACK;
+        END;
+        
+        START TRANSACTION;
+        
+        UPDATE accounts SET balance = balance - amount
+        WHERE account_id = from_account;
+        
+        UPDATE accounts SET balance = balance + amount
+        WHERE account_id = to_account;
+        
+        COMMIT;
+    END;
+END //
+DELIMITER ;
+
+-- Continue handler (ignore errors and continue)
+DELIMITER //
+CREATE PROCEDURE ProcessMultipleOrders(
+    IN order_list VARCHAR(255)
+)
+BEGIN
+    DECLARE CONTINUE HANDLER FOR SQLEXCEPTION
+    BEGIN
+        -- Do nothing, continue processing
+    END;
+    
+    -- Process orders, skipping any that fail
+    -- Logic here...
+END //
+DELIMITER ;
+
+-- Check error state
+DELIMITER //
+CREATE PROCEDURE SafeUpdate(
+    IN table_name VARCHAR(50),
+    IN update_query VARCHAR(255)
+)
+BEGIN
+    DECLARE error_message VARCHAR(255);
+    
+    DECLARE CONTINUE HANDLER FOR SQLEXCEPTION
+    BEGIN
+        GET DIAGNOSTICS CONDITION 1
+            error_message = MESSAGE_TEXT;
+        SELECT CONCAT('Error occurred: ', error_message);
+    END;
+    
+    SET @query = update_query;
+    PREPARE stmt FROM @query;
+    EXECUTE stmt;
+    DEALLOCATE PREPARE stmt;
+END //
+DELIMITER ;</code></pre>
+
+                        <p><strong>Why it matters:</strong> Error handling prevents data corruption and enables reliable procedure execution.</p>
+
+                        <p><strong>Real applications:</strong> Critical business processes, batch data operations, transaction procedures.</p>
+
+                        <p><strong>Common mistakes:</strong> Swallowing errors silently, not logging errors for debugging.</p>
+                    </div>
+                </div>
+            </div>
+
+                <div class="accordion-item">
+                    <h2 class="accordion-header" id="h_q4">
+                        <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#c_q4" aria-expanded="false"><span class="question-number">5</span> How do you call stored procedures and retrieve results?</button>
+                    </h2>
+                    <div id="c_q4" class="accordion-collapse collapse" data-bs-parent="#questionsAccordion">
+                        <div class="accordion-body">
+                        <p><strong>CALL statement</strong> executes a stored procedure. <strong>OUT parameters</strong> are retrieved using user variables. Multiple result sets can be returned from a procedure by executing multiple SELECT statements. Different programming languages have specific methods to call procedures.</p>
+                        <pre><code>-- Simple procedure call
+CALL GetEmployeesByDepartment(10);
+
+-- Capture OUT parameter
+CALL GetEmployeeCount(10, @count);
+SELECT @count;
+
+-- Multiple result sets
+DELIMITER //
+CREATE PROCEDURE GetDepartmentSummary(
+    IN dept_id INT
+)
+BEGIN
+    SELECT * FROM employees WHERE department_id = dept_id;
+    SELECT COUNT(*) as total FROM employees WHERE department_id = dept_id;
+    SELECT AVG(salary) as avg_salary FROM employees WHERE department_id = dept_id;
+END //
+DELIMITER ;
+
+CALL GetDepartmentSummary(10);  -- Returns 3 result sets
+
+-- Python/Application level calling
+cursor.callproc('GetEmployeesByDepartment', [10])
+results = cursor.fetchall()
+
+// Node.js/JavaScript
+connection.query('CALL GetEmployeeCount(10, @count)', function(error, results) {
+    if (error) throw error;
+    console.log('Employee count:', results);
+});</code></pre>
+
+                        <p><strong>Why it matters:</strong> Proper procedure calling from applications is essential for deployment.</p>
+
+                        <p><strong>Real applications:</strong> Web applications calling API procedures, batch jobs executing ETL procedures.</p>
+
+                        <p><strong>Common mistakes:</strong> Not handling multiple result sets, not capturing OUT parameters correctly.</p>
+                    </div>
+                </div>
+            </div>
+
+                <div class="accordion-item">
+                    <h2 class="accordion-header" id="h_q5">
+                        <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#c_q5" aria-expanded="false"><span class="question-number">6</span> How do you drop and modify stored procedures?</button>
+                    </h2>
+                    <div id="c_q5" class="accordion-collapse collapse" data-bs-parent="#questionsAccordion">
+                        <div class="accordion-body">
+                        <p><strong>DROP PROCEDURE</strong> removes a procedure permanently. <strong>ALTER PROCEDURE</strong> modifies procedure properties (not logic). To modify logic, drop and recreate the procedure. <strong>DROP IF EXISTS</strong> prevents errors when procedure doesn't exist.</p>
+                        <pre><code>-- Drop procedure
+DROP PROCEDURE GetEmployeesByDepartment;
+
+-- Drop if exists (prevents error)
+DROP PROCEDURE IF EXISTS GetEmployeesByDepartment;
+
+-- Drop multiple procedures
+DROP PROCEDURE IF EXISTS GetEmployeesByDepartment;
+DROP PROCEDURE IF EXISTS GetEmployeeCount;
+DROP PROCEDURE IF EXISTS GetEmployeeSalary;
+
+-- Modify procedure properties
+ALTER PROCEDURE GetEmployeesByDepartment
+    SQL SECURITY DEFINER
+    COMMENT 'Retrieves employees by department';
+
+-- View procedure details
+SHOW CREATE PROCEDURE GetEmployeesByDepartment;
+
+-- List all procedures in database
+SELECT * FROM INFORMATION_SCHEMA.ROUTINES
+WHERE ROUTINE_SCHEMA = 'database_name' AND ROUTINE_TYPE = 'PROCEDURE';
+
+-- Modify procedure logic (must drop and recreate)
+DROP PROCEDURE IF EXISTS GetEmployeesByDepartment;
+
+DELIMITER //
+CREATE PROCEDURE GetEmployeesByDepartment(
+    IN dept_id INT
+)
+BEGIN
+    SELECT employee_id, name, salary, hire_date
+    FROM employees
+    WHERE department_id = dept_id
+    ORDER BY salary DESC;
+END //
+DELIMITER ;</code></pre>
+
+                        <p><strong>Why it matters:</strong> Managing procedure lifecycle is essential for maintaining code quality.</p>
+
+                        <p><strong>Real applications:</strong> Database migrations, schema updates, procedure versioning.</p>
+
+                        <p><strong>Common mistakes:</strong> Dropping procedures in production without testing, not backing up before drops.</p>
+                    </div>
+                </div>
+            </div>
+
+                <div class="accordion-item">
+                    <h2 class="accordion-header" id="h_q6">
+                        <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#c_q6" aria-expanded="false"><span class="question-number">7</span> What are recursive procedures and when are they useful?</button>
+                    </h2>
+                    <div id="c_q6" class="accordion-collapse collapse" data-bs-parent="#questionsAccordion">
+                        <div class="accordion-body">
+                        <p><strong>Recursive procedures</strong> call themselves to process hierarchical or tree-structured data. They require a base case to stop recursion. Useful for organizational charts, category hierarchies, and file systems. MySQL supports recursion but requires careful implementation to avoid infinite loops and stack overflow.</p>
+                        <pre><code>-- Recursive procedure for organizational hierarchy
+DELIMITER //
+CREATE PROCEDURE GetEmployeeHierarchy(
+    IN emp_id INT,
+    IN level INT
+)
+BEGIN
+    DECLARE manager_id INT;
+    
+    -- Base case: stop recursion
+    IF level > 10 THEN
+        RETURN;
+    END IF;
+    
+    -- Get current employee
+    SELECT CONCAT(REPEAT('  ', level), employee_id, ' - ', name, ' - Level:', level)
+    FROM employees WHERE employee_id = emp_id;
+    
+    -- Get manager ID
+    SELECT manager_id INTO manager_id
+    FROM employees WHERE employee_id = emp_id;
+    
+    -- Recursive case: call procedure for manager
+    IF manager_id IS NOT NULL THEN
+        CALL GetEmployeeHierarchy(manager_id, level + 1);
+    END IF;
+END //
+DELIMITER ;
+
+-- Call recursive procedure
+CALL GetEmployeeHierarchy(1, 0);
+
+-- Recursive procedure for category tree
+DELIMITER //
+CREATE PROCEDURE GetCategoryTree(
+    IN category_id INT,
+    IN indent INT
+)
+BEGIN
+    DECLARE done INT DEFAULT 0;
+    DECLARE child_id INT;
+    DECLARE cur CURSOR FOR 
+        SELECT id FROM categories WHERE parent_id = category_id;
+    DECLARE CONTINUE HANDLER FOR NOT FOUND SET done = 1;
+    
+    -- Print current category
+    SELECT category_id, REPEAT('  ', indent) as indent;
+    
+    -- Open cursor for children
+    OPEN cur;
+    category_loop: LOOP
+        FETCH cur INTO child_id;
+        IF done THEN
+            LEAVE category_loop;
+        END IF;
+        CALL GetCategoryTree(child_id, indent + 1);
+    END LOOP;
+    CLOSE cur;
+END //
+DELIMITER ;</code></pre>
+
+                        <p><strong>Why it matters:</strong> Recursive procedures handle hierarchical data efficiently without application-level recursion.</p>
+
+                        <p><strong>Real applications:</strong> Org charts, category management, comment threads, file systems.</p>
+
+                        <p><strong>Common mistakes:</strong> Missing base case causing infinite recursion, deep recursion hitting stack limits.</p>
+                    </div>
+                </div>
+            </div>
+
+                <div class="accordion-item">
+                    <h2 class="accordion-header" id="h_q7">
+                        <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#c_q7" aria-expanded="false"><span class="question-number">8</span> How do you use transactions within stored procedures?</button>
+                    </h2>
+                    <div id="c_q7" class="accordion-collapse collapse" data-bs-parent="#questionsAccordion">
+                        <div class="accordion-body">
+                        <p><strong>Transactions in procedures</strong> ensure atomicity of multi-step operations. Use <strong>BEGIN, COMMIT, ROLLBACK</strong> within procedures. Error handlers automatic rollback on exceptions. Savepoints enable partial rollback. Procedures encapsulate transaction logic ensuring consistency.</p>
+                        <pre><code>-- Procedure with transaction
+DELIMITER //
+CREATE PROCEDURE TransferBetweenAccounts(
+    IN from_account INT,
+    IN to_account INT,
+    IN amount DECIMAL(10,2)
+)
+BEGIN
+    DECLARE EXIT HANDLER FOR SQLEXCEPTION
+    BEGIN
+        ROLLBACK;
+        SELECT 'Transfer failed' as result;
+    END;
+    
+    BEGIN
+        START TRANSACTION;
+        
+        UPDATE accounts SET balance = balance - amount
+        WHERE account_id = from_account;
+        
+        IF ROW_COUNT() = 0 THEN
+            SIGNAL SQLSTATE '45000' SET MESSAGE_TEXT = 'Source account not found';
+        END IF;
+        
+        UPDATE accounts SET balance = balance + amount
+        WHERE account_id = to_account;
+        
+        IF ROW_COUNT() = 0 THEN
+            SIGNAL SQLSTATE '45000' SET MESSAGE_TEXT = 'Destination account not found';
+        END IF;
+        
+        COMMIT;
+        SELECT 'Transfer successful' as result;
+    END;
+END //
+DELIMITER ;
+
+-- Procedure with savepoints
+DELIMITER //
+CREATE PROCEDURE ComplexUpdate()
+BEGIN
+    START TRANSACTION;
+    
+    -- Step 1
+    UPDATE table1 SET column1 = column1 + 1;
+    SAVEPOINT sp1;
+    
+    -- Step 2
+    UPDATE table2 SET column2 = column2 + 1;
+    SAVEPOINT sp2;
+    
+    -- Step 3 (may fail)
+    UPDATE table3 SET column3 = column3 + 1;
+    
+    IF @@error_count > 0 THEN
+        ROLLBACK TO sp2;  -- Undo step 3, keep 1 and 2
+    END IF;
+    
+    COMMIT;
+END //
+DELIMITER ;</code></pre>
+
+                        <p><strong>Why it matters:</strong> Proper transaction handling in procedures ensures data consistency in complex operations.</p>
+
+                        <p><strong>Real applications:</strong> Multi-step business processes, data synchronization routines.</p>
+
+                        <p><strong>Common mistakes:</strong> Not handling transaction errors, nested transaction complexity.</p>
+                    </div>
+                </div>
+            </div>
+
+                <div class="accordion-item">
+                    <h2 class="accordion-header" id="h_q8">
+                        <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#c_q8" aria-expanded="false"><span class="question-number">9</span> What are cursors and how do you use them in procedures?</button>
+                    </h2>
+                    <div id="c_q8" class="accordion-collapse collapse" data-bs-parent="#questionsAccordion">
+                        <div class="accordion-body">
+                        <p><strong>Cursors</strong> allow iterating through query result sets row-by-row in procedures. <strong>DECLARE CURSOR</strong> defines the query, <strong>OPEN</strong> executes it, <strong>FETCH</strong> retrieves rows, <strong>CLOSE</strong> releases resources. Cursors enable complex processing logic but are slower than set-based operations.</p>
+                        <pre><code>-- Basic cursor usage
+DELIMITER //
+CREATE PROCEDURE ProcessEmployees()
+BEGIN
+    DECLARE emp_id INT;
+    DECLARE emp_name VARCHAR(100);
+    DECLARE emp_salary DECIMAL(10,2);
+    DECLARE done INT DEFAULT 0;
+    
+    DECLARE emp_cursor CURSOR FOR
+        SELECT employee_id, name, salary
+        FROM employees
+        WHERE department_id = 10;
+    
+    DECLARE CONTINUE HANDLER FOR NOT FOUND
+        SET done = 1;
+    
+    -- Open cursor
+    OPEN emp_cursor;
+    
+    -- Loop through results
+    employee_loop: LOOP
+        FETCH emp_cursor INTO emp_id, emp_name, emp_salary;
+        
+        IF done THEN
+            LEAVE employee_loop;
+        END IF;
+        
+        -- Process each row
+        UPDATE payroll SET amount = emp_salary * 12
+        WHERE employee_id = emp_id;
+        
+        INSERT INTO audit_log VALUES (NOW(), emp_name, 'Salary processed');
+    END LOOP;
+    
+    CLOSE emp_cursor;
+END //
+DELIMITER ;
+
+-- Loop statement (alternative to LOOP...END LOOP)
+DELIMITER //
+CREATE PROCEDURE ProcessOrdersLoop()
+BEGIN
+    DECLARE order_id INT;
+    DECLARE done INT DEFAULT 0;
+    
+    DECLARE order_cursor CURSOR FOR
+        SELECT id FROM orders WHERE status = 'pending';
+    
+    DECLARE CONTINUE HANDLER FOR NOT FOUND SET done = 1;
+    
+    OPEN order_cursor;
+    
+    REPEAT
+        FETCH order_cursor INTO order_id;
+        
+        IF NOT done THEN
+            -- Process order
+            UPDATE orders SET status = 'processing'
+            WHERE id = order_id;
+        END IF;
+    UNTIL done
+    END REPEAT;
+    
+    CLOSE order_cursor;
+END //
+DELIMITER ;</code></pre>
+
+                        <p><strong>Why it matters:</strong> Cursors enable row-by-row processing when set-based operations aren't feasible.</p>
+
+                        <p><strong>Real applications:</strong> Complex data transformations, conditional row processing, ETL procedures.</p>
+
+                        <p><strong>Common mistakes:</strong> Not closing cursors (resource leak), using cursors when queries would be faster.</p>
+                    </div>
+                </div>
+            </div>
+
+                <div class="accordion-item">
+                    <h2 class="accordion-header" id="h_q9">
+                        <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#c_q9" aria-expanded="false"><span class="question-number">10</span> How do stored procedures compare to application code in terms of performance?</button>
+                    </h2>
+                    <div id="c_q9" class="accordion-collapse collapse" data-bs-parent="#questionsAccordion">
+                        <div class="accordion-body">
+                        <p><strong>Stored procedures</strong> execute on server (reduces network traffic) but are harder to test and version. <strong>Application code</strong> is easier to test and debug but requires more network round trips. <strong>Hybrid approach</strong> uses procedures for critical paths, application code for business logic. Performance depends on complexity and network latency.</p>
+                        <pre><code>-- Scenario 1: Simple query - similar performance
+-- Procedure
+CALL GetEmployee(1);
+
+-- Application code
+SELECT * FROM employees WHERE id = 1;  -- Similar network overhead
+
+-- Scenario 2: Complex multi-step operation - procedure better
+-- Procedure (1 network round trip)
+CALL ProcessOrder(order_id);
+-- Internally handles validation, inventory update, payment, logging
+
+-- Application code (5+ network round trips)
+order = SELECT * FROM orders WHERE id = order_id;
+inventory = SELECT * FROM inventory WHERE product_id = order.product_id;
+UPDATE inventory SET quantity = quantity - order.quantity;
+UPDATE orders SET status = 'processing';
+INSERT INTO audit_log VALUES (...);
+
+-- Scenario 3: High-concurrency - procedure may reduce locking overhead
+// With procedure: Execute once on server = 1 lock sequence
+CALL BulkUpdate(input_data);
+
+// With application code: Loop and execute = multiple lock sequences
+for each record:
+    UPDATE table SET column = value;
+
+-- Performance considerations
+// Pros: Pre-compiled, reduced network traffic, centralized logic
+// Cons: Harder debugging, version control issues, T-SQL learning curve
+
+-- When to use procedures:
+// - Frequent database operations (network latency adds up)
+// - Transactions involving multiple tables
+// - Bulk operations (insert many records)
+// - Reporting queries with complex logic
+
+-- When to use application code:
+// - Simple CRUD operations
+// - Frequently changing logic
+// - Complex business logic
+// - Need for testing and version control</code></pre>
+
+                        <p><strong>Why it matters:</strong> Choosing between procedures and application code affects performance and maintainability.</p>
+
+                        <p><strong>Real applications:</strong> APIs often use simple queries, batch jobs use procedures, real-time systems hybrid.</p>
+
+                        <p><strong>Common mistakes:</strong> Overusing procedures, excessive network latency, poor procedure design.</p>
+                    </div>
+                </div>
+            </div>
+
+                <div class="accordion-item">
+                    <h2 class="accordion-header" id="h_q10">
+                        <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#c_q10" aria-expanded="false"><span class="question-number">11</span> What are security implications of stored procedures?</button>
+                    </h2>
+                    <div id="c_q10" class="accordion-collapse collapse" data-bs-parent="#questionsAccordion">
+                        <div class="accordion-body">
+                        <p><strong>SQL injection protection</strong> is a major benefit—procedures with parameters are safe from injection. <strong>DEFINER clause</strong> controls execution context and permissions. <strong>SQL SECURITY</strong> option determines privilege checking. Procedures should validate inputs and follow least-privilege principle.</p>
+                        <pre><code>-- Vulnerable to SQL injection with string concatenation
+DELIMITER //
+CREATE PROCEDURE GetEmployeeUnsafe(
+    IN search_term VARCHAR(100)
+)
+BEGIN
+    SET @query = CONCAT('SELECT * FROM employees WHERE name LIKE ''%', search_term, '%''');
+    PREPARE stmt FROM @query;
+    EXECUTE stmt;
+    DEALLOCATE PREPARE stmt;
+END //
+DELIMITER ;
+
+-- Safe: Using parameterized queries
+DELIMITER //
+CREATE PROCEDURE GetEmployeeSafe(
+    IN search_term VARCHAR(100)
+)
+BEGIN
+    SELECT * FROM employees WHERE name LIKE CONCAT('%', search_term, '%');
+END //
+DELIMITER ;
+
+-- SQL SECURITY DEFINER vs INVOKER
+-- DEFINER: Execute with creator's privileges (safer but less flexible)
+DELIMITER //
+CREATE PROCEDURE AdminOperation()
+    SQL SECURITY DEFINER
+BEGIN
+    -- Executes with creator's permissions
+    DELETE FROM sensitive_table;
+END //
+DELIMITER ;
+
+-- INVOKER: Execute with caller's privileges (more flexible, needs caller permissions)
+DELIMITER //  
+CREATE PROCEDURE UserOperation()
+    SQL SECURITY INVOKER
+BEGIN
+    -- Executes with caller's permissions
+    SELECT * FROM public_table;
+END //
+DELIMITER ;
+
+-- Input validation in procedures
+DELIMITER //
+CREATE PROCEDURE TransferFundsSecure(
+    IN from_account INT,
+    IN to_account INT,
+    IN amount DECIMAL(10,2)
+)
+BEGIN
+    IF amount <= 0 THEN
+        SIGNAL SQLSTATE '45000' SET MESSAGE_TEXT = 'Invalid amount';
+    END IF;
+    
+    IF from_account = to_account THEN
+        SIGNAL SQLSTATE '45000' SET MESSAGE_TEXT = 'Cannot transfer to same account';
+    END IF;
+    
+    -- Proceed with transfer...
+END //
+DELIMITER ;</code></pre>
+
+                        <p><strong>Why it matters:</strong> Security in procedures prevents data breaches and unauthorized access.</p>
+
+                        <p><strong>Real applications:</strong> Financial systems, healthcare databases, PII handling.</p>
+
+                        <p><strong>Common mistakes:</strong> Dynamic SQL with concatenation, not validating inputs, improper SQL SECURITY settings.</p>
+                    </div>
+                </div>
+            </div>
+
+                <div class="accordion-item">
+                    <h2 class="accordion-header" id="h_q11">
+                        <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#c_q11" aria-expanded="false"><span class="question-number">12</span> How do you debug and test stored procedures?</button>
+                    </h2>
+                    <div id="c_q11" class="accordion-collapse collapse" data-bs-parent="#questionsAccordion">
+                        <div class="accordion-body">
+                        <p><strong>Debugging procedures</strong> involves adding SELECT statements to inspect variables, checking error codes with SHOW ERRORS, using MySQL debuggers (MySQL Workbench), or adding logging tables. <strong>Testing</strong> includes unit tests for procedures, integration tests with transactions, and edge case validation.</p>
+                        <pre><code>-- Debug using SELECT statements
+DELIMITER //
+CREATE PROCEDURE DebugExample(
+    IN input_value INT
+)
+BEGIN
+    DECLARE processed_value INT;
+    
+    SELECT input_value as 'Input value';
+    
+    SET processed_value = input_value * 2;
+    SELECT processed_value as 'After doubling';
+    
+    SELECT * FROM employees LIMIT processed_value;
+    SELECT processed_value as 'Final result';
+END //
+DELIMITER ;
+
+-- Create logging table for debugging
+CREATE TABLE procedure_log (
+    log_id INT AUTO_INCREMENT PRIMARY KEY,
+    procedure_name VARCHAR(100),
+    message VARCHAR(255),
+    created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP
+);
+
+-- Debug procedure with logging
+DELIMITER //
+CREATE PROCEDURE DebugWithLogging(
+    IN emp_id INT
+)
+BEGIN
+    INSERT INTO procedure_log VALUES (NULL, 'DebugWithLogging', CONCAT('Started with emp_id: ', emp_id), NOW());
+    
+    IF emp_id < 0 THEN
+        INSERT INTO procedure_log VALUES (NULL, 'DebugWithLogging', 'Invalid employee ID', NOW());
+        SIGNAL SQLSTATE '45000' SET MESSAGE_TEXT = 'Invalid ID';
+    END IF;
+    
+    INSERT INTO procedure_log VALUES (NULL, 'DebugWithLogging', 'Completed successfully', NOW());
+END //
+DELIMITER ;
+
+-- Test procedure within transaction
+START TRANSACTION;
+CALL TestProcedure();
+-- Check results
+SELECT * FROM test_table;
+ROLLBACK;  -- Undo test changes
+
+-- SHOW ERRORS for capturing syntax errors
+SHOW ERRORS;
+SHOW ERRORS LIMIT 10;</code></pre>
+
+                        <p><strong>Why it matters:</strong> Effective debugging and testing ensures procedures work correctly in production.</p>
+
+                        <p><strong>Real applications:</strong> Development, QA, production troubleshooting.</p>
+
+                        <p><strong>Common mistakes:</strong> Not testing edge cases, removing debug code from production accidentally.</p>
+                    </div>
+                </div>
+            </div>
+
+                <div class="accordion-item">
+                    <h2 class="accordion-header" id="h_q12">
+                        <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#c_q12" aria-expanded="false"><span class="question-number">13</span> What are common performance issues with stored procedures?</button>
+                    </h2>
+                    <div id="c_q12" class="accordion-collapse collapse" data-bs-parent="#questionsAccordion">
+                        <div class="accordion-body">
+                        <p><strong>Performance issues</strong> include using cursors instead of set-based operations, inefficient queries, missing indexes on involved tables, excessive memory usage with large variables, and poor transaction granularity. Procedures don't auto-optimize query plans—they need same tuning as regular queries.</p>
+                        <pre><code>-- Performance Issue 1: Cursor instead of set-based operation
+-- Slow: Row-by-row processing
+DECLARE cur CURSOR FOR SELECT * FROM employees WHERE dept = 10;
+LOOP
+    FETCH cur...
+    UPDATE salary WHERE emp = current_emp;
+END LOOP;
+
+-- Fast: Set-based operation
+UPDATE salary SET amount = amount * 1.05
+WHERE emp IN (SELECT id FROM employees WHERE dept = 10);
+
+-- Performance Issue 2: N+1 query problem
+-- Slow: Query in loop
+DECLARE cur CURSOR FOR SELECT id FROM orders;
+LOOP
+    FETCH cur INTO order_id;
+    SELECT * FROM order_items WHERE order_id = order_id;
+END LOOP;
+
+-- Fast: Single join query
+SELECT o.*, oi.* FROM orders o
+JOIN order_items oi ON o.id = oi.order_id;
+
+-- Performance Issue 3: Missing indexes in procedure queries
+DELIMITER //
+CREATE PROCEDURE SlowQuery()
+BEGIN
+    SELECT * FROM orders WHERE customer_id = 123;
+    -- Runs slow without index on customer_id
+    -- Solution: CREATE INDEX idx_customer ON orders(customer_id);
+END //
+DELIMITER ;
+
+-- Performance Issue 4: Inefficient string operations
+-- Slow: Concatenates in loop
+SET @result = '';
+LOOP
+    SET @result = CONCAT(@result, CAST(value AS CHAR));
+END LOOP;
+
+-- Better: Use GROUP_CONCAT or build string differently
+
+-- Monitor procedure performance
+SHOW PROCEDURE STATUS WHERE NAME = 'procedure_name';
+
+-- Profile with Performance Schema
+SELECT * FROM performance_schema.events_statements_by_digest
+WHERE DIGEST_TEXT LIKE '%procedure%'
+ORDER BY COUNT_STAR DESC;</code></pre>
+
+                        <p><strong>Why it matters:</strong> Identifying and fixing performance issues prevents production slowdowns.</p>
+
+                        <p><strong>Real applications:</strong> Large dataset operations, high-volume transaction procedures.</p>
+
+                        <p><strong>Common mistakes:</strong> Using loops instead of set operations, not profiling procedures before deployment.</p>
+                    </div>
+                </div>
+            </div>
+
+                <div class="accordion-item">
+                    <h2 class="accordion-header" id="h_q13">
+                        <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#c_q13" aria-expanded="false"><span class="question-number">14</span> How do you handle procedure versioning and deployment?</button>
+                    </h2>
+                    <div id="c_q13" class="accordion-collapse collapse" data-bs-parent="#questionsAccordion">
+                        <div class="accordion-body">
+                        <p><strong>Version control</strong> for procedures involves storing SQL scripts in Git, using naming conventions with versions, creating change logs, and managing backward compatibility. <strong>Deployment strategy</strong> includes testing in staging, rolling changes gradually, and being able to rollback.</p>
+                        <pre><code>-- Version control strategy
+-- Naming convention with version
+DELIMITER //
+CREATE PROCEDURE GetEmployees_v2()
+BEGIN
+    SELECT * FROM employees;
+END //
+DELIMITER ;
+
+-- Script file: procedures/v001_initial.sql contains first version
+-- Script file: procedures/v002_added_filtering.sql contains updated version
+-- Each deployment file has:
+// - New procedures
+// - Modified procedures with new name + version
+// - Procedure retirement (drop old versions if safe)
+
+-- Change log
+CREATE TABLE procedure_changelog (
+    version VARCHAR(20),
+    procedure_name VARCHAR(100),
+    change_description VARCHAR(255),
+    deployed_at TIMESTAMP,
+    deployed_by VARCHAR(50)
+);
+
+INSERT INTO procedure_changelog VALUES 
+('v2.1', 'GetEmployees', 'Added department filter', NOW(), 'admin');
+
+-- Gradual rollout - keep old and new procedures
+-- Route traffic to new version gradually:
+// 10% calls to GetEmployees_v2
+// 90% calls to GetEmployees_v1
+// Monitor performance before full cutover
+
+-- Backward compatibility approach
+DELIMITER //
+CREATE PROCEDURE GetEmployees(
+    IN version INT DEFAULT 1
+)
+BEGIN
+    IF version = 1 THEN
+        SELECT employee_id, name FROM employees;
+    ELSEIF version = 2 THEN
+        SELECT employee_id, name, salary, department_id FROM employees;
+    END IF;
+END //
+DELIMITER ;
+
+-- Rollback capability - keep old procedure available
+DROP PROCEDURE IF EXISTS GetEmployees_backup;
+RENAME PROCEDURE GetEmployees_v1 TO GetEmployees_backup;</code></pre>
+
+                        <p><strong>Why it matters:</strong> Proper versioning and deployment prevents production incidents.</p>
+
+                        <p><strong>Real applications:</strong> Large-scale database changes, multi-environment deployments.</p>
+
+                        <p><strong>Common mistakes:</strong> Not testing before deployment, no rollback plan, breaking backward compatibility.</p>
+                    </div>
+                </div>
+            </div>
+
+                <div class="accordion-item">
+                    <h2 class="accordion-header" id="h_q14">
+                        <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#c_q14" aria-expanded="false"><span class="question-number">15</span> When should you use procedures vs functions in MySQL?</button>
+                    </h2>
+                    <div id="c_q14" class="accordion-collapse collapse" data-bs-parent="#questionsAccordion">
+                        <div class="accordion-body">
+                        <p><strong>Functions</strong> return a single value, are used in SELECT queries, and must be deterministic. <strong>Procedures</strong> can return multiple result sets, perform modifications, handle transactions. Use functions for calculations and transformations, procedures for complex business logic and multi-step operations.</p>
+                        <pre><code>-- Function: Returns single value for use in queries
+DELIMITER //
+CREATE FUNCTION CalculateBonus(salary DECIMAL(10,2), years INT)
+RETURNS DECIMAL(10,2)
+DETERMINISTIC
+BEGIN
+    IF years >= 5 THEN
+        RETURN salary * 0.2;
+    ELSEIF years >= 3 THEN
+        RETURN salary * 0.1;
+    ELSE
+        RETURN salary * 0.05;
+    END IF;
+END //
+DELIMITER ;
+
+-- Use function in SELECT
+SELECT name, salary, CalculateBonus(salary, years_employed) as bonus
+FROM employees;
+
+-- Procedure: Performs multiple operations and transactions
+DELIMITER //
+CREATE PROCEDURE ProcessAnnualBonus()
+BEGIN
+    DECLARE emp_id INT;
+    DECLARE emp_salary DECIMAL(10,2);
+    DECLARE years INT;
+    DECLARE bonus DECIMAL(10,2);
+    
+    START TRANSACTION;
+    
+    -- Calculate bonuses for each employee
+    -- Update salary table
+    -- Log transaction
+    -- Commit or rollback
+    
+    -- Multiple operations not possible in function
+    -- Can call from application
+    COMMIT;
+END //
+DELIMITER ;
+
+-- Function Limitations (why use procedure instead)
+// 1. Functions must return single value
+// 2. Functions cannot modify data (if called from SELECT)
+// 3. Functions cannot execute transactions
+// 4. Functions must be deterministic (same input = same output)
+
+-- Quick comparison
+// Calculate: Use FUNCTION
+// Insert/Update/Delete: Use PROCEDURE
+// Returns multiple rows: Use PROCEDURE
+// Complex logic: Use PROCEDURE
+// Part of WHERE clause: Use FUNCTION
+// Need transaction: Use PROCEDURE</code></pre>
+
+                        <p><strong>Why it matters:</strong> Choosing between functions and procedures affects design quality and performance.</p>
+
+                        <p><strong>Real applications:</strong> Reporting uses functions, data processing uses procedures.</p>
+
+                        <p><strong>Common mistakes:</strong> Using functions for data modification, procedures for simple calculations.</p>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Navigation -->
+           
+              <div class="topic-nav" id="topicNav">
+            <a class="topic-nav-btn prev" href="transactions-acid.html">
+                <span class="label"><i class="bi bi-arrow-left me-1"></i> Previous</span>
+                <span class="title">Transactions & ACID</span>
+            </a>
+            <a class="topic-nav-btn next" href="triggers.html">
+                <span class="label">Next <i class="bi bi-arrow-right ms-1"></i></span>
+                <span class="title">Triggers</span>
+            </a>
+            </div>
+             <footer class="app-footer">
+                <p>&copy; 2026 InterviewPrep &mdash; MySQL Interview Questions</p>
+            </footer>
+        </div>
+    </div>
+    <button class="btn-totop" id="backToTop"><i class="bi bi-chevron-up"></i></button>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>
+    <script>
+    (function(){
+        var sb=document.getElementById('sidebar'),bd=document.getElementById('sidebarBackdrop'),
+            tg=document.getElementById('sidebarToggle');
+        if(tg)tg.addEventListener('click',function(){sb.classList.add('open');bd.classList.add('show');});
+        if(bd)bd.addEventListener('click',function(){sb.classList.remove('open');bd.classList.remove('show');});
+        var btt=document.getElementById('backToTop');
+        window.addEventListener('scroll',function(){btt.classList.toggle('show',window.scrollY>400);});
+        btt.addEventListener('click',function(){window.scrollTo({top:0,behavior:'smooth'});});
+    })();
+    </script>
+</body>
+</html>

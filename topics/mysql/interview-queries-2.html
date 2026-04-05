@@ -1,0 +1,729 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="MySQL Interview Queries 2: advanced aggregation, window functions, subqueries with solutions.">
+    <meta name="keywords" content="MySQL advanced queries, aggregation, window functions, subqueries, GROUP BY HAVING, MySQL interview">
+    <meta name="author" content="InterviewPrep">
+    <meta name="robots" content="index, follow">
+    <link rel="icon" type="image/svg+xml" href="../../favicon.svg" sizes="any">
+    <meta property="og:type" content="website">
+    <meta property="og:title" content="MySQL Interview Queries 2 — MySQL Interview Questions | InterviewPrep">
+    <meta property="og:description" content="MySQL Interview Queries 2: advanced aggregation, window functions, subqueries with solutions.">
+    <meta property="og:url" content="https://coddingquestionhub.com/topics/mysql/interview-queries-2.html">
+    <meta name="twitter:card" content="summary_large_image">
+    <meta name="twitter:title" content="MySQL Interview Queries 2 — MySQL Interview Questions | InterviewPrep">
+    <meta name="twitter:description" content="MySQL Interview Queries 2: advanced aggregation, window functions, subqueries with solutions.">
+    <meta name="twitter:image" content="https://coddingquestionhub.com/og-mysql.png">
+    <title>MySQL Interview Queries 2 — MySQL Interview Questions | InterviewPrep 2026</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&family=Fira+Code:wght@400;500&display=swap" rel="stylesheet">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="../../css/styles.css">
+    <link rel="canonical" href="https://coddingquestionhub.com/topics/mysql/interview-queries-2.html">
+    <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-8957020141286926" crossorigin="anonymous"></script>
+    <script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "BreadcrumbList",
+  "itemListElement": [
+    {
+      "@type": "ListItem",
+      "position": 1,
+      "name": "Home",
+      "item": "https://coddingquestionhub.com"
+    },
+    {
+      "@type": "ListItem",
+      "position": 2,
+      "name": "Topics",
+      "item": "https://coddingquestionhub.com/topics"
+    },
+    {
+      "@type": "ListItem",
+      "position": 3,
+      "name": "Mysql",
+      "item": "https://coddingquestionhub.com/topics/mysql"
+    },
+    {
+      "@type": "ListItem",
+      "position": 4,
+      "name": "Interview Queries 2",
+      "item": "https://coddingquestionhub.com/topics/mysql/interview-queries-2.html"
+    }
+  ]
+}
+    </script>
+</head>
+<body class="theme-mysql">
+    <nav class="navbar navbar-expand-lg sticky-top" id="mainNavbar">
+        <div class="container-fluid px-3 px-lg-4">
+            <a class="navbar-brand fw-bold d-flex align-items-center gap-2" href="../../index.html">
+                <span class="brand-icon"><i class="bi bi-braces-asterisk"></i></span>
+                <span>Interview<span class="brand-accent">Prep</span></span>
+            </a>
+            <button class="navbar-toggler border-0 shadow-none" type="button" data-bs-toggle="collapse" data-bs-target="#navbarContent">
+                <i class="bi bi-list fs-3 text-white"></i>
+            </button>
+            <div class="collapse navbar-collapse" id="navbarContent">
+                <ul class="navbar-nav me-auto mb-2 mb-lg-0 ms-lg-3">
+                    <li class="nav-item dropdown">
+                        <a class="nav-link dropdown-toggle fw-500" href="#" role="button" data-bs-toggle="dropdown">
+                            <i class="bi bi-layers me-1"></i> Choose Category
+                        </a>
+                        <ul class="dropdown-menu">
+                            <li><a class="dropdown-item fw-500" href="../../pages/angular.html"><i class="bi bi-bootstrap me-2 text-danger"></i>Angular</a></li>
+                            <li><a class="dropdown-item fw-500" href="../../pages/react.html"><i class="bi bi-infinity me-2 text-info"></i>React</a></li>
+                            <li><a class="dropdown-item fw-500" href="../../pages/node.html"><i class="bi bi-hdd-network me-2 text-success"></i>Node.js</a></li>
+                            <li><a class="dropdown-item fw-500" href="../../pages/javascript.html"><i class="bi bi-filetype-js me-2 text-warning"></i>JavaScript</a></li>
+                            <li><a class="dropdown-item fw-500" href="../../pages/dsa.html"><i class="bi bi-diagram-3-fill me-2" style="color:#8b5cf6"></i>DSA</a></li>
+                            <li><a class="dropdown-item fw-500" href="../../pages/logical.html"><i class="bi bi-lightbulb me-2" style="color:#f59e0b"></i>Logical Reasoning</a></li>
+                            <li><a class="dropdown-item fw-500" href="../../pages/mongodb.html"><i class="bi bi-database-fill me-2" style="color:#4DB33D"></i>MongoDB</a></li>
+                            <li><a class="dropdown-item fw-500" href="../../pages/mysql.html"><i class="bi bi-table me-2" style="color:#0F766E"></i>MySQL</a></li>
+                        </ul>
+                    </li>
+                </ul>
+                <div class="search-wrap">
+                    <i class="bi bi-search search-icon"></i>
+                    <input class="form-control search-input" type="search" placeholder="Search questions..." id="searchInput">
+                </div>
+            </div>
+        </div>
+    </nav>
+    <div class="app-wrapper">
+        <aside class="sidebar" id="sidebar">
+            <div class="sidebar-head">
+                <h6><i class="bi bi-table me-2"></i>MySQL Topics</h6>
+            </div>
+            <nav>
+                <ul class="sidebar-links" id="topicList">
+                    <li><a class="nav-link" href="mysql-fundamentals.html"><i class="bi-diagram-2"></i><span>MySQL Fundamentals</span></a></li>
+                    <li><a class="nav-link" href="crud-operations.html"><i class="bi-pencil-square"></i><span>CRUD Operations</span></a></li>
+                    <li><a class="nav-link" href="sql-joins.html"><i class="bi-link-45deg"></i><span>SQL Joins</span></a></li>
+                    <li><a class="nav-link" href="indexes.html"><i class="bi-lightning-fill"></i><span>Indexes</span></a></li>
+                    <li><a class="nav-link" href="query-optimization.html"><i class="bi-speedometer2"></i><span>Query Optimization</span></a></li>
+                    <li><a class="nav-link" href="transactions-acid.html"><i class="bi-arrow-repeat"></i><span>Transactions &amp; ACID</span></a></li>
+                    <li><a class="nav-link" href="stored-procedures.html"><i class="bi-code-square"></i><span>Stored Procedures</span></a></li>
+                    <li><a class="nav-link" href="triggers.html"><i class="bi-bell-fill"></i><span>Triggers</span></a></li>
+                    <li><a class="nav-link" href="views.html"><i class="bi-eye"></i><span>Views</span></a></li>
+                    <li><a class="nav-link" href="normalization.html"><i class="bi-diagram-3-fill"></i><span>Normalization</span></a></li>
+                    <li><a class="nav-link" href="data-types.html"><i class="bi-diagram-2"></i><span>Data Types</span></a></li>
+                    <li><a class="nav-link" href="string-functions.html"><i class="bi-chat-square-text"></i><span>String Functions</span></a></li>
+                    <li><a class="nav-link" href="date-time-functions.html"><i class="bi-calendar-event"></i><span>Date &amp; Time</span></a></li>
+                    <li><a class="nav-link" href="aggregate-functions.html"><i class="bi-graph-up"></i><span>Aggregate Functions</span></a></li>
+                    <li><a class="nav-link" href="window-functions.html"><i class="bi-column-gap"></i><span>Window Functions</span></a></li>
+                    <li><a class="nav-link" href="subqueries-ctes.html"><i class="bi-filter"></i><span>Subqueries &amp; CTEs</span></a></li>
+                    <li><a class="nav-link" href="full-text-search.html"><i class="bi-search"></i><span>Full-Text Search</span></a></li>
+                    <li><a class="nav-link" href="replication-ha.html"><i class="bi-diagram-3"></i><span>Replication &amp; HA</span></a></li>
+                    <li><a class="nav-link" href="security-permissions.html"><i class="bi-shield-check"></i><span>Security</span></a></li>
+                    <li><a class="nav-link" href="performance-tuning.html"><i class="bi-sliders"></i><span>Performance Tuning</span></a></li>
+                    <li><a class="nav-link" href="interview-queries-1.html"><i class="bi-gear-fill"></i><span>Interview Queries 1</span></a></li>
+                    <li><a class="nav-link active" href="interview-queries-2.html"><i class="bi-gear-fill"></i><span>Interview Queries 2</span></a></li>
+                </ul>
+            </nav>
+        </aside>
+        <div class="sidebar-backdrop" id="sidebarBackdrop"></div>
+        <div class="content-area">
+            <div class="mobile-bar d-lg-none">
+                <button class="btn btn-sm btn-glass" id="sidebarToggle">
+                    <i class="bi bi-layout-sidebar-inset me-1"></i>Topics
+                </button>
+                <span class="badge rounded-pill" style="background:#0F766E;color:#fff;">MySQL</span>
+            </div>
+            <div class="breadcrumb-nav" id="breadcrumb">
+                <a href="../../index.html">Home</a><span class="sep">/</span>
+                <a href="../../pages/mysql.html">MySQL</a><span class="sep">/</span>
+                <span class="current">Interview Queries 2</span>
+            </div>
+            <div class="qs-header">
+                <h1 class="qs-title" id="topicTitle">MySQL Interview Queries 2 &mdash; Advanced SQL</h1>
+                <span class="badge qs-badge" id="questionCount">20 Questions</span>
+            </div>
+
+            <div class="accordion" id="questionsAccordion">
+                <!-- Question 1 -->
+                <div class="accordion-item">
+                    <h2 class="accordion-header" id="h_q0">
+                        <button class="accordion-button" type="button" data-bs-toggle="collapse" data-bs-target="#c_q0" aria-expanded="true"><span class="question-number">1</span> Find customers at risk of churn (low engagement trend)</button>
+                    </h2>
+                    <div id="c_q0" class="accordion-collapse collapse show" data-bs-parent="#questionsAccordion">
+                        <div class="accordion-body">
+                        <pre><code>WITH monthly_engagement AS (
+  SELECT 
+    c.id, c.name,
+    YEAR_MONTH(o.order_date) as month,
+    COUNT(*) as orders_in_month,
+    SUM(o.amount) as spending
+  FROM customers c
+  LEFT JOIN orders o ON c.id = o.customer_id 
+    AND o.order_date >= DATE_SUB(CURDATE(), INTERVAL 6 MONTH)
+  GROUP BY c.id, month
+)
+SELECT DISTINCT c.id, c.name
+FROM customers c
+WHERE c.id IN (
+  SELECT id FROM monthly_engagement 
+  WHERE orders_in_month < 2 AND spending < 100
+  GROUP BY id HAVING COUNT(*) >= 3
+);</code></pre>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Question 2 -->
+                <div class="accordion-item">
+                    <h2 class="accordion-header" id="h_q1">
+                        <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#c_q1" aria-expanded="false"><span class="question-number">2</span> Multi-level product recommendation based on purchase history</button>
+                    </h2>
+                    <div id="c_q1" class="accordion-collapse collapse" data-bs-parent="#questionsAccordion">
+                        <div class="accordion-body">
+                        <pre><code>WITH customer_purchases AS (
+  SELECT o.customer_id, p.category
+  FROM orders o
+  JOIN order_items oi ON o.id = oi.order_id
+  JOIN products p ON oi.product_id = p.id
+  GROUP BY o.customer_id, p.category
+)
+SELECT DISTINCT p.id, p.name, p.category
+FROM products p
+LEFT JOIN customer_purchases cp ON cp.customer_id = ? 
+  AND cp.category = p.category
+WHERE cp.customer_id IS NULL
+LIMIT 10;</code></pre>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Question 3 -->
+                <div class="accordion-item">
+                    <h2 class="accordion-header" id="h_q2">
+                        <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#c_q2" aria-expanded="false"><span class="question-number">3</span> Calculate customer lifetime value with predictive element</button>
+                    </h2>
+                    <div id="c_q2" class="accordion-collapse collapse" data-bs-parent="#questionsAccordion">
+                        <div class="accordion-body">
+                        <pre><code>WITH order_history AS (
+  SELECT 
+    c.id, c.created_at as customer_since,
+    COUNT(DISTINCT YEAR_MONTH(o.order_date)) as purchase_months,
+    COUNT(DISTINCT o.id) as total_orders,
+    AVG(o.amount) as avg_order_value,
+    MAX(o.order_date) as last_order_date,
+    DATEDIFF(CURDATE(), MAX(o.order_date)) as days_since_last,
+    SUM(o.amount) as lifetime_value
+  FROM customers c
+  LEFT JOIN orders o ON c.id = o.customer_id
+  GROUP BY c.id
+)
+SELECT 
+  id, lifetime_value, total_orders,
+  CASE 
+    WHEN days_since_last <= 30 THEN 'Active'
+    WHEN days_since_last <= 90 THEN 'At Risk'
+    ELSE 'Inactive'
+  END as status
+FROM order_history;</code></pre>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Question 4 -->
+                <div class="accordion-item">
+                    <h2 class="accordion-header" id="h_q3">
+                        <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#c_q3" aria-expanded="false"><span class="question-number">4</span> Find cross-sell opportunities using market basket analysis</button>
+                    </h2>
+                    <div id="c_q3" class="accordion-collapse collapse" data-bs-parent="#questionsAccordion">
+                        <div class="accordion-body">
+                        <pre><code>WITH product_pairs AS (
+  SELECT 
+    oi1.product_id as product1,
+    oi2.product_id as product2,
+    COUNT(DISTINCT oi1.order_id) as co_purchase_count
+  FROM order_items oi1
+  JOIN order_items oi2 ON oi1.order_id = oi2.order_id 
+    AND oi1.product_id < oi2.product_id
+  GROUP BY oi1.product_id, oi2.product_id
+  HAVING co_purchase_count > 5
+)
+SELECT 
+  p1.name as product, 
+  p2.name as cross_sell, 
+  co_purchase_count
+FROM product_pairs pp
+JOIN products p1 ON pp.product1 = p1.id
+JOIN products p2 ON pp.product2 = p2.id
+ORDER BY co_purchase_count DESC;</code></pre>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Question 5 -->
+                <div class="accordion-item">
+                    <h2 class="accordion-header" id="h_q4">
+                        <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#c_q4" aria-expanded="false"><span class="question-number">5</span> Identify sequential purchase patterns for funnel analysis</button>
+                    </h2>
+                    <div id="c_q4" class="accordion-collapse collapse" data-bs-parent="#questionsAccordion">
+                        <div class="accordion-body">
+                        <pre><code>WITH customer_sequence AS (
+  SELECT 
+    o.customer_id,
+    oi.product_id,
+    o.order_date,
+    LAG(oi.product_id) OVER (PARTITION BY o.customer_id ORDER BY o.order_date) as prev_product,
+    LEAD(oi.product_id) OVER (PARTITION BY o.customer_id ORDER BY o.order_date) as next_product
+  FROM orders o
+  JOIN order_items oi ON o.id = oi.order_id
+)
+SELECT 
+  p1.name as first_product,
+  p2.name as second_product,
+  COUNT(*) as transition_count
+FROM customer_sequence cs
+LEFT JOIN products p1 ON cs.product_id = p1.id
+LEFT JOIN products p2 ON cs.next_product = p2.id
+WHERE cs.next_product IS NOT NULL
+GROUP BY cs.product_id, cs.next_product
+ORDER BY transition_count DESC;</code></pre>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Question 6 -->
+                <div class="accordion-item">
+                    <h2 class="accordion-header" id="h_q5">
+                        <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#c_q5" aria-expanded="false"><span class="question-number">6</span> Calculate RFM (Recency, Frequency, Monetary) segments</button>
+                    </h2>
+                    <div id="c_q5" class="accordion-collapse collapse" data-bs-parent="#questionsAccordion">
+                        <div class="accordion-body">
+                        <pre><code>WITH rfm_data AS (
+  SELECT 
+    c.id, c.name,
+    DATEDIFF(CURDATE(), MAX(o.order_date)) as recency,
+    COUNT(o.id) as frequency,
+    SUM(o.amount) as monetary
+  FROM customers c
+  LEFT JOIN orders o ON c.id = o.customer_id
+  GROUP BY c.id
+),
+rfm_quartiles AS (
+  SELECT 
+    id, name, recency, frequency, monetary,
+    NTILE(4) OVER (ORDER BY recency DESC) as r_score,
+    NTILE(4) OVER (ORDER BY frequency DESC) as f_score,
+    NTILE(4) OVER (ORDER BY monetary DESC) as m_score
+  FROM rfm_data
+)
+SELECT 
+  id, name, rfm_code,
+  CASE 
+    WHEN r_score = 4 AND f_score = 4 AND m_score = 4 THEN 'Champions'
+    WHEN r_score >= 3 AND f_score >= 3 THEN 'Loyal'
+    ELSE 'Others'
+  END as segment
+FROM (
+  SELECT *, CONCAT(r_score, f_score, m_score) as rfm_code
+  FROM rfm_quartiles
+) t;</code></pre>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Question 7 -->
+                <div class="accordion-item">
+                    <h2 class="accordion-header" id="h_q6">
+                        <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#c_q6" aria-expanded="false"><span class="question-number">7</span> Find anomalous transactions using statistical methods</button>
+                    </h2>
+                    <div id="c_q6" class="accordion-collapse collapse" data-bs-parent="#questionsAccordion">
+                        <div class="accordion-body">
+                        <pre><code>SELECT 
+  o.id, o.customer_id, o.amount,
+  (SELECT AVG(amount) FROM orders) as mean_amount,
+  (SELECT STDDEV(amount) FROM orders) as std_amount,
+  CASE 
+    WHEN ABS(o.amount - (SELECT AVG(amount) FROM orders)) > 3 * (SELECT STDDEV(amount) FROM orders) 
+      THEN 'Extreme Outlier'
+    WHEN ABS(o.amount - (SELECT AVG(amount) FROM orders)) > 2 * (SELECT STDDEV(amount) FROM orders) 
+      THEN 'Outlier'
+    ELSE 'Normal'
+  END as anomaly_type
+FROM orders o
+WHERE ABS(o.amount - (SELECT AVG(amount) FROM orders)) > 2 * (SELECT STDDEV(amount) FROM orders);</code></pre>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Question 8 -->
+                <div class="accordion-item">
+                    <h2 class="accordion-header" id="h_q7">
+                        <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#c_q7" aria-expanded="false"><span class="question-number">8</span> Competitive pricing analysis with percentile ranking</button>
+                    </h2>
+                    <div id="c_q7" class="accordion-collapse collapse" data-bs-parent="#questionsAccordion">
+                        <div class="accordion-body">
+                        <pre><code>SELECT 
+  p.id, p.name, p.category, p.price,
+  PERCENT_RANK() OVER (PARTITION BY p.category ORDER BY p.price) as price_percentile,
+  NTILE(10) OVER (PARTITION BY p.category ORDER BY p.price) as price_decile,
+  AVG(p.price) OVER (PARTITION BY p.category) as category_avg,
+  CASE 
+    WHEN p.price < AVG(p.price) OVER (PARTITION BY p.category) THEN 'Budget'
+    WHEN p.price = AVG(p.price) OVER (PARTITION BY p.category) THEN 'Mid-range'
+    ELSE 'Premium'
+  END as price_segment
+FROM products p
+ORDER BY p.category, p.price;</code></pre>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Question 9 -->
+                <div class="accordion-item">
+                    <h2 class="accordion-header" id="h_q8">
+                        <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#c_q8" aria-expanded="false"><span class="question-number">9</span> Detect seasonality patterns in sales data</button>
+                    </h2>
+                    <div id="c_q8" class="accordion-collapse collapse" data-bs-parent="#questionsAccordion">
+                        <div class="accordion-body">
+                        <pre><code>SELECT 
+  QUARTER(order_date) as quarter,
+  YEAR(order_date) as year,
+  SUM(amount) as quarterly_sales,
+  AVG(SUM(amount)) OVER (PARTITION BY QUARTER(order_date)) as avg_quarterly,
+  ROUND(100.0 * (SUM(amount) - AVG(SUM(amount)) OVER (PARTITION BY QUARTER(order_date))) / 
+    AVG(SUM(amount)) OVER (PARTITION BY QUARTER(order_date)), 2) as variance_pct
+FROM orders
+GROUP BY YEAR(order_date), QUARTER(order_date)
+ORDER BY YEAR(order_date), QUARTER(order_date);</code></pre>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Question 10 -->
+                <div class="accordion-item">
+                    <h2 class="accordion-header" id="h_q9">
+                        <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#c_q9" aria-expanded="false"><span class="question-number">10</span> Find inventory turnover rate by product category</button>
+                    </h2>
+                    <div id="c_q9" class="accordion-collapse collapse" data-bs-parent="#questionsAccordion">
+                        <div class="accordion-body">
+                        <pre><code>WITH monthly_sales AS (
+  SELECT 
+    p.category,
+    DATE_FORMAT(o.order_date, '%Y-%m') as month,
+    SUM(oi.quantity) as units_sold,
+    SUM(oi.price * oi.quantity) as revenue
+  FROM order_items oi
+  JOIN orders o ON oi.order_id = o.id
+  JOIN products p ON oi.product_id = p.id
+  GROUP BY p.category, month
+)
+SELECT 
+  category,
+  AVG(units_sold) as avg_monthly_sales,
+  SUM(units_sold) as total_units,
+  COUNT(DISTINCT month) as months_tracked,
+  ROUND(SUM(units_sold) / COUNT(DISTINCT month), 2) as turnover_rate
+FROM monthly_sales
+GROUP BY category;</code></pre>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Question 11 -->
+                <div class="accordion-item">
+                    <h2 class="accordion-header" id="h_q10">
+                        <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#c_q10" aria-expanded="false"><span class="question-number">11</span> Analyze customer retention rate over time</button>
+                    </h2>
+                    <div id="c_q10" class="accordion-collapse collapse" data-bs-parent="#questionsAccordion">
+                        <div class="accordion-body">
+                        <pre><code>WITH cohort_data AS (
+  SELECT 
+    c.id,
+    DATE_FORMAT(MIN(o.order_date), '%Y-%m') as cohort_month,
+    DATE_FORMAT(o.order_date, '%Y-%m') as active_month
+  FROM customers c
+  LEFT JOIN orders o ON c.id = o.customer_id
+  GROUP BY c.id, active_month
+)
+SELECT 
+  cohort_month,
+  COUNT(DISTINCT CASE WHEN active_month = cohort_month THEN id END) as month_0,
+  COUNT(DISTINCT CASE WHEN DATE_ADD(DATE_FORMAT(STR_TO_DATE(CONCAT(cohort_month, '-01'), '%Y-%m-%d'), '%Y-%m'), INTERVAL 1 MONTH) = active_month THEN id END) as month_1,
+  COUNT(DISTINCT CASE WHEN DATE_ADD(DATE_FORMAT(STR_TO_DATE(CONCAT(cohort_month, '-01'), '%Y-%m-%d'), '%Y-%m'), INTERVAL 2 MONTH) = active_month THEN id END) as month_2
+FROM cohort_data
+GROUP BY cohort_month
+ORDER BY cohort_month;</code></pre>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Question 12 -->
+                <div class="accordion-item">
+                    <h2 class="accordion-header" id="h_q11">
+                        <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#c_q11" aria-expanded="false"><span class="question-number">12</span> Calculate order value percentiles by customer segment</button>
+                    </h2>
+                    <div id="c_q11" class="accordion-collapse collapse" data-bs-parent="#questionsAccordion">
+                        <div class="accordion-body">
+                        <pre><code>SELECT 
+  customer_id,
+  MIN(amount) as min_order,
+  PERCENTILE_CONT(0.25) WITHIN GROUP (ORDER BY amount) as q1,
+  PERCENTILE_CONT(0.50) WITHIN GROUP (ORDER BY amount) as median,
+  PERCENTILE_CONT(0.75) WITHIN GROUP (ORDER BY amount) as q3,
+  MAX(amount) as max_order,
+  AVG(amount) as avg_order
+FROM orders
+GROUP BY customer_id
+HAVING COUNT(*) >= 5
+ORDER BY avg_order DESC;</code></pre>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Question 13 -->
+                <div class="accordion-item">
+                    <h2 class="accordion-header" id="h_q12">
+                        <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#c_q12" aria-expanded="false"><span class="question-number">13</span> Identify best and worst performing products by profit margin</button>
+                    </h2>
+                    <div id="c_q12" class="accordion-collapse collapse" data-bs-parent="#questionsAccordion">
+                        <div class="accordion-body">
+                        <pre><code>SELECT 
+  p.id, p.name, p.category,
+  SUM(oi.quantity) as units_sold,
+  SUM(oi.price * oi.quantity) as revenue,
+  (SELECT cost FROM products WHERE id = p.id) as unit_cost,
+  SUM(oi.quantity) * (SELECT cost FROM products WHERE id = p.id) as total_cost,
+  SUM(oi.price * oi.quantity) - SUM(oi.quantity) * (SELECT cost FROM products WHERE id = p.id) as profit,
+  ROUND(100.0 * (SUM(oi.price * oi.quantity) - SUM(oi.quantity) * (SELECT cost FROM products WHERE id = p.id)) / 
+    SUM(oi.price * oi.quantity), 2) as margin_pct
+FROM products p
+LEFT JOIN order_items oi ON p.id = oi.product_id
+GROUP BY p.id
+ORDER BY profit DESC;</code></pre>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Question 14 -->
+                <div class="accordion-item">
+                    <h2 class="accordion-header" id="h_q13">
+                        <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#c_q13" aria-expanded="false"><span class="question-number">14</span> Find customers with skipped or delayed purchases</button>
+                    </h2>
+                    <div id="c_q13" class="accordion-collapse collapse" data-bs-parent="#questionsAccordion">
+                        <div class="accordion-body">
+                        <pre><code>WITH order_gaps AS (
+  SELECT 
+    c.id, c.name,
+    o.order_date,
+    LAG(o.order_date) OVER (PARTITION BY c.id ORDER BY o.order_date) as prev_order_date,
+    DATEDIFF(o.order_date, LAG(o.order_date) OVER (PARTITION BY c.id ORDER BY o.order_date)) as days_since_last
+  FROM customers c
+  LEFT JOIN orders o ON c.id = o.customer_id
+)
+SELECT DISTINCT id, name
+FROM order_gaps
+WHERE days_since_last > 60
+ORDER BY id;</code></pre>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Question 15 -->
+                <div class="accordion-item">
+                    <h2 class="accordion-header" id="h_q14">
+                        <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#c_q14" aria-expanded="false"><span class="question-number">15</span> Predict next purchase date for each customer</button>
+                    </h2>
+                    <div id="c_q14" class="accordion-collapse collapse" data-bs-parent="#questionsAccordion">
+                        <div class="accordion-body">
+                        <pre><code>WITH order_intervals AS (
+  SELECT 
+    c.id, c.name,
+    MAX(o.order_date) as last_order,
+    AVG(DATEDIFF(o.order_date, LAG(o.order_date) OVER (PARTITION BY c.id ORDER BY o.order_date))) as avg_days_between_orders
+  FROM customers c
+  LEFT JOIN orders o ON c.id = o.customer_id
+  GROUP BY c.id
+)
+SELECT 
+  id, name, last_order,
+  ROUND(avg_days_between_orders, 0) as avg_days,
+  DATE_ADD(last_order, INTERVAL ROUND(avg_days_between_orders, 0) DAY) as predicted_next_order
+FROM order_intervals
+WHERE last_order IS NOT NULL
+ORDER BY predicted_next_order;</code></pre>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Question 16 -->
+                <div class="accordion-item">
+                    <h2 class="accordion-header" id="h_q15">
+                        <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#c_q15" aria-expanded="false"><span class="question-number">16</span> Segment customers by average order value quartiles</button>
+                    </h2>
+                    <div id="c_q15" class="accordion-collapse collapse" data-bs-parent="#questionsAccordion">
+                        <div class="accordion-body">
+                        <pre><code>WITH customer_avg AS (
+  SELECT 
+    c.id, c.name,
+    AVG(o.amount) as avg_order_value,
+    COUNT(o.id) as order_count
+  FROM customers c
+  LEFT JOIN orders o ON c.id = o.customer_id
+  GROUP BY c.id
+)
+SELECT 
+  id, name, order_count, avg_order_value,
+  NTILE(4) OVER (ORDER BY avg_order_value) as aov_quartile,
+  CASE 
+    WHEN NTILE(4) OVER (ORDER BY avg_order_value) = 1 THEN 'Budget'
+    WHEN NTILE(4) OVER (ORDER BY avg_order_value) = 2 THEN 'Standard'
+    WHEN NTILE(4) OVER (ORDER BY avg_order_value) = 3 THEN 'Premium'
+    ELSE 'Elite'
+  END as segment
+FROM customer_avg
+WHERE order_count > 0;</code></pre>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Question 17 -->
+                <div class="accordion-item">
+                    <h2 class="accordion-header" id="h_q16">
+                        <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#c_q16" aria-expanded="false"><span class="question-number">17</span> Find products frequently bought together as bundles</button>
+                    </h2>
+                    <div id="c_q16" class="accordion-collapse collapse" data-bs-parent="#questionsAccordion">
+                        <div class="accordion-body">
+                        <pre><code>WITH order_products AS (
+  SELECT 
+    oi.order_id,
+    GROUP_CONCAT(p.name ORDER BY p.name) as product_bundle
+  FROM order_items oi
+  JOIN products p ON oi.product_id = p.id
+  GROUP BY oi.order_id
+)
+SELECT 
+  product_bundle,
+  COUNT(*) as bundle_frequency,
+  RANK() OVER (ORDER BY COUNT(*) DESC) as bundle_rank
+FROM order_products
+GROUP BY product_bundle
+HAVING COUNT(*) > 3
+LIMIT 20;</code></pre>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Question 18 -->
+                <div class="accordion-item">
+                    <h2 class="accordion-header" id="h_q17">
+                        <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#c_q17" aria-expanded="false"><span class="question-number">18</span> Calculate category-wise profit contribution</span></span></button>
+                    </h2>
+                    <div id="c_q17" class="accordion-collapse collapse" data-bs-parent="#questionsAccordion">
+                        <div class="accordion-body">
+                        <pre><code>SELECT 
+  p.category,
+  SUM(oi.price * oi.quantity) as revenue,
+  SUM(oi.quantity * COALESCE((SELECT cost FROM products WHERE id = oi.product_id), 0)) as cost,
+  SUM(oi.price * oi.quantity) - SUM(oi.quantity * COALESCE((SELECT cost FROM products WHERE id = oi.product_id), 0)) as profit,
+  ROUND(100.0 * (SUM(oi.price * oi.quantity) - SUM(oi.quantity * COALESCE((SELECT cost FROM products WHERE id = oi.product_id), 0))) / 
+    SUM(oi.price * oi.quantity), 2) as profit_margin_pct,
+  ROUND(100.0 * SUM(oi.price * oi.quantity) / (SELECT SUM(price * quantity) FROM order_items), 2) as revenue_contribution
+FROM order_items oi
+JOIN products p ON oi.product_id = p.id
+GROUP BY p.category
+ORDER BY profit DESC;</code></pre>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Question 19 -->
+                <div class="accordion-item">
+                    <h2 class="accordion-header" id="h_q18">
+                        <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#c_q18" aria-expanded="false"><span class="question-number">19</span> Detect new customers with high early spend</button>
+                    </h2>
+                    <div id="c_q18" class="accordion-collapse collapse" data-bs-parent="#questionsAccordion">
+                        <div class="accordion-body">
+                        <pre><code>WITH first_30_days AS (
+  SELECT 
+    c.id, c.name, c.created_at,
+    SUM(o.amount) as spend_in_first_30,
+    COUNT(o.id) as orders_in_first_30,
+    MAX(o.order_date) as last_order_date
+  FROM customers c
+  LEFT JOIN orders o ON c.id = o.customer_id 
+    AND o.order_date <= DATE_ADD(c.created_at, INTERVAL 30 DAY)
+  WHERE c.created_at >= DATE_SUB(CURDATE(), INTERVAL 90 DAY)
+  GROUP BY c.id
+)
+SELECT 
+  id, name, created_at,
+  spend_in_first_30,
+  orders_in_first_30,
+  ROUND(spend_in_first_30 / orders_in_first_30, 2) as avg_order_value
+FROM first_30_days
+WHERE spend_in_first_30 > (SELECT AVG(amount) FROM orders) * 2
+ORDER BY spend_in_first_30 DESC;</code></pre>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Question 20 -->
+                <div class="accordion-item">
+                    <h2 class="accordion-header" id="h_q19">
+                        <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#c_q19" aria-expanded="false"><span class="question-number">20</span> Implement A/B test analysis with statistical significance</button>
+                    </h2>
+                    <div id="c_q19" class="accordion-collapse collapse" data-bs-parent="#questionsAccordion">
+                        <div class="accordion-body">
+                        <pre><code>WITH test_groups AS (
+  SELECT 
+    o.id,
+    CASE WHEN MOD(c.id, 2) = 0 THEN 'Control' ELSE 'Test' END as group_name,
+    o.amount,
+    o.order_date
+  FROM orders o
+  JOIN customers c ON o.customer_id = c.id
+  WHERE o.order_date BETWEEN '2024-01-01' AND '2024-01-31'
+)
+SELECT 
+  group_name,
+  COUNT(*) as order_count,
+  AVG(amount) as avg_order_value,
+  STDDEV(amount) as std_dev,
+  SQRT(COUNT(*)) as sample_size,
+  ROUND(AVG(amount), 2) as mean_value
+FROM test_groups
+GROUP BY group_name;</code></pre>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+          
+
+              <div class="topic-nav" id="topicNav">
+            <a class="topic-nav-btn prev" href="interview-queries-1.html">
+                <span class="label"><i class="bi bi-arrow-left me-1"></i> Previous</span>
+                <span class="title">Interview Queries 1</span>
+            </a>
+          
+            </div>
+             <footer class="app-footer">
+                <p>&copy; 2026 InterviewPrep &mdash; MySQL Interview Questions</p>
+            </footer>
+        </div>
+    </div>
+    <button class="btn-totop" id="backToTop"><i class="bi bi-chevron-up"></i></button>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>
+    <script>
+    (function(){
+        var sb=document.getElementById('sidebar'),bd=document.getElementById('sidebarBackdrop'),
+            st=document.getElementById('sidebarToggle'),qs=document.querySelectorAll('.sidebar-links a'),
+            ml=document.getElementById('searchInput'),bt=document.getElementById('backToTop'),tc=0;
+        st&&st.addEventListener('click',()=>{sb.classList.toggle('active')});
+        bd&&bd.addEventListener('click',()=>{sb.classList.remove('active')});
+        qs.forEach(q=>{q.addEventListener('click',()=>{sb.classList.remove('active')})});
+        window.addEventListener('scroll',()=>{bt.style.opacity=window.pageYOffset>300?'1':'0'});
+        bt&&bt.addEventListener('click',()=>window.scrollTo({top:0,behavior:'smooth'}));
+    })();
+    </script>
+</body>
+</html>

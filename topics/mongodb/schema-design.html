@@ -1,0 +1,891 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="Top 15 MongoDB schema design interview questions. Master embedding vs referencing, bucket pattern, computed pattern, schema versions and design anti-patterns.">
+    <meta name="keywords" content="MongoDB schema design, embedding vs referencing, bucket pattern, computed pattern, outlier pattern, schema migration, MongoDB interview questions">
+    <meta name="author" content="InterviewPrep">
+    <meta name="robots" content="index, follow">
+    <link rel="icon" type="image/svg+xml" href="../../favicon.svg" sizes="any">
+    <meta property="og:type" content="website">
+    <meta property="og:title" content="Schema Design — MongoDB Interview Questions | InterviewPrep">
+    <meta property="og:description" content="Top 15 MongoDB schema design interview questions. Master embedding vs referencing, bucket pattern, computed pattern, schema versions and design anti-patterns.">
+    <meta property="og:url" content="https://coddingquestionhub.com/topics/mongodb/schema-design.html">
+    <title>Schema Design — MongoDB Interview Questions | InterviewPrep 2026</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&family=Fira+Code:wght@400;500&display=swap" rel="stylesheet">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="../../css/styles.css">
+    <link rel="canonical" href="https://coddingquestionhub.com/topics/mongodb/schema-design.html">
+    <script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "FAQPage",
+  "mainEntity": [
+    {
+      "@type": "Question",
+      "name": "Schema Design — MongoDB Interview Questions | InterviewPrep",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "Top 15 MongoDB schema design interview questions. Master embedding vs referencing, bucket pattern, computed pattern, schema versions and design anti-patterns."
+      }
+    }
+  ]
+}
+    </script>
+    <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-8957020141286926" crossorigin="anonymous"></script>
+    <script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "BreadcrumbList",
+  "itemListElement": [
+    {
+      "@type": "ListItem",
+      "position": 1,
+      "name": "Home",
+      "item": "https://coddingquestionhub.com"
+    },
+    {
+      "@type": "ListItem",
+      "position": 2,
+      "name": "Topics",
+      "item": "https://coddingquestionhub.com/topics"
+    },
+    {
+      "@type": "ListItem",
+      "position": 3,
+      "name": "Mongodb",
+      "item": "https://coddingquestionhub.com/topics/mongodb"
+    },
+    {
+      "@type": "ListItem",
+      "position": 4,
+      "name": "Schema Design",
+      "item": "https://coddingquestionhub.com/topics/mongodb/schema-design.html"
+    }
+  ]
+}
+    </script>
+</head>
+<body class="theme-mongodb">
+    <nav class="navbar navbar-expand-lg sticky-top" id="mainNavbar">
+        <div class="container-fluid px-3 px-lg-4">
+            <a class="navbar-brand fw-bold d-flex align-items-center gap-2" href="../../index.html">
+                <span class="brand-icon"><i class="bi bi-braces-asterisk"></i></span>
+                <span>Interview<span class="brand-accent">Prep</span></span>
+            </a>
+            <button class="navbar-toggler border-0 shadow-none" type="button"
+                    data-bs-toggle="collapse" data-bs-target="#navbarContent">
+                <i class="bi bi-list fs-3 text-white"></i>
+            </button>
+            <div class="collapse navbar-collapse" id="navbarContent">
+                <ul class="navbar-nav me-auto mb-2 mb-lg-0 ms-lg-3">
+                    <li class="nav-item dropdown">
+                        <a class="nav-link dropdown-toggle fw-500" href="#" role="button" data-bs-toggle="dropdown">
+                            <i class="bi bi-layers me-1"></i> Choose Category
+                        </a>
+                        <ul class="dropdown-menu">
+                            <li><a class="dropdown-item fw-500" href="../../pages/angular.html"><i class="bi bi-bootstrap me-2 text-danger"></i>Angular</a></li>
+                            <li><a class="dropdown-item fw-500" href="../../pages/react.html"><i class="bi bi-infinity me-2 text-info"></i>React</a></li>
+                            <li><a class="dropdown-item fw-500" href="../../pages/node.html"><i class="bi bi-hdd-network me-2 text-success"></i>Node.js</a></li>
+                            <li><a class="dropdown-item fw-500" href="../../pages/javascript.html"><i class="bi bi-filetype-js me-2 text-warning"></i>JavaScript</a></li>
+                            <li><a class="dropdown-item fw-500" href="../../pages/dsa.html"><i class="bi bi-diagram-3-fill me-2" style="color:#8b5cf6"></i>DSA</a></li>
+                            <li><a class="dropdown-item fw-500" href="../../pages/logical.html"><i class="bi bi-lightbulb me-2" style="color:#f59e0b"></i>Logical Reasoning</a></li>
+                            <li><a class="dropdown-item fw-500" href="../../pages/mongodb.html"><i class="bi bi-database-fill me-2" style="color:#4DB33D"></i>MongoDB</a></li>
+                            <li><a class="dropdown-item fw-500" href="../../pages/mysql.html"><i class="bi bi-table me-2" style="color:#0F766E"></i>MySQL</a></li>
+                        </ul>
+                    </li>
+                </ul>
+                <div class="search-wrap">
+                    <i class="bi bi-search search-icon"></i>
+                    <input class="form-control search-input" type="search" placeholder="Search questions..." id="searchInput">
+                </div>
+            </div>
+        </div>
+    </nav>    <div class="app-wrapper">
+        <aside class="sidebar" id="sidebar">
+            <div class="sidebar-head">
+                <h6><i class="bi bi-database-fill me-2"></i>MongoDB Topics</h6>
+            </div>
+            <nav>
+                <ul class="sidebar-links" id="topicList">
+                    <li><a class="nav-link" href="mongodb-fundamentals.html"><i class="bi bi-database-fill"></i><span>MongoDB Fundamentals</span></a></li>
+                    <li><a class="nav-link" href="crud-operations.html"><i class="bi bi-pencil-square"></i><span>CRUD Operations</span></a></li>
+                    <li><a class="nav-link" href="aggregation-pipeline.html"><i class="bi bi-funnel-fill"></i><span>Aggregation Pipeline</span></a></li>
+                    <li><a class="nav-link" href="indexes.html"><i class="bi bi-lightning-fill"></i><span>Indexes & Performance</span></a></li>
+                    <li><a class="nav-link active" href="schema-design.html"><i class="bi bi-layout-wtf"></i><span>Schema Design</span></a></li>
+                    <li><a class="nav-link" href="relationships.html"><i class="bi bi-diagram-3-fill"></i><span>Relationships</span></a></li>
+                    <li><a class="nav-link" href="transactions.html"><i class="bi bi-arrow-repeat"></i><span>Transactions</span></a></li>
+                    <li><a class="nav-link" href="mongoose-odm.html"><i class="bi bi-box-seam"></i><span>Mongoose ODM</span></a></li>
+                    <li><a class="nav-link" href="performance-optimization.html"><i class="bi bi-speedometer2"></i><span>Performance Optimization</span></a></li>
+                    <li><a class="nav-link" href="replication-sharding.html"><i class="bi bi-hdd-stack-fill"></i><span>Replication & Sharding</span></a></li>
+                    <li><a class="nav-link" href="security.html"><i class="bi bi-shield-lock-fill"></i><span>Security & Auth</span></a></li>
+                    <li><a class="nav-link" href="text-search-geospatial.html"><i class="bi bi-search"></i><span>Text Search & Geospatial</span></a></li>
+                    <li><a class="nav-link" href="change-streams-watchers.html"><i class="bi bi-bell-fill"></i><span>Change Streams & Watch</span></a></li>
+                    <li><a class="nav-link" href="interview-queries-1.html"><i class="bi bi-code-slash"></i><span>Interview Queries — I</span></a></li>
+                    <li><a class="nav-link" href="interview-queries-2.html"><i class="bi bi-code-square"></i><span>Interview Queries — II</span></a></li>
+                </ul>
+            </nav>
+        </aside>
+        <div class="sidebar-backdrop" id="sidebarBackdrop"></div>
+        <div class="content-area">
+            <div class="mobile-bar d-lg-none">
+                <button class="btn btn-sm btn-glass" id="sidebarToggle">
+                    <i class="bi bi-layout-sidebar-inset me-1"></i>Topics
+                </button>
+                <span class="badge rounded-pill bg-success">MongoDB</span>
+            </div>
+            <div class="breadcrumb-nav" id="breadcrumb">
+                <a href="../../index.html">Home</a><span class="sep">/</span>
+                <a href="../../pages/mongodb.html">MongoDB</a><span class="sep">/</span>
+                <span class="current">Schema Design</span>
+            </div>
+            <div class="qs-header">
+                <h1 class="qs-title" id="topicTitle">Schema Design</h1>
+                <span class="badge qs-badge" id="questionCount">13 Questions</span>
+            </div>
+            <div class="accordion" id="questionsAccordion">
+        <div class="accordion-item">
+            <h2 class="accordion-header" id="h_q0">
+                <button class="accordion-button" type="button"
+                    data-bs-toggle="collapse" data-bs-target="#c_q0"
+                    aria-expanded="true">
+                    <span class="question-number">1</span>What are the key principles of MongoDB schema design?
+                </button>
+            </h2>
+            <div id="c_q0" class="accordion-collapse collapse show"
+                data-bs-parent="#questionsAccordion">
+                <div class="accordion-body">MongoDB schema design is fundamentally different from relational database design. The core principle is: <strong>"Design your schema based on how your application queries data"</strong>, not based on relationships between entities. Key principles: (1) <strong>Embed related data</strong> that is always accessed together, (2) <strong>Reference (normalize)</strong> data that is accessed independently or shared across many documents, (3) <strong>Avoid application-level joins</strong> — MongoDB is optimized for single-document reads, (4) <strong>Optimize for the most common read queries</strong>, (5) Prefer <strong>richer documents</strong> over many small ones. The trade-off is always between <strong>read performance vs write complexity</strong> and <strong>data consistency vs query efficiency</strong>.
+<pre><code>// Principle: Design for query patterns, not normalized form
+
+// Application query: "show a blog post with all comments"
+// BAD (relational thinking): separate comments collection
+// Requires join on every post load
+
+// GOOD: embed comments in post (single document read)
+{
+  "_id": ObjectId("..."),
+  "title": "MongoDB Schema Design",
+  "body": "...",
+  "author": "Mayur",
+  "tags": ["mongodb", "schema"],
+  "comments": [
+    { "user": "Alice", "text": "Great post!", "date": ISODate("...") },
+    { "user": "Bob",   "text": "Very helpful", "date": ISODate("...") }
+  ]
+}
+// ↑ One query fetches post + all comments — fast!
+
+// But if comments are 10,000+, document becomes huge
+// → Reference for high-volume data (see Relationships topic)</code></pre>
+<p><strong>Why it matters:</strong> Schema design is the most impactful decision in a MongoDB application. A poor schema that forces joins or scans entire arrays for every query <strong>cannot be fixed with indexes alone</strong>.</p>
+<p><strong>Real applications:</strong> Netflix's video catalog, Airbnb's listing details, and Amazon's product pages all use embedding for data that is always shown together but never queried independently.</p>
+<p><strong>Common mistakes:</strong> Directly translating your SQL ER diagram to MongoDB without considering access patterns — this leads to unnecessary lookups and poor performance.</p>
+                </div>
+            </div>
+        </div>
+        <div class="accordion-item">
+            <h2 class="accordion-header" id="h_q1">
+                <button class="accordion-button collapsed" type="button"
+                    data-bs-toggle="collapse" data-bs-target="#c_q1"
+                    aria-expanded="false">
+                    <span class="question-number">2</span>When should you embed documents vs reference (normalize) them?
+                </button>
+            </h2>
+            <div id="c_q1" class="accordion-collapse collapse"
+                data-bs-parent="#questionsAccordion">
+                <div class="accordion-body">The <strong>Embedding vs Referencing</strong> decision is the most fundamental MongoDB schema design question. <strong>Embed when</strong>: (1) data is accessed together, (2) child data only makes sense in context of parent, (3) one-to-few relationship (< 100 items), (4) data doesn't need to be accessed independently, (5) atomic updates are needed. <strong>Reference when</strong>: (1) data is large or growing unboundedly, (2) data is shared across many parents, (3) data is queried independently, (4) many-to-many relationships, (5) data exceeds 16 MB risk. The <strong>16 MB document limit</strong> forces referencing for unbounded growing arrays.
+<pre><code>// EMBED (one-to-few, always accessed together)
+// User with address (1-3 addresses)
+{
+  "_id": ObjectId("..."),
+  "name": "Mayur",
+  "addresses": [
+    { "type": "home", "city": "Mumbai", "pincode": "400001" },
+    { "type": "office", "city": "Pune",  "pincode": "411001" }
+  ]
+}
+
+// REFERENCE (one-to-many with shared or large data)
+// Author with books (books queried independently, shared between authors)
+// authors collection
+{ "_id": ObjectId("aaa"), "name": "Martin Fowler", "bio": "..." }
+
+// books collection
+{
+  "_id": ObjectId("bbb"),
+  "title": "Patterns of Enterprise Application Architecture",
+  "authorId": ObjectId("aaa"),  // reference to author
+  "isbn": "978-0321127426"
+}
+
+// Hybrid: partial embed for display + reference for detail
+// Order item (embed summary, reference full product)
+{
+  "items": [{
+    "productId": ObjectId("..."), // reference
+    "name": "Laptop",             // embedded for display (avoid lookup)
+    "price": 75000,               // price at time of purchase (snapshot)
+    "qty": 1
+  }]
+}</code></pre>
+<p><strong>Why it matters:</strong> This is the core schema design question in every MongoDB interview. The ability to articulate the trade-offs clearly shows design maturity and production experience.</p>
+<p><strong>Real applications:</strong> <strong>User profiles with addresses</strong> (embed), <strong>orders with product references</strong> (hybrid — embed price snapshot, reference product), <strong>many-to-many tags</strong> (reference).</p>
+<p><strong>Common mistakes:</strong> Embedding high-volume arrays (comments, logs) that grow without bounds — the document balloons past the <strong>16 MB limit</strong> and every read includes the entire dataset even when showing just the post title.</p>
+                </div>
+            </div>
+        </div>
+        <div class="accordion-item">
+            <h2 class="accordion-header" id="h_q2">
+                <button class="accordion-button collapsed" type="button"
+                    data-bs-toggle="collapse" data-bs-target="#c_q2"
+                    aria-expanded="false">
+                    <span class="question-number">3</span>What is the Subset pattern in MongoDB schema design?
+                </button>
+            </h2>
+            <div id="c_q2" class="accordion-collapse collapse"
+                data-bs-parent="#questionsAccordion">
+                <div class="accordion-body">The <strong>Subset Pattern</strong> solves the problem of documents with large arrays by storing only the <strong>most frequently accessed subset</strong> of data in the main document and keeping the full dataset in a separate collection. For example, a product page shows only the <strong>last 10 reviews</strong> — not all 5,000. Store the last 10 reviews in the product document and all reviews in a separate <code>reviews</code> collection. This keeps the working set (data in RAM) small while still enabling fast access to the common case (show latest reviews), and full access to the complete dataset (pagination through all reviews) via a separate query.
+<pre><code>// Problem: Product with 5000 reviews — document is huge
+// Full document loaded even when you only show 10 reviews
+
+// SUBSET PATTERN:
+// products collection (main document, stays small)
+{
+  "_id": ObjectId("p1"),
+  "name": "MacBook Pro",
+  "price": 200000,
+  "avgRating": 4.7,
+  "reviewCount": 5000,
+  "recentReviews": [             // subset: only last 10
+    { "user": "Alice", "rating": 5, "text": "Amazing!", "date": ... },
+    { "user": "Bob",   "rating": 4, "text": "Great value", "date": ... }
+    // ... 8 more
+  ]
+}
+
+// reviews collection (full dataset)
+{
+  "_id": ObjectId("r1"),
+  "productId": ObjectId("p1"),
+  "user": "Alice",
+  "rating": 5,
+  "text": "Amazing!",
+  "date": ISODate("...")
+}
+
+// Query: product page load (one fast read, small document)
+db.products.findOne({ _id: productId });
+
+// Query: "Load all reviews" (separate query, paginated)
+db.reviews.find({ productId: productId }).sort({ date: -1 }).limit(20);
+
+// Update: add new review (update subset + insert full)
+db.products.updateOne(
+  { _id: productId },
+  {
+    $push: { recentReviews: { $each: [newReview], $slice: -10, $sort: { date: -1 } } },
+    $inc: { reviewCount: 1 },
+    $set: { avgRating: newAvg }
+  }
+);</code></pre>
+<p><strong>Why it matters:</strong> The Subset Pattern is a key MongoDB design pattern tested in advanced interviews. It directly addresses the <strong>working set optimization</strong> problem — keeping frequently accessed data small enough to fit in RAM.</p>
+<p><strong>Real applications:</strong> <strong>Product pages</strong> (latest 10 reviews), <strong>social media feeds</strong> (last 20 posts), <strong>order history</strong> (last 5 orders on profile page), <strong>message threads</strong> (last 50 messages).</p>
+<p><strong>Common mistakes:</strong> Not keeping the subset synchronized on write — when adding a review, you must update both the product's <code>recentReviews</code> array AND insert into the reviews collection.</p>
+                </div>
+            </div>
+        </div>
+        <div class="accordion-item">
+            <h2 class="accordion-header" id="h_q3">
+                <button class="accordion-button collapsed" type="button"
+                    data-bs-toggle="collapse" data-bs-target="#c_q3"
+                    aria-expanded="false">
+                    <span class="question-number">4</span>What is the Bucket Pattern and when is it used?
+                </button>
+            </h2>
+            <div id="c_q3" class="accordion-collapse collapse"
+                data-bs-parent="#questionsAccordion">
+                <div class="accordion-body">The <strong>Bucket Pattern</strong> groups related data (typically time-series measurements) into <strong>bucket documents</strong> rather than creating one document per measurement. Instead of millions of individual sensor reading documents, group readings by time window (hour, day) or count (100 readings per bucket) into fewer, larger documents. This dramatically reduces the number of documents (and index entries) while keeping related data together. Benefits: fewer documents to index, better compression, reduced index overhead, and more efficient range scans over time windows. Used extensively for <strong>IoT, metrics, financial ticks, and logging</strong>.
+<pre><code>// WITHOUT bucket pattern: 1 document per measurement
+// 1M readings per sensor per day = 365M documents per year!
+{ sensorId: "temp001", timestamp: ISODate("2026-04-05T10:00:00"), value: 23.5 }
+{ sensorId: "temp001", timestamp: ISODate("2026-04-05T10:01:00"), value: 23.7 }
+// ... 1M more documents
+
+// WITH bucket pattern: 1 document per hour per sensor
+{
+  "_id": { sensorId: "temp001", hour: ISODate("2026-04-05T10:00:00") },
+  "sensorId": "temp001",
+  "hour": ISODate("2026-04-05T10:00:00"),
+  "count": 60,
+  "min": 22.1, "max": 24.3, "avg": 23.4,
+  "measurements": [
+    { "t": ISODate("2026-04-05T10:00:00"), "v": 23.5 },
+    { "t": ISODate("2026-04-05T10:01:00"), "v": 23.7 },
+    // ... 58 more readings
+  ]
+}
+// ↑ 1M → 24 documents/sensor/day (one per hour)
+// = 8,760 documents/sensor/year!
+
+// Inserting new measurement into existing bucket
+db.sensor_data.updateOne(
+  { sensorId: "temp001", hour: currentHour, count: { $lt: 200 } },
+  {
+    $push: { measurements: { t: now, v: 23.8 } },
+    $inc: { count: 1 },
+    $min: { min: 23.8 },
+    $max: { max: 23.8 }
+  },
+  { upsert: true }  // create new bucket if current is full
+);</code></pre>
+<p><strong>Why it matters:</strong> The Bucket Pattern is critical for <strong>time-series and IoT applications</strong>. It's frequently asked in interviews for data-intensive system design roles involving high write throughput.</p>
+<p><strong>Real applications:</strong> <strong>IoT sensor networks</strong>, <strong>stock market tick data</strong>, <strong>server metrics collection</strong> (CPU, memory per minute), <strong>application performance monitoring</strong>.</p>
+<p><strong>Common mistakes:</strong> Fixed bucket sizes with no overflow handling — if a bucket fills up, the upsert logic must handle creating a new bucket atomically.</p>
+                </div>
+            </div>
+        </div>
+        <div class="accordion-item">
+            <h2 class="accordion-header" id="h_q4">
+                <button class="accordion-button collapsed" type="button"
+                    data-bs-toggle="collapse" data-bs-target="#c_q4"
+                    aria-expanded="false">
+                    <span class="question-number">5</span>What is the Computed Pattern in schema design?
+                </button>
+            </h2>
+            <div id="c_q4" class="accordion-collapse collapse"
+                data-bs-parent="#questionsAccordion">
+                <div class="accordion-body">The <strong>Computed Pattern</strong> pre-computes and stores the result of expensive calculations in the document itself, updating the computed value whenever the source data changes. This trades <strong>write complexity for read performance</strong> — instead of computing totals/averages on every read, compute them once on write and store. Common computations: total order amount, average rating, follower count, comment count, cumulative revenue. The computation can happen <strong>atomically on update</strong> using <code>$inc</code>, <code>$push + $set</code>, or via a <strong>background job</strong> for batch recomputation. This pattern avoids expensive aggregation queries on hot read paths.
+<pre><code>// WITHOUT computed pattern: expensive aggregation per request
+// GET /posts/:id/stats
+db.comments.aggregate([
+  { $match: { postId: postId } },
+  { $group: { _id: null, count: { $sum: 1 }, avgRating: { $avg: "$rating" } } }
+]);
+// Runs on every request — slow, resource-heavy!
+
+// WITH computed pattern: pre-computed in post document
+{
+  "_id": ObjectId("..."),
+  "title": "MongoDB Schema Design",
+  "body": "...",
+  // Pre-computed values — updated on every comment add/remove
+  "commentCount": 245,
+  "avgRating": 4.7,
+  "viewCount": 15234,
+  "likeCount": 892
+}
+
+// When a comment is added — update stored values atomically
+db.posts.updateOne(
+  { _id: postId },
+  {
+    $inc: { commentCount: 1 },
+    $set: { avgRating: newAvg }  // recomputed in application
+  }
+);
+
+// Also useful: store frequently used aggregation results
+// Daily stats document (computed nightly by batch job)
+{
+  "_id": "2026-04-05",
+  "totalOrders": 1250,
+  "totalRevenue": 4750000,
+  "newUsers": 320,
+  "topProduct": "MacBook Pro",
+  "computedAt": ISODate("2026-04-05T23:59:00")
+}</code></pre>
+<p><strong>Why it matters:</strong> The Computed Pattern is essential for <strong>high-read systems</strong> like dashboards and social media. It demonstrates awareness of the classic <strong>read vs write trade-off</strong> in database optimization.</p>
+<p><strong>Real applications:</strong> <strong>Reddit/YouTube view counts</strong> (computed on write), <strong>e-commerce product ratings</strong> (updated on each review), <strong>social media follower counts</strong> (updated on follow/unfollow events).</p>
+<p><strong>Common mistakes:</strong> Letting computed values drift out of sync — always update the computed field in the <strong>same atomic operation</strong> as the data change, not in a separate query.</p>
+                </div>
+            </div>
+        </div>
+        <div class="accordion-item">
+            <h2 class="accordion-header" id="h_q5">
+                <button class="accordion-button collapsed" type="button"
+                    data-bs-toggle="collapse" data-bs-target="#c_q5"
+                    aria-expanded="false">
+                    <span class="question-number">6</span>What is the Polymorphic Pattern?
+                </button>
+            </h2>
+            <div id="c_q5" class="accordion-collapse collapse"
+                data-bs-parent="#questionsAccordion">
+                <div class="accordion-body">The <strong>Polymorphic Pattern</strong> stores different types of documents with <strong>varying schemas</strong> in a single collection, using a <strong>type discriminator field</strong> to distinguish them. This is natural in MongoDB due to its flexible schema and is used when objects share common attributes but have type-specific additional fields. MongoDB's schema-less nature makes this simple — no special handling needed at the database layer. Use this pattern for: inheritance hierarchies in OOP, multi-type search results, mixed content feeds, and product catalogs with varied attributes.
+<pre><code>// Single "vehicles" collection with polymorphic documents
+// Shared fields: type, make, year, price
+// Type-specific fields vary
+
+// Car document
+{
+  "_id": ObjectId("..."),
+  "type": "car",          // discriminator field
+  "make": "Toyota",
+  "model": "Camry",
+  "year": 2024,
+  "price": 2500000,
+  "doors": 4,             // car-specific
+  "transmission": "automatic",
+  "fuelType": "petrol"
+}
+
+// Motorcycle document (same collection, different shape)
+{
+  "_id": ObjectId("..."),
+  "type": "motorcycle",
+  "make": "Royal Enfield",
+  "model": "Classic 350",
+  "year": 2024,
+  "price": 190000,
+  "engineCC": 349,        // motorcycle-specific
+  "seatHeight": 805
+}
+
+// Electric vehicle (additional type)
+{
+  "_id": ObjectId("..."),
+  "type": "electric",
+  "make": "Tata",
+  "model": "Nexon EV",
+  "year": 2024,
+  "price": 1450000,
+  "batteryKWh": 40.5,     // EV-specific
+  "rangeKm": 465,
+  "chargingTime": 8.6
+}
+
+// Query across all types (polymorphic search)
+db.vehicles.find({ year: 2024, price: { $lt: 2000000 } });
+
+// Type-specific query
+db.vehicles.find({ type: "electric", rangeKm: { $gte: 300 } });
+
+// Index on common fields + discriminator
+db.vehicles.createIndex({ type: 1, price: 1, year: 1 });</code></pre>
+<p><strong>Why it matters:</strong> Tests understanding of MongoDB's schema flexibility advantage. Knowing this pattern shows you can design <strong>elegant, maintainable schemas</strong> for complex domain models.</p>
+<p><strong>Real applications:</strong> <strong>Product catalogs</strong> (electronics, clothing, food), <strong>notification systems</strong> (email, SMS, push, in-app), <strong>social content feeds</strong> (post, photo, video, story).</p>
+<p><strong>Common mistakes:</strong> Creating separate collections for each type when documents share 80% of their fields — this forces multiple queries to build a unified feed/list.</p>
+                </div>
+            </div>
+        </div>
+        <div class="accordion-item">
+            <h2 class="accordion-header" id="h_q6">
+                <button class="accordion-button collapsed" type="button"
+                    data-bs-toggle="collapse" data-bs-target="#c_q6"
+                    aria-expanded="false">
+                    <span class="question-number">7</span>What is the Extended Reference Pattern?
+                </button>
+            </h2>
+            <div id="c_q6" class="accordion-collapse collapse"
+                data-bs-parent="#questionsAccordion">
+                <div class="accordion-body">The <strong>Extended Reference Pattern</strong> embeds a <strong>subset of frequently needed fields</strong> from a referenced document directly into the referencing document, creating a <strong>denormalized copy</strong> of the most-accessed data. This avoids the lookup/join for common display scenarios while maintaining the full reference for when complete data is needed. The key trade-off: the embedded subset may become <strong>stale</strong> if the source document is updated — you must decide which fields change infrequently enough to be safely embedded.
+<pre><code>// Problem: Every order display requires a user lookup
+// orders collection with just userId
+{ "_id": ord1, "userId": ObjectId("u1"), "items": [...], "total": 5000 }
+// Every list view: JOIN with users to get user.name, user.email
+
+// EXTENDED REFERENCE PATTERN — embed stable user fields
+{
+  "_id": ObjectId("ord1"),
+  "userId": ObjectId("u1"),        // reference for full lookup
+  "user": {                        // extended reference (embedded subset)
+    "name": "Mayur Badodiya",      // rarely changes
+    "email": "mayur@example.com"   // rarely changes
+    // NOT: address (changes often), password, etc.
+  },
+  "items": [
+    {
+      "productId": ObjectId("p1"), // reference
+      "name": "Laptop",            // embedded (product name stable)
+      "price": 75000,              // MUST snapshot at order time!
+      "qty": 1
+    }
+  ],
+  "total": 75000,
+  "status": "pending",
+  "createdAt": ISODate("...")
+}
+
+// Order list query — no JOIN needed!
+db.orders.find({ "user.email": "mayur@example.com" }).sort({ createdAt: -1 });
+
+// When user changes name — update existing orders? (usually NO for historical accuracy)
+// But for active displays, update with scheduled job
+db.orders.updateMany(
+  { "userId": userId, status: { $in: ["pending","processing"] } },
+  { $set: { "user.name": newName } }
+);</code></pre>
+<p><strong>Why it matters:</strong> Extended Reference is one of the most practical MongoDB patterns. It demonstrates understanding of the <strong>read/write trade-off and data freshness vs performance</strong>.</p>
+<p><strong>Real applications:</strong> <strong>Order display</strong> with buyer name, <strong>social feed</strong> with poster's profile picture and username, <strong>audit logs</strong> with actor's name and role at time of action.</p>
+<p><strong>Common mistakes:</strong> Embedding fields that change frequently (like user's address) — these must be updated in all referencing documents whenever they change, creating write fan-out.</p>
+                </div>
+            </div>
+        </div>
+        <div class="accordion-item">
+            <h2 class="accordion-header" id="h_q7">
+                <button class="accordion-button collapsed" type="button"
+                    data-bs-toggle="collapse" data-bs-target="#c_q7"
+                    aria-expanded="false">
+                    <span class="question-number">8</span>What is the Outlier Pattern and why is it used?
+                </button>
+            </h2>
+            <div id="c_q7" class="accordion-collapse collapse"
+                data-bs-parent="#questionsAccordion">
+                <div class="accordion-body">The <strong>Outlier Pattern</strong> handles documents that are <strong>statistical exceptions</strong> — they have field values (especially arrays) much larger than typical documents. Instead of designing the schema for the outlier case that affects performance for the majority, you add an <strong>overflow flag</strong> and store excess data in separate overflow documents. The majority of documents stay small and fast. Only outliers require an additional query to load overflow data.
+<pre><code>// Problem: Movies collection — most movies have 100-500 reviews
+// But "Avatar" has 50,000+ reviews — breaks embedding
+
+// OUTLIER PATTERN:
+// Normal movie document (embedded reviews up to limit)
+{
+  "_id": ObjectId("m1"),
+  "title": "Inception",
+  "reviews": [
+    { "user": "Alice", "rating": 5, "text": "Mind-blowing!" },
+    // ... up to 100 reviews embedded
+  ],
+  "has_extras": false  // no overflow
+}
+
+// Outlier movie document (flag = true)
+{
+  "_id": ObjectId("m2"),
+  "title": "Avatar",
+  "reviews": [
+    // only first 100 reviews embedded
+  ],
+  "has_extras": true,       // overflow flag!
+  "reviewCount": 52000
+}
+
+// Overflow collection for outlier's excess reviews
+{
+  "_id": ObjectId("overflow1"),
+  "movieId": ObjectId("m2"),
+  "reviews": [
+    // reviews 101-50000 stored here
+  ]
+}
+
+// Application logic
+const movie = await db.movies.findOne({ _id: movieId });
+if (movie.has_extras) {
+  const overflow = await db.movie_overflows.find({ movieId }).toArray();
+  // merge overflow.reviews into display
+}
+
+// 99% of movies: single fast document read
+// 1% outliers: extra query to overflow collection</code></pre>
+<p><strong>Why it matters:</strong> Knowledge of the Outlier Pattern shows understanding of designing for <strong>the common case without penalizing the majority for edge cases</strong>. This is expert-level MongoDB design.</p>
+<p><strong>Real applications:</strong> <strong>Viral posts</strong> with millions of comments, <strong>celebrity profiles</strong> with millions of followers stored in embedded arrays, <strong>high-transaction accounts</strong> in banking.</p>
+<p><strong>Common mistakes:</strong> Designing the entire schema to accommodate the outlier case — this makes ALL documents larger and slower just to handle 0.1% of edge cases.</p>
+                </div>
+            </div>
+        </div>
+        <div class="accordion-item">
+            <h2 class="accordion-header" id="h_q8">
+                <button class="accordion-button collapsed" type="button"
+                    data-bs-toggle="collapse" data-bs-target="#c_q8"
+                    aria-expanded="false">
+                    <span class="question-number">9</span>How do you handle schema migrations in MongoDB?
+                </button>
+            </h2>
+            <div id="c_q8" class="accordion-collapse collapse"
+                data-bs-parent="#questionsAccordion">
+                <div class="accordion-body">MongoDB's flexible schema means you can add fields to new documents without immediately updating old ones — this is called <strong>schema versioning</strong>. However, systematic <strong>schema migrations</strong> are still needed when: old documents lack required fields, a field type needs to change, or a field is renamed. Strategies: (1) <strong>Lazy migration</strong> — update documents on read access, (2) <strong>Batch migration</strong> — background job updates all documents, (3) <strong>Schema versioning</strong> — add a version field and handle each version in application code, (4) <strong>In-place migration</strong> via <code>updateMany()</code> with pipeline.
+<pre><code>// STRATEGY 1: Add schema version field
+{ _id: 1, name: "Mayur", schema_version: 1 } // old
+{ _id: 2, name: "Alice", schema_version: 2 } // new with address embedded
+
+// Application handles both versions
+function normalizeUser(doc) {
+  if (doc.schema_version < 2) {
+    doc.address = {}; // provide safe default
+  }
+  return doc;
+}
+
+// STRATEGY 2: Batch migration with updateMany + pipeline
+// Add 'isActive' field with default 'true' to all docs missing it
+db.users.updateMany(
+  { isActive: { $exists: false } },     // find old docs
+  [{ $set: { isActive: true } }]         // add field
+);
+
+// STRATEGY 3: Rename a field safely
+db.users.updateMany(
+  { "fullname": { $exists: true } },
+  [{ $set: { name: "$fullname" }, $unset: "fullname" }]
+);
+
+// STRATEGY 4: Change field type (string phone → object)
+db.users.updateMany(
+  { phone: { $type: "string" } },
+  [{
+    $set: {
+      phone: {
+        number: "$phone",
+        country: "+91",
+        type: "mobile"
+      }
+    }
+  }]
+);
+
+// Monitor migration progress
+db.users.countDocuments({ isActive: { $exists: false } }); // remaining</code></pre>
+<p><strong>Why it matters:</strong> Schema migrations in NoSQL are often misunderstood. Interviewers expect nuanced answers about <strong>zero-downtime migration strategies</strong> and handling both old and new schema formats simultaneously.</p>
+<p><strong>Real applications:</strong> Adding a new required field to a user collection (100M docs), changing phone storage from string to object, migrating from embedded addresses to a separate addresses collection.</p>
+<p><strong>Common mistakes:</strong> Running a mass migration in one shot without batching — a single <code>updateMany()</code> on 100M documents locks the collection and degrades production performance for hours.</p>
+                </div>
+            </div>
+        </div>
+        <div class="accordion-item">
+            <h2 class="accordion-header" id="h_q9">
+                <button class="accordion-button collapsed" type="button"
+                    data-bs-toggle="collapse" data-bs-target="#c_q9"
+                    aria-expanded="false">
+                    <span class="question-number">10</span>What is the Document Versioning Pattern?
+                </button>
+            </h2>
+            <div id="c_q9" class="accordion-collapse collapse"
+                data-bs-parent="#questionsAccordion">
+                <div class="accordion-body">The <strong>Document Versioning Pattern</strong> maintains a <strong>history of document changes</strong> over time, enabling audit trails, rollbacks, and point-in-time data access. Two main approaches: (1) <strong>Current + History split</strong> — keep the latest document in the main collection and all previous versions in a history collection, (2) <strong>Embed version array</strong> — store version history inside the document itself (only viable for limited history). This pattern is critical for compliance, audit logging, and rollback capabilities. MongoDB transactions help ensure atomic updates across both collections.
+<pre><code>// APPROACH 1: Current + History Collections
+
+// users collection (current state only)
+{
+  "_id": ObjectId("u1"),
+  "name": "Mayur",
+  "email": "mayur@example.com",
+  "role": "admin",
+  "version": 3,
+  "updatedAt": ISODate("2026-04-05")
+}
+
+// users_history collection (all previous versions)
+{
+  "_id": ObjectId("uh1"),
+  "docId": ObjectId("u1"),    // reference to current doc
+  "version": 2,               // version number
+  "name": "Mayur Badodiya",   // old state
+  "email": "old@email.com",
+  "role": "user",
+  "archivedAt": ISODate("2026-03-01") // when this became historical
+}
+
+// Atomic update: history + current (in a transaction)
+const session = client.startSession();
+await session.withTransaction(async () => {
+  // Archive current version to history
+  const current = await db.users.findOne({ _id: userId });
+  await db.users_history.insertOne({ docId: userId, ...current, archivedAt: new Date() }, { session });
+  // Update current with new data
+  await db.users.updateOne(
+    { _id: userId },
+    { $set: { role: "admin", updatedAt: new Date() }, $inc: { version: 1 } },
+    { session }
+  );
+});
+
+// Query: get version history for a user
+db.users_history.find({ docId: userId }).sort({ version: -1 });
+
+// Rollback: restore version 2
+const v2 = await db.users_history.findOne({ docId: userId, version: 2 });
+await db.users.replaceOne({ _id: userId }, { ...v2, version: latestVersion + 1 });</code></pre>
+<p><strong>Why it matters:</strong> Audit trails are required by regulations (GDPR, SOX, HIPAA). Explaining this pattern demonstrates <strong>compliance awareness and advanced transaction usage</strong>.</p>
+<p><strong>Real applications:</strong> <strong>Medical records</strong> requiring audit trail, <strong>financial contract amendments</strong>, <strong>CMS content versioning</strong> (draft → published → archived).</p>
+<p><strong>Common mistakes:</strong> Not using transactions when archiving to history — a server crash between archiving old and writing new leaves data in an inconsistent state.</p>
+                </div>
+            </div>
+        </div>
+        <div class="accordion-item">
+            <h2 class="accordion-header" id="h_q10">
+                <button class="accordion-button collapsed" type="button"
+                    data-bs-toggle="collapse" data-bs-target="#c_q10"
+                    aria-expanded="false">
+                    <span class="question-number">11</span>What is schema anti-pattern: Massive Arrays?
+                </button>
+            </h2>
+            <div id="c_q10" class="accordion-collapse collapse"
+                data-bs-parent="#questionsAccordion">
+                <div class="accordion-body"><strong>Massive arrays</strong> are one of the most common MongoDB anti-patterns. Embedding arrays that grow without bounds creates: (1) documents approaching the <strong>16 MB limit</strong>, (2) <strong>entire array loaded</strong> on every document read even when you need only one element, (3) queries on array elements (<code>$elemMatch</code>) slow down as array size grows, (4) write operations that push to arrays require rewriting the entire document, (5) working set bloat reducing effective cache. The fix is to <strong>reference instead of embed</strong> when arrays can grow unboundedly, or apply the <strong>Subset</strong> or <strong>Bucket</strong> patterns.
+<pre><code>// ❌ ANTI-PATTERN: Massive embedded array
+{
+  "_id": ObjectId("u1"),
+  "username": "mayur",
+  "followers": [  // could have 1M+ entries for a celebrity!
+    ObjectId("u2"),
+    ObjectId("u3"),
+    // ... 999,998 more ObjectIds
+  ]
+}
+// Problems:
+// 1. Document size: 1M ObjectIds × 12 bytes = 12 MB!
+// 2. Every profile load fetches 12 MB even to show just follower count
+// 3. $push on every follow action rewrites 12 MB document
+
+// ✅ SOLUTION: Separate relationship collection
+// users collection (clean, small)
+{ "_id": ObjectId("u1"), "username": "mayur", "followerCount": 1000000 }
+
+// follows collection (the relationship)
+{
+  "_id": ObjectId("..."),
+  "followerId": ObjectId("u2"),   // the follower
+  "followeeId": ObjectId("u1"),   // who is followed
+  "createdAt": ISODate("...")
+}
+// Compound index: db.follows.createIndex({ followeeId: 1, followerId: 1 })
+// Compound index: db.follows.createIndex({ followerId: 1, followeeId: 1 })
+
+// Efficient queries
+db.follows.find({ followeeId: userId }).count();  // follower count
+db.follows.find({ followerId: myId, followeeId: targetId }); // am I following?
+db.follows.find({ followerId: myId }).limit(20).sort({ createdAt: -1 }); // my follows list</code></pre>
+<p><strong>Why it matters:</strong> Massive arrays are the #1 MongoDB performance killer in production. Identifying and fixing this anti-pattern demonstrates <strong>production schema design experience</strong>.</p>
+<p><strong>Real applications:</strong> <strong>Twitter follower graphs</strong>, <strong>YouTube subscriber lists</strong>, <strong>Facebook friend networks</strong> — all use separate relationship tables/collections, not embedded arrays.</p>
+<p><strong>Common mistakes:</strong> Not anticipating array growth during initial design. Early-stage apps with 100 users seem fine with embedded arrays, then fail catastrophically when users reach 10K+ followers.</p>
+                </div>
+            </div>
+        </div>
+        <div class="accordion-item">
+            <h2 class="accordion-header" id="h_q11">
+                <button class="accordion-button collapsed" type="button"
+                    data-bs-toggle="collapse" data-bs-target="#c_q11"
+                    aria-expanded="false">
+                    <span class="question-number">12</span>What is the Tree structure pattern for hierarchical data?
+                </button>
+            </h2>
+            <div id="c_q11" class="accordion-collapse collapse"
+                data-bs-parent="#questionsAccordion">
+                <div class="accordion-body">MongoDB supports multiple ways to store <strong>hierarchical (tree) data</strong>, each optimized for different query patterns. Key approaches: (1) <strong>Parent Reference</strong> — each node stores its parent's _id (simple, good for finding children), (2) <strong>Child Reference</strong> — parent stores array of child _ids (good for finding children immediately), (3) <strong>Array of Ancestors</strong> — each node stores all ancestors (good for breadcrumb/path queries), (4) <strong>Materialized Paths</strong> — store path as string (good for subtree queries with regex), (5) <strong>Nested Sets</strong> — store left/right bounds (best read performance for subtrees). Choose based on which tree operations dominate.
+<pre><code>// 1. PARENT REFERENCE (most common)
+{ _id: "mongodb",     name: "MongoDB",     parent: "databases" }
+{ _id: "databases",   name: "Databases",   parent: "technology" }
+{ _id: "technology",  name: "Technology",  parent: null }
+
+// Find children of "databases"
+db.categories.find({ parent: "databases" });
+
+// Find ancestors (requires multiple queries or $graphLookup)
+db.categories.aggregate([{
+  $graphLookup: {
+    from: "categories", startWith: "$parent",
+    connectFromField: "parent", connectToField: "_id",
+    as: "ancestors"
+  }
+}]);
+
+// 2. ARRAY OF ANCESTORS (best for breadcrumb/path)
+{ _id: "mongodb", name: "MongoDB", ancestors: ["technology", "databases"] }
+// Find all descendants of "databases" in one query:
+db.categories.find({ ancestors: "databases" });
+
+// 3. MATERIALIZED PATH (subtree queries with regex)
+{ _id: "mongodb", name: "MongoDB", path: ",technology,databases,mongodb," }
+// Find all under "databases":
+db.categories.find({ path: /,databases,/ });
+// Create index for efficient regex on anchored paths
+db.categories.createIndex({ path: 1 });
+
+// 4. NESTED SETS (best read, worst write performance)
+{ _id: "mongodb", name: "MongoDB", left: 7, right: 8 }
+// Find all descendants:
+db.categories.find({ left: { $gt: parentLeft }, right: { $lt: parentRight } });</code></pre>
+<p><strong>Why it matters:</strong> Hierarchical data is common (categories, org charts, menus, file systems). Interviewers assess ability to choose the right tree storage strategy for specific query patterns.</p>
+<p><strong>Real applications:</strong> <strong>E-commerce category trees</strong>, <strong>organizational charts</strong>, <strong>file system hierarchies</strong>, <strong>comment thread nesting</strong>, <strong>menu structures</strong>.</p>
+<p><strong>Common mistakes:</strong> Using Parent Reference for deep subtree fetches without <code>$graphLookup</code> — requires N recursive queries for N levels, extremely slow for deep trees.</p>
+                </div>
+            </div>
+        </div>
+        <div class="accordion-item">
+            <h2 class="accordion-header" id="h_q12">
+                <button class="accordion-button collapsed" type="button"
+                    data-bs-toggle="collapse" data-bs-target="#c_q12"
+                    aria-expanded="false">
+                    <span class="question-number">13</span>What is the Schema Anti-Pattern: Unnecessary Indexes?
+                </button>
+            </h2>
+            <div id="c_q12" class="accordion-collapse collapse"
+                data-bs-parent="#questionsAccordion">
+                <div class="accordion-body">The <strong>Unnecessary Indexes</strong> anti-pattern occurs when developers create indexes on every field "just in case" rather than based on actual query patterns. Each index: (1) uses <strong>RAM and disk space</strong> (index data structure stored in WiredTiger), (2) increases <strong>write latency</strong> (every insert/update/delete must update all indexes), (3) adds overhead to the query planner (more candidate plans to evaluate), (4) inflates <strong>replication oplog</strong> size. The MongoDB recommendation is to index based on <strong>actual query patterns</strong>, regularly audit with <code>$indexStats</code>, and drop unused indexes.
+<pre><code>// Find unused indexes (zero or low usage since last restart)
+db.orders.aggregate([{ $indexStats: {} }]);
+// Look for: "accesses.ops": 0 or very low number
+
+// ❌ ANTI-PATTERN: Index everything
+db.users.createIndex({ name: 1 });
+db.users.createIndex({ age: 1 });
+db.users.createIndex({ gender: 1 });
+db.users.createIndex({ isActive: 1 });
+db.users.createIndex({ createdAt: 1 });
+db.users.createIndex({ country: 1 });
+// 7 indexes on a write-heavy collection — massive write overhead!
+
+// ✅ GOOD: Index based on query patterns
+// If queries are: find by email, list by createdAt, filter active users
+db.users.createIndex({ email: 1 }, { unique: true }); // login
+db.users.createIndex({ createdAt: -1 });              // listing
+db.users.createIndex({ isActive: 1, createdAt: -1 }, {
+  partialFilterExpression: { isActive: true }         // only active users
+});
+
+// Audit and clean up unused indexes
+// 1. Enable profiling to capture slow queries
+db.setProfilingLevel(1, { slowms: 100 });
+// 2. Review system.profile collection
+db.system.profile.find({ millis: { $gt: 100 } }).sort({ ts: -1 });
+// 3. Drop confirmed unused indexes
+db.users.dropIndex({ gender: 1 });</code></pre>
+<p><strong>Why it matters:</strong> Understanding index management is a sign of production experience. Interviewers ask this to confirm you know that indexes have <strong>costs, not just benefits</strong>.</p>
+<p><strong>Real applications:</strong> A high-throughput write application (10K inserts/second) with 10 unnecessary indexes degrades to 2K inserts/second due to index maintenance overhead.</p>
+<p><strong>Common mistakes:</strong> Creating indexes during initial development "to be safe" and never auditing them — production systems accumulate index bloat over time, degrading write performance progressively.</p>
+                </div>
+            </div>
+        </div>
+
+            </div>
+            <div class="topic-nav" id="topicNav">
+            <a class="topic-nav-btn prev" href="indexes.html">
+                <span class="label"><i class="bi bi-arrow-left me-1"></i> Prev</span>
+                <span class="title">Indexes & Performance</span>
+            </a>
+            <a class="topic-nav-btn next" href="relationships.html">
+                <span class="label">Next <i class="bi bi-arrow-right ms-1"></i></span>
+                <span class="title">Relationships</span>
+            </a>
+            </div>
+            <footer class="app-footer">
+                <p>&copy; 2026 InterviewPrep &mdash; MongoDB Interview Questions</p>
+            </footer>
+        </div>
+    </div>
+    <button class="btn-totop" id="backToTop"><i class="bi bi-chevron-up"></i></button>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>
+    <script>
+    (function(){
+        var sb=document.getElementById('sidebar'),bd=document.getElementById('sidebarBackdrop'),
+            tg=document.getElementById('sidebarToggle');
+        if(tg)tg.addEventListener('click',function(){sb.classList.add('open');bd.classList.add('show');});
+        if(bd)bd.addEventListener('click',function(){sb.classList.remove('open');bd.classList.remove('show');});
+        var btt=document.getElementById('backToTop');
+        window.addEventListener('scroll',function(){btt.classList.toggle('show',window.scrollY>400);});
+        btt.addEventListener('click',function(){window.scrollTo({top:0,behavior:'smooth'});});
+        var acc=document.getElementById('questionsAccordion');
+        var totalCount=13;
+        var si=document.getElementById('searchInput');
+        if(si){var t=null;si.addEventListener('input',function(){clearTimeout(t);var v=this.value.trim().toLowerCase();
+        if(v.length<2){acc.querySelectorAll('.accordion-item').forEach(function(el){el.style.display='';});
+        document.getElementById('questionCount').textContent=totalCount+' Questions';return;}
+        t=setTimeout(function(){var c=0;acc.querySelectorAll('.accordion-item').forEach(function(el){
+        var m=el.textContent.toLowerCase().indexOf(v)!==-1;el.style.display=m?'':'none';if(m)c++;});
+        document.getElementById('questionCount').textContent=c+' Questions';},200);});}
+    })();
+    </script>
+</body>
+</html>

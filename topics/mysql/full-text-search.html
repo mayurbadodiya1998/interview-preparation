@@ -1,0 +1,412 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="MySQL Full-Text Search interview questions: MATCH, AGAINST, Boolean search, natural language search.">
+    <meta name="keywords" content="MySQL full-text search, MATCH AGAINST, Boolean search, FULLTEXT index, MySQL interview">
+    <meta name="author" content="InterviewPrep">
+    <meta name="robots" content="index, follow">
+    <link rel="icon" type="image/svg+xml" href="../../favicon.svg" sizes="any">
+    <meta property="og:type" content="website">
+    <meta property="og:title" content="MySQL Full-Text Search — MySQL Interview Questions | InterviewPrep">
+    <meta property="og:description" content="MySQL Full-Text Search interview questions: MATCH, AGAINST, Boolean search, natural language search.">
+    <meta property="og:url" content="https://coddingquestionhub.com/topics/mysql/full-text-search.html">
+    <meta name="twitter:card" content="summary_large_image">
+    <meta name="twitter:title" content="MySQL Full-Text Search — MySQL Interview Questions | InterviewPrep">
+    <meta name="twitter:description" content="MySQL Full-Text Search interview questions: MATCH, AGAINST, Boolean search, natural language search.">
+    <meta name="twitter:image" content="https://coddingquestionhub.com/og-mysql.png">
+    <title>MySQL Full-Text Search — MySQL Interview Questions | InterviewPrep 2026</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&family=Fira+Code:wght@400;500&display=swap" rel="stylesheet">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="../../css/styles.css">
+    <link rel="canonical" href="https://coddingquestionhub.com/topics/mysql/full-text-search.html">
+    <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-8957020141286926" crossorigin="anonymous"></script>
+    <script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "BreadcrumbList",
+  "itemListElement": [
+    {
+      "@type": "ListItem",
+      "position": 1,
+      "name": "Home",
+      "item": "https://coddingquestionhub.com"
+    },
+    {
+      "@type": "ListItem",
+      "position": 2,
+      "name": "Topics",
+      "item": "https://coddingquestionhub.com/topics"
+    },
+    {
+      "@type": "ListItem",
+      "position": 3,
+      "name": "Mysql",
+      "item": "https://coddingquestionhub.com/topics/mysql"
+    },
+    {
+      "@type": "ListItem",
+      "position": 4,
+      "name": "Full Text Search",
+      "item": "https://coddingquestionhub.com/topics/mysql/full-text-search.html"
+    }
+  ]
+}
+    </script>
+</head>
+<body class="theme-mysql">
+    <nav class="navbar navbar-expand-lg sticky-top" id="mainNavbar">
+        <div class="container-fluid px-3 px-lg-4">
+            <a class="navbar-brand fw-bold d-flex align-items-center gap-2" href="../../index.html">
+                <span class="brand-icon"><i class="bi bi-braces-asterisk"></i></span>
+                <span>Interview<span class="brand-accent">Prep</span></span>
+            </a>
+            <button class="navbar-toggler border-0 shadow-none" type="button" data-bs-toggle="collapse" data-bs-target="#navbarContent">
+                <i class="bi bi-list fs-3 text-white"></i>
+            </button>
+            <div class="collapse navbar-collapse" id="navbarContent">
+                <ul class="navbar-nav me-auto mb-2 mb-lg-0 ms-lg-3">
+                    <li class="nav-item dropdown">
+                        <a class="nav-link dropdown-toggle fw-500" href="#" role="button" data-bs-toggle="dropdown">
+                            <i class="bi bi-layers me-1"></i> Choose Category
+                        </a>
+                        <ul class="dropdown-menu">
+                            <li><a class="dropdown-item fw-500" href="../../pages/angular.html"><i class="bi bi-bootstrap me-2 text-danger"></i>Angular</a></li>
+                            <li><a class="dropdown-item fw-500" href="../../pages/react.html"><i class="bi bi-infinity me-2 text-info"></i>React</a></li>
+                            <li><a class="dropdown-item fw-500" href="../../pages/node.html"><i class="bi bi-hdd-network me-2 text-success"></i>Node.js</a></li>
+                            <li><a class="dropdown-item fw-500" href="../../pages/javascript.html"><i class="bi bi-filetype-js me-2 text-warning"></i>JavaScript</a></li>
+                            <li><a class="dropdown-item fw-500" href="../../pages/dsa.html"><i class="bi bi-diagram-3-fill me-2" style="color:#8b5cf6"></i>DSA</a></li>
+                            <li><a class="dropdown-item fw-500" href="../../pages/logical.html"><i class="bi bi-lightbulb me-2" style="color:#f59e0b"></i>Logical Reasoning</a></li>
+                            <li><a class="dropdown-item fw-500" href="../../pages/mongodb.html"><i class="bi bi-database-fill me-2" style="color:#4DB33D"></i>MongoDB</a></li>
+                            <li><a class="dropdown-item fw-500" href="../../pages/mysql.html"><i class="bi bi-table me-2" style="color:#0F766E"></i>MySQL</a></li>
+                        </ul>
+                    </li>
+                </ul>
+                <div class="search-wrap">
+                    <i class="bi bi-search search-icon"></i>
+                    <input class="form-control search-input" type="search" placeholder="Search questions..." id="searchInput">
+                </div>
+            </div>
+        </div>
+    </nav>
+        <div class="app-wrapper">
+        <aside class="sidebar" id="sidebar">
+            <div class="sidebar-head">
+                <h6><i class="bi bi-table me-2"></i>MySQL Topics</h6>
+            </div>
+            <nav>
+                <ul class="sidebar-links" id="topicList">
+                    <li><a class="nav-link" href="mysql-fundamentals.html"><i class="bi-diagram-2"></i><span>MySQL Fundamentals</span></a></li>
+                    <li><a class="nav-link" href="crud-operations.html"><i class="bi-pencil-square"></i><span>CRUD Operations</span></a></li>
+                    <li><a class="nav-link" href="sql-joins.html"><i class="bi-link-45deg"></i><span>SQL Joins</span></a></li>
+                    <li><a class="nav-link" href="indexes.html"><i class="bi-lightning-fill"></i><span>Indexes</span></a></li>
+                    <li><a class="nav-link" href="query-optimization.html"><i class="bi-speedometer2"></i><span>Query Optimization</span></a></li>
+                    <li><a class="nav-link" href="transactions-acid.html"><i class="bi-arrow-repeat"></i><span>Transactions &amp; ACID</span></a></li>
+                    <li><a class="nav-link" href="stored-procedures.html"><i class="bi-code-square"></i><span>Stored Procedures</span></a></li>
+                    <li><a class="nav-link" href="triggers.html"><i class="bi-bell-fill"></i><span>Triggers</span></a></li>
+                    <li><a class="nav-link" href="views.html"><i class="bi-eye"></i><span>Views</span></a></li>
+                    <li><a class="nav-link" href="normalization.html"><i class="bi-diagram-3-fill"></i><span>Normalization</span></a></li>
+                    <li><a class="nav-link" href="data-types.html"><i class="bi-diagram-2"></i><span>Data Types</span></a></li>
+                    <li><a class="nav-link" href="string-functions.html"><i class="bi-chat-square-text"></i><span>String Functions</span></a></li>
+                    <li><a class="nav-link" href="date-time-functions.html"><i class="bi-calendar-event"></i><span>Date &amp; Time</span></a></li>
+                    <li><a class="nav-link" href="aggregate-functions.html"><i class="bi-graph-up"></i><span>Aggregate Functions</span></a></li>
+                    <li><a class="nav-link" href="window-functions.html"><i class="bi-column-gap"></i><span>Window Functions</span></a></li>
+                    <li><a class="nav-link" href="subqueries-ctes.html"><i class="bi-filter"></i><span>Subqueries &amp; CTEs</span></a></li>
+                    <li><a class="nav-link active" href="full-text-search.html"><i class="bi-search"></i><span>Full-Text Search</span></a></li>
+                    <li><a class="nav-link" href="replication-ha.html"><i class="bi-diagram-3"></i><span>Replication &amp; HA</span></a></li>
+                    <li><a class="nav-link" href="security-permissions.html"><i class="bi-shield-check"></i><span>Security</span></a></li>
+                    <li><a class="nav-link" href="performance-tuning.html"><i class="bi-sliders"></i><span>Performance Tuning</span></a></li>
+                    <li><a class="nav-link" href="interview-queries-1.html"><i class="bi-gear-fill"></i><span>Interview Queries 1</span></a></li>
+                    <li><a class="nav-link" href="interview-queries-2.html"><i class="bi-gear-fill"></i><span>Interview Queries 2</span></a></li>
+                </ul>
+            </nav>
+        </aside>
+        <div class="sidebar-backdrop" id="sidebarBackdrop"></div>
+        <div class="content-area">
+            <div class="mobile-bar d-lg-none">
+                <button class="btn btn-sm btn-glass" id="sidebarToggle">
+                    <i class="bi bi-layout-sidebar-inset me-1"></i>Topics
+                </button>
+                <span class="badge rounded-pill" style="background:#0F766E;color:#fff;">MySQL</span>
+            </div>
+            <div class="breadcrumb-nav" id="breadcrumb">
+                <a href="../../index.html">Home</a><span class="sep">/</span>
+                <a href="../../pages/mysql.html">MySQL</a><span class="sep">/</span>
+                <span class="current">Full-Text Search</span>
+            </div>
+            <div class="qs-header">
+                <h1 class="qs-title" id="topicTitle">MySQL Full-Text Search Interview Questions</h1>
+                <span class="badge qs-badge" id="questionCount">8 Questions</span>
+            </div>
+
+            <div class="accordion" id="questionsAccordion">
+                <div class="accordion-item">
+                    <h2 class="accordion-header" id="h_q0">
+                        <button class="accordion-button" type="button" data-bs-toggle="collapse" data-bs-target="#c_q0" aria-expanded="true"><span class="question-number">1</span> What are FULLTEXT indexes and how do they work?</button>
+                    </h2>
+                    <div id="c_q0" class="accordion-collapse collapse show" data-bs-parent="#questionsAccordion">
+                        <div class="accordion-body"><p><strong>FULLTEXT indexes</strong> optimize text searches. Support natural language and boolean searches. More efficient than LIKE patterns. Require InnoDB or MyISAM engines.</p><pre><code>-- Create FULLTEXT index
+CREATE FULLTEXT INDEX idx_title ON articles(title);
+CREATE FULLTEXT INDEX idx_content ON articles(title, content);
+
+-- Add to existing table
+ALTER TABLE articles ADD FULLTEXT INDEX idx_search(title, content);
+
+-- Basic FULLTEXT search
+SELECT * FROM articles WHERE MATCH(title, content) AGAINST('database' IN NATURAL LANGUAGE MODE);
+
+-- Index information
+SHOW INDEX FROM articles;
+SELECT * FROM INFORMATION_SCHEMA.STATISTICS WHERE TABLE_NAME = 'articles' AND INDEX_TYPE = 'FULLTEXT';</code></pre><p><strong>Why it matters:</strong> Efficient text search on large text fields.</p><p><strong>Real applications:</strong> Search on articles, blog posts, product descriptions.</p><p><strong>Common mistakes:</strong> Using LIKE instead of MATCH, engine compatibility, minimum word length.</p></div>
+                    </div>
+                </div>
+
+                <div class="accordion-item">
+                    <h2 class="accordion-header" id="h_q1">
+                        <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#c_q1" aria-expanded="false"><span class="question-number">2</span> What are NATURAL LANGUAGE vs BOOLEAN search modes?</button>
+                    </h2>
+                    <div id="c_q1" class="accordion-collapse collapse" data-bs-parent="#questionsAccordion">
+                        <div class="accordion-body"><p><strong>NATURAL LANGUAGE MODE</strong>: Default, word-based search with ranking. <strong>BOOLEAN MODE</strong>: Advanced operators (+, -, *, etc). Boolean searches don't rank results.</p><pre><code>-- NATURAL LANGUAGE (default)
+SELECT * FROM articles WHERE MATCH(title) AGAINST('mysql database');
+-- Finds documents with mysql and/or database
+
+-- With relevance ranking
+SELECT id, title, MATCH(title) AGAINST('mysql database') as relevance 
+FROM articles WHERE MATCH(title) AGAINST('mysql database')
+ORDER BY relevance DESC;
+
+-- BOOLEAN mode with operators
+SELECT * FROM articles WHERE MATCH(title) AGAINST('+mysql -oracle' IN BOOLEAN MODE);
+-- Must have mysql, exclude oracle
+
+-- BOOLEAN operators
++word  -- Must contain
+-word  -- Must not contain
+word*  -- Wildcard (word%)
+"phrase"  -- Exact phrase
+(word1 word2)  -- Grouping
+
+-- Examples
+SELECT * FROM posts WHERE MATCH(content) AGAINST('+python +machine* -java' IN BOOLEAN MODE);
+SELECT * FROM articles WHERE MATCH(title, content) AGAINST('"machine learning"' IN BOOLEAN MODE);</code></pre><p><strong>Why it matters:</strong> Different search behaviors for different use cases.</p><p><strong>Real applications:</strong> Simple searches (natural), advanced filters (boolean).</p><p><strong>Common mistakes:</strong> Confusing ranking in boolean mode, operator syntax.</p></div>
+                    </div>
+                </div>
+
+                <div class="accordion-item">
+                    <h2 class="accordion-header" id="h_q2">
+                        <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#c_q2" aria-expanded="false"><span class="question-number">3</span> What are FULLTEXT stopwords and minimum word length?</button>
+                    </h2>
+                    <div id="c_q2" class="accordion-collapse collapse" data-bs-parent="#questionsAccordion">
+                        <div class="accordion-body"><p><strong>Stopwords</strong> are ignored (the, a, is, etc). <strong>Minimum length</strong> default 3 chars for InnoDB, 4 for MyISAM. Both configurable but require rebuild.</p><pre><code>-- Check stopwords
+SELECT * FROM INFORMATION_SCHEMA.INNODB_FT_DEFAULT_STOPWORD;
+
+-- Minimum word length (configuration)
+-- innodb_ft_min_token_size (default 3)
+-- innodb_ft_max_token_size (default 84)
+
+-- Configuration changes require rebuild
+SET GLOBAL innodb_ft_min_token_size = 2;
+REPAIR TABLE articles;
+
+-- Common stopwords not indexed
+SELECT * FROM articles WHERE MATCH(title) AGAINST('the' IN NATURAL LANGUAGE MODE);  -- No results
+
+-- Workaround: Include in phrase
+SELECT * FROM articles WHERE MATCH(title) AGAINST('"the database"' IN BOOLEAN MODE);
+
+-- Check what was indexed
+SELECT id, title FROM articles WHERE id = 1;
+-- "The Database" - Only "database" indexed, "the" ignored</code></pre><p><strong>Why it matters:</strong> Understand index coverage and limitations.</p><p><strong>Real applications:</strong> Search configuration, handling short terms.</p><p><strong>Common mistakes:</strong> Expecting stopwords to be found, not knowing minimum length.</p></div>
+                    </div>
+                </div>
+
+                <div class="accordion-item">
+                    <h2 class="accordion-header" id="h_q3">
+                        <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#c_q3" aria-expanded="false"><span class="question-number">4</span> How do you combine FULLTEXT search with other conditions?</button>
+                    </h2>
+                    <div id="c_q3" class="accordion-collapse collapse" data-bs-parent="#questionsAccordion">
+                        <div class="accordion-body"><p><strong>Combined searches</strong> mix FULLTEXT with WHERE clauses for filtering. Can combine with other indexes and conditions for comprehensive searches.</p><pre><code>-- FULLTEXT with WHERE
+SELECT * FROM articles WHERE MATCH(title) AGAINST('mysql') 
+AND created_at >= '2024-01-01' AND status = 'published';
+
+-- Multiple conditions
+SELECT id, title, category, MATCH(title, content) AGAINST('django' IN NATURAL LANGUAGE MODE) as relevance
+FROM articles
+WHERE category = 'Python' AND created_at >= DATE_SUB(CURDATE(), INTERVAL 30 DAY)
+AND MATCH(title, content) AGAINST('django')
+ORDER BY relevance DESC;
+
+-- OR conditions (use UNION)
+SELECT * FROM articles WHERE MATCH(title) AGAINST('mysql' IN BOOLEAN MODE)
+UNION
+SELECT * FROM articles WHERE MATCH(title) AGAINST('postgres' IN BOOLEAN MODE);
+
+-- Exclude based on category
+SELECT * FROM posts WHERE MATCH(content) AGAINST('tutorial') 
+AND category NOT IN ('Spam', 'Archive')
+AND status = 'active';</code></pre><p><strong>Why it matters:</strong> Real searches need multiple filtering criteria.</p><p><strong>Real applications:</strong> Search engines, content filters, advanced filters.</p><p><strong>Common mistakes:</strong> Unnecessary UNION, not using other indexes appropriately.</p></div>
+                    </div>
+                </div>
+
+                <div class="accordion-item">
+                    <h2 class="accordion-header" id="h_q4">
+                        <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#c_q4" aria-expanded="false"><span class="question-number">5</span> What are common FULLTEXT search limitations?</button>
+                    </h2>
+                    <div id="c_q4" class="accordion-collapse collapse" data-bs-parent="#questionsAccordion">
+                        <div class="accordion-body"><p><strong>Limitations</strong>: Minimum word length, stopwords, phrase limitations, no wildcards in middle, configuration changes require rebuild, InnoDB limitations.</p><pre><code>-- Limitation 1: Minimum word length
+SELECT * FROM table WHERE MATCH(text) AGAINST('io' IN NATURAL LANGUAGE MODE);  -- 2 chars, might not work
+
+-- Limitation 2: Stopwords completely ignored
+SELECT * FROM articles WHERE MATCH(title) AGAINST('is always true' IN BOOLEAN MODE);  -- Only "always" indexed
+
+-- Limitation 3: Boolean operators don't work in natural language
+SELECT * FROM articles WHERE MATCH(title) AGAINST('+mysql +database' IN NATURAL LANGUAGE MODE);
+-- Returns whatever mysql and/or database found, +- ignored
+
+-- Limitation 4: Wildcard only at end
+SELECT * FROM articles WHERE MATCH(title) AGAINST('data*' IN BOOLEAN MODE);  -- OK
+-- AGAINST('*data' IN BOOLEAN MODE);  -- ERROR
+
+-- Limitation 5: Changes require rebuild
+SET GLOBAL innodb_ft_min_token_size = 2;
+REPAIR TABLE articles;  -- Must rebuild or set before data insertion
+
+-- Workaround: Use LIKE fallback
+SELECT * FROM articles WHERE MATCH(title) AGAINST('sql' IN NATURAL LANGUAGE MODE) 
+UNION SELECT * FROM articles WHERE title LIKE '%sql%';</code></pre><p><strong>Why it matters:</strong> Know when FULLTEXT isn't suitable.</p><p><strong>Real applications:</strong> Fallback patterns, workarounds.</p><p><strong>Common mistakes:</strong> Expecting shorter words, not rebuilding after configs.</p></div>
+                    </div>
+                </div>
+
+                <div class="accordion-item">
+                    <h2 class="accordion-header" id="h_q5">
+                        <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#c_q5" aria-expanded="false"><span class="question-number">6</span> How do you use relevance ranking and sorting?</button>
+                    </h2>
+                    <div id="c_q5" class="accordion-collapse collapse" data-bs-parent="#questionsAccordion">
+                        <div class="accordion-body"><p><strong>Relevance scoring</strong> indicates match quality. Higher scores for better matches. Use in ORDER BY for ranking results. Combines frequency and distance factors.</p><pre><code>-- Get relevance score
+SELECT id, title, MATCH(title) AGAINST('python' IN NATURAL LANGUAGE MODE) as score
+FROM articles 
+WHERE MATCH(title) AGAINST('python' IN NATURAL LANGUAGE MODE)
+ORDER BY score DESC;
+
+-- Multiple field relevance
+SELECT id, title, content,
+       MATCH(title) AGAINST('database') * 10 as title_score,
+       MATCH(content) AGAINST('database') as content_score,
+       MATCH(title) AGAINST('database') * 10 + MATCH(content) AGAINST('database') as total_score
+FROM articles 
+WHERE MATCH(title, content) AGAINST('database')
+ORDER BY total_score DESC;
+
+-- Relevance with other filters
+SELECT id, title, MATCH(title, content) AGAINST('machine learning' IN NATURAL LANGUAGE MODE) as relevance
+FROM articles
+WHERE created_at >= DATE_SUB(CURDATE(), INTERVAL 90 DAY)
+AND MATCH(title, content) AGAINST('machine learning')
+ORDER BY relevance DESC LIMIT 10;
+
+-- Threshold filtering
+SELECT * FROM articles 
+WHERE MATCH(title) AGAINST('django' IN NATURAL LANGUAGE MODE) 
+HAVING MATCH(title) AGAINST('django') > 0.5;</code></pre><p><strong>Why it matters:</strong> Display most relevant results first.</p><p><strong>Real applications:</strong> Search result ranking, recommendation scoring.</p><p><strong>Common mistakes:</strong> Not ordering by score, mixing NATURAL and BOOLEAN relevance.</p></div>
+                    </div>
+                </div>
+
+                <div class="accordion-item">
+                    <h2 class="accordion-header" id="h_q6">
+                        <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#c_q6" aria-expanded="false"><span class="question-number">7</span> When should you use FULLTEXT vs LIKE?</button>
+                    </h2>
+                    <div id="c_q6" class="accordion-collapse collapse" data-bs-parent="#questionsAccordion">
+                        <div class="accordion-body"><p><strong>FULLTEXT</strong> for large text fields, word-based searches, natural language. <strong>LIKE</strong> for small texts, pattern matching, prefix searches. FULLTEXT more efficient at scale.</p><pre><code>-- Use FULLTEXT: Large text, word searches
+SELECT * FROM articles WHERE MATCH(content) AGAINST('kubernetes deployment');  -- Fast
+
+-- Use LIKE: Small fields, partial matching
+SELECT * FROM users WHERE email LIKE 'john%';  -- Simple, indexed if prefix
+SELECT * FROM products WHERE name LIKE '%phone%';  -- Price: full scan
+
+-- FULLTEXT better for phrases
+SELECT * FROM docs WHERE MATCH(content) AGAINST('"machine learning algorithm"' IN BOOLEAN MODE);  -- Efficient
+
+-- LIKE for pattern
+SELECT * FROM data WHERE value LIKE '[0-9]%';  -- Pattern matching
+
+-- Performance comparison
+-- FULLTEXT: O(log N) with good indexing
+-- LIKE %pattern%: O(N) full table scan
+
+-- Hybrid: Use both
+SELECT * FROM posts 
+WHERE (MATCH(title) AGAINST('nodejs' IN NATURAL LANGUAGE MODE) OR title LIKE 'Node%')
+AND created_at >= CURDATE() - INTERVAL 7 DAY;</code></pre><p><strong>Why it matters:</strong> Choose correct search method for performance.</p><p><strong>Real applications:</strong> Content search, pattern matching.</p><p><strong>Common mistakes:</strong> FULLTEXT on small fields, LIKE on large text columns.</p></div>
+                    </div>
+                </div>
+
+                <div class="accordion-item">
+                    <h2 class="accordion-header" id="h_q7">
+                        <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#c_q7" aria-expanded="false"><span class="question-number">8</span> What are FULLTEXT search best practices?</button>
+                    </h2>
+                    <div id="c_q7" class="accordion-collapse collapse" data-bs-parent="#questionsAccordion">
+                        <div class="accordion-body"><p><strong>Best practices</strong>: Create indexes on large text fields, use boolean mode for advanced queries, handle stopwords, monitor performance, rebuild indexes periodically, consider alternatives for complex searches.</p><pre><code>-- ✅ Good: FULLTEXT index on larger text fields
+CREATE FULLTEXT INDEX idx_long_text ON documents(title, content_body);
+
+-- ❌ Bad: FULLTEXT on tiny fields
+CREATE FULLTEXT INDEX idx_tiny ON users(username);  -- Use LIKE or prefix index
+
+-- ✅ Good: Separate indexes for different columns
+CREATE FULLTEXT INDEX idx_title ON articles(title);
+CREATE FULLTEXT INDEX idx_content ON articles(content);
+
+-- ❌ Bad: Combined irrelevant fields
+CREATE FULLTEXT INDEX idx_all ON articles(id, title, content, author_id);
+
+-- ✅ Good: Check performance with EXPLAIN
+EXPLAIN SELECT * FROM articles WHERE MATCH(title) AGAINST('mysql' IN NATURAL LANGUAGE MODE);
+
+-- ❌ Bad: Ignore stopwords issue
+-- SELECT * FROM table WHERE MATCH(content) AGAINST('is')  -- Empty result
+
+-- Rebuild indexes periodically
+OPTIMIZE TABLE articles;  -- Defragments FULLTEXT index
+
+-- Monitor index size
+SELECT object_schema, object_name, sys.format_bytes(count_read) as size 
+FROM sys.schema_unused_indexes WHERE object_name = 'articles';</code></pre><p><strong>Why it matters:</strong> Maintain efficient search performance.</p><p><strong>Real applications:</strong> Production search systems, large content databases.</p><p><strong>Common mistakes:</strong> Indexes on wrong fields, not monitoring performance, stopword issues.</p></div>
+                    </div>
+                </div>
+            </div>
+           
+
+              <div class="topic-nav" id="topicNav">
+            <a class="topic-nav-btn prev" href="subqueries-ctes.html">
+                <span class="label"><i class="bi bi-arrow-left me-1"></i> Previous</span>
+                <span class="title">Subqueries & CTEs</span>
+            </a>
+            <a class="topic-nav-btn next" href="replication-ha.html">
+                <span class="label">Next <i class="bi bi-arrow-right ms-1"></i></span>
+                <span class="title">Replication & HA</span>
+            </a>
+            </div>
+             <footer class="app-footer">
+                <p>&copy; 2026 InterviewPrep &mdash; MySQL Interview Questions</p>
+            </footer>
+        </div>
+    </div>
+    <button class="btn-totop" id="backToTop"><i class="bi bi-chevron-up"></i></button>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>
+    <script>
+    (function(){
+        var sb=document.getElementById('sidebar'),bd=document.getElementById('sidebarBackdrop'),
+            tg=document.getElementById('sidebarToggle');
+        if(tg)tg.addEventListener('click',function(){sb.classList.add('open');bd.classList.add('show');});
+        if(bd)bd.addEventListener('click',function(){sb.classList.remove('open');bd.classList.remove('show');});
+        var btt=document.getElementById('backToTop');
+        window.addEventListener('scroll',function(){btt.classList.toggle('show',window.scrollY>400);});
+        btt.addEventListener('click',function(){window.scrollTo({top:0,behavior:'smooth'});});
+    })();
+    </script>
+</body>
+
+</html>

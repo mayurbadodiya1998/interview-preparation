@@ -1,0 +1,541 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="MySQL Performance Tuning interview questions: query optimization, caching, configuration, monitoring.">
+    <meta name="keywords" content="MySQL performance tuning, query optimization, caching, buffer pool, MySQL interview">
+    <meta name="author" content="InterviewPrep">
+    <meta name="robots" content="index, follow">
+    <link rel="icon" type="image/svg+xml" href="../../favicon.svg" sizes="any">
+    <meta property="og:type" content="website">
+    <meta property="og:title" content="MySQL Performance Tuning — MySQL Interview Questions | InterviewPrep">
+    <meta property="og:description" content="MySQL Performance Tuning interview questions: query optimization, caching, configuration, monitoring.">
+    <meta property="og:url" content="https://coddingquestionhub.com/topics/mysql/performance-tuning.html">
+    <meta name="twitter:card" content="summary_large_image">
+    <meta name="twitter:title" content="MySQL Performance Tuning — MySQL Interview Questions | InterviewPrep">
+    <meta name="twitter:description" content="MySQL Performance Tuning interview questions: query optimization, caching, configuration, monitoring.">
+    <meta name="twitter:image" content="https://coddingquestionhub.com/og-mysql.png">
+    <title>MySQL Performance Tuning — MySQL Interview Questions | InterviewPrep 2026</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&family=Fira+Code:wght@400;500&display=swap" rel="stylesheet">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="../../css/styles.css">
+    <link rel="canonical" href="https://coddingquestionhub.com/topics/mysql/performance-tuning.html">
+    <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-8957020141286926" crossorigin="anonymous"></script>
+    <script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "BreadcrumbList",
+  "itemListElement": [
+    {
+      "@type": "ListItem",
+      "position": 1,
+      "name": "Home",
+      "item": "https://coddingquestionhub.com"
+    },
+    {
+      "@type": "ListItem",
+      "position": 2,
+      "name": "Topics",
+      "item": "https://coddingquestionhub.com/topics"
+    },
+    {
+      "@type": "ListItem",
+      "position": 3,
+      "name": "Mysql",
+      "item": "https://coddingquestionhub.com/topics/mysql"
+    },
+    {
+      "@type": "ListItem",
+      "position": 4,
+      "name": "Performance Tuning",
+      "item": "https://coddingquestionhub.com/topics/mysql/performance-tuning.html"
+    }
+  ]
+}
+    </script>
+</head>
+<body class="theme-mysql">
+    <nav class="navbar navbar-expand-lg sticky-top" id="mainNavbar">
+        <div class="container-fluid px-3 px-lg-4">
+            <a class="navbar-brand fw-bold d-flex align-items-center gap-2" href="../../index.html">
+                <span class="brand-icon"><i class="bi bi-braces-asterisk"></i></span>
+                <span>Interview<span class="brand-accent">Prep</span></span>
+            </a>
+            <button class="navbar-toggler border-0 shadow-none" type="button" data-bs-toggle="collapse" data-bs-target="#navbarContent">
+                <i class="bi bi-list fs-3 text-white"></i>
+            </button>
+            <div class="collapse navbar-collapse" id="navbarContent">
+                <ul class="navbar-nav me-auto mb-2 mb-lg-0 ms-lg-3">
+                    <li class="nav-item dropdown">
+                        <a class="nav-link dropdown-toggle fw-500" href="#" role="button" data-bs-toggle="dropdown">
+                            <i class="bi bi-layers me-1"></i> Choose Category
+                        </a>
+                        <ul class="dropdown-menu">
+                            <li><a class="dropdown-item fw-500" href="../../pages/angular.html"><i class="bi bi-bootstrap me-2 text-danger"></i>Angular</a></li>
+                            <li><a class="dropdown-item fw-500" href="../../pages/react.html"><i class="bi bi-infinity me-2 text-info"></i>React</a></li>
+                            <li><a class="dropdown-item fw-500" href="../../pages/node.html"><i class="bi bi-hdd-network me-2 text-success"></i>Node.js</a></li>
+                            <li><a class="dropdown-item fw-500" href="../../pages/javascript.html"><i class="bi bi-filetype-js me-2 text-warning"></i>JavaScript</a></li>
+                            <li><a class="dropdown-item fw-500" href="../../pages/dsa.html"><i class="bi bi-diagram-3-fill me-2" style="color:#8b5cf6"></i>DSA</a></li>
+                            <li><a class="dropdown-item fw-500" href="../../pages/logical.html"><i class="bi bi-lightbulb me-2" style="color:#f59e0b"></i>Logical Reasoning</a></li>
+                            <li><a class="dropdown-item fw-500" href="../../pages/mongodb.html"><i class="bi bi-database-fill me-2" style="color:#4DB33D"></i>MongoDB</a></li>
+                            <li><a class="dropdown-item fw-500" href="../../pages/mysql.html"><i class="bi bi-table me-2" style="color:#0F766E"></i>MySQL</a></li>
+                        </ul>
+                    </li>
+                </ul>
+                <div class="search-wrap">
+                    <i class="bi bi-search search-icon"></i>
+                    <input class="form-control search-input" type="search" placeholder="Search questions..." id="searchInput">
+                </div>
+            </div>
+        </div>
+    </nav>
+        <div class="app-wrapper">
+        <aside class="sidebar" id="sidebar">
+            <div class="sidebar-head">
+                <h6><i class="bi bi-table me-2"></i>MySQL Topics</h6>
+            </div>
+            <nav>
+                <ul class="sidebar-links" id="topicList">
+                    <li><a class="nav-link" href="mysql-fundamentals.html"><i class="bi-diagram-2"></i><span>MySQL Fundamentals</span></a></li>
+                    <li><a class="nav-link" href="crud-operations.html"><i class="bi-pencil-square"></i><span>CRUD Operations</span></a></li>
+                    <li><a class="nav-link" href="sql-joins.html"><i class="bi-link-45deg"></i><span>SQL Joins</span></a></li>
+                    <li><a class="nav-link" href="indexes.html"><i class="bi-lightning-fill"></i><span>Indexes</span></a></li>
+                    <li><a class="nav-link" href="query-optimization.html"><i class="bi-speedometer2"></i><span>Query Optimization</span></a></li>
+                    <li><a class="nav-link" href="transactions-acid.html"><i class="bi-arrow-repeat"></i><span>Transactions &amp; ACID</span></a></li>
+                    <li><a class="nav-link" href="stored-procedures.html"><i class="bi-code-square"></i><span>Stored Procedures</span></a></li>
+                    <li><a class="nav-link" href="triggers.html"><i class="bi-bell-fill"></i><span>Triggers</span></a></li>
+                    <li><a class="nav-link" href="views.html"><i class="bi-eye"></i><span>Views</span></a></li>
+                    <li><a class="nav-link" href="normalization.html"><i class="bi-diagram-3-fill"></i><span>Normalization</span></a></li>
+                    <li><a class="nav-link" href="data-types.html"><i class="bi-diagram-2"></i><span>Data Types</span></a></li>
+                    <li><a class="nav-link" href="string-functions.html"><i class="bi-chat-square-text"></i><span>String Functions</span></a></li>
+                    <li><a class="nav-link" href="date-time-functions.html"><i class="bi-calendar-event"></i><span>Date &amp; Time</span></a></li>
+                    <li><a class="nav-link" href="aggregate-functions.html"><i class="bi-graph-up"></i><span>Aggregate Functions</span></a></li>
+                    <li><a class="nav-link" href="window-functions.html"><i class="bi-column-gap"></i><span>Window Functions</span></a></li>
+                    <li><a class="nav-link" href="subqueries-ctes.html"><i class="bi-filter"></i><span>Subqueries &amp; CTEs</span></a></li>
+                    <li><a class="nav-link" href="full-text-search.html"><i class="bi-search"></i><span>Full-Text Search</span></a></li>
+                    <li><a class="nav-link" href="replication-ha.html"><i class="bi-diagram-3"></i><span>Replication &amp; HA</span></a></li>
+                    <li><a class="nav-link" href="security-permissions.html"><i class="bi-shield-check"></i><span>Security</span></a></li>
+                    <li><a class="nav-link active" href="performance-tuning.html"><i class="bi-sliders"></i><span>Performance Tuning</span></a></li>
+                    <li><a class="nav-link" href="interview-queries-1.html"><i class="bi-gear-fill"></i><span>Interview Queries 1</span></a></li>
+                    <li><a class="nav-link" href="interview-queries-2.html"><i class="bi-gear-fill"></i><span>Interview Queries 2</span></a></li>
+                </ul>
+            </nav>
+        </aside>
+        <div class="sidebar-backdrop" id="sidebarBackdrop"></div>
+        <div class="content-area">
+            <div class="mobile-bar d-lg-none">
+                <button class="btn btn-sm btn-glass" id="sidebarToggle">
+                    <i class="bi bi-layout-sidebar-inset me-1"></i>Topics
+                </button>
+                <span class="badge rounded-pill" style="background:#0F766E;color:#fff;">MySQL</span>
+            </div>
+            <div class="breadcrumb-nav" id="breadcrumb">
+                <a href="../../index.html">Home</a><span class="sep">/</span>
+                <a href="../../pages/mysql.html">MySQL</a><span class="sep">/</span>
+                <span class="current">Performance Tuning</span>
+            </div>
+            <div class="qs-header">
+                <h1 class="qs-title" id="topicTitle">MySQL Performance Tuning Interview Questions</h1>
+                <span class="badge qs-badge" id="questionCount">8 Questions</span>
+            </div>
+
+            <div class="accordion" id="questionsAccordion">
+                <div class="accordion-item">
+                    <h2 class="accordion-header" id="h_q0">
+                        <button class="accordion-button" type="button" data-bs-toggle="collapse" data-bs-target="#c_q0" aria-expanded="true"><span class="question-number">1</span> What are key performance metrics to monitor?</button>
+                    </h2>
+                    <div id="c_q0" class="accordion-collapse collapse show" data-bs-parent="#questionsAccordion">
+                        <div class="accordion-body"><p><strong>Key metrics</strong>: Query time, CPU/memory usage, disk I/O, lock contention, replication lag, connection count. Use SHOW STATUS, PERFORMANCE_SCHEMA, and monitoring tools.</p><pre><code>-- Check server status
+SHOW STATUS LIKE 'Threads%';
+-- Threads_connected: Current connections
+-- Threads_running: Active queries
+
+-- Check running queries
+SHOW PROCESSLIST;
+SELECT * FROM INFORMATION_SCHEMA.PROCESSLIST WHERE TIME > 300;  -- Long-running
+
+-- Performance Schema statistics
+SELECT * FROM performance_schema.events_statements_summary_by_digest 
+ORDER BY SUM_TIMER_WAIT DESC LIMIT 10;  -- Top slow queries
+
+-- InnoDB status
+SHOW ENGINE INNODB STATUS;  -- I/O, locks, transactions
+
+-- Slow query log queries
+SELECT * FROM mysql.slow_log 
+WHERE query_time > INTERVAL '1' SECOND 
+ORDER BY start_time DESC;
+
+-- Check connections per host
+SELECT host, COUNT(*) FROM INFORMATION_SCHEMA.PROCESSLIST GROUP BY host;
+
+-- Query count by type
+SELECT command, COUNT(*) FROM INFORMATION_SCHEMA.PROCESSLIST GROUP BY command;
+
+-- Database size
+SELECT SUM(data_length + index_length) / 1024 / 1024 as size_mb 
+FROM INFORMATION_SCHEMA.TABLES 
+WHERE table_schema = 'mydb';</code></pre><p><strong>Why it matters:</strong> Identify bottlenecks and optimization opportunities.</p><p><strong>Real applications:</strong> Production monitoring, capacity planning, alerting.</p><p><strong>Common mistakes:</strong> Not monitoring until problems occur, ignoring disk I/O.</p></div>
+                    </div>
+                </div>
+
+                <div class="accordion-item">
+                    <h2 class="accordion-header" id="h_q1">
+                        <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#c_q1" aria-expanded="false"><span class="question-number">2</span> How do you identify and optimize slow queries?</button>
+                    </h2>
+                    <div id="c_q1" class="accordion-collapse collapse" data-bs-parent="#questionsAccordion">
+                        <div class="accordion-body"><p><strong>Slow query log</strong> captures queries exceeding threshold. Use EXPLAIN to analyze query plans. Optimize with indexes, query rewrite, and joins.</p><pre><code>-- Enable slow query log
+SET GLOBAL slow_query_log = ON;
+SET GLOBAL long_query_time = 1;  -- Queries > 1 second
+SET GLOBAL log_queries_not_using_indexes = ON;  -- Log full table scans
+
+-- View slow query log
+SELECT * FROM mysql.slow_log ORDER BY start_time DESC LIMIT 10;
+
+-- Analyze query with EXPLAIN
+EXPLAIN SELECT * FROM orders WHERE customer_id = 5 AND order_date > '2024-01-01'\G
+
+-- Output analysis
+-- type: ALL (full table scan), INDEX (good), CONST (best)
+-- rows: Estimated rows scanned
+-- Extra: "Using where", "Using index", "Using filesort"
+
+-- Explain with format=JSON
+EXPLAIN FORMAT=JSON SELECT * FROM orders WHERE customer_id = 5\G
+
+-- Add missing index
+CREATE INDEX idx_customer_date ON orders(customer_id, order_date);
+
+-- Query rewrite for optimization
+-- Slow: SELECT * FROM orders WHERE YEAR(order_date) = 2024
+-- Better: SELECT * FROM orders WHERE order_date >= '2024-01-01' AND order_date < '2025-01-01';
+
+-- Use pt-query-digest to analyze log
+pt-query-digest /var/log/mysql/slow-query.log
+
+-- Simple slow query aggregation
+SELECT SUM(query_time) as total_time, COUNT(*) as count, query
+FROM mysql.slow_log 
+GROUP BY query 
+ORDER BY total_time DESC LIMIT 10;</code></pre><p><strong>Why it matters:</strong> Find and fix performance problems efficiently.</p><p><strong>Real applications:</strong> Production troubleshooting, capacity planning.</p><p><strong>Common mistakes:</strong> Adding indexes blindly, not considering query rewrite.</p></div>
+                    </div>
+                </div>
+
+                <div class="accordion-item">
+                    <h2 class="accordion-header" id="h_q2">
+                        <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#c_q2" aria-expanded="false"><span class="question-number">3</span> How do you optimize indexes?</button>
+                    </h2>
+                    <div id="c_q2" class="accordion-collapse collapse" data-bs-parent="#questionsAccordion">
+                        <div class="accordion-body"><p><strong>Index optimization</strong>: Use selective columns, cover queries, avoid full scans, monitor unused indexes, balance read/write performance.</p><pre><code>-- Find missing indexes (queries with full table scans)
+SELECT * FROM INFORMATION_SCHEMA.PROCESSLIST WHERE state LIKE '%reading%';
+
+-- Check index usage
+SELECT object_schema, object_name, count_read, count_write 
+FROM sys.schema_unused_indexes;  -- Unused indexes
+
+SELECT object_schema, object_name, count_read, count_write 
+FROM sys.schema_io_global_by_file_by_bytes;
+
+-- Analyze index statistics
+ANALYZE TABLE orders;  -- Update statistics
+SELECT * FROM INFORMATION_SCHEMA.STATISTICS 
+WHERE table_name = 'orders' AND seq_in_index = 1;
+
+-- Covering index (SELECT can be fully satisfied)
+SELECT id, customer_id, amount FROM orders WHERE customer_id = 5 AND order_date > '2024-01-01';
+-- Index: (customer_id, order_date, id, amount) - covers all columns
+
+-- Index for ORDER BY
+SELECT * FROM orders WHERE customer_id = 5 ORDER BY order_date;
+-- Index: (customer_id, order_date) - efficient sort
+
+-- Composite index order matters
+-- Query: WHERE a = 1 AND b = 2 ORDER BY c
+-- Index: (a, b, c) - optimal
+-- Index: (b, a, c) - still works but less efficient
+
+-- Drop unused indexes
+DROP INDEX idx_unused ON table_name;
+
+-- Check for redundant indexes
+SELECT * FROM sys.schema_redundant_indexes;
+
+-- Disable index temporarily
+ALTER TABLE orders DISABLE KEYS;
+-- [Bulk operations]
+ALTER TABLE orders ENABLE KEYS;</code></pre><p><strong>Why it matters:</strong> Maximum query performance with minimal overhead.</p><p><strong>Real applications:</strong> Query optimization, cleanup of unused indexes.</p><p><strong>Common mistakes:</strong> Too many indexes, not monitoring usage.</p></div>
+                    </div>
+                </div>
+
+                <div class="accordion-item">
+                    <h2 class="accordion-header" id="h_q3">
+                        <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#c_q3" aria-expanded="false"><span class="question-number">4</span> How do you optimize InnoDB buffer pool?</button>
+                    </h2>
+                    <div id="c_q3" class="accordion-collapse collapse" data-bs-parent="#questionsAccordion">
+                        <div class="accordion-body"><p><strong>Buffer pool</strong> caches data and indexes. Should be 50-80% of server RAM. Larger pool reduces disk I/O. Monitor hit ratio and LRU list.</p><pre><code>-- Configure buffer pool size
+SET GLOBAL innodb_buffer_pool_size = 8589934592;  -- 8GB
+
+-- Check buffer pool metrics
+SHOW STATUS WHERE variable_name LIKE 'Innodb_buffer_pool%';
+-- Innodb_buffer_pool_pages_total: Total pages
+-- Innodb_buffer_pool_pages_data: Data pages currently cached
+-- Innodb_buffer_pool_pages_free: Free pages
+
+-- Calculate hit ratio
+-- Hit ratio = (Innodb_buffer_pool_pages_total - Innodb_buffer_pool_pages_free) 
+--             / Innodb_buffer_pool_pages_total
+
+-- Query for hit ratio
+SELECT 
+  (1 - (CAST(Innodb_buffer_pool_pages_free AS DECIMAL) + 
+        CAST(Innodb_buffer_pool_pages_misc AS DECIMAL)) / 
+       CAST(Innodb_buffer_pool_pages_total AS DECIMAL)) * 100 
+  AS buffer_pool_hit_ratio_percent
+FROM INFORMATION_SCHEMA.GLOBAL_STATUS;
+
+-- Monitor LRU list (young/old pages)
+SHOW STATUS LIKE 'Innodb_buffer_pool_pages_young%';
+-- Pages_young: Recently accessed
+-- Pages_not_young: Older pages
+
+-- Avoid buffer pool thrashing
+-- Scan large table without loading into pool
+SET SESSION innodb_buffer_pool_dump_pct = 0;  -- Don't save to cache
+SELECT * FROM large_table;  -- Full scan, not cached
+
+-- Warm up buffer pool on restart
+mk-warm-cache --cache=innodb < dump.sql
+
+-- Monitor buffer pool operations
+SELECT object_schema, object_name, pages_evicted_on_insert
+FROM sys.innodb_buffer_stats_by_table 
+ORDER BY pages_evicted_on_insert DESC;</code></pre><p><strong>Why it matters:</strong> Most important MySQL tuning parameter.</p><p><strong>Real applications:</strong> Production optimization, new server setup.</p><p><strong>Common mistakes:</strong> Too small buffer pool, not monitoring hit ratio.</p></div>
+                    </div>
+                </div>
+
+                <div class="accordion-item">
+                    <h2 class="accordion-header" id="h_q4">
+                        <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#c_q4" aria-expanded="false"><span class="question-number">5</span> How do you reduce lock contention?</button>
+                    </h2>
+                    <div id="c_q4" class="accordion-collapse collapse" data-bs-parent="#questionsAccordion">
+                        <div class="accordion-body"><p><strong>Lock contention</strong> causes slowdowns. Reduce with shorter transactions, row-level locking, partitioning, and avoiding hot tables.</p><pre><code>-- Check lock waits
+SHOW ENGINE INNODB STATUS;  -- Look for WAITING FOR lock
+
+-- Query lock information
+SELECT * FROM INFORMATION_SCHEMA.INNODB_LOCKS;
+SELECT * FROM INFORMATION_SCHEMA.INNODB_LOCK_WAITS;
+
+-- Visualize locks with sys schema
+SELECT * FROM sys.innodb_lock_waits;
+
+-- Reduce lock time: Keep transactions short
+-- BAD: Long transaction locks for long time
+START TRANSACTION;
+UPDATE orders SET status = 'processing' WHERE id = 1;
+[Long-running operation outside DB]
+COMMIT;
+
+-- GOOD: Minimize DB lock time
+UPDATE orders SET status = 'processing' WHERE id = 1;
+[Long-running operation]
+
+-- Use appropriate isolation levels
+SET TRANSACTION ISOLATION LEVEL READ COMMITTED;  -- Lower lock overhead
+-- vs
+SET TRANSACTION ISOLATION LEVEL SERIALIZABLE;  -- More locks
+
+-- Partition hot tables to reduce contention
+-- Instead of one auto_increment sequence, use per-partition
+ALTER TABLE events PARTITION BY RANGE (id) (
+    PARTITION p1 VALUES LESS THAN (10000),
+    PARTITION p2 VALUES LESS THAN (20000)
+);
+
+-- Use gap locks carefully
+-- SELECT ... FOR UPDATE locks entire range
+SELECT * FROM orders WHERE id > 100 FOR UPDATE;
+
+-- Instead: Lock specific rows
+SELECT * FROM orders WHERE id = 100 FOR UPDATE;
+
+-- Check lock statistics
+SELECT * FROM performance_schema.table_io_waits_summary_by_table 
+ORDER BY sum_timer_wait DESC;</code></pre><p><strong>Why it matters:</strong> Concurrent query performance.</p><p><strong>Real applications:</strong> High-concurrency systems, batch operations.</p><p><strong>Common mistakes:</strong> Long transactions, unnecessary FOR UPDATE.</p></div>
+                    </div>
+                </div>
+
+                <div class="accordion-item">
+                    <h2 class="accordion-header" id="h_q5">
+                        <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#c_q5" aria-expanded="false"><span class="question-number">6</span> How do you optimize table structures?</button>
+                    </h2>
+                    <div id="c_q5" class="accordion-collapse collapse" data-bs-parent="#questionsAccordion">
+                        <div class="accordion-body"><p><strong>Table optimization</strong>: Choose appropriate data types, normalize schema, partition large tables, archive old data, use views to hide complexity.</p><pre><code>-- Use efficient data types
+-- BAD: VARCHAR(255) for phone number, email
+-- GOOD: VARCHAR(20) phone, VARCHAR(100) email
+
+-- Fixed vs variable length
+-- CHAR(10): Always 10 bytes
+-- VARCHAR(10): 1-10 bytes (plus length byte)
+-- Use VARCHAR for variable content
+
+-- Numeric efficiency
+-- INT (4 bytes) vs BIGINT (8 bytes) - use smallest needed
+-- DECIMAL(10,2) for money, not FLOAT
+
+-- Archive old data
+CREATE TABLE orders_archive LIKE orders;
+INSERT INTO orders_archive 
+SELECT * FROM orders WHERE created_at < '2023-01-01';
+DELETE FROM orders WHERE created_at < '2023-01-01';
+
+-- Partition table for range queries
+ALTER TABLE events PARTITION BY RANGE (YEAR(created_at)) (
+    PARTITION y2022 VALUES LESS THAN (2023),
+    PARTITION y2023 VALUES LESS THAN (2024),
+    PARTITION y2024 VALUES LESS THAN (2025),
+    PARTITION y_future VALUES LESS THAN MAXVALUE
+);
+
+-- Check table sizes
+SELECT table_name, 
+       ROUND(((data_length + index_length) / 1024 / 1024), 2) 'Size in MB'
+FROM INFORMATION_SCHEMA.TABLES 
+WHERE table_schema = 'mydb' 
+ORDER BY data_length + index_length DESC;
+
+-- Optimize/rebuild table
+OPTIMIZE TABLE orders;  -- Defragment, update statistics
+ANALYZE TABLE orders;  -- Update statistics only</code></pre><p><strong>Why it matters:</strong> Storage efficiency, query performance.</p><p><strong>Real applications:</strong> Large datasets, long-term data retention.</p><p><strong>Common mistakes:</strong> Over-sized data types, no archiving.</p></div>
+                    </div>
+                </div>
+
+                <div class="accordion-item">
+                    <h2 class="accordion-header" id="h_q6">
+                        <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#c_q6" aria-expanded="false"><span class="question-number">7</span> How do you optimize JOIN operations?</button>
+                    </h2>
+                    <div id="c_q6" class="accordion-collapse collapse" data-bs-parent="#questionsAccordion">
+                        <div class="accordion-body"><p><strong>JOIN optimization</strong>: Index join columns, join in optimal order, avoid Cartesian products, use EXPLAIN to verify plans.</p><pre><code>-- Create indexes on join columns
+CREATE INDEX idx_order_customer ON orders(customer_id);
+CREATE INDEX idx_customer_id ON customers(id);
+
+-- JOIN optimization with EXPLAIN
+EXPLAIN SELECT o.*, c.name FROM orders o 
+JOIN customers c ON o.customer_id = c.id 
+WHERE o.order_date > '2024-01-01'\G
+
+-- Optimal join order: Filter first
+-- Join smaller result set (customers in USA)
+SELECT COUNT(*) FROM customers WHERE country = 'USA';  -- 100K
+SELECT COUNT(*) FROM orders;  -- 10M rows
+
+-- Optimal query
+SELECT o.*, c.name FROM orders o 
+JOIN customers c ON o.customer_id = c.id 
+WHERE c.country = 'USA' AND o.order_date > '2024-01-01';
+-- Filters customers first, then joins
+
+-- Avoid Cartesian product
+-- BAD: JOIN without ON clause
+SELECT * FROM orders, customers;  -- 10M * 100K rows!
+
+-- Use STRAIGHT_JOIN to force order
+SELECT STRAIGHT_JOIN ... FROM orders 
+JOIN customers ON o.customer_id = c.id;
+
+-- Multiple joins optimization
+SELECT o.*, c.name, p.category 
+FROM orders o 
+JOIN customers c ON o.customer_id = c.id 
+JOIN products p ON o.product_id = p.id 
+WHERE o.order_date > '2024-01-01';
+
+-- Use EXPLAIN to verify all joins are indexed
+EXPLAIN FORMAT=JSON SELECT * FROM ...\G</code></pre><p><strong>Why it matters:</strong> Multi-table query performance.</p><p><strong>Real applications:</strong> Complex reports, aggregations.</p><p><strong>Common mistakes:</strong> Missing indexes, inefficient join order.</p></div>
+                    </div>
+                </div>
+
+                <div class="accordion-item">
+                    <h2 class="accordion-header" id="h_q7">
+                        <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#c_q7" aria-expanded="false"><span class="question-number">8</span> What are performance tuning best practices?</button>
+                    </h2>
+                    <div id="c_q7" class="accordion-collapse collapse" data-bs-parent="#questionsAccordion">
+                        <div class="accordion-body"><p><strong>Best practices</strong>: Monitor continuously, measure before optimizing, use EXPLAIN, avoid premature optimization, test changes, maintain statistics.</p><pre><code>-- ✅ Good: Use EXPLAIN first
+EXPLAIN SELECT * FROM orders WHERE customer_id = 5;
+-- Check type (INDEX, const), rows, Extra (using index, etc)
+
+-- ✅ Good: Add indexes on WHERE/JOIN columns
+CREATE INDEX idx_customer_id ON orders(customer_id);
+CREATE INDEX idx_order_date ON orders(order_date);
+
+-- ✅ Good: Monitor metrics regularly
+SELECT COUNT(*) FROM INFORMATION_SCHEMA.PROCESSLIST WHERE time > 300;  -- Long queries
+SELECT SUM(query_time) FROM mysql.slow_log GROUP BY query;  -- Find slowest
+
+-- ✅ Good: Keep statistics updated
+ANALYZE TABLE orders;
+ANALYZE TABLE customers;
+
+-- ❌ Bad: Premature optimization without measurement
+CREATE INDEX idx_price ON products(price);  -- If nobody filters by price
+
+-- ❌ Bad: Ignore query plans
+SELECT * FROM large_table WHERE column LIKE '%text%';  -- Full table scan with LIKE prefix
+
+-- ✅ Good: Test on staging first
+# Run on staging to verify improvement
+EXPLAIN SELECT * FROM orders WHERE customer_id = 5;  -- Before
+CREATE INDEX idx_customer_id ON orders(customer_id);
+EXPLAIN SELECT * FROM orders WHERE customer_id = 5;  -- After: type changes to const
+
+-- ✅ Good: Document decisions
+-- Add comments explaining why indexes exist
+-- Track performance metrics before/after
+-- Document configuration rationale
+
+-- Configuration optimization (my.cnf)
+[mysqld]
+innodb_buffer_pool_size = 8G  -- 50-80% of server RAM
+max_connections = 500  -- Appropriate for workload
+thread_cache_size = 100  -- Reduce thread creation
+query_cache_size = 0  -- Disabled in MySQL 8.0+
+slow_query_log = 1
+long_query_time = 1</code></pre><p><strong>Why it matters:</strong> Sustainable high performance systems.</p><p><strong>Real applications:</strong> Production optimization, continuous improvement.</p><p><strong>Common mistakes:</strong> Optimizing wrong bottleneck, no metrics, not testing.</p></div>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="topic-nav" id="topicNav">
+            <a class="topic-nav-btn prev" href="security-permissions.html">
+                <span class="label"><i class="bi bi-arrow-left me-1"></i> Previous</span>
+                <span class="title">Security & Permissions</span>
+            </a>
+            <a class="topic-nav-btn next" href="interview-queries-1.html">
+                <span class="label">Next <i class="bi bi-arrow-right ms-1"></i></span>
+                <span class="title">Interview Queries 1</span>
+            </a>
+            </div>
+            <footer class="app-footer">
+                <p>&copy; 2026 InterviewPrep &mdash; MySQL Interview Questions</p>
+            </footer>
+        </div>
+    </div>
+    <button class="btn-totop" id="backToTop"><i class="bi bi-chevron-up"></i></button>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>
+    <script>
+    (function(){
+        var sb=document.getElementById('sidebar'),bd=document.getElementById('sidebarBackdrop'),
+            tg=document.getElementById('sidebarToggle');
+        if(tg)tg.addEventListener('click',function(){sb.classList.add('open');bd.classList.add('show');});
+        if(bd)bd.addEventListener('click',function(){sb.classList.remove('open');bd.classList.remove('show');});
+        var btt=document.getElementById('backToTop');
+        window.addEventListener('scroll',function(){btt.classList.toggle('show',window.scrollY>400);});
+        btt.addEventListener('click',function(){window.scrollTo({top:0,behavior:'smooth'});});
+    })();
+    </script>
+</body>
+
+</html>
