@@ -207,6 +207,7 @@ body {
 .fi-javascript { background: #fefce8; color: #a16207; }
 .fi-dsa { background: #faf5ff; color: var(--dsa); }
 .fi-logical { background: #fffbeb; color: var(--logical); }
+.fi-java { background: #fff7ed; color: #c2410c; }
 .fcard h3 { font-size: 1.05rem; font-weight: 700; margin-bottom: 6px; }
 .fcard p { font-size: .85rem; color: var(--text-muted); margin-bottom: 14px; line-height: 1.55; }
 .fcard-tag { font-size: .72rem; font-weight: 700; text-transform: uppercase; letter-spacing: .8px; color: #8b5cf6; }
@@ -365,6 +366,7 @@ body {
 .theme-javascript .sidebar-links .nav-link.active { background: linear-gradient(135deg, #b45309, #92400e); }
 .theme-dsa .sidebar-links .nav-link.active { background: linear-gradient(135deg, #7c3aed, #6d28d9); }
 .theme-logical .sidebar-links .nav-link.active { background: linear-gradient(135deg, #d97706, #b45309); }
+.theme-java .sidebar-links .nav-link.active { background: linear-gradient(135deg, #ea580c, #c2410c); }
 
 @media print {
     .sidebar, #mainNavbar, .btn-totop, .topic-nav, .mobile-bar { display: none !important; }
